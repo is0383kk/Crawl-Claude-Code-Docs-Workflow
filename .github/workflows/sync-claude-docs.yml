@@ -3,15 +3,14 @@ name: Sync Claude Code docs (ja)
 on:
   workflow_dispatch: {}
   schedule:
-    # GitHubはUTCで動く。JST 03:00 = 前日18:00 UTC
     - cron: "0 18 * * *"
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # create-pull-requestが必要
-      pull-requests: write # PR 作成に必要
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout
@@ -31,7 +30,6 @@ jobs:
         run: |
           python crawl_claude_code_docs.py
 
-      # GitHub Actions用のPR作成アクションを追加
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
@@ -45,3 +43,5 @@ jobs:
           base: main
           add-paths: |
             claude-code-docs/**
+          labels: |
+            automerge
