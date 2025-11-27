@@ -94,3 +94,8 @@ Claude Code はユーザーのマシンから Sentry に接続して、運用エ
 | **Claude API（`/bug` レポート）** | デフォルトオン。<br />`DISABLE_BUG_COMMAND=1` で無効にします。     | デフォルトオフ。<br />`CLAUDE_CODE_USE_VERTEX` は 1 である必要があります。 | デフォルトオフ。<br />`CLAUDE_CODE_USE_BEDROCK` は 1 である必要があります。 |
 
 すべての環境変数は `settings.json` にチェックインできます（[詳細を確認](/ja/settings)）。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

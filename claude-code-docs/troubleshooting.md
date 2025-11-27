@@ -333,3 +333,8 @@ function example() {
 2. 既知の問題について[GitHubリポジトリ](https://github.com/anthropics/claude-code)を確認
 3. `/doctor`を実行してClaude Codeインストールの健全性をチェック
 4. Claudeの機能と特徴について直接Claudeに質問 - Claudeはそのドキュメントへの組み込みアクセスを持っています
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

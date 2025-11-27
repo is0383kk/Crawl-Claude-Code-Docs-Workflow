@@ -391,3 +391,8 @@ Claude Code は、コードベースを理解および変更するのに役立�
 * [Identity and Access Management](/ja/iam#configuring-permissions) - Claude Code の権限システムについて学ぶ
 * [IAM とアクセス制御](/ja/iam#enterprise-managed-policy-settings) - エンタープライズポリシー管理
 * [トラブルシューティング](/ja/troubleshooting#auto-updater-issues) - 一般的な構成の問題の解決策
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

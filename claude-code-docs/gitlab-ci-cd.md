@@ -460,3 +460,8 @@ Claude をガイドするには、主に 2 つの方法があります:
 
 1. **CLAUDE.md**: コーディング標準、セキュリティ要件、およびプロジェクト規約を定義します。Claude は実行中にこれを読み取り、ルールに従います。
 2. **カスタムプロンプト**: ジョブの `prompt`/`prompt_file` 経由でタスク固有の指示を渡します。異なるジョブに異なるプロンプトを使用します（例: レビュー、実装、リファクタリング）。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

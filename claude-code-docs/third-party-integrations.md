@@ -220,3 +220,8 @@ Anthropicでは、Claude CodeがすべてのAnthropicコードベース全体の
 * [エンタープライズネットワークを構成](/ja/network-config)してネットワーク要件用
 * [LLMゲートウェイをデプロイ](/ja/llm-gateway)してエンタープライズ管理用
 * [設定](/ja/settings)で構成オプションと環境変数用
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

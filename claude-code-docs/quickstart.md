@@ -326,3 +326,8 @@ Claudeと連携する方法はいくつかあります：
 * **Claude Code内**：`/help`を入力するか、「how do I...」と質問してください
 * **ドキュメント**：ここにいます！他のガイドを参照してください
 * **コミュニティ**：[Discord](https://www.anthropic.com/discord)に参加してヒントとサポートを受けてください
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

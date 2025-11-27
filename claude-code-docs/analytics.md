@@ -85,3 +85,8 @@ Claude Code によって記述され、ユーザーがセッション中に受�
 
 * [OpenTelemetry を使用した使用状況の監視](/ja/monitoring-usage) カスタムメトリクスとアラート用
 * [ID およびアクセス管理](/ja/iam) ロール構成用
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

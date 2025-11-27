@@ -702,3 +702,8 @@ MCP サーバーの一元管理が必要な組織の場合、Claude Code はエ�
 <Note>
   **エンタープライズ設定の優先順位**: エンタープライズ MCP 設定は最高の優先順位を持ち、ユーザー、ローカル、またはプロジェクト設定でオーバーライドすることはできません。
 </Note>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

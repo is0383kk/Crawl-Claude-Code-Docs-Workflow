@@ -75,3 +75,8 @@ devcontainer設定をCI/CDパイプラインにミラーリングして、開発
 * [VS Code devcontainersドキュメント](https://code.visualstudio.com/docs/devcontainers/containers)
 * [Claude Codeセキュリティベストプラクティス](/ja/security)
 * [エンタープライズネットワーク設定](/ja/network-config)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

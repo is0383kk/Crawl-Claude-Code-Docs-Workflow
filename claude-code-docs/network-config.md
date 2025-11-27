@@ -88,3 +88,8 @@ Claude Codeは以下のURLへのアクセスが必要です：
 * [Claude Code設定](/ja/settings)
 * [環境変数リファレンス](/ja/settings#environment-variables)
 * [トラブルシューティングガイド](/ja/troubleshooting)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

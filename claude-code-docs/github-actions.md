@@ -660,3 +660,8 @@ Claudeの動作は2つの方法で設定できます：
 2. **カスタムプロンプト**: ワークフローファイルの`prompt`パラメータを使用して、ワークフロー固有の指示を提供します。これにより、異なるワークフローまたはタスク用にClaudeの動作をカスタマイズできます。
 
 Claudeは、PRを作成してリクエストに応答する際に、これらのガイドラインに従います。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

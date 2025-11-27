@@ -121,3 +121,8 @@ VS Codeで実行する場合は、以下を検討してください：
   2. 「Shell Command: Install 'code' command in PATH」（またはIDE用の同等のコマンド）を検索
 
 追加のヘルプについては、[トラブルシューティングガイド](/ja/troubleshooting)を参照してください。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

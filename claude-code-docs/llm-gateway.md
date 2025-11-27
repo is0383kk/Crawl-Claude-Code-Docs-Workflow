@@ -143,3 +143,8 @@ LiteLLMでカスタムモデル名を設定した場合は、前述の環境変�
 * [Claude Code設定](/ja/settings)
 * [エンタープライズネットワーク設定](/ja/network-config)
 * [サードパーティ統合の概要](/ja/third-party-integrations)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

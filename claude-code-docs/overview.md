@@ -120,3 +120,8 @@ claude
     Claude Code がデータをどのように処理するかを理解
   </Card>
 </CardGroup>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

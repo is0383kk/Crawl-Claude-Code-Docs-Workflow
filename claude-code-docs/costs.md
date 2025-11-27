@@ -128,3 +128,8 @@ Claude Code は、コスト報告を含む機能の動作方法を変更する�
 <Note>
   チーム展開の場合、より広範なロールアウト前に、使用パターンを確立するために小規模なパイロットグループから始めることをお勧めします。
 </Note>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

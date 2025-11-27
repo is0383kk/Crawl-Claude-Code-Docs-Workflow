@@ -67,3 +67,8 @@ Claude Code は `/vim` で有効にするか、`/config` で設定できる Vim 
 * モード切り替え: `Esc`（NORMAL へ）、`i`/`I`、`a`/`A`、`o`/`O`（INSERT へ）
 * ナビゲーション: `h`/`j`/`k`/`l`、`w`/`e`/`b`、`0`/`$`/`^`、`gg`/`G`
 * 編集: `x`、`dw`/`de`/`db`/`dd`/`D`、`cw`/`ce`/`cb`/`cc`/`C`、`.`（繰り返し）
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

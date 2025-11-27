@@ -167,3 +167,8 @@ Bashモード:
 * [CLIリファレンス](/ja/cli-reference) - コマンドラインフラグとオプション
 * [設定](/ja/settings) - 設定オプション
 * [メモリ管理](/ja/memory) - CLAUDE.mdファイルの管理
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

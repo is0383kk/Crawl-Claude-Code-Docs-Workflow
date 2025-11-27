@@ -477,3 +477,8 @@ Agent SDKを使用しているか、AgentToolと直接対話している場合�
 * [スラッシュコマンド](/ja/slash-commands) - 他の組み込みコマンドについて学ぶ
 * [設定](/ja/settings) - Claude Codeの動作を設定
 * [フック](/ja/hooks) - イベントハンドラーでワークフローを自動化
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

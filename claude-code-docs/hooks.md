@@ -980,3 +980,8 @@ MCPツールは`mcp__<server>__<tool>`パターンに従います。例えば：
 * 実行されているコマンド
 * 成功/失敗ステータス
 * 出力またはエラーメッセージ
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

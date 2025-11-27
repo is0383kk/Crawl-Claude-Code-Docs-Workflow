@@ -605,3 +605,8 @@ Claude は必要な場合にのみ追加ファイルを読み込みます。
     最初のスキルを作成します
   </Card>
 </CardGroup>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

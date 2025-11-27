@@ -374,3 +374,8 @@ claude --debug
 - [MCP](/ja/mcp) - 外部ツール統合
 - [設定](/ja/settings) - プラグインの設定オプション
 ```
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

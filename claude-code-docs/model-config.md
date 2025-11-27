@@ -113,3 +113,8 @@ Claude Codeは[プロンプトキャッシング](https://docs.claude.com/ja/doc
 | `DISABLE_PROMPT_CACHING_OPUS`   | Opusモデルのみのプロンプトキャッシングを無効にするには`1`に設定             |
 
 これらの環境変数は、プロンプトキャッシング動作に対する細かい制御を提供します。グローバルな`DISABLE_PROMPT_CACHING`設定はモデル固有の設定より優先され、必要に応じてすべてのキャッシングを迅速に無効にできます。モデル固有の設定は、特定のモデルをデバッグする場合や、異なるキャッシング実装を持つ可能性があるクラウドプロバイダーと連携する場合など、選択的な制御に役立ちます。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

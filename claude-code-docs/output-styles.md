@@ -70,3 +70,8 @@ tasks. [Your custom instructions here...]
 ### 出力スタイル対[カスタムスラッシュコマンド](/ja/slash-commands)
 
 出力スタイルを「保存されたシステムプロンプト」と考え、カスタムスラッシュコマンドを「保存されたプロンプト」と考えることができます。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt
