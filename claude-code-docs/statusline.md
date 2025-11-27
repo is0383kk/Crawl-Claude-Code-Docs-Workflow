@@ -200,3 +200,8 @@ echo "[$MODEL] 📁 ${DIR##*/}"
 
 * ステータスラインが表示されない場合は、スクリプトが実行可能であることを確認してください（`chmod +x`）
 * スクリプトがstdoutに出力していることを確認してください（stderrではなく）
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

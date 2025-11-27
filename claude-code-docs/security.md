@@ -132,3 +132,8 @@ Claude Codeでセキュリティ脆弱性を発見した場合：
 * [Monitoring usage](/ja/monitoring-usage) - Claude Codeアクティビティを追跡および監査します
 * [Development containers](/ja/devcontainer) - セキュアで分離された環境
 * [Anthropic Trust Center](https://trust.anthropic.com) - セキュリティ認証とコンプライアンス
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

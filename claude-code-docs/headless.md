@@ -202,3 +202,8 @@ claude -p --resume "$session_id" "Generate executive summary of risks"
 
 * [CLIの使用方法とコントロール](/ja/cli-reference) - 完全なCLIドキュメント
 * [一般的なワークフロー](/ja/common-workflows) - 一般的なユースケースのステップバイステップガイド
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

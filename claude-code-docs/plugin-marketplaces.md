@@ -431,3 +431,8 @@ claude plugin validate .
 * [プラグインリファレンス](/ja/plugins-reference) - 完全な技術仕様とスキーマ
 * [プラグイン開発](/ja/plugins#develop-more-complex-plugins) - 独自のプラグインの作成
 * [設定](/ja/settings#plugin-configuration) - プラグイン設定オプション
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

@@ -121,3 +121,8 @@ Claude Codeは、システムプロンプトをカスタマイズするための
 * [一般的なワークフロー](/ja/common-workflows) - 高度なワークフローとパターン
 * [設定](/ja/settings) - 設定オプション
 * [SDKドキュメント](https://docs.claude.com/en/docs/agent-sdk) - プログラム的な使用方法と統合
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

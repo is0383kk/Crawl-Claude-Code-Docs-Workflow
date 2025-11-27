@@ -224,3 +224,8 @@ Claude CodeはBedrock [Invoke API](https://docs.aws.amazon.com/bedrock/latest/AP
 * [Bedrock推論プロファイル](https://docs.aws.amazon.com/bedrock/latest/userguide/inference-profiles-support.html)
 * [Amazon Bedrock上のClaude Code：クイックセットアップガイド](https://community.aws/content/2tXkZKrZzlrlu0KfH8gST5Dkppq/claude-code-on-amazon-bedrock-quick-setup-guide)
 * [Claude Codeモニタリング実装（Bedrock）](https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/blob/main/assets/docs/MONITORING.md)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

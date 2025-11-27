@@ -203,3 +203,8 @@ npx @anthropic-ai/sandbox-runtime <command-to-sandbox>
 * [IAM](/ja/iam) - パーミッション設定とアクセス制御
 * [設定](/ja/settings) - 完全な設定リファレンス
 * [CLIリファレンス](/ja/cli-reference) - `-sb`を含むコマンドラインオプション
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

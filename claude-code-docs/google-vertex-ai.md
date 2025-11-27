@@ -157,3 +157,8 @@ Claude Sonnet 4およびSonnet 4.5は、Vertex AIで[1Mトークンコンテキ�
 * [Vertex AIドキュメント](https://cloud.google.com/vertex-ai/docs)
 * [Vertex AI価格](https://cloud.google.com/vertex-ai/pricing)
 * [Vertex AIクォータと制限](https://cloud.google.com/vertex-ai/docs/quotas)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

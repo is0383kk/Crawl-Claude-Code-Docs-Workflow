@@ -198,3 +198,8 @@ Claude Codeは認証認証情報を安全に管理します：
 * **サポートされている認証タイプ**：Claude.ai認証情報、Claude API認証情報、Bedrock認証、およびVertex認証。
 * **カスタム認証情報スクリプト**：[`apiKeyHelper`](/ja/settings#available-settings)設定を設定して、APIキーを返すシェルスクリプトを実行できます。
 * **更新間隔**：デフォルトでは、`apiKeyHelper`は5分後またはHTTP 401レスポンス時に呼び出されます。カスタム更新間隔については、`CLAUDE_CODE_API_KEY_HELPER_TTL_MS`環境変数を設定してください。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

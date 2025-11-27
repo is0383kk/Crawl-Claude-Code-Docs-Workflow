@@ -943,3 +943,8 @@ Claudeは、ドキュメントへの組み込みアクセスを持ち、独自�
 <Card title="Claude Codeリファレンス実装" icon="code" href="https://github.com/anthropics/claude-code/tree/main/.devcontainer">
   開発コンテナリファレンス実装をクローンします。
 </Card>
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

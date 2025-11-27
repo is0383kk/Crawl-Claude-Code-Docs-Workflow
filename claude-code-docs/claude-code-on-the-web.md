@@ -473,3 +473,8 @@ Claude Code on the web は、アカウント内のすべての他の Claude お�
 * [設定リファレンス](/ja/settings)
 * [セキュリティ](/ja/security)
 * [データ使用](/ja/data-usage)
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

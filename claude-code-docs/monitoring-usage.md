@@ -505,3 +505,8 @@ Claude Codeによってエクスポートされるメトリクスは、使用パ
 ## Amazon Bedrock上のClaude Codeのモニタリング
 
 Amazon Bedrock向けのClaude Code使用状況モニタリングガイダンスの詳細については、[Claude Code Monitoring Implementation (Bedrock)](https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/blob/main/assets/docs/MONITORING.md)を参照してください。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

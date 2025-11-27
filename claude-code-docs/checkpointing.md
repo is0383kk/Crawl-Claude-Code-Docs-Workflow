@@ -63,3 +63,8 @@ cp source.txt dest.txt
 * [インタラクティブモード](/ja/interactive-mode) - キーボードショートカットとセッションコントロール
 * [スラッシュコマンド](/ja/slash-commands) - `/rewind`を使用したチェックポイントへのアクセス
 * [CLIリファレンス](/ja/cli-reference) - コマンドラインオプション
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

@@ -389,3 +389,8 @@ Claude Codeのプラグインシステムを理解したので、異なる目標
 * [フック](/ja/hooks) - イベントハンドラーでワークフローを自動化する
 * [MCP](/ja/mcp) - 外部ツールとサービスに接続する
 * [設定](/ja/settings) - プラグインの構成オプション
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt

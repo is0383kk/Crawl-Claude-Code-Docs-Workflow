@@ -148,3 +148,8 @@ JetBrains IDE で実行する場合、以下を検討してください：
 * Claude Code がアクセスして変更できるファイルを認識する
 
 追加のヘルプについては、[トラブルシューティングガイド](/ja/troubleshooting) を参照してください。
+
+
+---
+
+> To find navigation and other pages in this documentation, fetch the llms.txt file at: https://code.claude.com/docs/llms.txt
