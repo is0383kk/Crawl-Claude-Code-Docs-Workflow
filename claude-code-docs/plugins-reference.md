@@ -225,7 +225,7 @@ SKILL.md形式と完全なスキル作成ガイダンスについては、以下
 | `commands`   | string\|array  | 追加のコマンドファイル/ディレクトリ | `"./custom/cmd.md"` または `["./cmd1.md"]` |
 | `agents`     | string\|array  | 追加のエージェントファイル      | `"./custom/agents/"`                    |
 | `hooks`      | string\|object | フック設定パスまたはインライン設定  | `"./hooks.json"`                        |
-| `mcpServers` | string\|object | MCP設定パスまたはインライン設定  | `"./mcp.json"`                          |
+| `mcpServers` | string\|object | MCP設定パスまたはインライン設定  | `"./custom-mcp-config.json"`            |
 
 ### パス動作ルール
 

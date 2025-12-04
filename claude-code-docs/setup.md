@@ -23,25 +23,25 @@ To install Claude Code, use one of the following methods:
   <Tab title="Native Install (Recommended)">
     **Homebrew (macOS, Linux):**
 
-    ```sh  theme={null}
+    ```sh theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     brew install --cask claude-code
     ```
 
     **macOS, Linux, WSL:**
 
-    ```bash  theme={null}
+    ```bash theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     curl -fsSL https://claude.ai/install.sh | bash
     ```
 
     **Windows PowerShell:**
 
-    ```powershell  theme={null}
+    ```powershell theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     irm https://claude.ai/install.ps1 | iex
     ```
 
     **Windows CMD:**
 
-    ```batch  theme={null}
+    ```batch theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
     ```
   </Tab>
@@ -49,7 +49,7 @@ To install Claude Code, use one of the following methods:
   <Tab title="NPM">
     If you have [Node.js 18 or newer installed](https://nodejs.org/en/download/):
 
-    ```sh  theme={null}
+    ```sh theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null} theme={null}
     npm install -g @anthropic-ai/claude-code
     ```
   </Tab>
@@ -175,12 +175,6 @@ npm install -g @anthropic-ai/claude-code
   `sudo npm install -g` を使用しないでください。これはパーミッション問題とセキュリティリスクにつながる可能性があります。
   パーミッションエラーが発生した場合は、[Claude Code の構成](/ja/troubleshooting#linux-permission-issues)で推奨されるソリューションを参照してください。
 </Warning>
-
-### ローカルインストール
-
-* npm 経由でグローバルインストール後、`claude migrate-installer` を使用してローカルに移動します
-* 自動更新プログラムの npm パーミッション問題を回避します
-* 一部のユーザーは自動的にこの方法に移行される場合があります
 
 ## AWS または GCP で実行
 
