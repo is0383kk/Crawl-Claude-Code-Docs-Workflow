@@ -101,30 +101,6 @@ irm https://claude.ai/install.ps1 | iex
   システムPATHにインストールディレクトリがあることを確認してください。
 </Tip>
 
-#### 代替解決策：ローカルインストールへの移行
-
-または、Claude Codeが実行される場合は、ローカルインストールに移行できます：
-
-```bash  theme={null}
-claude migrate-installer
-```
-
-これによりClaude Codeが`~/.claude/local/`に移動し、シェル設定にエイリアスが設定されます。今後のアップデートに`sudo`は必要ありません。
-
-移行後、シェルを再起動し、インストールを確認してください：
-
-macOS/Linux/WSLの場合：
-
-```bash  theme={null}
-which claude  # ~/.claude/local/claudeへのエイリアスを表示する必要があります
-```
-
-Windowsの場合：
-
-```powershell  theme={null}
-where claude  # claude実行ファイルへのパスを表示する必要があります
-```
-
 インストールの確認：
 
 ```bash  theme={null}
