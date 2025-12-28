@@ -1,158 +1,172 @@
-# サンドボックス
+# Sandboxing
 
-> Claude Codeのサンドボックス化されたbashツールがファイルシステムとネットワークの分離を提供し、より安全で自律的なエージェント実行を実現する方法を学びます。
+> Learn how Claude Code's sandboxed bash tool provides filesystem and network isolation for safer, more autonomous agent execution.
 
-## 概要
+## Overview
 
-Claude Codeはネイティブサンドボックス機能を備えており、エージェント実行のためのより安全な環境を提供しながら、継続的なパーミッションプロンプトの必要性を軽減します。各bashコマンドのパーミッションを要求する代わりに、サンドボックス化により、Claude Codeがリスク軽減のもとでより自由に動作できるように、事前に定義された境界を作成します。
+Claude Code features native sandboxing to provide a more secure environment for agent execution while reducing the need for constant permission prompts. Instead of asking permission for each bash command, sandboxing creates defined boundaries upfront where Claude Code can work more freely with reduced risk.
 
-サンドボックス化されたbashツールはOSレベルのプリミティブを使用して、ファイルシステムとネットワークの両方の分離を実施します。
+The sandboxed bash tool uses OS-level primitives to enforce both filesystem and network isolation.
 
-## サンドボックス化が重要な理由
+## Why sandboxing matters
 
-従来のパーミッションベースのセキュリティでは、bashコマンドのたびに継続的なユーザー承認が必要です。これはコントロールを提供しますが、以下につながる可能性があります：
+Traditional permission-based security requires constant user approval for bash commands. While this provides control, it can lead to:
 
-* **承認疲れ**：繰り返し「承認」をクリックすることで、ユーザーが承認している内容に注意を払わなくなる可能性があります
-* **生産性の低下**：継続的な中断により開発ワークフローが遅くなります
-* **自律性の制限**：Claude Codeは承認を待っている間、効率的に動作できません
+* **Approval fatigue**: Repeatedly clicking "approve" can cause users to pay less attention to what they're approving
+* **Reduced productivity**: Constant interruptions slow down development workflows
+* **Limited autonomy**: Claude Code cannot work as efficiently when waiting for approvals
 
-サンドボックス化はこれらの課題に以下の方法で対処します：
+Sandboxing addresses these challenges by:
 
-1. **明確な境界を定義する**：Claude Codeがアクセスできるディレクトリとネットワークホストを正確に指定します
-2. **パーミッションプロンプトを削減する**：サンドボックス内の安全なコマンドは承認を必要としません
-3. **セキュリティを維持する**：サンドボックス外のリソースへのアクセス試行は即座に通知をトリガーします
-4. **自律性を有効にする**：Claude Codeは定義された制限内でより独立して実行できます
+1. **Defining clear boundaries**: Specify exactly which directories and network hosts Claude Code can access
+2. **Reducing permission prompts**: Safe commands within the sandbox don't require approval
+3. **Maintaining security**: Attempts to access resources outside the sandbox trigger immediate notifications
+4. **Enabling autonomy**: Claude Code can run more independently within defined limits
 
 <Warning>
-  効果的なサンドボックス化には、ファイルシステムとネットワークの両方の分離が**必要**です。ネットワーク分離がない場合、侵害されたエージェントはSSHキーなどの機密ファイルを流出させる可能性があります。ファイルシステム分離がない場合、侵害されたエージェントはシステムリソースにバックドアを仕掛けてネットワークアクセスを取得する可能性があります。サンドボックス化を設定する際は、設定がこれらのシステムのバイパスを作成しないことを確認することが重要です。
+  Effective sandboxing requires **both** filesystem and network isolation. Without network isolation, a compromised agent could exfiltrate sensitive files like SSH keys. Without filesystem isolation, a compromised agent could backdoor system resources to gain network access. When configuring sandboxing it is important to ensure that your configured settings do not create bypasses in these systems.
 </Warning>
 
-## 仕組み
+## How it works
 
-### ファイルシステム分離
+### Filesystem isolation
 
-サンドボックス化されたbashツールはファイルシステムアクセスを特定のディレクトリに制限します：
+The sandboxed bash tool restricts file system access to specific directories:
 
-* **デフォルト書き込み動作**：現在の作業ディレクトリとそのサブディレクトリへの読み取りおよび書き込みアクセス
-* **デフォルト読み取り動作**：特定の拒否ディレクトリを除く、コンピュータ全体への読み取りアクセス
-* **ブロックされたアクセス**：明示的なパーミッションなしに現在の作業ディレクトリ外のファイルを変更できません
-* **設定可能**：設定を通じてカスタム許可および拒否パスを定義します
+* **Default writes behavior**: Read and write access to the current working directory and its subdirectories
+* **Default read behavior**: Read access to the entire computer, except certain denied directories
+* **Blocked access**: Cannot modify files outside the current working directory without explicit permission
+* **Configurable**: Define custom allowed and denied paths through settings
 
-### ネットワーク分離
+### Network isolation
 
-ネットワークアクセスはサンドボックス外で実行されるプロキシサーバーを通じて制御されます：
+Network access is controlled through a proxy server running outside the sandbox:
 
-* **ドメイン制限**：承認されたドメインのみがアクセスできます
-* **ユーザー確認**：新しいドメインリクエストはパーミッションプロンプトをトリガーします
-* **カスタムプロキシサポート**：高度なユーザーは送信トラフィックにカスタムルールを実装できます
-* **包括的なカバレッジ**：制限はすべてのスクリプト、プログラム、およびコマンドによって生成されるサブプロセスに適用されます
+* **Domain restrictions**: Only approved domains can be accessed
+* **User confirmation**: New domain requests trigger permission prompts
+* **Custom proxy support**: Advanced users can implement custom rules on outgoing traffic
+* **Comprehensive coverage**: Restrictions apply to all scripts, programs, and subprocesses spawned by commands
 
-### OSレベルの実施
+### OS-level enforcement
 
-サンドボックス化されたbashツールはオペレーティングシステムのセキュリティプリミティブを活用します：
+The sandboxed bash tool leverages operating system security primitives:
 
-* **Linux**：分離に[bubblewrap](https://github.com/containers/bubblewrap)を使用します
-* **macOS**：サンドボックス実施にSeatbeltを使用します
+* **Linux**: Uses [bubblewrap](https://github.com/containers/bubblewrap) for isolation
+* **macOS**: Uses Seatbelt for sandbox enforcement
 
-これらのOSレベルの制限により、Claude Codeのコマンドによって生成されたすべての子プロセスが同じセキュリティ境界を継承することが保証されます。
+These OS-level restrictions ensure that all child processes spawned by Claude Code's commands inherit the same security boundaries.
 
-## はじめに
+## Getting started
 
-### サンドボックス化を有効にする
+### Enable sandboxing
 
-`/sandbox`スラッシュコマンドを実行することでサンドボックス化を有効にできます：
+You can enable sandboxing by running the `/sandbox` slash command:
 
 ```
 > /sandbox
 ```
 
-これはデフォルト設定でサンドボックス化されたbashツールをアクティブ化し、現在の作業ディレクトリへのアクセスを許可しながら、機密システムロケーションへのアクセスをブロックします。
+This opens a menu where you can choose between sandbox modes.
 
-### サンドボックス化を設定する
+### Sandbox modes
 
-`settings.json`ファイルを通じてサンドボックス動作をカスタマイズします。完全な設定リファレンスについては[設定](/ja/settings#sandbox-settings)を参照してください。
+Claude Code offers two sandbox modes:
+
+**Auto-allow mode**: Bash commands will attempt to run inside the sandbox and are automatically allowed without requiring permission. Commands that cannot be sandboxed (such as those needing network access to non-allowed hosts) fall back to the regular permission flow. Explicit ask/deny rules you've configured are always respected.
+
+**Regular permissions mode**: All bash commands go through the standard permission flow, even when sandboxed. This provides more control but requires more approvals.
+
+In both modes, the sandbox enforces the same filesystem and network restrictions. The difference is only in whether sandboxed commands are auto-approved or require explicit permission.
+
+<Info>
+  Auto-allow mode works independently of your permission mode setting. Even if you're not in "accept edits" mode, sandboxed bash commands will run automatically when auto-allow is enabled. This means bash commands that modify files within the sandbox boundaries will execute without prompting, even when file edit tools would normally require approval.
+</Info>
+
+### Configure sandboxing
+
+Customize sandbox behavior through your `settings.json` file. See [Settings](/en/settings#sandbox-settings) for complete configuration reference.
 
 <Tip>
-  すべてのコマンドがサンドボックス化と互換性があるわけではありません。サンドボックスを最大限に活用するのに役立つ可能性のあるいくつかのメモ：
+  Not all commands are compatible with sandboxing out of the box. Some notes that may help you make the most out of the sandbox:
 
-  * 多くのCLIツールは特定のホストへのアクセスが必要です。これらのツールを使用すると、特定のホストへのアクセスをリクエストします。パーミッションを付与すると、これらのホストに今後アクセスでき、サンドボックス内で安全に実行できるようになります。
-  * `watchman`はサンドボックス内での実行と互換性がありません。`jest`を実行している場合は、`jest --no-watchman`の使用を検討してください
-  * `docker`はサンドボックス内での実行と互換性がありません。`docker`を`excludedCommands`で指定して、サンドボックス外で実行するように強制することを検討してください。
+  * Many CLI tools require accessing certain hosts. As you use these tools, they will request permission to access certain hosts. Granting permission will allow them to access these hosts now and in the future, enabling them to safely execute inside the sandbox.
+  * `watchman` is incompatible with running in the sandbox. If you're running `jest`, consider using `jest --no-watchman`
+  * `docker` is incompatible with running in the sandbox. Consider specifying `docker` in `excludedCommands` to force it to run outside of the sandbox.
 </Tip>
 
 <Note>
-  Claude Codeには、必要に応じてコマンドをサンドボックス外で実行できるようにする意図的なエスケープハッチメカニズムが含まれています。サンドボックス制限（ネットワーク接続の問題や互換性のないツールなど）によってコマンドが失敗すると、Claude Codeは失敗を分析するよう促され、`dangerouslyDisableSandbox`パラメータでコマンドを再試行する可能性があります。このパラメータを使用するコマンドは、ユーザーパーミッションを必要とする通常のClaude Codeパーミッションフローを通じます。これにより、Claude Codeはサンドボックス制約内で特定のツールまたはネットワーク操作が機能しないエッジケースを処理できます。
+  Claude Code includes an intentional escape hatch mechanism that allows commands to run outside the sandbox when necessary. When a command fails due to sandbox restrictions (such as network connectivity issues or incompatible tools), Claude is prompted to analyze the failure and may retry the command with the `dangerouslyDisableSandbox` parameter. Commands that use this parameter go through the normal Claude Code permissions flow requiring user permission to execute. This allows Claude Code to handle edge cases where certain tools or network operations cannot function within sandbox constraints.
 
-  このエスケープハッチは、[サンドボックス設定](/ja/settings#sandbox-settings)で`"allowUnsandboxedCommands": false`を設定することで無効にできます。無効にすると、`dangerouslyDisableSandbox`パラメータは完全に無視され、すべてのコマンドはサンドボックス化されるか、`excludedCommands`に明示的にリストされている必要があります。
+  You can disable this escape hatch by setting `"allowUnsandboxedCommands": false` in your [sandbox settings](/en/settings#sandbox-settings). When disabled, the `dangerouslyDisableSandbox` parameter is completely ignored and all commands must run sandboxed or be explicitly listed in `excludedCommands`.
 </Note>
 
-## セキュリティ上の利点
+## Security benefits
 
-### プロンプトインジェクションからの保護
+### Protection against prompt injection
 
-攻撃者がプロンプトインジェクションを通じてClaude Codeの動作を正常に操作した場合でも、サンドボックスはシステムのセキュリティを確保します：
+Even if an attacker successfully manipulates Claude Code's behavior through prompt injection, the sandbox ensures your system remains secure:
 
-**ファイルシステム保護：**
+**Filesystem protection:**
 
-* `~/.bashrc`などの重要な設定ファイルを変更できません
-* `/bin/`のシステムレベルファイルを変更できません
-* [Claude権限設定](/ja/iam#configuring-permissions)で拒否されているファイルを読み取ることができません
+* Cannot modify critical config files such as `~/.bashrc`
+* Cannot modify system-level files in `/bin/`
+* Cannot read files that are denied in your [Claude permission settings](/en/iam#configuring-permissions)
 
-**ネットワーク保護：**
+**Network protection:**
 
-* 攻撃者が制御するサーバーにデータを流出させることができません
-* 許可されていないドメインから悪意のあるスクリプトをダウンロードできません
-* 承認されていないサービスへの予期しないAPI呼び出しを行うことができません
-* 明示的に許可されていないドメインに連絡することができません
+* Cannot exfiltrate data to attacker-controlled servers
+* Cannot download malicious scripts from unauthorized domains
+* Cannot make unexpected API calls to unapproved services
+* Cannot contact any domains not explicitly allowed
 
-**監視とコントロール：**
+**Monitoring and control:**
 
-* サンドボックス外のすべてのアクセス試行はOSレベルでブロックされます
-* 境界がテストされるとすぐに通知を受け取ります
-* リクエストを拒否するか、1回だけ許可するか、設定を永続的に更新することを選択できます
+* All access attempts outside the sandbox are blocked at the OS level
+* You receive immediate notifications when boundaries are tested
+* You can choose to deny, allow once, or permanently update your configuration
 
-### 攻撃面の削減
+### Reduced attack surface
 
-サンドボックス化は以下からの潜在的な損害を制限します：
+Sandboxing limits the potential damage from:
 
-* **悪意のある依存関係**：有害なコードを含むNPMパッケージまたは他の依存関係
-* **侵害されたスクリプト**：セキュリティ脆弱性を持つビルドスクリプトまたはツール
-* **ソーシャルエンジニアリング**：ユーザーに危険なコマンドを実行させるように騙す攻撃
-* **プロンプトインジェクション**：Claude Codeに危険なコマンドを実行させるように騙す攻撃
+* **Malicious dependencies**: NPM packages or other dependencies with harmful code
+* **Compromised scripts**: Build scripts or tools with security vulnerabilities
+* **Social engineering**: Attacks that trick users into running dangerous commands
+* **Prompt injection**: Attacks that trick Claude into running dangerous commands
 
-### 透過的な操作
+### Transparent operation
 
-Claude Codeがサンドボックス外のネットワークリソースにアクセスしようとする場合：
+When Claude Code attempts to access network resources outside the sandbox:
 
-1. 操作はOSレベルでブロックされます
-2. すぐに通知を受け取ります
-3. 以下を選択できます：
-   * リクエストを拒否する
-   * 1回だけ許可する
-   * サンドボックス設定を更新して永続的に許可する
+1. The operation is blocked at the OS level
+2. You receive an immediate notification
+3. You can choose to:
+   * Deny the request
+   * Allow it once
+   * Update your sandbox configuration to permanently allow it
 
-## セキュリティ上の制限
+## Security Limitations
 
-* ネットワークサンドボックス化の制限：ネットワークフィルタリングシステムは、プロセスが接続できるドメインを制限することで動作します。プロキシを通じて渡されるトラフィックをそれ以上検査することはなく、ユーザーはポリシーで信頼できるドメインのみを許可することを確認する責任があります。
+* Network Sandboxing Limitations: The network filtering system operates by restricting the domains that processes are allowed to connect to. It does not otherwise inspect the traffic passing through the proxy and users are responsible for ensuring they only allow trusted domains in their policy.
 
 <Warning>
-  ユーザーは、データ流出を許可する可能性のある`github.com`などの広いドメインを許可することから生じる潜在的なリスクに注意する必要があります。また、場合によっては[ドメインフロンティング](https://en.wikipedia.org/wiki/Domain_fronting)を通じてネットワークフィルタリングをバイパスすることが可能な場合があります。
+  Users should be aware of potential risks that come from allowing broad domains like `github.com` that may allow for data exfiltration. Also, in some cases it may be possible to bypass the network filtering through [domain fronting](https://en.wikipedia.org/wiki/Domain_fronting).
 </Warning>
 
-* Unixソケット経由の権限昇格：`allowUnixSockets`設定は、サンドボックスバイパスにつながる可能性のある強力なシステムサービスへのアクセスを不注意に付与する可能性があります。たとえば、`/var/run/docker.sock`へのアクセスを許可するために使用された場合、これはdockerソケットを悪用してホストシステムへのアクセスを効果的に付与します。ユーザーはサンドボックスを通じて許可するUnixソケットを慎重に検討することをお勧めします。
-* ファイルシステム権限昇格：過度に広いファイルシステム書き込みパーミッションは権限昇格攻撃を可能にする可能性があります。`$PATH`の実行可能ファイルを含むディレクトリ、システム設定ディレクトリ、またはユーザーシェル設定ファイル（`.bashrc`、`.zshrc`）への書き込みを許可すると、他のユーザーまたはシステムプロセスがこれらのファイルにアクセスするときに異なるセキュリティコンテキストでコード実行につながる可能性があります。
-* Linuxサンドボックス強度：Linux実装は強力なファイルシステムとネットワーク分離を提供しますが、特権なしネームスペースなしでDocker環境内で動作できるようにする`enableWeakerNestedSandbox`モードが含まれています。このオプションはセキュリティを大幅に弱体化させ、追加の分離が別の方法で実施される場合にのみ使用する必要があります。
+* Privilege Escalation via Unix Sockets: The `allowUnixSockets` configuration can inadvertently grant access to powerful system services that could lead to sandbox bypasses. For example, if it is used to allow access to `/var/run/docker.sock` this would effectively grant access to the host system through exploiting the docker socket. Users are encouraged to carefully consider any unix sockets that they allow through the sandbox.
+* Filesystem Permission Escalation: Overly broad filesystem write permissions can enable privilege escalation attacks. Allowing writes to directories containing executables in `$PATH`, system configuration directories, or user shell configuration files (`.bashrc`, `.zshrc`) can lead to code execution in different security contexts when other users or system processes access these files.
+* Linux Sandbox Strength: The Linux implementation provides strong filesystem and network isolation but includes an `enableWeakerNestedSandbox` mode that enables it to work inside of Docker environments without privileged namespaces. This option considerably weakens security and should only be used in cases where additional isolation is otherwise enforced.
 
-## 高度な使用法
+## Advanced usage
 
-### カスタムプロキシ設定
+### Custom proxy configuration
 
-高度なネットワークセキュリティが必要な組織の場合、カスタムプロキシを実装して以下を実行できます：
+For organizations requiring advanced network security, you can implement a custom proxy to:
 
-* HTTPSトラフィックを復号化して検査する
-* カスタムフィルタリングルールを適用する
-* すべてのネットワークリクエストをログに記録する
-* 既存のセキュリティインフラストラクチャと統合する
+* Decrypt and inspect HTTPS traffic
+* Apply custom filtering rules
+* Log all network requests
+* Integrate with existing security infrastructure
 
 ```json  theme={null}
 {
@@ -165,44 +179,44 @@ Claude Codeがサンドボックス外のネットワークリソースにアク
 }
 ```
 
-### 既存のセキュリティツールとの統合
+### Integration with existing security tools
 
-サンドボックス化されたbashツールは以下と連携します：
+The sandboxed bash tool works alongside:
 
-* **IAMポリシー**：[権限設定](/ja/iam)と組み合わせて多層防御を実現します
-* **開発コンテナ**：[devcontainers](/ja/devcontainer)と一緒に使用して追加の分離を実現します
-* **エンタープライズポリシー**：[管理設定](/ja/settings#settings-precedence)を通じてサンドボックス設定を実施します
+* **IAM policies**: Combine with [permission settings](/en/iam) for defense-in-depth
+* **Development containers**: Use with [devcontainers](/en/devcontainer) for additional isolation
+* **Enterprise policies**: Enforce sandbox configurations through [managed settings](/en/settings#settings-precedence)
 
-## ベストプラクティス
+## Best practices
 
-1. **制限的に開始する**：最小限のパーミッションで開始し、必要に応じて拡張します
-2. **ログを監視する**：サンドボックス違反の試みを確認してClaude Codeのニーズを理解します
-3. **環境固有の設定を使用する**：開発と本番環境のコンテキストで異なるサンドボックスルール
-4. **パーミッションと組み合わせる**：包括的なセキュリティのためにサンドボックス化をIAMポリシーと一緒に使用します
-5. **設定をテストする**：サンドボックス設定が正当なワークフローをブロックしないことを確認します
+1. **Start restrictive**: Begin with minimal permissions and expand as needed
+2. **Monitor logs**: Review sandbox violation attempts to understand Claude Code's needs
+3. **Use environment-specific configs**: Different sandbox rules for development vs. production contexts
+4. **Combine with permissions**: Use sandboxing alongside IAM policies for comprehensive security
+5. **Test configurations**: Verify your sandbox settings don't block legitimate workflows
 
-## オープンソース
+## Open source
 
-サンドボックスランタイムは、独自のエージェントプロジェクトで使用するためのオープンソースnpmパッケージとして利用可能です。これにより、より広いAIエージェントコミュニティがより安全で安全な自律システムを構築できるようになります。これは、サンドボックス化したい他のプログラムをサンドボックス化するためにも使用できます。たとえば、MCPサーバーをサンドボックス化するには、以下を実行できます：
+The sandbox runtime is available as an open source npm package for use in your own agent projects. This enables the broader AI agent community to build safer, more secure autonomous systems. This can also be used to sandbox other programs you may wish to run. For example, to sandbox an MCP server you could run:
 
 ```bash  theme={null}
 npx @anthropic-ai/sandbox-runtime <command-to-sandbox>
 ```
 
-実装の詳細とソースコードについては、[GitHubリポジトリ](https://github.com/anthropic-experimental/sandbox-runtime)を参照してください。
+For implementation details and source code, visit the [GitHub repository](https://github.com/anthropic-experimental/sandbox-runtime).
 
-## 制限事項
+## Limitations
 
-* **パフォーマンスオーバーヘッド**：最小限ですが、一部のファイルシステム操作は若干遅くなる可能性があります
-* **互換性**：特定のシステムアクセスパターンが必要なツールの中には、設定調整が必要な場合や、サンドボックス外で実行する必要がある場合もあります
-* **プラットフォームサポート**：現在LinuxとmacOSをサポートしており、Windowsサポートは計画中です
+* **Performance overhead**: Minimal, but some filesystem operations may be slightly slower
+* **Compatibility**: Some tools that require specific system access patterns may need configuration adjustments, or may even need to be run outside of the sandbox
+* **Platform support**: Currently supports Linux and macOS; Windows support planned
 
-## 関連項目
+## See also
 
-* [セキュリティ](/ja/security) - 包括的なセキュリティ機能とベストプラクティス
-* [IAM](/ja/iam) - パーミッション設定とアクセス制御
-* [設定](/ja/settings) - 完全な設定リファレンス
-* [CLIリファレンス](/ja/cli-reference) - `-sb`を含むコマンドラインオプション
+* [Security](/en/security) - Comprehensive security features and best practices
+* [IAM](/en/iam) - Permission configuration and access control
+* [Settings](/en/settings) - Complete configuration reference
+* [CLI reference](/en/cli-reference) - Command-line options including `-sb`
 
 
 ---

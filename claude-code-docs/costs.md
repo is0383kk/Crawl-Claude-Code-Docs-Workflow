@@ -1,20 +1,20 @@
-# コストを効果的に管理する
+# Manage costs effectively
 
-> Claude Codeを使用する際のトークン使用量とコストを追跡および最適化する方法を学びます。
+> Learn how to track and optimize token usage and costs when using Claude Code.
 
-Claude Codeは各インタラクションでトークンを消費します。平均コストは開発者1人あたり1日$6で、90%のユーザーの日次コストは$12以下に留まります。
+Claude Code consumes tokens for each interaction. The average cost is \$6 per developer per day, with daily costs remaining below \$12 for 90% of users.
 
-チーム使用の場合、Claude CodeはAPIトークン消費によって課金されます。平均的には、Claude CodeはSonnet 4.5で開発者1人あたり月額約\$100～200のコストがかかりますが、ユーザーが実行しているインスタンスの数やオートメーションで使用しているかどうかによって大きなばらつきがあります。
+For team usage, Claude Code charges by API token consumption. On average, Claude Code costs \~\$100-200/developer per month with Sonnet 4.5 though there is large variance depending on how many instances users are running and whether they're using it in automation.
 
-## コストを追跡する
+## Track your costs
 
-### `/cost`コマンドを使用する
+### Using the `/cost` command
 
 <Note>
-  `/cost`コマンドはClaude MaxおよびProサブスクライバーを対象としていません。
+  The `/cost` command is not intended for Claude Max and Pro subscribers.
 </Note>
 
-`/cost`コマンドは現在のセッションの詳細なトークン使用統計を提供します：
+The `/cost` command provides detailed token usage statistics for your current session:
 
 ```
 Total cost:            $0.55
@@ -23,50 +23,50 @@ Total duration (wall): 6h 33m 10.2s
 Total code changes:    0 lines added, 0 lines removed
 ```
 
-### 追加の追跡オプション
+### Additional tracking options
 
-Claude Console（Admin または Billing ロールが必要）で[過去の使用状況](https://support.claude.com/ja/articles/9534590-cost-and-usage-reporting-in-console)を確認し、Claude Code ワークスペース（Admin ロールが必要）の[ワークスペース支出制限](https://support.claude.com/ja/articles/9796807-creating-and-managing-workspaces)を設定します。
-
-<Note>
-  Claude Code を Claude Console アカウントで初めて認証すると、「Claude Code」というワークスペースが自動的に作成されます。このワークスペースは、組織内のすべての Claude Code 使用状況の一元的なコスト追跡と管理を提供します。このワークスペース用に API キーを作成することはできません。これは Claude Code 認証と使用専用です。
-</Note>
-
-## チーム向けのコスト管理
-
-Claude API を使用する場合、Claude Code ワークスペースの総支出を制限できます。設定するには、[これらの指示に従ってください](https://support.claude.com/ja/articles/9796807-creating-and-managing-workspaces)。管理者は、[これらの指示に従うことで](https://support.claude.com/ja/articles/9534590-cost-and-usage-reporting-in-console)コストと使用状況レポートを表示できます。
-
-Bedrock と Vertex では、Claude Code はクラウドからメトリクスを送信しません。コストメトリクスを取得するために、複数の大規模企業が[LiteLLM](/ja/third-party-integrations#litellm)を使用していると報告しており、これは企業が[キーごとの支出を追跡](https://docs.litellm.ai/docs/proxy/virtual_keys#tracking-spend)するのに役立つオープンソースツールです。このプロジェクトは Anthropic と提携していないため、セキュリティ監査は実施していません。
-
-### レート制限の推奨事項
-
-チーム向けに Claude Code をセットアップする場合、組織の規模に基づいて、これらの Token Per Minute（TPM）および Request Per Minute（RPM）のユーザーあたりの推奨事項を検討してください：
-
-| チームサイズ      | ユーザーあたりTPM | ユーザーあたりRPM |
-| ----------- | ---------- | ---------- |
-| 1～5ユーザー     | 200k～300k  | 5～7        |
-| 5～20ユーザー    | 100k～150k  | 2.5～3.5    |
-| 20～50ユーザー   | 50k～75k    | 1.25～1.75  |
-| 50～100ユーザー  | 25k～35k    | 0.62～0.87  |
-| 100～500ユーザー | 15k～20k    | 0.37～0.47  |
-| 500ユーザー以上   | 10k～15k    | 0.25～0.35  |
-
-例えば、200ユーザーがいる場合、各ユーザーに対して20k TPMをリクエストするか、合計4百万TPM（200\*20,000 = 4百万）をリクエストする可能性があります。
-
-ユーザーあたりの TPM は、チームサイズが大きくなるにつれて減少します。これは、より大きな組織ではより少ないユーザーが Claude Code を同時に使用すると予想されるためです。これらのレート制限は個別ユーザーごとではなく、組織レベルで適用されます。つまり、他のユーザーがサービスを積極的に使用していない場合、個別ユーザーは計算された共有量を一時的に超えて消費できます。
+Check [historical usage](https://support.claude.com/en/articles/9534590-cost-and-usage-reporting-in-console) in the Claude Console (requires Admin or Billing role) and set [workspace spend limits](https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces) for the Claude Code workspace (requires Admin role).
 
 <Note>
-  ライブトレーニングセッションなど、通常より高い同時使用シナリオを予想する場合は、ユーザーあたりのより高い TPM 割り当てが必要になる場合があります。
+  When you first authenticate Claude Code with your Claude Console account, a workspace called "Claude Code" is automatically created for you. This workspace provides centralized cost tracking and management for all Claude Code usage in your organization. You cannot create API keys for this workspace - it is exclusively for Claude Code authentication and usage.
 </Note>
 
-## トークン使用量を削減する
+## Managing costs for teams
 
-* **会話をコンパクトにする：**
+When using Claude API, you can limit the total Claude Code workspace spend. To configure, [follow these instructions](https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces). Admins can view cost and usage reporting by [following these instructions](https://support.claude.com/en/articles/9534590-cost-and-usage-reporting-in-console).
 
-  * Claude はコンテキストが容量の 95% を超えた場合、デフォルトで自動コンパクトを使用します
-  * 自動コンパクトの切り替え：`/config` を実行して「Auto-compact enabled」に移動します
-  * コンテキストが大きくなったときに `/compact` を手動で使用します
-  * カスタム指示を追加します：`/compact Focus on code samples and API usage`
-  * CLAUDE.md に追加してコンパクションをカスタマイズします：
+On Bedrock and Vertex, Claude Code does not send metrics from your cloud. In order to get cost metrics, several large enterprises reported using [LiteLLM](/en/third-party-integrations#litellm), which is an open-source tool that helps companies [track spend by key](https://docs.litellm.ai/docs/proxy/virtual_keys#tracking-spend). This project is unaffiliated with Anthropic and we have not audited its security.
+
+### Rate limit recommendations
+
+When setting up Claude Code for teams, consider these Token Per Minute (TPM) and Request Per Minute (RPM) per-user recommendations based on your organization size:
+
+| Team size     | TPM per user | RPM per user |
+| ------------- | ------------ | ------------ |
+| 1-5 users     | 200k-300k    | 5-7          |
+| 5-20 users    | 100k-150k    | 2.5-3.5      |
+| 20-50 users   | 50k-75k      | 1.25-1.75    |
+| 50-100 users  | 25k-35k      | 0.62-0.87    |
+| 100-500 users | 15k-20k      | 0.37-0.47    |
+| 500+ users    | 10k-15k      | 0.25-0.35    |
+
+For example, if you have 200 users, you might request 20k TPM for each user, or 4 million total TPM (200\*20,000 = 4 million).
+
+The TPM per user decreases as team size grows because we expect fewer users to use Claude Code concurrently in larger organizations. These rate limits apply at the organization level, not per individual user, which means individual users can temporarily consume more than their calculated share when others aren't actively using the service.
+
+<Note>
+  If you anticipate scenarios with unusually high concurrent usage (such as live training sessions with large groups), you may need higher TPM allocations per user.
+</Note>
+
+## Reduce token usage
+
+* **Compact conversations:**
+
+  * Claude uses auto-compact by default when context exceeds 95% capacity
+  * Toggle auto-compact: Run `/config` and navigate to "Auto-compact enabled"
+  * Use `/compact` manually when context gets large
+  * Add custom instructions: `/compact Focus on code samples and API usage`
+  * Customize compaction by adding to CLAUDE.md:
 
     ```markdown  theme={null}
     # Summary instructions
@@ -74,59 +74,60 @@ Bedrock と Vertex では、Claude Code はクラウドからメトリクスを�
     When you are using compact, please focus on test output and code changes
     ```
 
-* **具体的なクエリを記述する：** 不要なスキャンをトリガーするあいまいなリクエストを避けます
+* **Write specific queries:** Avoid vague requests that trigger unnecessary scanning
 
-* **複雑なタスクを分割する：** 大きなタスクを焦点を絞ったインタラクションに分割します
+* **Break down complex tasks:** Split large tasks into focused interactions
 
-* **タスク間で履歴をクリアする：** `/clear` を使用してコンテキストをリセットします
+* **Clear history between tasks:** Use `/clear` to reset context
 
-コストは以下に基づいて大きく異なる可能性があります：
+Costs can vary significantly based on:
 
-* 分析されるコードベースのサイズ
-* クエリの複雑さ
-* 検索または変更されるファイルの数
-* 会話履歴の長さ
-* 会話をコンパクトにする頻度
+* Size of codebase being analyzed
+* Complexity of queries
+* Number of files being searched or modified
+* Length of conversation history
+* Frequency of compacting conversations
 
-## バックグラウンドトークン使用量
+## Background token usage
 
-Claude Code はアイドル状態でも、バックグラウンド機能にトークンを使用します：
+Claude Code uses tokens for some background functionality even when idle:
 
-* **会話要約**：`claude --resume` 機能の前の会話を要約するバックグラウンドジョブ
-* **コマンド処理**：`/cost` などの一部のコマンドは、ステータスを確認するためのリクエストを生成する場合があります
+* **Conversation summarization**: Background jobs that summarize previous conversations for the `claude --resume` feature
+* **Command processing**: Some commands like `/cost` may generate requests to check status
 
-これらのバックグラウンドプロセスは、アクティブなインタラクションがなくても、少量のトークン（通常はセッションあたり \$0.04 未満）を消費します。
+These background processes consume a small amount of tokens (typically under \$0.04 per session) even without active interaction.
 
-## バージョン変更と更新の追跡
+## Tracking version changes and updates
 
-### 現在のバージョン情報
+### Current version information
 
-現在の Claude Code バージョンとインストール詳細を確認するには：
+To check your current Claude Code version and installation details:
 
 ```bash  theme={null}
 claude doctor
 ```
 
-このコマンドは、バージョン、インストールタイプ、およびシステム情報を表示します。
+This command shows your version, installation type, and system information.
 
-### Claude Code の動作の変更を理解する
+### Understanding changes in Claude Code behavior
 
-Claude Code は、コスト報告を含む機能の動作方法を変更する可能性のある更新を定期的に受け取ります：
+Claude Code regularly receives updates that may change how features work, including cost reporting:
 
-* **バージョン追跡**：`claude doctor` を使用して現在のバージョンを確認します
-* **動作の変更**：`/cost` などの機能は、バージョン間で情報を異なる方法で表示する場合があります
-* **ドキュメントアクセス**：Claude は常に最新のドキュメントにアクセスでき、現在の機能の動作を説明するのに役立ちます
+* **Version tracking**: Use `claude doctor` to see your current version
+* **Behavior changes**: Features like `/cost` may display information differently across versions
+* **Documentation access**: Claude always has access to the latest documentation, which can help explain current feature behavior
 
-### コスト報告が変更される場合
+### When cost reporting changes
 
-コストの表示方法に変更が見られた場合（`/cost` コマンドが異なる情報を表示するなど）：
+If you notice changes in how costs are displayed (such as the `/cost` command showing different information):
 
-1. **バージョンを確認する**：`claude doctor` を実行して現在のバージョンを確認します
-2. **ドキュメントを参照する**：Claude に現在の機能の動作について直接尋ねます。最新のドキュメントにアクセスできるためです
-3. **サポートに連絡する**：特定の請求に関する質問については、Console アカウント経由で Anthropic サポートに連絡してください
+1. **Verify your version**: Run `claude doctor` to confirm your current version
+2. **Consult documentation**: Ask Claude directly about current feature behavior, as it has access to up-to-date documentation
+3. **Contact support**: For specific billing questions, contact Anthropic support through your Console account
 
 <Note>
-  チーム展開の場合、より広範なロールアウト前に、使用パターンを確立するために小規模なパイロットグループから始めることをお勧めします。
+  For team deployments, we recommend starting with a small pilot group to
+  establish usage patterns before wider rollout.
 </Note>
 
 

@@ -1,38 +1,38 @@
-# ステータスライン設定
+# Status line configuration
 
-> Claude Codeのカスタムステータスラインを作成して、コンテキスト情報を表示します
+> Create a custom status line for Claude Code to display contextual information
 
-Claude Codeをカスタムステータスラインでカスタマイズしましょう。このステータスラインはClaude Codeインターフェースの下部に表示され、Oh-my-zshなどのシェルのターミナルプロンプト（PS1）と同様に機能します。
+Make Claude Code your own with a custom status line that displays at the bottom of the Claude Code interface, similar to how terminal prompts (PS1) work in shells like Oh-my-zsh.
 
-## カスタムステータスラインを作成する
+## Create a custom status line
 
-以下のいずれかを実行できます：
+You can either:
 
-* `/statusline`を実行してClaude Codeにカスタムステータスラインのセットアップを支援してもらいます。デフォルトではターミナルのプロンプトを再現しようとしますが、`/statusline show the model name in orange`など、Claude Codeに希望する動作に関する追加の指示を提供できます
+* Run `/statusline` to ask Claude Code to help you set up a custom status line. By default, it will try to reproduce your terminal's prompt, but you can provide additional instructions about the behavior you want to Claude Code, such as `/statusline show the model name in orange`
 
-* `.claude/settings.json`に直接`statusLine`コマンドを追加します：
+* Directly add a `statusLine` command to your `.claude/settings.json`:
 
 ```json  theme={null}
 {
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
-    "padding": 0 // オプション：ステータスラインを端まで表示する場合は0に設定
+    "padding": 0 // Optional: set to 0 to let status line go to edge
   }
 }
 ```
 
-## 仕組み
+## How it Works
 
-* ステータスラインは会話メッセージが更新されるときに更新されます
-* 更新は最大300msごとに実行されます
-* コマンドからのstdoutの最初の行がステータスラインテキストになります
-* ステータスラインのスタイリングのためにANSIカラーコードがサポートされています
-* Claude Codeは現在のセッション（モデル、ディレクトリなど）に関するコンテキスト情報をJSON形式でstdinを介してスクリプトに渡します
+* The status line is updated when the conversation messages update
+* Updates run at most every 300 ms
+* The first line of stdout from your command becomes the status line text
+* ANSI color codes are supported for styling your status line
+* Claude Code passes contextual information about the current session (model, directories, etc.) as JSON to your script via stdin
 
-## JSON入力構造
+## JSON Input Structure
 
-ステータスラインコマンドはJSON形式でstdinを介して構造化されたデータを受け取ります：
+Your status line command receives structured data via stdin in JSON format:
 
 ```json  theme={null}
 {
@@ -58,38 +58,49 @@ Claude Codeをカスタムステータスラインでカスタマイズしまし
     "total_api_duration_ms": 2300,
     "total_lines_added": 156,
     "total_lines_removed": 23
+  },
+  "context_window": {
+    "total_input_tokens": 15234,
+    "total_output_tokens": 4521,
+    "context_window_size": 200000,
+    "current_usage": {
+      "input_tokens": 8500,
+      "output_tokens": 1200,
+      "cache_creation_input_tokens": 5000,
+      "cache_read_input_tokens": 2000
+    }
   }
 }
 ```
 
-## スクリプト例
+## Example Scripts
 
-### シンプルなステータスライン
+### Simple Status Line
 
 ```bash  theme={null}
 #!/bin/bash
-# stdinからJSON入力を読み込む
+# Read JSON input from stdin
 input=$(cat)
 
-# jqを使用して値を抽出
+# Extract values using jq
 MODEL_DISPLAY=$(echo "$input" | jq -r '.model.display_name')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
 
 echo "[$MODEL_DISPLAY] 📁 ${CURRENT_DIR##*/}"
 ```
 
-### Git対応ステータスライン
+### Git-Aware Status Line
 
 ```bash  theme={null}
 #!/bin/bash
-# stdinからJSON入力を読み込む
+# Read JSON input from stdin
 input=$(cat)
 
-# jqを使用して値を抽出
+# Extract values using jq
 MODEL_DISPLAY=$(echo "$input" | jq -r '.model.display_name')
 CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
 
-# gitリポジトリにいる場合はgitブランチを表示
+# Show git branch if in a git repo
 GIT_BRANCH=""
 if git rev-parse --git-dir > /dev/null 2>&1; then
     BRANCH=$(git branch --show-current 2>/dev/null)
@@ -101,7 +112,7 @@ fi
 echo "[$MODEL_DISPLAY] 📁 ${CURRENT_DIR##*/}$GIT_BRANCH"
 ```
 
-### Pythonの例
+### Python Example
 
 ```python  theme={null}
 #!/usr/bin/env python3
@@ -109,14 +120,14 @@ import json
 import sys
 import os
 
-# stdinからJSONを読み込む
+# Read JSON from stdin
 data = json.load(sys.stdin)
 
-# 値を抽出
+# Extract values
 model = data['model']['display_name']
 current_dir = os.path.basename(data['workspace']['current_dir'])
 
-# gitブランチをチェック
+# Check for git branch
 git_branch = ""
 if os.path.exists('.git'):
     try:
@@ -130,7 +141,7 @@ if os.path.exists('.git'):
 print(f"[{model}] 📁 {current_dir}{git_branch}")
 ```
 
-### Node.jsの例
+### Node.js Example
 
 ```javascript  theme={null}
 #!/usr/bin/env node
@@ -138,17 +149,17 @@ print(f"[{model}] 📁 {current_dir}{git_branch}")
 const fs = require('fs');
 const path = require('path');
 
-// stdinからJSONを読み込む
+// Read JSON from stdin
 let input = '';
 process.stdin.on('data', chunk => input += chunk);
 process.stdin.on('end', () => {
     const data = JSON.parse(input);
     
-    // 値を抽出
+    // Extract values
     const model = data.model.display_name;
     const currentDir = path.basename(data.workspace.current_dir);
     
-    // gitブランチをチェック
+    // Check for git branch
     let gitBranch = '';
     try {
         const headContent = fs.readFileSync('.git/HEAD', 'utf8').trim();
@@ -156,23 +167,23 @@ process.stdin.on('end', () => {
             gitBranch = ` | 🌿 ${headContent.replace('ref: refs/heads/', '')}`;
         }
     } catch (e) {
-        // gitリポジトリではないか、HEADを読み込めない
+        // Not a git repo or can't read HEAD
     }
     
     console.log(`[${model}] 📁 ${currentDir}${gitBranch}`);
 });
 ```
 
-### ヘルパー関数アプローチ
+### Helper Function Approach
 
-より複雑なbashスクリプトの場合、ヘルパー関数を作成できます：
+For more complex bash scripts, you can create helper functions:
 
 ```bash  theme={null}
 #!/bin/bash
-# JSON入力を一度読み込む
+# Read JSON input once
 input=$(cat)
 
-# 一般的な抽出用のヘルパー関数
+# Helper functions for common extractions
 get_model_name() { echo "$input" | jq -r '.model.display_name'; }
 get_current_dir() { echo "$input" | jq -r '.workspace.current_dir'; }
 get_project_dir() { echo "$input" | jq -r '.workspace.project_dir'; }
@@ -181,25 +192,59 @@ get_cost() { echo "$input" | jq -r '.cost.total_cost_usd'; }
 get_duration() { echo "$input" | jq -r '.cost.total_duration_ms'; }
 get_lines_added() { echo "$input" | jq -r '.cost.total_lines_added'; }
 get_lines_removed() { echo "$input" | jq -r '.cost.total_lines_removed'; }
+get_input_tokens() { echo "$input" | jq -r '.context_window.total_input_tokens'; }
+get_output_tokens() { echo "$input" | jq -r '.context_window.total_output_tokens'; }
+get_context_window_size() { echo "$input" | jq -r '.context_window.context_window_size'; }
 
-# ヘルパーを使用
+# Use the helpers
 MODEL=$(get_model_name)
 DIR=$(get_current_dir)
 echo "[$MODEL] 📁 ${DIR##*/}"
 ```
 
-## ヒント
+### Context Window Usage
 
-* ステータスラインは簡潔に保つ - 1行に収まるべきです
-* 絵文字（ターミナルがサポートしている場合）と色を使用して情報をスキャン可能にします
-* Bashでは`jq`をJSON解析に使用します（上記の例を参照）
-* モックJSON入力でスクリプトを手動で実行してテストします：`echo '{"model":{"display_name":"Test"},"workspace":{"current_dir":"/test"}}' | ./statusline.sh`
-* 必要に応じて、高コストの操作（gitステータスなど）をキャッシュすることを検討してください
+Display the percentage of context window consumed. The `context_window` object contains:
 
-## トラブルシューティング
+* `total_input_tokens` / `total_output_tokens`: Cumulative totals across the entire session
+* `current_usage`: Current context window usage from the last API call (may be `null` if no messages yet)
+  * `input_tokens`: Input tokens in current context
+  * `output_tokens`: Output tokens generated
+  * `cache_creation_input_tokens`: Tokens written to cache
+  * `cache_read_input_tokens`: Tokens read from cache
 
-* ステータスラインが表示されない場合は、スクリプトが実行可能であることを確認してください（`chmod +x`）
-* スクリプトがstdoutに出力していることを確認してください（stderrではなく）
+For accurate context percentage, use `current_usage` which reflects the actual context window state:
+
+```bash  theme={null}
+#!/bin/bash
+input=$(cat)
+
+MODEL=$(echo "$input" | jq -r '.model.display_name')
+CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
+USAGE=$(echo "$input" | jq '.context_window.current_usage')
+
+if [ "$USAGE" != "null" ]; then
+    # Calculate current context from current_usage fields
+    CURRENT_TOKENS=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
+    PERCENT_USED=$((CURRENT_TOKENS * 100 / CONTEXT_SIZE))
+    echo "[$MODEL] Context: ${PERCENT_USED}%"
+else
+    echo "[$MODEL] Context: 0%"
+fi
+```
+
+## Tips
+
+* Keep your status line concise - it should fit on one line
+* Use emojis (if your terminal supports them) and colors to make information scannable
+* Use `jq` for JSON parsing in Bash (see examples above)
+* Test your script by running it manually with mock JSON input: `echo '{"model":{"display_name":"Test"},"workspace":{"current_dir":"/test"}}' | ./statusline.sh`
+* Consider caching expensive operations (like git status) if needed
+
+## Troubleshooting
+
+* If your status line doesn't appear, check that your script is executable (`chmod +x`)
+* Ensure your script outputs to stdout (not stderr)
 
 
 ---

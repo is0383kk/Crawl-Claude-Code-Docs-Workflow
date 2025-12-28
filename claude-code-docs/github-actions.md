@@ -1,99 +1,109 @@
 # Claude Code GitHub Actions
 
-> Claude Code GitHub Actionsを開発ワークフローに統合する方法について学びます
+> Learn about integrating Claude Code into your development workflow with Claude Code GitHub Actions
 
-Claude Code GitHub Actionsは、GitHub ワークフローにAI駆動の自動化をもたらします。任意のPRまたはissueで`@claude`と言及するだけで、Claudeはコードを分析し、プルリクエストを作成し、機能を実装し、バグを修正できます。すべてプロジェクトの標準に従いながら。
+Claude Code GitHub Actions brings AI-powered automation to your GitHub workflow. With a simple `@claude` mention in any PR or issue, Claude can analyze your code, create pull requests, implement features, and fix bugs - all while following your project's standards.
 
 <Note>
-  Claude Code GitHub Actionsは[Claude Code SDK](/ja/sdk)の上に構築されており、Claude Codeのプログラマティック統合をアプリケーションに有効にします。SDKを使用して、GitHub Actions以外のカスタム自動化ワークフローを構築できます。
+  Claude Code GitHub Actions is built on top of the [Claude Code
+  SDK](https://docs.claude.com/en/docs/agent-sdk), which enables programmatic integration of
+  Claude Code into your applications. You can use the SDK to build custom
+  automation workflows beyond GitHub Actions.
 </Note>
 
-## Claude Code GitHub Actionsを使用する理由は何ですか？
+<Info>
+  **Claude Opus 4.5 is now available.** Claude Code GitHub Actions default to Sonnet. To use Opus 4.5, configure the [model parameter](#breaking-changes-reference) to use `claude-opus-4-5-20251101`.
+</Info>
 
-* **インスタントPR作成**: 必要なものを説明すると、Claudeは必要なすべての変更を含む完全なPRを作成します
-* **自動コード実装**: issueを単一のコマンドで動作するコードに変換します
-* **標準に従う**: Claudeは`CLAUDE.md`ガイドラインと既存のコードパターンを尊重します
-* **シンプルなセットアップ**: インストーラーとAPIキーで数分で開始できます
-* **デフォルトで安全**: コードはGithubのランナーに留まります
+## Why use Claude Code GitHub Actions?
 
-## Claudeは何ができますか？
+* **Instant PR creation**: Describe what you need, and Claude creates a complete PR with all necessary changes
+* **Automated code implementation**: Turn issues into working code with a single command
+* **Follows your standards**: Claude respects your `CLAUDE.md` guidelines and existing code patterns
+* **Simple setup**: Get started in minutes with our installer and API key
+* **Secure by default**: Your code stays on Github's runners
 
-Claude Codeは、コードの操作方法を変える強力なGitHub Actionを提供します：
+## What can Claude do?
+
+Claude Code provides a powerful GitHub Action that transforms how you work with code:
 
 ### Claude Code Action
 
-このGitHub Actionにより、GitHub Actionsワークフロー内でClaude Codeを実行できます。これを使用して、Claude Code上に任意のカスタムワークフローを構築できます。
+This GitHub Action allows you to run Claude Code within your GitHub Actions workflows. You can use this to build any custom workflow on top of Claude Code.
 
-[リポジトリを表示 →](https://github.com/anthropics/claude-code-action)
+[View repository →](https://github.com/anthropics/claude-code-action)
 
-## セットアップ
+## Setup
 
-## クイックセットアップ
+## Quick setup
 
-このアクションをセットアップする最も簡単な方法は、ターミナルのClaude Codeを使用することです。claudeを開いて`/install-github-app`を実行するだけです。
+The easiest way to set up this action is through Claude Code in the terminal. Just open claude and run `/install-github-app`.
 
-このコマンドは、GitHubアプリと必要なシークレットのセットアップをガイドします。
+This command will guide you through setting up the GitHub app and required secrets.
 
 <Note>
-  * GitHubアプリをインストールしてシークレットを追加するには、リポジトリ管理者である必要があります
-  * GitHubアプリは、Contents、Issues、およびPull requestsの読み取り＆書き込み権限をリクエストします
-  * このクイックスタート方法は、直接Claude APIユーザーのみが利用できます。AWS BedrocまたはGoogle Vertex AIを使用している場合は、[AWS Bedrock＆Google Vertex AIで使用する](#using-with-aws-bedrock-%26-google-vertex-ai)セクションを参照してください。
+  * You must be a repository admin to install the GitHub app and add secrets
+  * The GitHub app will request read & write permissions for Contents, Issues, and Pull requests
+  * This quickstart method is only available for direct Claude API users. If
+    you're using AWS Bedrock or Google Vertex AI, please see the [Using with AWS
+    Bedrock & Google Vertex AI](#using-with-aws-bedrock-%26-google-vertex-ai)
+    section.
 </Note>
 
-## 手動セットアップ
+## Manual setup
 
-`/install-github-app`コマンドが失敗した場合、または手動セットアップを希望する場合は、以下の手動セットアップ手順に従ってください：
+If the `/install-github-app` command fails or you prefer manual setup, please follow these manual setup instructions:
 
-1. **Claude GitHubアプリをリポジトリにインストール**: [https://github.com/apps/claude](https://github.com/apps/claude)
+1. **Install the Claude GitHub app** to your repository: [https://github.com/apps/claude](https://github.com/apps/claude)
 
-   Claude GitHubアプリには、以下のリポジトリ権限が必要です：
+   The Claude GitHub app requires the following repository permissions:
 
-   * **Contents**: 読み取り＆書き込み（リポジトリファイルを変更するため）
-   * **Issues**: 読み取り＆書き込み（issueに応答するため）
-   * **Pull requests**: 読み取り＆書き込み（PRを作成して変更をプッシュするため）
+   * **Contents**: Read & write (to modify repository files)
+   * **Issues**: Read & write (to respond to issues)
+   * **Pull requests**: Read & write (to create PRs and push changes)
 
-   セキュリティと権限の詳細については、[セキュリティドキュメント](https://github.com/anthropics/claude-code-action/blob/main/docs/security.md)を参照してください。
-2. **ANTHROPIC\_API\_KEYをリポジトリシークレットに追加** ([GitHub Actionsでシークレットを使用する方法を学ぶ](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions))
-3. **ワークフローファイルをコピー** [examples/claude.yml](https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml)からリポジトリの`.github/workflows/`へ
+   For more details on security and permissions, see the [security documentation](https://github.com/anthropics/claude-code-action/blob/main/docs/security.md).
+2. **Add ANTHROPIC\_API\_KEY** to your repository secrets ([Learn how to use secrets in GitHub Actions](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions))
+3. **Copy the workflow file** from [examples/claude.yml](https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml) into your repository's `.github/workflows/`
 
 <Tip>
-  クイックスタートまたは手動セットアップのいずれかを完了した後、issueまたはPRコメントで`@claude`をタグ付けしてアクションをテストしてください！
+  After completing either the quickstart or manual setup, test the action by tagging `@claude` in an issue or PR comment.
 </Tip>
 
-## ベータ版からのアップグレード
+## Upgrading from Beta
 
 <Warning>
-  Claude Code GitHub Actions v1.0は、ベータ版からv1.0にアップグレードするためにワークフローファイルを更新する必要がある破壊的な変更を導入します。
+  Claude Code GitHub Actions v1.0 introduces breaking changes that require updating your workflow files in order to upgrade to v1.0 from the beta version.
 </Warning>
 
-現在Claude Code GitHub Actionsのベータ版を使用している場合は、ワークフローをGA版を使用するように更新することをお勧めします。新しいバージョンは、自動モード検出などの強力な新機能を追加しながら、設定を簡素化します。
+If you're currently using the beta version of Claude Code GitHub Actions, we recommend that you update your workflows to use the GA version. The new version simplifies configuration while adding powerful new features like automatic mode detection.
 
-### 重要な変更
+### Essential changes
 
-すべてのベータユーザーは、アップグレードするためにワークフローファイルに以下の変更を加える必要があります：
+All beta users must make these changes to their workflow files in order to upgrade:
 
-1. **アクションバージョンを更新**: `@beta`を`@v1`に変更
-2. **モード設定を削除**: `mode: "tag"`または`mode: "agent"`を削除（現在は自動検出）
-3. **プロンプト入力を更新**: `direct_prompt`を`prompt`に置き換え
-4. **CLIオプションを移動**: `max_turns`、`model`、`custom_instructions`などを`claude_args`に変換
+1. **Update the action version**: Change `@beta` to `@v1`
+2. **Remove mode configuration**: Delete `mode: "tag"` or `mode: "agent"` (now auto-detected)
+3. **Update prompt inputs**: Replace `direct_prompt` with `prompt`
+4. **Move CLI options**: Convert `max_turns`, `model`, `custom_instructions`, etc. to `claude_args`
 
-### 破壊的な変更リファレンス
+### Breaking Changes Reference
 
-| 古いベータ入力               | 新しいv1.0入力                        |
+| Old Beta Input        | New v1.0 Input                   |
 | --------------------- | -------------------------------- |
-| `mode`                | *(削除 - 自動検出)*                    |
+| `mode`                | *(Removed - auto-detected)*      |
 | `direct_prompt`       | `prompt`                         |
-| `override_prompt`     | `prompt`（GitHubの変数付き）            |
+| `override_prompt`     | `prompt` with GitHub variables   |
 | `custom_instructions` | `claude_args: --system-prompt`   |
 | `max_turns`           | `claude_args: --max-turns`       |
 | `model`               | `claude_args: --model`           |
 | `allowed_tools`       | `claude_args: --allowedTools`    |
 | `disallowed_tools`    | `claude_args: --disallowedTools` |
-| `claude_env`          | `settings` JSON形式                |
+| `claude_env`          | `settings` JSON format           |
 
-### ビフォー・アフター例
+### Before and After Example
 
-**ベータ版:**
+**Beta version:**
 
 ```yaml  theme={null}
 - uses: anthropics/claude-code-action@beta
@@ -106,7 +116,7 @@ Claude Codeは、コードの操作方法を変える強力なGitHub Actionを�
     model: "claude-sonnet-4-5-20250929"
 ```
 
-**GA版（v1.0）:**
+**GA version (v1.0):**
 
 ```yaml  theme={null}
 - uses: anthropics/claude-code-action@v1
@@ -120,14 +130,14 @@ Claude Codeは、コードの操作方法を変える強力なGitHub Actionを�
 ```
 
 <Tip>
-  アクションは、設定に基づいて、インタラクティブモード（`@claude`メンションに応答）または自動化モード（プロンプト付きで即座に実行）で実行するかどうかを自動的に検出します。
+  The action now automatically detects whether to run in interactive mode (responds to `@claude` mentions) or automation mode (runs immediately with a prompt) based on your configuration.
 </Tip>
 
-## ユースケース例
+## Example use cases
 
-Claude Code GitHub Actionsは、さまざまなタスクに役立ちます。[examplesディレクトリ](https://github.com/anthropics/claude-code-action/tree/main/examples)には、異なるシナリオ用の使用可能なワークフローが含まれています。
+Claude Code GitHub Actions can help you with a variety of tasks. The [examples directory](https://github.com/anthropics/claude-code-action/tree/main/examples) contains ready-to-use workflows for different scenarios.
 
-### 基本的なワークフロー
+### Basic workflow
 
 ```yaml  theme={null}
 name: Claude Code
@@ -146,7 +156,7 @@ jobs:
           # Responds to @claude mentions in comments
 ```
 
-### スラッシュコマンドの使用
+### Using slash commands
 
 ```yaml  theme={null}
 name: Code Review
@@ -164,7 +174,7 @@ jobs:
           claude_args: "--max-turns 5"
 ```
 
-### プロンプトを使用したカスタム自動化
+### Custom automation with prompts
 
 ```yaml  theme={null}
 name: Daily Report
@@ -179,12 +189,12 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: "Generate a summary of yesterday's commits and open issues"
-          claude_args: "--model claude-opus-4-1-20250805"
+          claude_args: "--model claude-opus-4-5-20251101"
 ```
 
-### 一般的なユースケース
+### Common use cases
 
-issueまたはPRコメント内：
+In issue or PR comments:
 
 ```
 @claude implement this feature based on the issue description
@@ -192,58 +202,58 @@ issueまたはPRコメント内：
 @claude fix the TypeError in the user dashboard component
 ```
 
-Claudeは自動的にコンテキストを分析し、適切に応答します。
+Claude will automatically analyze the context and respond appropriately.
 
-## ベストプラクティス
+## Best practices
 
-### CLAUDE.md設定
+### CLAUDE.md configuration
 
-リポジトリルートに`CLAUDE.md`ファイルを作成して、コードスタイルガイドライン、レビュー基準、プロジェクト固有のルール、および推奨パターンを定義します。このファイルは、Claudeのプロジェクト標準の理解をガイドします。
+Create a `CLAUDE.md` file in your repository root to define code style guidelines, review criteria, project-specific rules, and preferred patterns. This file guides Claude's understanding of your project standards.
 
-### セキュリティに関する考慮事項
+### Security considerations
 
-<Warning>APIキーをリポジトリに直接コミットしないでください！</Warning>
+<Warning>Never commit API keys directly to your repository.</Warning>
 
-権限、認証、およびベストプラクティスを含む包括的なセキュリティガイダンスについては、[Claude Code Actionセキュリティドキュメント](https://github.com/anthropics/claude-code-action/blob/main/docs/security.md)を参照してください。
+For comprehensive security guidance including permissions, authentication, and best practices, see the [Claude Code Action security documentation](https://github.com/anthropics/claude-code-action/blob/main/docs/security.md).
 
-常にAPIキーにGitHub Secretsを使用してください：
+Always use GitHub Secrets for API keys:
 
-* APIキーを`ANTHROPIC_API_KEY`という名前のリポジトリシークレットとして追加
-* ワークフローで参照：`anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}`
-* アクション権限を必要なものだけに制限
-* マージ前にClaudeの提案を確認
+* Add your API key as a repository secret named `ANTHROPIC_API_KEY`
+* Reference it in workflows: `anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}`
+* Limit action permissions to only what's necessary
+* Review Claude's suggestions before merging
 
-ワークフローファイルにAPIキーを直接ハードコーディングするのではなく、常にGitHub Secrets（例：`${{ secrets.ANTHROPIC_API_KEY }}`）を使用してください。
+Always use GitHub Secrets (for example, `${{ secrets.ANTHROPIC_API_KEY }}`) rather than hardcoding API keys directly in your workflow files.
 
-### パフォーマンスの最適化
+### Optimizing performance
 
-issueテンプレートを使用してコンテキストを提供し、`CLAUDE.md`を簡潔で焦点を絞ったものに保ち、ワークフローに適切なタイムアウトを設定します。
+Use issue templates to provide context, keep your `CLAUDE.md` concise and focused, and configure appropriate timeouts for your workflows.
 
-### CI コスト
+### CI costs
 
-Claude Code GitHub Actionsを使用する場合、関連するコストに注意してください：
+When using Claude Code GitHub Actions, be aware of the associated costs:
 
-**GitHub Actionsコスト：**
+**GitHub Actions costs:**
 
-* Claude Codeはgithub ホストランナーで実行され、GitHub Actionsの分を消費します
-* 詳細な価格設定と分の制限については、[GitHubの請求ドキュメント](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions)を参照してください
+* Claude Code runs on GitHub-hosted runners, which consume your GitHub Actions minutes
+* See [GitHub's billing documentation](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions) for detailed pricing and minute limits
 
-**APIコスト：**
+**API costs:**
 
-* 各Claude相互作用は、プロンプトと応答の長さに基づいてAPIトークンを消費します
-* トークン使用量は、タスクの複雑さとコードベースのサイズによって異なります
-* 現在のトークンレートについては、[Claudeの価格ページ](https://claude.com/platform/api)を参照してください
+* Each Claude interaction consumes API tokens based on the length of prompts and responses
+* Token usage varies by task complexity and codebase size
+* See [Claude's pricing page](https://claude.com/platform/api) for current token rates
 
-**コスト最適化のヒント：**
+**Cost optimization tips:**
 
-* 特定の`@claude`コマンドを使用して、不要なAPI呼び出しを減らします
-* `claude_args`で適切な`--max-turns`を設定して、過度な反復を防ぎます
-* ワークフローレベルのタイムアウトを設定して、暴走ジョブを回避します
-* GitHubの同時実行制御を使用して、並列実行を制限することを検討してください
+* Use specific `@claude` commands to reduce unnecessary API calls
+* Configure appropriate `--max-turns` in `claude_args` to prevent excessive iterations
+* Set workflow-level timeouts to avoid runaway jobs
+* Consider using GitHub's concurrency controls to limit parallel runs
 
-## 設定例
+## Configuration examples
 
-Claude Code Action v1は、統一されたパラメータで設定を簡素化します：
+The Claude Code Action v1 simplifies configuration with unified parameters:
 
 ```yaml  theme={null}
 - uses: anthropics/claude-code-action@v1
@@ -253,212 +263,212 @@ Claude Code Action v1は、統一されたパラメータで設定を簡素化�
     claude_args: "--max-turns 5" # Optional CLI arguments
 ```
 
-主な機能：
+Key features:
 
-* **統一されたプロンプトインターフェース** - すべての指示に`prompt`を使用
-* **スラッシュコマンド** - `/review`や`/fix`などの事前構築されたプロンプト
-* **CLIパススルー** - `claude_args`経由のClaude Code CLIの任意の引数
-* **柔軟なトリガー** - 任意のGitHubイベントで動作
+* **Unified prompt interface** - Use `prompt` for all instructions
+* **Slash commands** - Pre-built prompts like `/review` or `/fix`
+* **CLI passthrough** - Any Claude Code CLI argument via `claude_args`
+* **Flexible triggers** - Works with any GitHub event
 
-完全なワークフローファイルについては、[examplesディレクトリ](https://github.com/anthropics/claude-code-action/tree/main/examples)を参照してください。
+Visit the [examples directory](https://github.com/anthropics/claude-code-action/tree/main/examples) for complete workflow files.
 
 <Tip>
-  issueまたはPRコメントに応答する場合、Claudeは自動的に@claudeメンションに応答します。その他のイベントの場合は、`prompt`パラメータを使用して指示を提供します。
+  When responding to issue or PR comments, Claude automatically responds to @claude mentions. For other events, use the `prompt` parameter to provide instructions.
 </Tip>
 
-## AWS Bedrock＆Google Vertex AIで使用する
+## Using with AWS Bedrock & Google Vertex AI
 
-エンタープライズ環境では、Claude Code GitHub Actionsを独自のクラウドインフラストラクチャで使用できます。このアプローチにより、データレジデンシーと請求を制御しながら、同じ機能を維持できます。
+For enterprise environments, you can use Claude Code GitHub Actions with your own cloud infrastructure. This approach gives you control over data residency and billing while maintaining the same functionality.
 
-### 前提条件
+### Prerequisites
 
-クラウドプロバイダーでClaude Code GitHub Actionsをセットアップする前に、以下が必要です：
+Before setting up Claude Code GitHub Actions with cloud providers, you need:
 
-#### Google Cloud Vertex AIの場合：
+#### For Google Cloud Vertex AI:
 
-1. Vertex AIが有効になっているGoogle Cloudプロジェクト
-2. GitHub Actionsに設定されたWorkload Identity Federation
-3. 必要な権限を持つサービスアカウント
-4. GitHubアプリ（推奨）またはデフォルトのGITHUB\_TOKENを使用
+1. A Google Cloud Project with Vertex AI enabled
+2. Workload Identity Federation configured for GitHub Actions
+3. A service account with the required permissions
+4. A GitHub App (recommended) or use the default GITHUB\_TOKEN
 
-#### AWS Bedrockの場合：
+#### For AWS Bedrock:
 
-1. Amazon Bedrockが有効になっているAWSアカウント
-2. AWSで設定されたGitHub OIDCアイデンティティプロバイダー
-3. Bedrock権限を持つIAMロール
-4. GitHubアプリ（推奨）またはデフォルトのGITHUB\_TOKENを使用
+1. An AWS account with Amazon Bedrock enabled
+2. GitHub OIDC Identity Provider configured in AWS
+3. An IAM role with Bedrock permissions
+4. A GitHub App (recommended) or use the default GITHUB\_TOKEN
 
 <Steps>
-  <Step title="カスタムGitHubアプリを作成（3Pプロバイダーに推奨）">
-    Vertex AIやBedrockなどの3Pプロバイダーを使用する場合、最適な制御とセキュリティのために、独自のGitHubアプリを作成することをお勧めします：
+  <Step title="Create a custom GitHub App (Recommended for 3P Providers)">
+    For best control and security when using 3P providers like Vertex AI or Bedrock, we recommend creating your own GitHub App:
 
-    1. [https://github.com/settings/apps/newにアクセス](https://github.com/settings/apps/newにアクセス)
-    2. 基本情報を入力：
-       * **GitHub App name**: 一意の名前を選択（例：「YourOrg Claude Assistant」）
-       * **Homepage URL**: 組織のウェブサイトまたはリポジトリURL
-    3. アプリ設定を設定：
-       * **Webhooks**: 「Active」をチェック解除（この統合には不要）
-    4. 必要な権限を設定：
+    1. Go to [https://github.com/settings/apps/new](https://github.com/settings/apps/new)
+    2. Fill in the basic information:
+       * **GitHub App name**: Choose a unique name (e.g., "YourOrg Claude Assistant")
+       * **Homepage URL**: Your organization's website or the repository URL
+    3. Configure the app settings:
+       * **Webhooks**: Uncheck "Active" (not needed for this integration)
+    4. Set the required permissions:
        * **Repository permissions**:
          * Contents: Read & Write
          * Issues: Read & Write
          * Pull requests: Read & Write
-    5. 「Create GitHub App」をクリック
-    6. 作成後、「Generate a private key」をクリックしてダウンロードした`.pem`ファイルを保存
-    7. アプリ設定ページからアプリIDをメモ
-    8. アプリをリポジトリにインストール：
-       * アプリの設定ページから、左側のサイドバーの「Install App」をクリック
-       * アカウントまたは組織を選択
-       * 「Only select repositories」を選択して特定のリポジトリを選択
-       * 「Install」をクリック
-    9. プライベートキーをリポジトリシークレットとして追加：
-       * リポジトリの設定 → シークレットと変数 → アクションに移動
-       * `.pem`ファイルの内容を含む`APP_PRIVATE_KEY`という名前の新しいシークレットを作成
-    10. アプリIDをシークレットとして追加：
+    5. Click "Create GitHub App"
+    6. After creation, click "Generate a private key" and save the downloaded `.pem` file
+    7. Note your App ID from the app settings page
+    8. Install the app to your repository:
+       * From your app's settings page, click "Install App" in the left sidebar
+       * Select your account or organization
+       * Choose "Only select repositories" and select the specific repository
+       * Click "Install"
+    9. Add the private key as a secret to your repository:
+       * Go to your repository's Settings → Secrets and variables → Actions
+       * Create a new secret named `APP_PRIVATE_KEY` with the contents of the `.pem` file
+    10. Add the App ID as a secret:
 
-    * GitHubアプリのIDを含む`APP_ID`という名前の新しいシークレットを作成
+    * Create a new secret named `APP_ID` with your GitHub App's ID
 
     <Note>
-      このアプリは、[actions/create-github-app-token](https://github.com/actions/create-github-app-token)アクションで使用され、ワークフロー内で認証トークンを生成します。
+      This app will be used with the [actions/create-github-app-token](https://github.com/actions/create-github-app-token) action to generate authentication tokens in your workflows.
     </Note>
 
-    **Claude APIの場合またはGithubアプリをセットアップしたくない場合の代替案**: 公式Anthropicアプリを使用：
+    **Alternative for Claude API or if you don't want to setup your own Github app**: Use the official Anthropic app:
 
-    1. [https://github.com/apps/claudeからインストール](https://github.com/apps/claudeからインストール)
-    2. 認証に追加の設定は不要
+    1. Install from: [https://github.com/apps/claude](https://github.com/apps/claude)
+    2. No additional configuration needed for authentication
   </Step>
 
-  <Step title="クラウドプロバイダー認証を設定">
-    クラウドプロバイダーを選択し、安全な認証をセットアップ：
+  <Step title="Configure cloud provider authentication">
+    Choose your cloud provider and set up secure authentication:
 
     <AccordionGroup>
       <Accordion title="AWS Bedrock">
-        **認証情報を保存せずに、GitHub ActionsがAWSに安全に認証できるようにAWSを設定します。**
+        **Configure AWS to allow GitHub Actions to authenticate securely without storing credentials.**
 
-        > **セキュリティに関する注意**: リポジトリ固有の設定を使用し、最小限の必要な権限のみを付与します。
+        > **Security Note**: Use repository-specific configurations and grant only the minimum required permissions.
 
-        **必要なセットアップ**:
+        **Required Setup**:
 
-        1. **Amazon Bedrockを有効化**:
-           * Amazon Bedrockでのクラウドモデルへのアクセスをリクエスト
-           * クロスリージョンモデルの場合、すべての必要なリージョンでアクセスをリクエスト
+        1. **Enable Amazon Bedrock**:
+           * Request access to Claude models in Amazon Bedrock
+           * For cross-region models, request access in all required regions
 
-        2. **GitHub OIDCアイデンティティプロバイダーをセットアップ**:
-           * プロバイダーURL: `https://token.actions.githubusercontent.com`
-           * オーディエンス: `sts.amazonaws.com`
+        2. **Set up GitHub OIDC Identity Provider**:
+           * Provider URL: `https://token.actions.githubusercontent.com`
+           * Audience: `sts.amazonaws.com`
 
-        3. **GitHub Actions用のIAMロールを作成**:
-           * 信頼されたエンティティタイプ: Web identity
-           * アイデンティティプロバイダー: `token.actions.githubusercontent.com`
-           * 権限: `AmazonBedrockFullAccess`ポリシー
-           * 特定のリポジトリの信頼ポリシーを設定
+        3. **Create IAM Role for GitHub Actions**:
+           * Trusted entity type: Web identity
+           * Identity provider: `token.actions.githubusercontent.com`
+           * Permissions: `AmazonBedrockFullAccess` policy
+           * Configure trust policy for your specific repository
 
-        **必要な値**:
+        **Required Values**:
 
-        セットアップ後、以下が必要です：
+        After setup, you'll need:
 
-        * **AWS\_ROLE\_TO\_ASSUME**: 作成したIAMロールのARN
+        * **AWS\_ROLE\_TO\_ASSUME**: The ARN of the IAM role you created
 
         <Tip>
-          OIDCは、認証情報が一時的で自動的にローテーションされるため、静的なAWSアクセスキーを使用するよりも安全です。
+          OIDC is more secure than using static AWS access keys because credentials are temporary and automatically rotated.
         </Tip>
 
-        詳細なOIDCセットアップ手順については、[AWSドキュメント](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html)を参照してください。
+        See [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_oidc.html) for detailed OIDC setup instructions.
       </Accordion>
 
       <Accordion title="Google Vertex AI">
-        **認証情報を保存せずに、GitHub ActionsがGoogle Cloudに安全に認証できるようにGoogle Cloudを設定します。**
+        **Configure Google Cloud to allow GitHub Actions to authenticate securely without storing credentials.**
 
-        > **セキュリティに関する注意**: リポジトリ固有の設定を使用し、最小限の必要な権限のみを付与します。
+        > **Security Note**: Use repository-specific configurations and grant only the minimum required permissions.
 
-        **必要なセットアップ**:
+        **Required Setup**:
 
-        1. **Google Cloudプロジェクトで APIを有効化**:
+        1. **Enable APIs** in your Google Cloud project:
            * IAM Credentials API
            * Security Token Service (STS) API
            * Vertex AI API
 
-        2. **Workload Identity Federationリソースを作成**:
-           * Workload Identity Poolを作成
-           * 以下を含むGitHub OIDCプロバイダーを追加：
+        2. **Create Workload Identity Federation resources**:
+           * Create a Workload Identity Pool
+           * Add a GitHub OIDC provider with:
              * Issuer: `https://token.actions.githubusercontent.com`
-             * リポジトリと所有者の属性マッピング
-             * **セキュリティ推奨**: リポジトリ固有の属性条件を使用
+             * Attribute mappings for repository and owner
+             * **Security recommendation**: Use repository-specific attribute conditions
 
-        3. **サービスアカウントを作成**:
-           * `Vertex AI User`ロールのみを付与
-           * **セキュリティ推奨**: リポジトリごとに専用のサービスアカウントを作成
+        3. **Create a Service Account**:
+           * Grant only `Vertex AI User` role
+           * **Security recommendation**: Create a dedicated service account per repository
 
-        4. **IAMバインディングを設定**:
-           * Workload Identity Poolがサービスアカウントをなりすまし可能にする
-           * **セキュリティ推奨**: リポジトリ固有のプリンシパルセットを使用
+        4. **Configure IAM bindings**:
+           * Allow the Workload Identity Pool to impersonate the service account
+           * **Security recommendation**: Use repository-specific principal sets
 
-        **必要な値**:
+        **Required Values**:
 
-        セットアップ後、以下が必要です：
+        After setup, you'll need:
 
-        * **GCP\_WORKLOAD\_IDENTITY\_PROVIDER**: 完全なプロバイダーリソース名
-        * **GCP\_SERVICE\_ACCOUNT**: サービスアカウントのメールアドレス
+        * **GCP\_WORKLOAD\_IDENTITY\_PROVIDER**: The full provider resource name
+        * **GCP\_SERVICE\_ACCOUNT**: The service account email address
 
         <Tip>
-          Workload Identity Federationは、ダウンロード可能なサービスアカウントキーの必要性を排除し、セキュリティを向上させます。
+          Workload Identity Federation eliminates the need for downloadable service account keys, improving security.
         </Tip>
 
-        詳細なセットアップ手順については、[Google Cloud Workload Identity Federationドキュメント](https://cloud.google.com/iam/docs/workload-identity-federation)を参照してください。
+        For detailed setup instructions, consult the [Google Cloud Workload Identity Federation documentation](https://cloud.google.com/iam/docs/workload-identity-federation).
       </Accordion>
     </AccordionGroup>
   </Step>
 
-  <Step title="必要なシークレットを追加">
-    リポジトリに以下のシークレットを追加（設定 → シークレットと変数 → アクション）：
+  <Step title="Add Required Secrets">
+    Add the following secrets to your repository (Settings → Secrets and variables → Actions):
 
-    #### Claude API（直接）の場合：
+    #### For Claude API (Direct):
 
-    1. **API認証の場合**:
-       * `ANTHROPIC_API_KEY`: [console.anthropic.com](https://console.anthropic.com)からのClaude APIキー
+    1. **For API Authentication**:
+       * `ANTHROPIC_API_KEY`: Your Claude API key from [console.anthropic.com](https://console.anthropic.com)
 
-    2. **GitHubアプリの場合（独自のアプリを使用している場合）**:
-       * `APP_ID`: GitHubアプリのID
-       * `APP_PRIVATE_KEY`: プライベートキー（.pem）の内容
+    2. **For GitHub App (if using your own app)**:
+       * `APP_ID`: Your GitHub App's ID
+       * `APP_PRIVATE_KEY`: The private key (.pem) content
 
-    #### Google Cloud Vertex AIの場合
+    #### For Google Cloud Vertex AI
 
-    1. **GCP認証の場合**:
+    1. **For GCP Authentication**:
        * `GCP_WORKLOAD_IDENTITY_PROVIDER`
        * `GCP_SERVICE_ACCOUNT`
 
-    2. **GitHubアプリの場合（独自のアプリを使用している場合）**:
-       * `APP_ID`: GitHubアプリのID
-       * `APP_PRIVATE_KEY`: プライベートキー（.pem）の内容
+    2. **For GitHub App (if using your own app)**:
+       * `APP_ID`: Your GitHub App's ID
+       * `APP_PRIVATE_KEY`: The private key (.pem) content
 
-    #### AWS Bedrockの場合
+    #### For AWS Bedrock
 
-    1. **AWS認証の場合**:
+    1. **For AWS Authentication**:
        * `AWS_ROLE_TO_ASSUME`
 
-    2. **GitHubアプリの場合（独自のアプリを使用している場合）**:
-       * `APP_ID`: GitHubアプリのID
-       * `APP_PRIVATE_KEY`: プライベートキー（.pem）の内容
+    2. **For GitHub App (if using your own app)**:
+       * `APP_ID`: Your GitHub App's ID
+       * `APP_PRIVATE_KEY`: The private key (.pem) content
   </Step>
 
-  <Step title="ワークフローファイルを作成">
-    クラウドプロバイダーと統合するGitHub Actionsワークフローファイルを作成します。以下の例は、AWS BedrocとGoogle Vertex AIの両方の完全な設定を示しています：
+  <Step title="Create workflow files">
+    Create GitHub Actions workflow files that integrate with your cloud provider. The examples below show complete configurations for both AWS Bedrock and Google Vertex AI:
 
     <AccordionGroup>
-      <Accordion title="AWS Bedrockワークフロー">
-        **前提条件：**
+      <Accordion title="AWS Bedrock workflow">
+        **Prerequisites:**
 
-        * AWS Bedrockアクセスが有効で、Claudeモデルの権限がある
-        * GitHubがAWSのOIDCアイデンティティプロバイダーとして設定されている
-        * GitHub Actionsを信頼するBedrock権限を持つIAMロール
+        * AWS Bedrock access enabled with Claude model permissions
+        * GitHub configured as an OIDC identity provider in AWS
+        * IAM role with Bedrock permissions that trusts GitHub Actions
 
-        **必要なGitHubシークレット：**
+        **Required GitHub secrets:**
 
-        | シークレット名              | 説明                      |
-        | -------------------- | ----------------------- |
-        | `AWS_ROLE_TO_ASSUME` | Bedrockアクセス用のIAMロールのARN |
-        | `APP_ID`             | GitHubアプリID（アプリ設定から）    |
-        | `APP_PRIVATE_KEY`    | GitHubアプリ用に生成したプライベートキー |
+        | Secret Name          | Description                                       |
+        | -------------------- | ------------------------------------------------- |
+        | `AWS_ROLE_TO_ASSUME` | ARN of the IAM role for Bedrock access            |
+        | `APP_ID`             | Your GitHub App ID (from app settings)            |
+        | `APP_PRIVATE_KEY`    | The private key you generated for your GitHub App |
 
         ```yaml  theme={null}
         name: Claude PR Action
@@ -511,25 +521,25 @@ Claude Code Action v1は、統一されたパラメータで設定を簡素化�
         ```
 
         <Tip>
-          BedrockのモデルID形式には、リージョンプレフィックス（例：`us.anthropic.claude...`）とバージョンサフィックスが含まれます。
+          The model ID format for Bedrock includes the region prefix (e.g., `us.anthropic.claude...`) and version suffix.
         </Tip>
       </Accordion>
 
-      <Accordion title="Google Vertex AIワークフロー">
-        **前提条件：**
+      <Accordion title="Google Vertex AI workflow">
+        **Prerequisites:**
 
-        * GCPプロジェクトでVertex AI APIが有効
-        * GitHubに設定されたWorkload Identity Federation
-        * Vertex AI権限を持つサービスアカウント
+        * Vertex AI API enabled in your GCP project
+        * Workload Identity Federation configured for GitHub
+        * Service account with Vertex AI permissions
 
-        **必要なGitHubシークレット：**
+        **Required GitHub secrets:**
 
-        | シークレット名                          | 説明                              |
-        | -------------------------------- | ------------------------------- |
-        | `GCP_WORKLOAD_IDENTITY_PROVIDER` | Workload identity providerリソース名 |
-        | `GCP_SERVICE_ACCOUNT`            | Vertex AIアクセス権を持つサービスアカウントメール   |
-        | `APP_ID`                         | GitHubアプリID（アプリ設定から）            |
-        | `APP_PRIVATE_KEY`                | GitHubアプリ用に生成したプライベートキー         |
+        | Secret Name                      | Description                                       |
+        | -------------------------------- | ------------------------------------------------- |
+        | `GCP_WORKLOAD_IDENTITY_PROVIDER` | Workload identity provider resource name          |
+        | `GCP_SERVICE_ACCOUNT`            | Service account email with Vertex AI access       |
+        | `APP_ID`                         | Your GitHub App ID (from app settings)            |
+        | `APP_PRIVATE_KEY`                | The private key you generated for your GitHub App |
 
         ```yaml  theme={null}
         name: Claude PR Action
@@ -586,80 +596,80 @@ Claude Code Action v1は、統一されたパラメータで設定を簡素化�
         ```
 
         <Tip>
-          プロジェクトIDはGoogle Cloud認証ステップから自動的に取得されるため、ハードコーディングする必要はありません。
+          The project ID is automatically retrieved from the Google Cloud authentication step, so you don't need to hardcode it.
         </Tip>
       </Accordion>
     </AccordionGroup>
   </Step>
 </Steps>
 
-## トラブルシューティング
+## Troubleshooting
 
-### Claudeが@claudeコマンドに応答しない
+### Claude not responding to @claude commands
 
-GitHubアプリが正しくインストールされていることを確認し、ワークフローが有効になっていることを確認し、APIキーがリポジトリシークレットに設定されていることを確認し、コメントに`@claude`が含まれていることを確認します（`/claude`ではなく）。
+Verify the GitHub App is installed correctly, check that workflows are enabled, ensure API key is set in repository secrets, and confirm the comment contains `@claude` (not `/claude`).
 
-### CIがClaudeのコミットで実行されない
+### CI not running on Claude's commits
 
-GitHub Appまたはカスタムアプリを使用していることを確認（Actionsユーザーではなく）、ワークフロートリガーに必要なイベントが含まれていることを確認し、アプリ権限にCIトリガーが含まれていることを確認します。
+Ensure you're using the GitHub App or custom app (not Actions user), check workflow triggers include the necessary events, and verify app permissions include CI triggers.
 
-### 認証エラー
+### Authentication errors
 
-APIキーが有効で十分な権限があることを確認します。Bedrock/Vertexの場合は、認証情報の設定を確認し、シークレットがワークフロー内で正しく名前付けされていることを確認します。
+Confirm API key is valid and has sufficient permissions. For Bedrock/Vertex, check credentials configuration and ensure secrets are named correctly in workflows.
 
-## 高度な設定
+## Advanced configuration
 
-### アクションパラメータ
+### Action parameters
 
-Claude Code Action v1は、簡素化された設定を使用します：
+The Claude Code Action v1 uses a simplified configuration:
 
-| パラメータ               | 説明                                 | 必須     |
-| ------------------- | ---------------------------------- | ------ |
-| `prompt`            | Claude用の指示（テキストまたはスラッシュコマンド）       | いいえ\*  |
-| `claude_args`       | Claude Codeに渡されるCLI引数              | いいえ    |
-| `anthropic_api_key` | Claude APIキー                       | はい\*\* |
-| `github_token`      | API アクセス用のGitHubトークン               | いいえ    |
-| `trigger_phrase`    | カスタムトリガーフレーズ（デフォルト：「@claude」）      | いいえ    |
-| `use_bedrock`       | Claude APIの代わりにAWS Bedrockを使用      | いいえ    |
-| `use_vertex`        | Claude APIの代わりにGoogle Vertex AIを使用 | いいえ    |
+| Parameter           | Description                                     | Required |
+| ------------------- | ----------------------------------------------- | -------- |
+| `prompt`            | Instructions for Claude (text or slash command) | No\*     |
+| `claude_args`       | CLI arguments passed to Claude Code             | No       |
+| `anthropic_api_key` | Claude API key                                  | Yes\*\*  |
+| `github_token`      | GitHub token for API access                     | No       |
+| `trigger_phrase`    | Custom trigger phrase (default: "@claude")      | No       |
+| `use_bedrock`       | Use AWS Bedrock instead of Claude API           | No       |
+| `use_vertex`        | Use Google Vertex AI instead of Claude API      | No       |
 
-\*プロンプトはオプションです - issueまたはPRコメントで省略した場合、Claudeはトリガーフレーズに応答します\
-\*\*直接Claude APIに必須、Bedrock/Vertexには不要
+\*Prompt is optional - when omitted for issue/PR comments, Claude responds to trigger phrase\
+\*\*Required for direct Claude API, not for Bedrock/Vertex
 
-#### claude\_argsの使用
+#### Pass CLI arguments
 
-`claude_args`パラメータは、任意のClaude Code CLIの引数を受け入れます：
+The `claude_args` parameter accepts any Claude Code CLI arguments:
 
 ```yaml  theme={null}
 claude_args: "--max-turns 5 --model claude-sonnet-4-5-20250929 --mcp-config /path/to/config.json"
 ```
 
-一般的な引数：
+Common arguments:
 
-* `--max-turns`: 最大会話ターン数（デフォルト：10）
-* `--model`: 使用するモデル（例：`claude-sonnet-4-5-20250929`）
-* `--mcp-config`: MCPの設定へのパス
-* `--allowed-tools`: 許可されたツールのカンマ区切りリスト
-* `--debug`: デバッグ出力を有効化
+* `--max-turns`: Maximum conversation turns (default: 10)
+* `--model`: Model to use (for example, `claude-sonnet-4-5-20250929`)
+* `--mcp-config`: Path to MCP configuration
+* `--allowed-tools`: Comma-separated list of allowed tools
+* `--debug`: Enable debug output
 
-### 代替統合方法
+### Alternative integration methods
 
-`/install-github-app`コマンドが推奨されるアプローチですが、以下も可能です：
+While the `/install-github-app` command is the recommended approach, you can also:
 
-* **カスタムGitHubアプリ**: ブランド化されたユーザー名またはカスタム認証フローが必要な組織向け。必要な権限（contents、issues、pull requests）を持つ独自のGitHubアプリを作成し、actions/create-github-app-tokenアクションを使用してワークフロー内でトークンを生成します。
-* **手動GitHub Actions**: 最大の柔軟性のための直接ワークフロー設定
-* **MCP設定**: Model Context Protocolサーバーの動的読み込み
+* **Custom GitHub App**: For organizations needing branded usernames or custom authentication flows. Create your own GitHub App with required permissions (contents, issues, pull requests) and use the actions/create-github-app-token action to generate tokens in your workflows.
+* **Manual GitHub Actions**: Direct workflow configuration for maximum flexibility
+* **MCP Configuration**: Dynamic loading of Model Context Protocol servers
 
-詳細なガイドについては、[Claude Code Actionドキュメント](https://github.com/anthropics/claude-code-action/blob/main/docs)を参照してください。認証、セキュリティ、および高度な設定に関する詳細ガイドがあります。
+See the [Claude Code Action documentation](https://github.com/anthropics/claude-code-action/blob/main/docs) for detailed guides on authentication, security, and advanced configuration.
 
-### Claudeの動作をカスタマイズ
+### Customizing Claude's behavior
 
-Claudeの動作は2つの方法で設定できます：
+You can configure Claude's behavior in two ways:
 
-1. **CLAUDE.md**: リポジトリのルートに`CLAUDE.md`ファイルを作成して、コーディング標準、レビュー基準、およびプロジェクト固有のルールを定義します。Claudeは、PRを作成してリクエストに応答する際に、これらのガイドラインに従います。詳細については、[メモリドキュメント](/ja/memory)を確認してください。
-2. **カスタムプロンプト**: ワークフローファイルの`prompt`パラメータを使用して、ワークフロー固有の指示を提供します。これにより、異なるワークフローまたはタスク用にClaudeの動作をカスタマイズできます。
+1. **CLAUDE.md**: Define coding standards, review criteria, and project-specific rules in a `CLAUDE.md` file at the root of your repository. Claude will follow these guidelines when creating PRs and responding to requests. Check out our [Memory documentation](/en/memory) for more details.
+2. **Custom prompts**: Use the `prompt` parameter in the workflow file to provide workflow-specific instructions. This allows you to customize Claude's behavior for different workflows or tasks.
 
-Claudeは、PRを作成してリクエストに応答する際に、これらのガイドラインに従います。
+Claude will follow these guidelines when creating PRs and responding to requests.
 
 
 ---

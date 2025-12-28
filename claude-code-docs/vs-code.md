@@ -1,126 +1,253 @@
-# Visual Studio Code
+# Use Claude Code in VS Code
 
-> ネイティブ拡張機能またはCLI統合を通じてVisual Studio CodeでClaude Codeを使用します
+> Install and configure the Claude Code extension for VS Code. Get AI coding assistance with inline diffs, @-mentions, plan review, and keyboard shortcuts.
 
-<img src="https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=300652d5678c63905e6b0ea9e50835f8" alt="Claude Code VS Code拡張機能インターフェース" data-og-width="2500" width="2500" data-og-height="1155" height="1155" data-path="images/vs-code-extension-interface.jpg" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=280&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=87630c671517a3d52e9aee627041696e 280w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=560&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=716b093879204beec8d952649ef75292 560w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=840&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=c1525d1a01513acd9d83d8b5a8fe2fc8 840w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=1100&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=1d90021d58bbb51f871efec13af955c3 1100w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=1650&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=7babdd25440099886f193cfa99af88ae 1650w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=2500&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=08c92eedfb56fe61a61e480fb63784b6 2500w" />
+<img src="https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=300652d5678c63905e6b0ea9e50835f8" alt="VS Code editor with the Claude Code extension panel open on the right side, showing a conversation with Claude" data-og-width="2500" width="2500" data-og-height="1155" height="1155" data-path="images/vs-code-extension-interface.jpg" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=280&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=87630c671517a3d52e9aee627041696e 280w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=560&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=716b093879204beec8d952649ef75292 560w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=840&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=c1525d1a01513acd9d83d8b5a8fe2fc8 840w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=1100&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=1d90021d58bbb51f871efec13af955c3 1100w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=1650&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=7babdd25440099886f193cfa99af88ae 1650w, https://mintcdn.com/claude-code/-YhHHmtSxwr7W8gy/images/vs-code-extension-interface.jpg?w=2500&fit=max&auto=format&n=-YhHHmtSxwr7W8gy&q=85&s=08c92eedfb56fe61a61e480fb63784b6 2500w" />
 
-## VS Code拡張機能（ベータ版）
+The VS Code extension provides a native graphical interface for Claude Code, integrated directly into your IDE. This is the recommended way to use Claude Code in VS Code.
 
-ベータ版で利用可能なVS Code拡張機能により、IDEに直接統合されたネイティブグラフィカルインターフェースを通じて、Claudeの変更をリアルタイムで確認できます。VS Code拡張機能により、ターミナルよりもビジュアルインターフェースを好むユーザーがClaude Codeにアクセスして操作しやすくなります。
+With the extension, you can review and edit Claude's plans before accepting them, auto-accept edits as they're made, @-mention files with specific line ranges from your selection, access conversation history, and open multiple conversations in separate tabs or windows.
 
-### 機能
+## Prerequisites
 
-VS Code拡張機能は以下を提供します：
+* VS Code 1.98.0 or higher
+* An Anthropic account (you'll sign in when you first open the extension). If you're using a third-party provider like Amazon Bedrock or Google Vertex AI, see [Use third-party providers](#use-third-party-providers) instead.
 
-* **ネイティブIDE体験**: Sparkアイコンでアクセスできる専用Claude Codeサイドバーパネル
-* **編集機能付きプランモード**: Claudeのプランを受け入れる前に確認および編集
-* **自動受け入れ編集モード**: Claudeの変更が行われると自動的に適用
-* **ファイル管理**: @メンション機能でファイルを参照するか、システムファイルピッカーを使用してファイルと画像を添付
-* **MCPサーバー使用**: CLIを通じて設定されたModel Context Protocolサーバーを使用
-* **会話履歴**: 過去の会話への簡単なアクセス
-* **複数セッション**: 複数のClaude Codeセッションを同時に実行
-* **キーボードショートカット**: CLIのほとんどのショートカットをサポート
-* **スラッシュコマンド**: 拡張機能内でほとんどのCLIスラッシュコマンドに直接アクセス
+You don't need to install the Claude Code CLI first. However, some features like MCP server configuration require the CLI. See [VS Code extension vs. Claude Code CLI](#vs-code-extension-vs-claude-code-cli) for details.
 
-### 要件
+## Install the extension
 
-* VS Code 1.98.0以上
+Click the link for your IDE to install directly:
 
-### インストール
+* [Install for VS Code](vscode:extension/anthropic.claude-code)
+* [Install for Cursor](cursor:extension/anthropic.claude-code)
 
-[Visual Studio Code拡張機能マーケットプレイス](https://marketplace.visualstudio.com/items?itemName=anthropic.claude-code)から拡張機能をダウンロードしてインストールします。
+Or in VS Code, press `Cmd+Shift+X` (Mac) or `Ctrl+Shift+X` (Windows/Linux) to open the Extensions view, search for "Claude Code", and click **Install**.
 
-### 動作方法
+<Note>You may need to restart VS Code or run "Developer: Reload Window" from the Command Palette after installation.</Note>
 
-インストール後、VS Codeインターフェースを通じてClaude Codeの使用を開始できます：
+## Get started
 
-1. エディターのサイドバーのSparkアイコンをクリックしてClaude Codeパネルを開く
-2. ターミナルで行うのと同じ方法でClaude Codeにプロンプトを入力
-3. Claudeがコードを分析し、変更を提案するのを監視
-4. インターフェース内で直接編集を確認して受け入れ
-   * **ヒント**: サイドバーをドラッグして広げてインラインdiffを表示し、クリックして展開して詳細を確認
+Once installed, you can start using Claude Code through the VS Code interface:
 
-### サードパーティプロバイダーの使用（VertexおよびBedrock）
+<Steps>
+  <Step title="Open the Claude Code panel">
+    Throughout VS Code, the Spark icon indicates Claude Code: <img src="https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=a734d84e785140016672f08e0abb236c" alt="Spark icon" style={{display: "inline", height: "0.85em", verticalAlign: "middle"}} data-og-width="16" width="16" data-og-height="16" height="16" data-path="images/vs-code-spark-icon.svg" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?w=280&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=9a45aad9a84b9fa1701ac99a1f9aa4e9 280w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?w=560&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=3f4cb9254c4d4e93989c4b6bf9292f4b 560w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?w=840&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=e75ccc9faa3e572db8f291ceb65bb264 840w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?w=1100&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=f147bd81a381a62539a4ce361fac41c7 1100w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?w=1650&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=78fe68efaee5d6e844bbacab1b442ed5 1650w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-spark-icon.svg?w=2500&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=efb8dbe1dfa722d094edc6ad2ad4bedb 2500w" />
 
-VS Code拡張機能は、Amazon BedrockやGoogle Vertex AIなどのサードパーティプロバイダーでClaude Codeを使用することをサポートしています。これらのプロバイダーで設定されている場合、拡張機能はログインを求めません。サードパーティプロバイダーを使用するには、VS Code拡張機能設定で環境変数を設定します：
+    The quickest way to open Claude is to click the Spark icon in the **Editor Toolbar** (top-right corner of the editor). The icon only appears when you have a file open.
 
-1. VS Code設定を開く
-2. 「Claude Code: Environment Variables」を検索
-3. 必要な環境変数を追加
+        <img src="https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=eb4540325d94664c51776dbbfec4cf02" alt="VS Code editor showing the Spark icon in the Editor Toolbar" data-og-width="2796" width="2796" data-og-height="734" height="734" data-path="images/vs-code-editor-icon.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?w=280&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=56f218d5464359d6480cfe23f70a923e 280w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?w=560&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=344a8db024b196c795a80dc85cacb8d1 560w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?w=840&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=f30bf834ee0625b2a4a635d552d87163 840w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?w=1100&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=81fdf984840e43a9f08ae42729d1484d 1100w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?w=1650&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=8b60fb32de54717093d512afaa99785c 1650w, https://mintcdn.com/claude-code/mfM-EyoZGnQv8JTc/images/vs-code-editor-icon.png?w=2500&fit=max&auto=format&n=mfM-EyoZGnQv8JTc&q=85&s=893e6bda8f2e9d42c8a294d394f0b736 2500w" />
 
-#### 環境変数
+    Other ways to open Claude Code:
 
-| 変数                            | 説明                     | 必須              | 例                                                |
-| :---------------------------- | :--------------------- | :-------------- | :----------------------------------------------- |
-| `CLAUDE_CODE_USE_BEDROCK`     | Amazon Bedrock統合を有効化   | Bedrockの場合は必須   | `"1"` または `"true"`                               |
-| `CLAUDE_CODE_USE_VERTEX`      | Google Vertex AI統合を有効化 | Vertex AIの場合は必須 | `"1"` または `"true"`                               |
-| `ANTHROPIC_API_KEY`           | サードパーティアクセス用APIキー      | 必須              | `"your-api-key"`                                 |
-| `AWS_REGION`                  | Bedrock用AWSリージョン       |                 | `"us-east-2"`                                    |
-| `AWS_PROFILE`                 | Bedrock認証用AWSプロファイル    |                 | `"your-profile"`                                 |
-| `CLOUD_ML_REGION`             | Vertex AI用リージョン        |                 | `"global"` または `"us-east5"`                      |
-| `ANTHROPIC_VERTEX_PROJECT_ID` | Vertex AI用GCPプロジェクトID  |                 | `"your-project-id"`                              |
-| `ANTHROPIC_MODEL`             | プライマリモデルをオーバーライド       | モデルIDをオーバーライド   | `"us.anthropic.claude-sonnet-4-5-20250929-v1:0"` |
-| `ANTHROPIC_SMALL_FAST_MODEL`  | 小型/高速モデルをオーバーライド       | オプション           | `"us.anthropic.claude-3-5-haiku-20241022-v1:0"`  |
-| `CLAUDE_CODE_SKIP_AUTH_LOGIN` | すべてのログインプロンプトを無効化      | オプション           | `"1"` または `"true"`                               |
+    * **Command Palette**: `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux), type "Claude Code", and select an option like "Open in New Tab"
+    * **Status Bar**: Click **✱ Claude Code** in the bottom-right corner of the window. This works even when no file is open.
 
-詳細なセットアップ手順と追加の設定オプションについては、以下を参照してください：
+    You can drag the Claude panel to reposition it anywhere in VS Code. See [Customize your workflow](#customize-your-workflow) for details.
+  </Step>
 
-* [Amazon Bedrock上のClaude Code](/ja/amazon-bedrock)
-* [Google Vertex AI上のClaude Code](/ja/google-vertex-ai)
+  <Step title="Send a prompt">
+    Ask Claude to help with your code or files, whether that's explaining how something works, debugging an issue, or making changes.
 
-### まだ実装されていない機能
+    <Tip>Select text in the editor and press `Alt+K` to insert an @-mention with the file path and line numbers directly into your prompt.</Tip>
 
-VS Code拡張機能では以下の機能はまだ利用できません：
+    Here's an example of asking about a particular line in a file:
 
-* **完全なMCPサーバー設定**: [MCPサーバーをCLIを通じて設定](/ja/mcp)する必要があり、その後拡張機能がそれらを使用します
-* **サブエージェント設定**: [CLIを通じてサブエージェントを設定](/ja/sub-agents)してVS Codeで使用
-* **チェックポイント**: 特定のポイントで会話状態を保存および復元
-* **高度なショートカット**:
-  * `#` ショートカットでメモリに追加
-  * `!` ショートカットでbashコマンドを直接実行
-* **タブ補完**: タブキーでファイルパス補完
+        <img src="https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=ede3ed8d8d5f940e01c5de636d009cfd" alt="VS Code editor with lines 2-3 selected in a Python file, and the Claude Code panel showing a question about those lines with an @-mention reference" data-og-width="3288" width="3288" data-og-height="1876" height="1876" data-path="images/vs-code-send-prompt.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?w=280&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=f40bde7b2c245fe8f0f5b784e8106492 280w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?w=560&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=fad66a27a9a6faa23b05370aa4f398b2 560w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?w=840&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=4539c8a3823ca80a5c8771f6c088ce9e 840w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?w=1100&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=fae8ebf300c7853409a562ffa46d9c71 1100w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?w=1650&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=22e4462bb8cf0c0ca20f8102bc4c971a 1650w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-send-prompt.png?w=2500&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=739bfd045f70fe7be1a109a53494590e 2500w" />
+  </Step>
 
-これらの機能は今後のアップデートで追加予定です。
+  <Step title="Review changes">
+    When Claude wants to edit a file, it shows you a diff and asks for permission. You can accept, reject, or tell Claude what to do instead.
 
-## セキュリティに関する考慮事項
+        <img src="https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=e005f9b41c541c5c7c59c082f7c4841c" alt="VS Code showing a diff of Claude's proposed changes with a permission prompt asking whether to make the edit" data-og-width="3292" width="3292" data-og-height="1876" height="1876" data-path="images/vs-code-edits.png" data-optimize="true" data-opv="3" srcset="https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?w=280&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=cb5d41b81087f79b842a56b5a3304660 280w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?w=560&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=90bb691960decdc06393c3c21cd62c75 560w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?w=840&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=9a11bf878ba619e850380904ff4f38e8 840w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?w=1100&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=6dddbf596b4f69ec6245bdc5eb6dd487 1100w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?w=1650&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=ef2713b8cbfd2cee97af817d813d64c7 1650w, https://mintcdn.com/claude-code/FVYz38sRY-VuoGHA/images/vs-code-edits.png?w=2500&fit=max&auto=format&n=FVYz38sRY-VuoGHA&q=85&s=1f7e1c52919cdfddf295f32a2ec7ae59 2500w" />
+  </Step>
+</Steps>
 
-Claude CodeがVS Codeで自動編集権限を有効にして実行される場合、IDEによって自動的に実行される可能性があるIDE設定ファイルを変更できる可能性があります。これにより、自動編集モードでClaude Codeを実行するリスクが増加し、bash実行のためのClaude Codeの権限プロンプトをバイパスできる可能性があります。
+For more ideas on what you can do with Claude Code, see [Common workflows](/en/common-workflows).
 
-VS Codeで実行する場合は、以下を検討してください：
+## Customize your workflow
 
-* 信頼されていないワークスペースに対して[VS Code制限モード](https://code.visualstudio.com/docs/editor/workspace-trust#_restricted-mode)を有効化
-* 編集の手動承認モードを使用
-* Claudeが信頼されたプロンプトでのみ使用されることを確認するために特に注意を払う
+Once you're up and running, you can reposition the Claude panel or switch to terminal mode.
 
-## レガシーCLI統合
+### Change the layout
 
-リリースした最初のVS Code統合により、ターミナルで実行されているClaude CodeがIDEと相互作用できます。これは選択コンテキスト共有（現在の選択/タブが自動的にClaude Codeと共有される）、ターミナルの代わりにIDEでのdiff表示、ファイル参照ショートカット（MacではCmd+Option+K、Windows/LinuxではAlt+Ctrl+Kを使用して@File#L1-99のようなファイル参照を挿入）、および自動診断共有（lintおよび構文エラー）を提供します。
+You can drag the Claude panel to reposition it anywhere in VS Code. Grab the panel's tab or title bar and drag it to:
 
-レガシー統合は、VS Codeの統合ターミナルから`claude`を実行すると自動インストールされます。ターミナルから`claude`を実行するだけで、すべての機能がアクティブになります。外部ターミナルの場合は、`/ide`コマンドを使用してClaude CodeをVS Codeインスタンスに接続します。設定するには、`claude`を実行し、`/config`を入力し、diffツールを`auto`に設定して自動IDE検出を行います。
+* **Secondary sidebar** (default): The right side of the window
+* **Primary sidebar**: The left sidebar with icons for Explorer, Search, etc.
+* **Editor area**: Opens Claude as a tab alongside your files
 
-拡張機能とCLI統合の両方がVisual Studio Code、Cursor、Windsurf、およびVSCodiumで機能します。
+<Note>
+  The Spark icon only appears in the Activity Bar (left sidebar icons) when the Claude panel is docked to the left. Since Claude defaults to the right side, use the Editor Toolbar icon to open Claude.
+</Note>
 
-## トラブルシューティング
+### Switch to terminal mode
 
-### 拡張機能がインストールされない
+By default, the extension opens a graphical chat panel. If you prefer the CLI-style interface, open the [Use Terminal setting](vscode://settings/claudeCode.useTerminal) and check the box.
 
-* VS Codeの互換バージョン（1.85.0以上）があることを確認
-* VS Codeが拡張機能をインストールする権限があることを確認
-* マーケットプレイスウェブサイトから直接インストールしてみる
+You can also open VS Code settings (`Cmd+,` on Mac or `Ctrl+,` on Windows/Linux), go to Extensions → Claude Code, and check **Use Terminal**.
 
-### レガシー統合が機能しない
+## VS Code commands and shortcuts
 
-* VS Codeの統合ターミナルからClaude Codeを実行していることを確認
-* IDE変種用のCLIがインストールされていることを確認：
-  * VS Code: `code` コマンドが利用可能である必要があります
-  * Cursor: `cursor` コマンドが利用可能である必要があります
-  * Windsurf: `windsurf` コマンドが利用可能である必要があります
-  * VSCodium: `codium` コマンドが利用可能である必要があります
-* コマンドがインストールされていない場合：
-  1. `Cmd+Shift+P`（Mac）または`Ctrl+Shift+P`（Windows/Linux）でコマンドパレットを開く
-  2. 「Shell Command: Install 'code' command in PATH」（またはIDE用の同等のコマンド）を検索
+Open the Command Palette (`Cmd+Shift+P` on Mac or `Ctrl+Shift+P` on Windows/Linux) and type "Claude Code" to see all available VS Code commands for the Claude Code extension:
 
-追加のヘルプについては、[トラブルシューティングガイド](/ja/troubleshooting)を参照してください。
+<Note>
+  These are VS Code commands for controlling the extension. For Claude Code slash commands (like `/help` or `/compact`), not all CLI commands are available in the extension yet. See [VS Code extension vs. Claude Code CLI](#vs-code-extension-vs-claude-code-cli) for details.
+</Note>
+
+| Command                    | Shortcut                                                 | Description                                                                        |
+| -------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Focus Input                | `Cmd+Esc` (Mac) / `Ctrl+Esc` (Windows/Linux)             | Toggle focus between editor and Claude                                             |
+| Open in Side Bar           | —                                                        | Open Claude in the left sidebar                                                    |
+| Open in Terminal           | —                                                        | Open Claude in terminal mode                                                       |
+| Open in New Tab            | `Cmd+Shift+Esc` (Mac) / `Ctrl+Shift+Esc` (Windows/Linux) | Open a new conversation as an editor tab                                           |
+| Open in New Window         | —                                                        | Open a new conversation in a separate window                                       |
+| New Conversation           | `Cmd+N` (Mac) / `Ctrl+N` (Windows/Linux)                 | Start a new conversation (when Claude is focused)                                  |
+| Insert @-Mention Reference | `Alt+K`                                                  | Insert a reference to the current file (includes line numbers if text is selected) |
+| Show Logs                  | —                                                        | View extension debug logs                                                          |
+| Logout                     | —                                                        | Sign out of your Anthropic account                                                 |
+
+Use **Open in New Tab** or **Open in New Window** to run multiple conversations simultaneously. Each tab or window maintains its own conversation history and context.
+
+## Configure settings
+
+The extension has two types of settings:
+
+* **Extension settings**: Open with `Cmd+,` (Mac) or `Ctrl+,` (Windows/Linux), then go to Extensions → Claude Code.
+
+  | Setting                            | Description                                                                                                                                                                  |
+  | ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Selected Model                     | Default model for new conversations. Change per-session with `/model`.                                                                                                       |
+  | Use Terminal                       | Launch Claude in terminal mode instead of graphical panel                                                                                                                    |
+  | Initial Permission Mode            | Controls approval prompts for file edits and commands. Defaults to `default` (ask before each action).                                                                       |
+  | Preferred Location                 | Default location: sidebar (right) or panel (new tab)                                                                                                                         |
+  | Autosave                           | Auto-save files before Claude reads or writes them                                                                                                                           |
+  | Use Ctrl+Enter to Send             | Use Ctrl/Cmd+Enter instead of Enter to send prompts                                                                                                                          |
+  | Enable New Conversation Shortcut   | Enable Cmd/Ctrl+N to start a new conversation                                                                                                                                |
+  | Respect Git Ignore                 | Exclude .gitignore patterns from file searches                                                                                                                               |
+  | Environment Variables              | Set environment variables for the Claude process. **Not recommended**—use [Claude Code settings](/en/settings) instead so configuration is shared between extension and CLI. |
+  | Disable Login Prompt               | Skip authentication prompts (for third-party provider setups)                                                                                                                |
+  | Allow Dangerously Skip Permissions | Bypass all permission prompts. **Use with extreme caution**—recommended only for isolated sandboxes with no internet access.                                                 |
+  | Claude Process Wrapper             | Executable path used to launch the Claude process                                                                                                                            |
+
+* **Claude Code settings** (`~/.claude/settings.json`): These settings are shared between the VS Code extension and the CLI. Use this file for allowed commands and directories, environment variables, hooks, and MCP servers. See the [settings documentation](/en/settings) for details.
+
+## Use third-party providers
+
+By default, Claude Code connects directly to Anthropic's API. If your organization uses Amazon Bedrock, Google Vertex AI, or Microsoft Foundry to access Claude, configure the extension to use your provider instead:
+
+<Steps>
+  <Step title="Disable login prompt">
+    Open the [Disable Login Prompt setting](vscode://settings/claudeCode.disableLoginPrompt) and check the box.
+
+    You can also open VS Code settings (`Cmd+,` on Mac or `Ctrl+,` on Windows/Linux), search for "Claude Code login", and check **Disable Login Prompt**.
+  </Step>
+
+  <Step title="Configure your provider">
+    Follow the setup guide for your provider:
+
+    * [Claude Code on Amazon Bedrock](/en/amazon-bedrock)
+    * [Claude Code on Google Vertex AI](/en/google-vertex-ai)
+    * [Claude Code on Microsoft Foundry](/en/microsoft-foundry)
+
+    These guides cover configuring your provider in `~/.claude/settings.json`, which ensures your settings are shared between the VS Code extension and the CLI.
+  </Step>
+</Steps>
+
+## VS Code extension vs. Claude Code CLI
+
+The extension doesn't yet have full feature parity with the CLI. If you need CLI-only features, you can run `claude` directly in VS Code's integrated terminal.
+
+| Feature           | CLI                            | VS Code Extension                        |
+| ----------------- | ------------------------------ | ---------------------------------------- |
+| Slash commands    | [Full set](/en/slash-commands) | Subset (type `/` to see available)       |
+| MCP server config | Yes                            | No (configure via CLI, use in extension) |
+| Checkpoints       | Yes                            | Coming soon                              |
+| `!` bash shortcut | Yes                            | No                                       |
+| Tab completion    | Yes                            | No                                       |
+
+### Run CLI in VS Code
+
+To use the CLI while staying in VS Code, open the integrated terminal (`` Ctrl+` `` on Windows/Linux or `` Cmd+` `` on Mac) and run `claude`. The CLI automatically integrates with your IDE for features like diff viewing and diagnostic sharing.
+
+If using an external terminal, run `/ide` inside Claude Code to connect it to VS Code.
+
+### Switch between extension and CLI
+
+The extension and CLI share the same conversation history. To continue an extension conversation in the CLI, run `claude --resume` in the terminal. This opens an interactive picker where you can search for and select your conversation.
+
+## Security considerations
+
+With auto-edit permissions enabled, Claude Code can modify VS Code configuration files (like `settings.json` or `tasks.json`) that VS Code may execute automatically. This could potentially bypass Claude Code's normal permission prompts.
+
+To reduce risk when working with untrusted code:
+
+* Enable [VS Code Restricted Mode](https://code.visualstudio.com/docs/editor/workspace-trust#_restricted-mode) for untrusted workspaces
+* Use manual approval mode instead of auto-accept for edits
+* Review changes carefully before accepting them
+
+## Fix common issues
+
+### Extension won't install
+
+* Ensure you have a compatible version of VS Code (1.98.0 or later)
+* Check that VS Code has permission to install extensions
+* Try installing directly from the Marketplace website
+
+### Spark icon not visible
+
+The Spark icon appears in the **Editor Toolbar** (top-right of editor) when you have a file open. If you don't see it:
+
+1. **Open a file**: The icon requires a file to be open—having just a folder open isn't enough
+2. **Check VS Code version**: Requires 1.98.0 or higher (Help → About)
+3. **Restart VS Code**: Run "Developer: Reload Window" from the Command Palette
+4. **Disable conflicting extensions**: Temporarily disable other AI extensions (Cline, Continue, etc.)
+5. **Check workspace trust**: The extension doesn't work in Restricted Mode
+
+Alternatively, click "✱ Claude Code" in the **Status Bar** (bottom-right corner)—this works even without a file open. You can also use the **Command Palette** (`Cmd+Shift+P` / `Ctrl+Shift+P`) and type "Claude Code".
+
+### Claude Code never responds
+
+If Claude Code isn't responding to your prompts:
+
+1. **Check your internet connection**: Ensure you have a stable internet connection
+2. **Start a new conversation**: Try starting a fresh conversation to see if the issue persists
+3. **Try the CLI**: Run `claude` from the terminal to see if you get more detailed error messages
+4. **File a bug report**: If the problem continues, [file an issue on GitHub](https://github.com/anthropics/claude-code/issues) with details about the error
+
+### Standalone CLI not connecting to IDE
+
+* Ensure you're running Claude Code from VS Code's integrated terminal (not an external terminal)
+* Ensure the CLI for your IDE variant is installed:
+  * VS Code: `code` command should be available
+  * Cursor: `cursor` command should be available
+  * Windsurf: `windsurf` command should be available
+  * VSCodium: `codium` command should be available
+* If the command isn't available, install it from the Command Palette → "Shell Command: Install 'code' command in PATH"
+
+## Uninstall the extension
+
+To uninstall the Claude Code extension:
+
+1. Open the Extensions view (`Cmd+Shift+X` on Mac or `Ctrl+Shift+X` on Windows/Linux)
+2. Search for "Claude Code"
+3. Click **Uninstall**
+
+To also remove extension data and reset all settings:
+
+```bash  theme={null}
+rm -rf ~/.vscode/globalStorage/anthropic.claude-code
+```
+
+For additional help, see the [troubleshooting guide](/en/troubleshooting).
+
+## Next steps
+
+Now that you have Claude Code set up in VS Code:
+
+* [Explore common workflows](/en/common-workflows) to get the most out of Claude Code
+* [Set up MCP servers](/en/mcp) to extend Claude's capabilities with external tools. Configure servers using the CLI, then use them in the extension.
+* [Configure Claude Code settings](/en/settings) to customize allowed commands, hooks, and more. These settings are shared between the extension and CLI.
 
 
 ---

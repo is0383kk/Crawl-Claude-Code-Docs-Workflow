@@ -1,67 +1,67 @@
-# サブエージェント
+# Subagents
 
-> Claude Codeで特化したAIサブエージェントを作成・使用して、タスク固有のワークフローとコンテキスト管理を改善します。
+> Create and use specialized AI subagents in Claude Code for task-specific workflows and improved context management.
 
-Claude Codeのカスタムサブエージェントは、特定の種類のタスクを処理するために呼び出すことができる特化したAIアシスタントです。タスク固有の設定、カスタマイズされたシステムプロンプト、ツール、および独立したコンテキストウィンドウを提供することで、より効率的な問題解決を実現します。
+Custom subagents in Claude Code are specialized AI assistants that can be invoked to handle specific types of tasks. They enable more efficient problem-solving by providing task-specific configurations with customized system prompts, tools and a separate context window.
 
-## サブエージェントとは？
+## What are subagents?
 
-サブエージェントは、Claude Codeがタスクを委譲できる事前設定されたAIパーソナリティです。各サブエージェント：
+Subagents are pre-configured AI personalities that Claude Code can delegate tasks to. Each subagent:
 
-* 特定の目的と専門分野を持っています
-* メイン会話とは別の独立したコンテキストウィンドウを使用します
-* 使用を許可された特定のツールで設定できます
-* その動作をガイドするカスタムシステムプロンプトを含みます
+* Has a specific purpose and expertise area
+* Uses its own context window separate from the main conversation
+* Can be configured with specific tools it's allowed to use
+* Includes a custom system prompt that guides its behavior
 
-Claude Codeがサブエージェントの専門分野に一致するタスクに遭遇すると、そのタスクを特化したサブエージェントに委譲でき、サブエージェントは独立して動作し、結果を返します。
+When Claude Code encounters a task that matches a subagent's expertise, it can delegate that task to the specialized subagent, which works independently and returns results.
 
-## 主な利点
+## Key benefits
 
 <CardGroup cols={2}>
-  <Card title="コンテキストの保持" icon="layer-group">
-    各サブエージェントは独立したコンテキストで動作し、メイン会話の汚染を防ぎ、高レベルの目標に焦点を当てた状態を保ちます。
+  <Card title="Context preservation" icon="layer-group">
+    Each subagent operates in its own context, preventing pollution of the main conversation and keeping it focused on high-level objectives.
   </Card>
 
-  <Card title="特化した専門知識" icon="brain">
-    サブエージェントは特定のドメイン向けの詳細な指示で微調整でき、指定されたタスクでより高い成功率につながります。
+  <Card title="Specialized expertise" icon="brain">
+    Subagents can be fine-tuned with detailed instructions for specific domains, leading to higher success rates on designated tasks.
   </Card>
 
-  <Card title="再利用性" icon="rotate">
-    一度作成されたサブエージェントは、異なるプロジェクト全体で使用でき、チームと共有して一貫したワークフローを実現できます。
+  <Card title="Reusability" icon="rotate">
+    Once created, you can use subagents across different projects and share them with your team for consistent workflows.
   </Card>
 
-  <Card title="柔軟な権限" icon="shield-check">
-    各サブエージェントは異なるツールアクセスレベルを持つことができ、強力なツールを特定のサブエージェントタイプに制限できます。
+  <Card title="Flexible permissions" icon="shield-check">
+    Each subagent can have different tool access levels, allowing you to limit powerful tools to specific subagent types.
   </Card>
 </CardGroup>
 
-## クイックスタート
+## Quick start
 
-最初のサブエージェントを作成するには：
+To create your first subagent:
 
 <Steps>
-  <Step title="サブエージェントインターフェースを開く">
-    次のコマンドを実行します：
+  <Step title="Open the subagents interface">
+    Run the following command:
 
     ```
     /agents
     ```
   </Step>
 
-  <Step title="「新しいエージェントを作成」を選択">
-    プロジェクトレベルまたはユーザーレベルのサブエージェントを作成するかを選択します
+  <Step title="Select 'Create New Agent'">
+    Choose whether to create a project-level or user-level subagent
   </Step>
 
-  <Step title="サブエージェントを定義">
-    * **推奨**: まずClaudeで生成してから、カスタマイズして自分のものにします
-    * サブエージェントを詳細に説明し、いつ使用すべきかを記述します
-    * アクセスを許可するツールを選択します（すべてのツールを継承する場合は空白のままにします）
-    * インターフェースはすべての利用可能なツールを表示し、選択を簡単にします
-    * Claudeで生成する場合、`e`を押して独自のエディターでシステムプロンプトを編集することもできます
+  <Step title="Define the subagent">
+    * **Recommended**: generate with Claude first, then customize to make it yours
+    * Describe your subagent in detail, including when Claude should use it
+    * Select the tools you want to grant access to, or leave this blank to inherit all tools
+    * The interface shows all available tools
+    * If you're generating with Claude, you can also edit the system prompt in your own editor by pressing `e`
   </Step>
 
-  <Step title="保存して使用">
-    サブエージェントが利用可能になりました！Claudeは適切な場合に自動的にそれを使用するか、明示的に呼び出すことができます：
+  <Step title="Save and use">
+    Your subagent is now available. Claude uses it automatically when appropriate, or you can invoke it explicitly:
 
     ```
     > Use the code-reviewer subagent to check my recent changes
@@ -69,37 +69,37 @@ Claude Codeがサブエージェントの専門分野に一致するタスクに
   </Step>
 </Steps>
 
-## サブエージェント設定
+## Subagent configuration
 
-### ファイルの場所
+### File locations
 
-サブエージェントはYAMLフロントマター付きのMarkdownファイルとして、2つの可能な場所に保存されます：
+Subagents are stored as Markdown files with YAML frontmatter in two possible locations:
 
-| タイプ                | 場所                  | スコープ              | 優先度 |
-| :----------------- | :------------------ | :---------------- | :-- |
-| **プロジェクトサブエージェント** | `.claude/agents/`   | 現在のプロジェクトで利用可能    | 最高  |
-| **ユーザーサブエージェント**   | `~/.claude/agents/` | すべてのプロジェクト全体で利用可能 | 低い  |
+| Type                  | Location            | Scope                         | Priority |
+| :-------------------- | :------------------ | :---------------------------- | :------- |
+| **Project subagents** | `.claude/agents/`   | Available in current project  | Highest  |
+| **User subagents**    | `~/.claude/agents/` | Available across all projects | Lower    |
 
-サブエージェント名が競合する場合、プロジェクトレベルのサブエージェントがユーザーレベルのサブエージェントより優先されます。
+When subagent names conflict, project-level subagents take precedence over user-level subagents.
 
-### プラグインエージェント
+### Plugin agents
 
-[プラグイン](/ja/plugins)は、Claude Codeとシームレスに統合するカスタムサブエージェントを提供できます。プラグインエージェントはユーザー定義エージェントと同じように動作し、`/agents`インターフェースに表示されます。
+[Plugins](/en/plugins) can provide custom subagents that integrate seamlessly with Claude Code. Plugin agents work identically to user-defined agents and appear in the `/agents` interface.
 
-**プラグインエージェントの場所**: プラグインは`agents/`ディレクトリ（またはプラグインマニフェストで指定されたカスタムパス）にエージェントを含めます。
+**Plugin agent locations**: plugins include agents in their `agents/` directory (or custom paths specified in the plugin manifest).
 
-**プラグインエージェントの使用**:
+**Using plugin agents**:
 
-* プラグインエージェントはカスタムエージェントと一緒に`/agents`に表示されます
-* 明示的に呼び出すことができます：「Use the code-reviewer agent from the security-plugin」
-* 適切な場合、Claudeによって自動的に呼び出すことができます
-* `/agents`インターフェースを通じて管理（表示、検査）できます
+* Plugin agents appear in `/agents` alongside your custom agents
+* Can be invoked explicitly: "Use the code-reviewer agent from the security-plugin"
+* Can be invoked automatically by Claude when appropriate
+* Can be managed (viewed, inspected) through `/agents` interface
 
-プラグインエージェントの作成の詳細については、[プラグインコンポーネントリファレンス](/ja/plugins-reference#agents)を参照してください。
+See the [plugin components reference](/en/plugins-reference#agents) for details on creating plugin agents.
 
-### CLIベースの設定
+### CLI-based configuration
 
-`--agents` CLIフラグを使用してサブエージェントを動的に定義することもできます。このフラグはJSONオブジェクトを受け入れます：
+You can also define subagents dynamically using the `--agents` CLI flag, which accepts a JSON object:
 
 ```bash  theme={null}
 claude --agents '{
@@ -112,20 +112,20 @@ claude --agents '{
 }'
 ```
 
-**優先度**: CLIで定義されたサブエージェントはプロジェクトレベルのサブエージェントより優先度が低いですが、ユーザーレベルのサブエージェントより優先度が高いです。
+**Priority**: CLI-defined subagents have lower priority than project-level subagents but higher priority than user-level subagents.
 
-**ユースケース**: このアプローチは以下に役立ちます：
+**Use case**: This approach is useful for:
 
-* サブエージェント設定の迅速なテスト
-* 保存する必要がないセッション固有のサブエージェント
-* カスタムサブエージェントが必要なオートメーションスクリプト
-* ドキュメントやスクリプトでのサブエージェント定義の共有
+* Quick testing of subagent configurations
+* Session-specific subagents that don't need to be saved
+* Automation scripts that need custom subagents
+* Sharing subagent definitions in documentation or scripts
 
-JSON形式と利用可能なすべてのオプションの詳細については、[CLIリファレンスドキュメント](/ja/cli-reference#agents-flag-format)を参照してください。
+For detailed information about the JSON format and all available options, see the [CLI reference documentation](/en/cli-reference#agents-flag-format).
 
-### ファイル形式
+### File format
 
-各サブエージェントは、この構造を持つMarkdownファイルで定義されます：
+Each subagent is defined in a Markdown file with this structure:
 
 ```markdown  theme={null}
 ---
@@ -133,6 +133,8 @@ name: your-sub-agent-name
 description: Description of when this subagent should be invoked
 tools: tool1, tool2, tool3  # Optional - inherits all tools if omitted
 model: sonnet  # Optional - specify model alias or 'inherit'
+permissionMode: default  # Optional - permission mode for the subagent
+skills: skill1, skill2  # Optional - skills to auto-load
 ---
 
 Your subagent's system prompt goes here. This can be multiple paragraphs
@@ -143,67 +145,69 @@ Include specific instructions, best practices, and any constraints
 the subagent should follow.
 ```
 
-#### 設定フィールド
+#### Configuration fields
 
-| フィールド         | 必須  | 説明                                                                                                                                              |
-| :------------ | :-- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`        | はい  | 小文字とハイフンを使用した一意の識別子                                                                                                                             |
-| `description` | はい  | サブエージェントの目的の自然言語説明                                                                                                                              |
-| `tools`       | いいえ | 特定のツールのカンマ区切りリスト。省略した場合、メインスレッドのすべてのツールを継承します                                                                                                   |
-| `model`       | いいえ | このサブエージェントが使用するモデル。モデルエイリアス（`sonnet`、`opus`、`haiku`）または`'inherit'`を指定してメイン会話のモデルを使用できます。省略した場合、[設定されたサブエージェントモデル](/ja/model-config)にデフォルト設定されます |
+| Field            | Required | Description                                                                                                                                                                                                     |
+| :--------------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`           | Yes      | Unique identifier using lowercase letters and hyphens                                                                                                                                                           |
+| `description`    | Yes      | Natural language description of the subagent's purpose                                                                                                                                                          |
+| `tools`          | No       | Comma-separated list of specific tools. If omitted, inherits all tools from the main thread                                                                                                                     |
+| `model`          | No       | Model to use for this subagent. Can be a model alias (`sonnet`, `opus`, `haiku`) or `'inherit'` to use the main conversation's model. If omitted, defaults to the [configured subagent model](/en/model-config) |
+| `permissionMode` | No       | Permission mode for the subagent. Valid values: `default`, `acceptEdits`, `bypassPermissions`, `plan`, `ignore`. Controls how the subagent handles permission requests                                          |
+| `skills`         | No       | Comma-separated list of skill names to auto-load when the subagent starts. Subagents do not inherit Skills from the parent conversation. If omitted, no Skills are preloaded.                                   |
 
-### モデル選択
+### Model selection
 
-`model`フィールドを使用して、サブエージェントが使用する[AIモデル](/ja/model-config)を制御できます：
+The `model` field allows you to control which [AI model](/en/model-config) the subagent uses:
 
-* **モデルエイリアス**: 利用可能なエイリアスのいずれかを使用します：`sonnet`、`opus`、または`haiku`
-* **`'inherit'`**: メイン会話と同じモデルを使用します（一貫性を求める場合に便利です）
-* **省略**: 指定されていない場合、サブエージェント用に設定されたデフォルトモデル（`sonnet`）を使用します
+* **Model alias**: Use one of the available aliases: `sonnet`, `opus`, or `haiku`
+* **`'inherit'`**: Use the same model as the main conversation (useful for consistency)
+* **Omitted**: If not specified, uses the default model configured for subagents (`sonnet`)
 
 <Note>
-  `'inherit'`を使用することは、サブエージェントがメイン会話のモデル選択に適応し、セッション全体で一貫した機能と応答スタイルを確保する場合に特に便利です。
+  Using `'inherit'` is particularly useful when you want your subagents to adapt to the model choice of the main conversation, ensuring consistent capabilities and response style throughout your session.
 </Note>
 
-### 利用可能なツール
+### Available tools
 
-サブエージェントには、Claude Codeの内部ツールのいずれかへのアクセスを許可できます。利用可能なツールの完全なリストについては、[ツールドキュメント](/ja/settings#tools-available-to-claude)を参照してください。
+Subagents can be granted access to any of Claude Code's internal tools. See the [tools documentation](/en/settings#tools-available-to-claude) for a complete list of available tools.
 
 <Tip>
-  **推奨:** `/agents`コマンドを使用してツールアクセスを変更します。これは、接続されたMCPサーバーツールを含むすべての利用可能なツールをリストする対話的インターフェースを提供し、必要なツールを選択しやすくします。
+  **Recommended:** Use the `/agents` command to modify tool access - it provides an interactive interface that lists all available tools, including any connected MCP server tools, making it easier to select the ones you need.
 </Tip>
 
-ツール設定には2つのオプションがあります：
+You have two options for configuring tools:
 
-* **`tools`フィールドを省略**してメインスレッドのすべてのツール（デフォルト）を継承します。MCPツールを含みます
-* **個別のツールを指定**してカンマ区切りリストとしてより細かい制御を行います（手動または`/agents`経由で編集できます）
+* **Omit the `tools` field** to inherit all tools from the main thread (default), including MCP tools
+* **Specify individual tools** as a comma-separated list for more granular control (can be edited manually or via `/agents`)
 
-**MCPツール**: サブエージェントは設定されたMCPサーバーからのMCPツールにアクセスできます。`tools`フィールドを省略すると、サブエージェントはメインスレッドで利用可能なすべてのMCPツールを継承します。
+**MCP Tools**: Subagents can access MCP tools from configured MCP servers. When the `tools` field is omitted, subagents inherit all MCP tools available to the main thread.
 
-## サブエージェントの管理
+## Managing subagents
 
-### /agentsコマンドの使用（推奨）
+### Using the /agents command (Recommended)
 
-`/agents`コマンドは、サブエージェント管理用の包括的なインターフェースを提供します：
+The `/agents` command provides a comprehensive interface for subagent management:
 
 ```
 /agents
 ```
 
-これにより、以下を実行できる対話的メニューが開きます：
+This opens an interactive menu where you can:
 
-* すべての利用可能なサブエージェント（組み込み、ユーザー、プロジェクト）を表示
-* ガイド付きセットアップで新しいサブエージェントを作成
-* ツールアクセスを含む既存のカスタムサブエージェントを編集
-* カスタムサブエージェントを削除
-* 重複が存在する場合、どのサブエージェントがアクティブかを確認
-* **利用可能なツールの完全なリストで簡単にツール権限を管理**
+* View all available subagents (built-in, user, and project)
+* Create new subagents with guided setup
+* Edit existing custom subagents, including their tool access
+* Delete custom subagents
+* See which subagents are active when duplicates exist
+* **Manage tool permissions** with a complete list of available tools
 
-### ファイルの直接管理
+### Direct file management
 
-ファイルを直接操作してサブエージェントを管理することもできます：
+You can also manage subagents by working directly with their files:
 
 ```bash  theme={null}
-# プロジェクトサブエージェントを作成
+# Create a project subagent
 mkdir -p .claude/agents
 echo '---
 name: test-runner
@@ -212,28 +216,32 @@ description: Use proactively to run tests and fix failures
 
 You are a test automation expert. When you see code changes, proactively run the appropriate tests. If tests fail, analyze the failures and fix them while preserving the original test intent.' > .claude/agents/test-runner.md
 
-# ユーザーサブエージェントを作成
+# Create a user subagent
 mkdir -p ~/.claude/agents
-# ... サブエージェントファイルを作成
+# ... create subagent file
 ```
 
-## サブエージェントを効果的に使用
+<Note>
+  Subagents created by manually adding files will be loaded the next time you start a Claude Code session. To create and use a subagent immediately without restarting, use the `/agents` command instead.
+</Note>
 
-### 自動委譲
+## Using subagents effectively
 
-Claude Codeは以下に基づいてタスクを積極的に委譲します：
+### Automatic delegation
 
-* リクエスト内のタスク説明
-* サブエージェント設定の`description`フィールド
-* 現在のコンテキストと利用可能なツール
+Claude Code proactively delegates tasks based on:
+
+* The task description in your request
+* The `description` field in subagent configurations
+* Current context and available tools
 
 <Tip>
-  より積極的なサブエージェント使用を促すために、`description`フィールドに「use PROACTIVELY」または「MUST BE USED」などのフレーズを含めます。
+  To encourage more proactive subagent use, include phrases like "use PROACTIVELY" or "MUST BE USED" in your `description` field.
 </Tip>
 
-### 明示的な呼び出し
+### Explicit invocation
 
-コマンドでサブエージェントに言及して、特定のサブエージェントをリクエストします：
+Request a specific subagent by mentioning it in your command:
 
 ```
 > Use the test-runner subagent to fix failing tests
@@ -241,25 +249,57 @@ Claude Codeは以下に基づいてタスクを積極的に委譲します：
 > Ask the debugger subagent to investigate this error
 ```
 
-## 組み込みサブエージェント
+## Built-in subagents
 
-Claude Codeには、すぐに利用可能な組み込みサブエージェントが含まれています：
+Claude Code includes built-in subagents that are available out of the box:
 
-### Planサブエージェント
+### General-purpose subagent
 
-Planサブエージェントは、プランモード中に使用するために設計された特化した組み込みエージェントです。Claudeがプランモード（非実行モード）で動作している場合、Planサブエージェントを使用してコードベースに関する調査を実施し、プランを提示する前に情報を収集します。
+The general-purpose subagent is a capable agent for complex, multi-step tasks that require both exploration and action. Unlike the Explore subagent, it can modify files and execute a wider range of operations.
 
-**主な特性：**
+**Key characteristics:**
 
-* **モデル**: より有能な分析のためにSonnetを使用します
-* **ツール**: コードベース探索用のRead、Glob、Grep、Bashツールにアクセスできます
-* **目的**: ファイルを検索し、コード構造を分析し、コンテキストを収集します
-* **自動呼び出し**: Claudeはプランモード中にコードベースを調査する必要がある場合、このエージェントを自動的に使用します
+* **Model**: Uses Sonnet for more capable reasoning
+* **Tools**: Has access to all tools
+* **Mode**: Can read and write files, execute commands, make changes
+* **Purpose**: Complex research tasks, multi-step operations, code modifications
 
-**動作方法：**
-プランモード中にClaudeがプランを作成するためにコードベースを理解する必要がある場合、調査タスクをPlanサブエージェントに委譲します。これにより、エージェントの無限ネストを防ぎます（サブエージェントは他のサブエージェントを生成できません）。同時に、Claudeが必要なコンテキストを収集できます。
+**When Claude uses it:**
 
-**シナリオ例：**
+Claude delegates to the general-purpose subagent when:
+
+* The task requires both exploration and modification
+* Complex reasoning is needed to interpret search results
+* Multiple strategies may be needed if initial searches fail
+* The task has multiple steps that depend on each other
+
+**Example scenario:**
+
+```
+User: Find all the places where we handle authentication and update them to use the new token format
+
+Claude: [Invokes general-purpose subagent]
+[Agent searches for auth-related code across codebase]
+[Agent reads and analyzes multiple files]
+[Agent makes necessary edits]
+[Returns detailed writeup of changes made]
+```
+
+### Plan subagent
+
+The Plan subagent is a specialized built-in agent designed for use during plan mode. When Claude is operating in plan mode (non-execution mode), it uses the Plan subagent to conduct research and gather information about your codebase before presenting a plan.
+
+**Key characteristics:**
+
+* **Model**: Uses Sonnet for more capable analysis
+* **Tools**: Has access to Read, Glob, Grep, and Bash tools for codebase exploration
+* **Purpose**: Searches files, analyzes code structure, and gathers context
+* **Automatic invocation**: Claude automatically uses this agent when in plan mode and needs to research the codebase
+
+**How it works:**
+When you're in plan mode and Claude needs to understand your codebase to create a plan, it delegates research tasks to the Plan subagent. This prevents infinite nesting of agents (subagents cannot spawn other subagents) while still allowing Claude to gather the necessary context.
+
+**Example scenario:**
 
 ```
 User: [In plan mode] Help me refactor the authentication module
@@ -271,12 +311,58 @@ Claude: Based on my research, here's my proposed plan...
 ```
 
 <Tip>
-  Planサブエージェントはプランモードでのみ使用されます。通常の実行モードでは、Claudeは汎用エージェントまたは作成した他のカスタムサブエージェントを使用します。
+  The Plan subagent is only used in plan mode. In normal execution mode, Claude uses the general-purpose agent or other custom subagents you've created.
 </Tip>
 
-## サブエージェントの例
+### Explore subagent
 
-### コードレビュアー
+The Explore subagent is a fast, lightweight agent optimized for searching and analyzing codebases. It operates in strict read-only mode and is designed for rapid file discovery and code exploration.
+
+**Key characteristics:**
+
+* **Model**: Uses Haiku for fast, low-latency searches
+* **Mode**: Strictly read-only - cannot create, modify, or delete files
+* **Tools available**:
+  * Glob - File pattern matching
+  * Grep - Content searching with regular expressions
+  * Read - Reading file contents
+  * Bash - Read-only commands only (ls, git status, git log, git diff, find, cat, head, tail)
+
+**When Claude uses it:**
+
+Claude will delegate to the Explore subagent when it needs to search or understand a codebase but doesn't need to make changes. This is more efficient than the main agent running multiple search commands directly, as content found during the exploration process doesn't bloat the main conversation.
+
+**Thoroughness levels:**
+
+When invoking the Explore subagent, Claude specifies a thoroughness level:
+
+* **Quick** - Fast searches with minimal exploration. Good for targeted lookups.
+* **Medium** - Moderate exploration. Balances speed and thoroughness.
+* **Very thorough** - Comprehensive analysis across multiple locations and naming conventions. Used when the target might be in unexpected places.
+
+**Example scenarios:**
+
+```
+User: Where are errors from the client handled?
+
+Claude: [Invokes Explore subagent with "medium" thoroughness]
+[Explore uses Grep to search for error handling patterns]
+[Explore uses Read to examine promising files]
+[Returns findings with absolute file paths]
+Claude: Client errors are handled in src/services/process.ts:712...
+```
+
+```
+User: What's the codebase structure?
+
+Claude: [Invokes Explore subagent with "quick" thoroughness]
+[Explore uses Glob and ls to map directory structure]
+[Returns overview of key directories and their purposes]
+```
+
+## Example subagents
+
+### Code reviewer
 
 ```markdown  theme={null}
 ---
@@ -294,7 +380,7 @@ When invoked:
 3. Begin review immediately
 
 Review checklist:
-- Code is simple and readable
+- Code is clear and readable
 - Functions and variables are well-named
 - No duplicated code
 - Proper error handling
@@ -311,7 +397,7 @@ Provide feedback organized by priority:
 Include specific examples of how to fix issues.
 ```
 
-### デバッガー
+### Debugger
 
 ```markdown  theme={null}
 ---
@@ -343,10 +429,10 @@ For each issue, provide:
 - Testing approach
 - Prevention recommendations
 
-Focus on fixing the underlying issue, not just symptoms.
+Focus on fixing the underlying issue, not the symptoms.
 ```
 
-### データサイエンティスト
+### Data scientist
 
 ```markdown  theme={null}
 ---
@@ -381,46 +467,46 @@ For each analysis:
 Always ensure queries are efficient and cost-effective.
 ```
 
-## ベストプラクティス
+## Best practices
 
-* **Claudeで生成されたエージェントから始める**: 最初のサブエージェントをClaudeで生成してから、それを反復して個人のものにすることを強くお勧めします。このアプローチは最良の結果をもたらします。特定のニーズに合わせてカスタマイズできる堅実な基盤です。
+* **Start with Claude-generated agents**: We highly recommend generating your initial subagent with Claude and then iterating on it to make it personally yours. This approach gives you the best results - a solid foundation that you can customize to your specific needs.
 
-* **焦点を絞ったサブエージェントを設計**: 1つのサブエージェントにすべてをさせようとするのではなく、単一で明確な責任を持つサブエージェントを作成します。これにより、パフォーマンスが向上し、サブエージェントがより予測可能になります。
+* **Design focused subagents**: Create subagents with single, clear responsibilities rather than trying to make one subagent do everything. This improves performance and makes subagents more predictable.
 
-* **詳細なプロンプトを作成**: システムプロンプトに特定の指示、例、制約を含めます。提供するガイダンスが多いほど、サブエージェントのパフォーマンスが向上します。
+* **Write detailed prompts**: Include specific instructions, examples, and constraints in your system prompts. The more guidance you provide, the better the subagent will perform.
 
-* **ツールアクセスを制限**: サブエージェントの目的に必要なツールのみを許可します。これにより、セキュリティが向上し、サブエージェントが関連するアクションに焦点を当てるのに役立ちます。
+* **Limit tool access**: Only grant tools that are necessary for the subagent's purpose. This improves security and helps the subagent focus on relevant actions.
 
-* **バージョン管理**: プロジェクトサブエージェントをバージョン管理にチェックインして、チームが協力して改善できるようにします。
+* **Version control**: Check project subagents into version control so your team can benefit from and improve them collaboratively.
 
-## 高度な使用方法
+## Advanced usage
 
-### サブエージェントのチェーン
+### Chaining subagents
 
-複雑なワークフローの場合、複数のサブエージェントをチェーンできます：
+For complex workflows, you can chain multiple subagents:
 
 ```
 > First use the code-analyzer subagent to find performance issues, then use the optimizer subagent to fix them
 ```
 
-### 動的サブエージェント選択
+### Dynamic subagent selection
 
-Claude Codeはコンテキストに基づいてインテリジェントにサブエージェントを選択します。最良の結果を得るために、`description`フィールドを具体的でアクション指向にします。
+Claude Code intelligently selects subagents based on context. Make your `description` fields specific and action-oriented for best results.
 
-### 再開可能なサブエージェント
+### Resumable subagents
 
-サブエージェントを再開して以前の会話を続けることができます。これは、複数の呼び出しにわたって続ける必要がある長時間実行される調査または分析タスクに特に役立ちます。
+Subagents can be resumed to continue previous conversations, which is particularly useful for long-running research or analysis tasks that need to be continued across multiple invocations.
 
-**動作方法：**
+**How it works:**
 
-* 各サブエージェント実行には一意の`agentId`が割り当てられます
-* エージェントの会話は別のトランスクリプトファイルに保存されます：`agent-{agentId}.jsonl`
-* `resume`パラメータを使用して`agentId`を提供することで、以前のエージェントを再開できます
-* 再開すると、エージェントは以前の会話から完全なコンテキストで続行します
+* Each subagent execution is assigned a unique `agentId`
+* The agent's conversation is stored in a separate transcript file: `agent-{agentId}.jsonl`
+* You can resume a previous agent by providing its `agentId` via the `resume` parameter
+* When resumed, the agent continues with full context from its previous conversation
 
-**ワークフロー例：**
+**Example workflow:**
 
-初期呼び出し：
+Initial invocation:
 
 ```
 > Use the code-analyzer agent to start reviewing the authentication module
@@ -428,7 +514,7 @@ Claude Codeはコンテキストに基づいてインテリジェントにサブ
 [Agent completes initial analysis and returns agentId: "abc123"]
 ```
 
-エージェントを再開：
+Resume the agent:
 
 ```
 > Resume agent abc123 and now analyze the authorization logic as well
@@ -436,22 +522,22 @@ Claude Codeはコンテキストに基づいてインテリジェントにサブ
 [Agent continues with full context from previous conversation]
 ```
 
-**ユースケース：**
+**Use cases:**
 
-* **長時間実行される調査**: 大規模なコードベース分析を複数のセッションに分割
-* **反復的な改善**: コンテキストを失わずにサブエージェントの作業を継続的に改善
-* **マルチステップワークフロー**: サブエージェントが関連するタスクを順序立てて実行し、コンテキストを維持
+* **Long-running research**: Break down large codebase analysis into multiple sessions
+* **Iterative refinement**: Continue refining a subagent's work without losing context
+* **Multi-step workflows**: Have a subagent work on related tasks sequentially while maintaining context
 
-**技術的詳細：**
+**Technical details:**
 
-* エージェントトランスクリプトはプロジェクトディレクトリに保存されます
-* 再開中にメッセージの重複を避けるため、記録は無効になります
-* 同期エージェントと非同期エージェントの両方を再開できます
-* `resume`パラメータは以前の実行からのエージェントIDを受け入れます
+* Agent transcripts are stored in your project directory
+* Recording is disabled during resume to avoid duplicating messages
+* Both synchronous and asynchronous agents can be resumed
+* The `resume` parameter accepts the agent ID from a previous execution
 
-**プログラマティック使用：**
+**Programmatic usage:**
 
-Agent SDKを使用しているか、AgentToolと直接対話している場合、`resume`パラメータを渡すことができます：
+If you're using the Agent SDK or interacting with the AgentTool directly, you can pass the `resume` parameter:
 
 ```typescript  theme={null}
 {
@@ -463,20 +549,20 @@ Agent SDKを使用しているか、AgentToolと直接対話している場合�
 ```
 
 <Tip>
-  後で再開したいタスクのエージェントIDを追跡します。Claude Codeはサブエージェントが作業を完了したときにエージェントIDを表示します。
+  Keep track of agent IDs for tasks you may want to resume later. Claude Code displays the agent ID when a subagent completes its work.
 </Tip>
 
-## パフォーマンスに関する考慮事項
+## Performance considerations
 
-* **コンテキスト効率**: エージェントはメインコンテキストを保持するのに役立ち、より長いセッション全体を実現します
-* **レイテンシー**: サブエージェントは呼び出されるたびにクリーンな状態で開始され、効果的に仕事をするために必要なコンテキストを収集する際にレイテンシーが追加される可能性があります。
+* **Context efficiency**: Agents help preserve main context, enabling longer overall sessions
+* **Latency**: Subagents start off with a clean slate each time they are invoked and may add latency as they gather context that they require to do their job effectively.
 
-## 関連ドキュメント
+## Related documentation
 
-* [プラグイン](/ja/plugins) - プラグインを通じてカスタムエージェントでClaude Codeを拡張
-* [スラッシュコマンド](/ja/slash-commands) - 他の組み込みコマンドについて学ぶ
-* [設定](/ja/settings) - Claude Codeの動作を設定
-* [フック](/ja/hooks) - イベントハンドラーでワークフローを自動化
+* [Plugins](/en/plugins) - Extend Claude Code with custom agents through plugins
+* [Slash commands](/en/slash-commands) - Learn about other built-in commands
+* [Settings](/en/settings) - Configure Claude Code behavior
+* [Hooks](/en/hooks) - Automate workflows with event handlers
 
 
 ---

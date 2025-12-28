@@ -1,21 +1,21 @@
-# Claude Code のセットアップ
+# Set up Claude Code
 
-> 開発マシンに Claude Code をインストール、認証し、使用を開始します。
+> Install, authenticate, and start using Claude Code on your development machine.
 
-## システム要件
+## System requirements
 
-* **オペレーティングシステム**: macOS 10.15+、Ubuntu 20.04+/Debian 10+、または Windows 10+（WSL 1、WSL 2、または Git for Windows を使用）
-* **ハードウェア**: 4GB 以上の RAM
-* **ソフトウェア**: [Node.js 18+](https://nodejs.org/en/download)（NPM インストールの場合のみ必須）
-* **ネットワーク**: 認証と AI 処理に必要なインターネット接続
-* **シェル**: Bash、Zsh、Fish で最適に動作
-* **場所**: [Anthropic がサポートしている国](https://www.anthropic.com/supported-countries)
+* **Operating Systems**: macOS 10.15+, Ubuntu 20.04+/Debian 10+, or Windows 10+ (with WSL 1, WSL 2, or Git for Windows)
+* **Hardware**: 4 GB+ RAM
+* **Software**: [Node.js 18+](https://nodejs.org/en/download) (only required for npm installation)
+* **Network**: Internet connection required for authentication and AI processing
+* **Shell**: Works best in Bash, Zsh or Fish
+* **Location**: [Anthropic supported countries](https://www.anthropic.com/supported-countries)
 
-### 追加の依存関係
+### Additional dependencies
 
-* **ripgrep**: 通常は Claude Code に含まれています。検索機能が失敗する場合は、[検索のトラブルシューティング](/ja/troubleshooting#search-and-discovery-issues)を参照してください。
+* **ripgrep**: Usually included with Claude Code. If search fails, see [search troubleshooting](/en/troubleshooting#search-and-discovery-issues).
 
-## 標準インストール
+## Standard installation
 
 To install Claude Code, use one of the following methods:
 
@@ -56,155 +56,243 @@ To install Claude Code, use one of the following methods:
 </Tabs>
 
 <Note>
-  一部のユーザーは改善されたインストール方法に自動的に移行される場合があります。
+  Some users may be automatically migrated to an improved installation method.
 </Note>
 
-インストールプロセスが完了した後、プロジェクトに移動して Claude Code を起動します：
+After the installation process completes, navigate to your project and start Claude Code:
 
 ```bash  theme={null}
 cd your-awesome-project
 claude
 ```
 
-Claude Code は以下の認証オプションを提供しています：
+Claude Code offers the following authentication options:
 
-1. **Claude Console**: デフォルトオプション。Claude Console を通じて接続し、OAuth プロセスを完了します。[console.anthropic.com](https://console.anthropic.com) でのアクティブな課金が必要です。「Claude Code」ワークスペースが使用状況の追跡とコスト管理のために自動的に作成されます。Claude Code ワークスペース用の API キーを作成することはできません。これは Claude Code の使用専用です。
-2. **Claude App（Pro または Max プラン付き）**: Claude の [Pro または Max プラン](https://claude.com/pricing)にサブスクライブして、Claude Code とウェブインターフェースの両方を含む統一されたサブスクリプションを取得します。同じ価格ポイントでより多くの価値を得ながら、1 か所でアカウントを管理します。Claude.ai アカウントでログインします。起動時に、サブスクリプションタイプに一致するオプションを選択します。
-3. **エンタープライズプラットフォーム**: 既存のクラウドインフラストラクチャを使用したエンタープライズデプロイメント用に、Claude Code を [Amazon Bedrock または Google Vertex AI](/ja/third-party-integrations) を使用するように構成します。
+1. **Claude Console**: The default option. Connect through the Claude Console and complete the OAuth process. Requires active billing in the [Anthropic console](https://console.anthropic.com). A "Claude Code" workspace is automatically created for usage tracking and cost management. You can't create API keys for the Claude Code workspace; it's dedicated exclusively for Claude Code usage.
+2. **Claude App (with Pro or Max plan)**: Subscribe to Claude's [Pro or Max plan](https://claude.com/pricing) for a unified subscription that includes both Claude Code and the web interface. Get more value at the same price point while managing your account in one place. Log in with your Claude.ai account. During launch, choose the option that matches your subscription type.
+3. **Enterprise platforms**: Configure Claude Code to use [Amazon Bedrock, Google Vertex AI, or Microsoft Foundry](/en/third-party-integrations) for enterprise deployments with your existing cloud infrastructure.
 
 <Note>
-  Claude Code は認証情報を安全に保存します。詳細については、[認証情報管理](/ja/iam#credential-management)を参照してください。
+  Claude Code securely stores your credentials. See [Credential Management](/en/iam#credential-management) for details.
 </Note>
 
-## Windows セットアップ
+## Windows setup
 
-**オプション 1: WSL 内の Claude Code**
+**Option 1: Claude Code within WSL**
 
-* WSL 1 と WSL 2 の両方がサポートされています
+* Both WSL 1 and WSL 2 are supported
 
-**オプション 2: Git Bash を使用したネイティブ Windows 上の Claude Code**
+**Option 2: Claude Code on native Windows with Git Bash**
 
-* [Git for Windows](https://git-scm.com/downloads/win) が必要です
-* ポータブル Git インストールの場合、`bash.exe` へのパスを指定します：
+* Requires [Git for Windows](https://git-scm.com/downloads/win)
+* For portable Git installations, specify the path to your `bash.exe`:
   ```powershell  theme={null}
   $env:CLAUDE_CODE_GIT_BASH_PATH="C:\Program Files\Git\bin\bash.exe"
   ```
 
-## 代替インストール方法
+## Alternative installation methods
 
-Claude Code は異なる環境に対応するための複数のインストール方法を提供しています。
+Claude Code offers multiple installation methods to suit different environments.
 
-インストール中に問題が発生した場合は、[トラブルシューティングガイド](/ja/troubleshooting#linux-permission-issues)を参照してください。
+If you encounter any issues during installation, consult the [troubleshooting guide](/en/troubleshooting#linux-permission-issues).
 
 <Tip>
-  インストール後に `claude doctor` を実行して、インストールタイプとバージョンを確認します。
+  Run `claude doctor` after installation to check your installation type and version.
 </Tip>
 
-### ネイティブインストールオプション
+### Native installation options
 
-ネイティブインストールは推奨される方法であり、いくつかの利点があります：
+The native installation is the recommended method and offers several benefits:
 
-* 1 つの自己完結型実行可能ファイル
-* Node.js の依存関係なし
-* 改善された自動更新プログラムの安定性
+* One self-contained executable
+* No Node.js dependency
+* Improved auto-updater stability
 
-Claude Code の既存のインストールがある場合は、`claude install` を使用してネイティブバイナリインストールに移行します。
+If you have an existing installation of Claude Code, use `claude install` to migrate to the native binary installation.
 
-ネイティブインストーラーを使用した高度なインストールオプションの場合：
+For advanced installation options with the native installer:
 
-**macOS、Linux、WSL:**
+**macOS, Linux, WSL:**
 
 ```bash  theme={null}
-# 安定版をインストール（デフォルト）
+# Install stable version (default)
 curl -fsSL https://claude.ai/install.sh | bash
 
-# 最新版をインストール
+# Install latest version
 curl -fsSL https://claude.ai/install.sh | bash -s latest
 
-# 特定のバージョン番号をインストール
+# Install specific version number
 curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
 ```
 
 <Note>
-  **Alpine Linux およびその他の musl/uClibc ベースのディストリビューション**: ネイティブビルドでは、`libgcc`、`libstdc++`、および `ripgrep` をインストールする必要があります。インストール（Alpine: `apk add libgcc libstdc++ ripgrep`）し、`USE_BUILTIN_RIPGREP=0` を設定します。
-</Note>
-
-<Note>
-  Homebrew 経由でインストールされた Claude Code は、`DISABLE_AUTOUPDATER` 環境変数で明示的に無効にされない限り、brew ディレクトリの外で自動更新されます（[自動更新](#auto-updates)セクションを参照）。
+  **Alpine Linux and other musl/uClibc-based distributions**: The native build requires `libgcc`, `libstdc++`, and `ripgrep`. For Alpine: `apk add libgcc libstdc++ ripgrep`. Set `USE_BUILTIN_RIPGREP=0`.
 </Note>
 
 **Windows PowerShell:**
 
 ```powershell  theme={null}
-# 安定版をインストール（デフォルト）
+# Install stable version (default)
 irm https://claude.ai/install.ps1 | iex
 
-# 最新版をインストール
+# Install latest version
 & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) latest
 
-# 特定のバージョン番号をインストール
+# Install specific version number
 & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) 1.0.58
 ```
 
 **Windows CMD:**
 
 ```batch  theme={null}
-REM 安定版をインストール（デフォルト）
+REM Install stable version (default)
 curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
 
-REM 最新版をインストール
+REM Install latest version
 curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd latest && del install.cmd
 
-REM 特定のバージョン番号をインストール
+REM Install specific version number
 curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd 1.0.58 && del install.cmd
 ```
 
 <Tip>
-  インストール前に、古いエイリアスまたはシンボリックリンクを削除してください。
+  Make sure that you remove any outdated aliases or symlinks before installing.
 </Tip>
 
-### NPM インストール
+**Binary integrity and code signing**
 
-NPM が推奨または必須の環境の場合：
+* SHA256 checksums for all platforms are published in the release manifests, currently located at `https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{VERSION}/manifest.json` (example: replace `{VERSION}` with `2.0.30`)
+* Signed binaries are distributed for the following platforms:
+  * macOS: Signed by "Anthropic PBC" and notarized by Apple
+  * Windows: Signed by "Anthropic, PBC"
+
+### NPM installation
+
+For environments where NPM is preferred or required:
 
 ```sh  theme={null}
 npm install -g @anthropic-ai/claude-code
 ```
 
 <Warning>
-  `sudo npm install -g` を使用しないでください。これはパーミッション問題とセキュリティリスクにつながる可能性があります。
-  パーミッションエラーが発生した場合は、[Claude Code の構成](/ja/troubleshooting#linux-permission-issues)で推奨されるソリューションを参照してください。
+  Do NOT use `sudo npm install -g` as this can lead to permission issues and security risks.
+  If you encounter permission errors, see [configure Claude Code](/en/troubleshooting#linux-permission-issues) for recommended solutions.
 </Warning>
 
-## AWS または GCP で実行
+## Running on AWS or GCP
 
-デフォルトでは、Claude Code は Claude API を使用します。
+By default, Claude Code uses the Claude API.
 
-AWS または GCP で Claude Code を実行する方法の詳細については、[サードパーティ統合](/ja/third-party-integrations)を参照してください。
+For details on running Claude Code on AWS or GCP, see [third-party integrations](/en/third-party-integrations).
 
-## Claude Code を更新
+## Update Claude Code
 
-### 自動更新
+### Auto updates
 
-Claude Code は最新の機能とセキュリティ修正を確保するために、自動的に自身を最新の状態に保ちます。
+Claude Code automatically keeps itself up to date to ensure you have the latest features and security fixes.
 
-* **更新チェック**: 起動時と実行中に定期的に実行されます
-* **更新プロセス**: バックグラウンドで自動的にダウンロードおよびインストールされます
-* **通知**: 更新がインストールされたときに通知が表示されます
-* **更新の適用**: 更新は Claude Code を次に起動したときに有効になります
+* **Update checks**: Performed on startup and periodically while running
+* **Update process**: Downloads and installs automatically in the background
+* **Notifications**: You'll see a notification when updates are installed
+* **Applying updates**: Updates take effect the next time you start Claude Code
 
-**自動更新を無効にする:**
+**Disable auto-updates:**
 
-シェルまたは [settings.json ファイル](/ja/settings)で `DISABLE_AUTOUPDATER` 環境変数を設定します：
+Set the `DISABLE_AUTOUPDATER` environment variable in your shell or [settings.json file](/en/settings):
 
 ```bash  theme={null}
 export DISABLE_AUTOUPDATER=1
 ```
 
-### 手動で更新
+### Update manually
 
 ```bash  theme={null}
 claude update
+```
+
+## Uninstall Claude Code
+
+If you need to uninstall Claude Code, follow the instructions for your installation method.
+
+### Native installation
+
+Remove the Claude Code binary and symlink:
+
+**macOS, Linux, WSL:**
+
+```bash  theme={null}
+rm -f ~/.local/bin/claude
+rm -rf ~/.claude-code
+```
+
+**Windows PowerShell:**
+
+```powershell  theme={null}
+Remove-Item -Path "$env:LOCALAPPDATA\Programs\claude-code" -Recurse -Force
+Remove-Item -Path "$env:LOCALAPPDATA\Microsoft\WindowsApps\claude.exe" -Force
+```
+
+**Windows CMD:**
+
+```batch  theme={null}
+rmdir /s /q "%LOCALAPPDATA%\Programs\claude-code"
+del "%LOCALAPPDATA%\Microsoft\WindowsApps\claude.exe"
+```
+
+### Homebrew installation
+
+```bash  theme={null}
+brew uninstall --cask claude-code
+```
+
+### NPM installation
+
+```bash  theme={null}
+npm uninstall -g @anthropic-ai/claude-code
+```
+
+### Clean up configuration files (optional)
+
+<Warning>
+  Removing configuration files will delete all your settings, allowed tools, MCP server configurations, and session history.
+</Warning>
+
+To remove Claude Code settings and cached data:
+
+**macOS, Linux, WSL:**
+
+```bash  theme={null}
+# Remove user settings and state
+rm -rf ~/.claude
+rm ~/.claude.json
+
+# Remove project-specific settings (run from your project directory)
+rm -rf .claude
+rm -f .mcp.json
+```
+
+**Windows PowerShell:**
+
+```powershell  theme={null}
+# Remove user settings and state
+Remove-Item -Path "$env:USERPROFILE\.claude" -Recurse -Force
+Remove-Item -Path "$env:USERPROFILE\.claude.json" -Force
+
+# Remove project-specific settings (run from your project directory)
+Remove-Item -Path ".claude" -Recurse -Force
+Remove-Item -Path ".mcp.json" -Force
+```
+
+**Windows CMD:**
+
+```batch  theme={null}
+REM Remove user settings and state
+rmdir /s /q "%USERPROFILE%\.claude"
+del "%USERPROFILE%\.claude.json"
+
+REM Remove project-specific settings (run from your project directory)
+rmdir /s /q ".claude"
+del ".mcp.json"
 ```
 
 

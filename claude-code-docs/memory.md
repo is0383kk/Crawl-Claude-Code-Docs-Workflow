@@ -1,25 +1,30 @@
-# Claudeのメモリを管理する
+# Manage Claude's memory
 
-> 異なるメモリロケーションとベストプラクティスを使用して、セッション間でClaude Codeのメモリを管理する方法を学びます。
+> Learn how to manage Claude Code's memory across sessions with different memory locations and best practices.
 
-Claude Codeは、スタイルガイドラインやワークフロー内の一般的なコマンドなど、セッション間であなたの設定を記憶することができます。
+Claude Code can remember your preferences across sessions, like style guidelines and common commands in your workflow.
 
-## メモリタイプを決定する
+## Determine memory type
 
-Claude Codeは階層構造の4つのメモリロケーションを提供し、それぞれが異なる目的を果たします：
+Claude Code offers four memory locations in a hierarchical structure, each serving a different purpose:
 
-| メモリタイプ              | ロケーション                                                                                                                                                  | 目的                        | ユースケースの例                          | 共有対象              |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- | --------------------------------- | ----------------- |
-| **エンタープライズポリシー**    | macOS: `/Library/Application Support/ClaudeCode/CLAUDE.md`<br />Linux: `/etc/claude-code/CLAUDE.md`<br />Windows: `C:\ProgramData\ClaudeCode\CLAUDE.md` | IT/DevOpsによって管理される組織全体の指示 | 企業のコーディング標準、セキュリティポリシー、コンプライアンス要件 | 組織内のすべてのユーザー      |
-| **プロジェクトメモリ**       | `./CLAUDE.md` または `./.claude/CLAUDE.md`                                                                                                                 | プロジェクトのチーム共有指示            | プロジェクトアーキテクチャ、コーディング標準、一般的なワークフロー | ソース管理を通じたチームメンバー  |
-| **ユーザーメモリ**         | `~/.claude/CLAUDE.md`                                                                                                                                   | すべてのプロジェクトの個人設定           | コードスタイルの設定、個人的なツーリングショートカット       | あなただけ（すべてのプロジェクト） |
-| **プロジェクトメモリ（ローカル）** | `./CLAUDE.local.md`                                                                                                                                     | 個人的なプロジェクト固有の設定           | *（非推奨、下記参照）* サンドボックスURL、推奨テストデータ  | あなただけ（現在のプロジェクト）  |
+| Memory Type                | Location                                                                                                                                                        | Purpose                                             | Use Case Examples                                                    | Shared With                     |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------- |
+| **Enterprise policy**      | • macOS: `/Library/Application Support/ClaudeCode/CLAUDE.md`<br />• Linux: `/etc/claude-code/CLAUDE.md`<br />• Windows: `C:\Program Files\ClaudeCode\CLAUDE.md` | Organization-wide instructions managed by IT/DevOps | Company coding standards, security policies, compliance requirements | All users in organization       |
+| **Project memory**         | `./CLAUDE.md` or `./.claude/CLAUDE.md`                                                                                                                          | Team-shared instructions for the project            | Project architecture, coding standards, common workflows             | Team members via source control |
+| **Project rules**          | `./.claude/rules/*.md`                                                                                                                                          | Modular, topic-specific project instructions        | Language-specific guidelines, testing conventions, API standards     | Team members via source control |
+| **User memory**            | `~/.claude/CLAUDE.md`                                                                                                                                           | Personal preferences for all projects               | Code styling preferences, personal tooling shortcuts                 | Just you (all projects)         |
+| **Project memory (local)** | `./CLAUDE.local.md`                                                                                                                                             | Personal project-specific preferences               | Your sandbox URLs, preferred test data                               | Just you (current project)      |
 
-すべてのメモリファイルは、Claude Codeが起動されるときに自動的にコンテキストに読み込まれます。階層内で上位のファイルが優先され、最初に読み込まれ、より具体的なメモリが構築される基盤を提供します。
+All memory files are automatically loaded into Claude Code's context when launched. Files higher in the hierarchy take precedence and are loaded first, providing a foundation that more specific memories build upon.
 
-## CLAUDE.mdインポート
+<Note>
+  CLAUDE.local.md files are automatically added to .gitignore, making them ideal for private project-specific preferences that shouldn't be checked into version control.
+</Note>
 
-CLAUDE.mdファイルは、`@path/to/import`構文を使用して追加ファイルをインポートできます。次の例は3つのファイルをインポートしています：
+## CLAUDE.md imports
+
+CLAUDE.md files can import additional files using `@path/to/import` syntax. The following example imports 3 files:
 
 ```
 See @README for project overview and @package.json for available npm commands for this project.
@@ -28,69 +33,184 @@ See @README for project overview and @package.json for available npm commands fo
 - git workflow @docs/git-instructions.md
 ```
 
-相対パスと絶対パスの両方が許可されています。特に、ユーザーのホームディレクトリ内のファイルをインポートすることは、チームメンバーがリポジトリにチェックインされていない個別の指示を提供するための便利な方法です。以前はCLAUDE.local.mdが同様の目的を果たしていましたが、複数のgitワークツリー間でより良く機能するため、現在はインポートの利点により非推奨になっています。
+Both relative and absolute paths are allowed. In particular, importing files in user's home dir is a convenient way for your team members to provide individual instructions that are not checked into the repository. Imports are an alternative to CLAUDE.local.md that work better across multiple git worktrees.
 
 ```
 # Individual Preferences
 - @~/.claude/my-project-instructions.md
 ```
 
-潜在的な衝突を避けるために、インポートはマークダウンコードスパンおよびコードブロック内では評価されません。
+To avoid potential collisions, imports are not evaluated inside markdown code spans and code blocks.
 
 ```
 This code span will not be treated as an import: `@anthropic-ai/claude-code`
 ```
 
-インポートされたファイルは追加ファイルを再帰的にインポートでき、最大深度は5ホップです。`/memory`コマンドを実行することで、どのメモリファイルが読み込まれているかを確認できます。
+Imported files can recursively import additional files, with a max-depth of 5 hops. You can see what memory files are loaded by running `/memory` command.
 
-## Claudeがメモリをどのように検索するか
+## How Claude looks up memories
 
-Claude Codeはメモリを再帰的に読み込みます：現在の作業ディレクトリから開始して、Claude Codeはルートディレクトリ\_/\_まで（ただし含まない）再帰し、見つかったCLAUDE.mdまたはCLAUDE.local.mdファイルを読み込みます。これは、\_foo/bar/\_でClaude Codeを実行し、\_foo/CLAUDE.md\_と\_foo/bar/CLAUDE.md\_の両方にメモリがある大規模なリポジトリで作業する場合に特に便利です。
+Claude Code reads memories recursively: starting in the cwd, Claude Code recurses up to (but not including) the root directory */* and reads any CLAUDE.md or CLAUDE.local.md files it finds. This is especially convenient when working in large repositories where you run Claude Code in *foo/bar/*, and have memories in both *foo/CLAUDE.md* and *foo/bar/CLAUDE.md*.
 
-Claudeは現在の作業ディレクトリの下のサブツリーにネストされたCLAUDE.mdも検出します。起動時に読み込まれるのではなく、Claudeがそれらのサブツリー内のファイルを読み込むときにのみ含まれます。
+Claude will also discover CLAUDE.md nested in subtrees under your current working directory. Instead of loading them at launch, they are only included when Claude reads files in those subtrees.
 
-## `/memory`でメモリを直接編集する
+## Directly edit memories with `/memory`
 
-セッション中に`/memory`スラッシュコマンドを使用して、システムエディタでメモリファイルを開き、より広範な追加または整理を行います。
+Use the `/memory` slash command during a session to open any memory file in your system editor for more extensive additions or organization.
 
-## プロジェクトメモリを設定する
+## Set up project memory
 
-重要なプロジェクト情報、規約、および頻繁に使用されるコマンドを保存するためにCLAUDE.mdファイルを設定したいとします。プロジェクトメモリは`./CLAUDE.md`または`./.claude/CLAUDE.md`に保存できます。
+Suppose you want to set up a CLAUDE.md file to store important project information, conventions, and frequently used commands. Project memory can be stored in either `./CLAUDE.md` or `./.claude/CLAUDE.md`.
 
-次のコマンドでコードベースのCLAUDE.mdをブートストラップします：
+Bootstrap a CLAUDE.md for your codebase with the following command:
 
 ```
-> /init 
+> /init
 ```
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 繰り返しの検索を避けるために、頻繁に使用されるコマンド（ビルド、テスト、リント）を含めます
-  * コードスタイルの設定と命名規則を文書化します
-  * プロジェクトに固有の重要なアーキテクチャパターンを追加します
-  * CLAUDE.mdメモリは、チームと共有される指示と個人の設定の両方に使用できます。
+  * Include frequently used commands (build, test, lint) to avoid repeated searches
+  * Document code style preferences and naming conventions
+  * Add important architectural patterns specific to your project
+  * CLAUDE.md memories can be used for both instructions shared with your team and for your individual preferences.
 </Tip>
 
-## 組織レベルのメモリ管理
+## Modular rules with `.claude/rules/`
 
-エンタープライズ組織は、すべてのユーザーに適用される中央管理されたCLAUDE.mdファイルをデプロイできます。
+For larger projects, you can organize instructions into multiple files using the `.claude/rules/` directory. This allows teams to maintain focused, well-organized rule files instead of one large CLAUDE.md.
 
-組織レベルのメモリ管理を設定するには：
+### Basic structure
 
-1. オペレーティングシステムに適切な場所にエンタープライズメモリファイルを作成します：
+Place markdown files in your project's `.claude/rules/` directory:
 
-* macOS: `/Library/Application Support/ClaudeCode/CLAUDE.md`
-* Linux/WSL: `/etc/claude-code/CLAUDE.md`
-* Windows: `C:\ProgramData\ClaudeCode\CLAUDE.md`
+```
+your-project/
+├── .claude/
+│   ├── CLAUDE.md           # Main project instructions
+│   └── rules/
+│       ├── code-style.md   # Code style guidelines
+│       ├── testing.md      # Testing conventions
+│       └── security.md     # Security requirements
+```
 
-2. 構成管理システム（MDM、グループポリシー、Ansibleなど）を通じてデプロイして、すべての開発者マシン間での一貫した配布を確保します。
+All `.md` files in `.claude/rules/` are automatically loaded as project memory, with the same priority as `.claude/CLAUDE.md`.
 
-## メモリのベストプラクティス
+### Path-specific rules
 
-* **具体的にする**：「コードを適切にフォーマットする」よりも「2スペースのインデントを使用する」の方が良いです。
-* **構造を使用して整理する**：各個別のメモリを箇条書きとしてフォーマットし、関連するメモリを説明的なマークダウン見出しの下にグループ化します。
-* **定期的に確認する**：プロジェクトが進化するにつれてメモリを更新して、Claudeが常に最新の情報とコンテキストを使用していることを確認します。
+Rules can be scoped to specific files using YAML frontmatter with the `paths` field. These conditional rules only apply when Claude is working with files matching the specified patterns.
+
+```markdown  theme={null}
+---
+paths: src/api/**/*.ts
+---
+
+# API Development Rules
+
+- All API endpoints must include input validation
+- Use the standard error response format
+- Include OpenAPI documentation comments
+```
+
+Rules without a `paths` field are loaded unconditionally and apply to all files.
+
+### Glob patterns
+
+The `paths` field supports standard glob patterns:
+
+| Pattern                | Matches                                  |
+| ---------------------- | ---------------------------------------- |
+| `**/*.ts`              | All TypeScript files in any directory    |
+| `src/**/*`             | All files under `src/` directory         |
+| `*.md`                 | Markdown files in the project root       |
+| `src/components/*.tsx` | React components in a specific directory |
+
+You can use braces to match multiple patterns efficiently:
+
+```markdown  theme={null}
+---
+paths: src/**/*.{ts,tsx}
+---
+
+# TypeScript/React Rules
+```
+
+This expands to match both `src/**/*.ts` and `src/**/*.tsx`. You can also combine multiple patterns with commas:
+
+```markdown  theme={null}
+---
+paths: {src,lib}/**/*.ts, tests/**/*.test.ts
+---
+```
+
+### Subdirectories
+
+Rules can be organized into subdirectories for better structure:
+
+```
+.claude/rules/
+├── frontend/
+│   ├── react.md
+│   └── styles.md
+├── backend/
+│   ├── api.md
+│   └── database.md
+└── general.md
+```
+
+All `.md` files are discovered recursively.
+
+### Symlinks
+
+The `.claude/rules/` directory supports symlinks, allowing you to share common rules across multiple projects:
+
+```bash  theme={null}
+# Symlink a shared rules directory
+ln -s ~/shared-claude-rules .claude/rules/shared
+
+# Symlink individual rule files
+ln -s ~/company-standards/security.md .claude/rules/security.md
+```
+
+Symlinks are resolved and their contents are loaded normally. Circular symlinks are detected and handled gracefully.
+
+### User-level rules
+
+You can create personal rules that apply to all your projects in `~/.claude/rules/`:
+
+```
+~/.claude/rules/
+├── preferences.md    # Your personal coding preferences
+└── workflows.md      # Your preferred workflows
+```
+
+User-level rules are loaded before project rules, giving project rules higher priority.
+
+<Tip>
+  Best practices for `.claude/rules/`:
+
+  * **Keep rules focused**: Each file should cover one topic (e.g., `testing.md`, `api-design.md`)
+  * **Use descriptive filenames**: The filename should indicate what the rules cover
+  * **Use conditional rules sparingly**: Only add `paths` frontmatter when rules truly apply to specific file types
+  * **Organize with subdirectories**: Group related rules (e.g., `frontend/`, `backend/`)
+</Tip>
+
+## Organization-level memory management
+
+Enterprise organizations can deploy centrally managed CLAUDE.md files that apply to all users.
+
+To set up organization-level memory management:
+
+1. Create the enterprise memory file at the **Enterprise policy** location shown in the [memory types table above](#determine-memory-type).
+
+2. Deploy via your configuration management system (MDM, Group Policy, Ansible, etc.) to ensure consistent distribution across all developer machines.
+
+## Memory best practices
+
+* **Be specific**: "Use 2-space indentation" is better than "Format code properly".
+* **Use structure to organize**: Format each individual memory as a bullet point and group related memories under descriptive markdown headings.
+* **Review periodically**: Update memories as your project evolves to ensure Claude is always using the most up to date information and context.
 
 
 ---

@@ -1,149 +1,149 @@
-# インタラクティブモード
+# Interactive mode
 
-> Claude Codeセッションのキーボードショートカット、入力モード、インタラクティブ機能の完全なリファレンス。
+> Complete reference for keyboard shortcuts, input modes, and interactive features in Claude Code sessions.
 
-## キーボードショートカット
+## Keyboard shortcuts
 
 <Note>
-  キーボードショートカットはプラットフォームとターミナルによって異なる場合があります。`?`を押すと、お使いの環境で利用可能なショートカットが表示されます。
+  Keyboard shortcuts may vary by platform and terminal. Press `?` to see available shortcuts for your environment. For example, Option key combinations on macOS may require configuring your terminal to use Option as a meta/escape key.
 </Note>
 
-### 一般的なコントロール
+### General controls
 
-| ショートカット                                      | 説明                                                                               | コンテキスト                      |
-| :------------------------------------------- | :------------------------------------------------------------------------------- | :-------------------------- |
-| `Ctrl+C`                                     | 現在の入力または生成をキャンセル                                                                 | 標準割り込み                      |
-| `Ctrl+D`                                     | Claude Codeセッションを終了                                                              | EOFシグナル                     |
-| `Ctrl+L`                                     | ターミナル画面をクリア                                                                      | 会話履歴を保持                     |
-| `Ctrl+O`                                     | 詳細出力を切り替え                                                                        | 詳細なツール使用と実行を表示              |
-| `Ctrl+R`                                     | コマンド履歴を逆順検索                                                                      | 前のコマンドをインタラクティブに検索          |
-| `Ctrl+V` (macOS/Linux) または `Alt+V` (Windows) | クリップボードから画像を貼り付け                                                                 | 画像またはイメージファイルへのパスを貼り付け      |
-| `上下矢印`                                       | コマンド履歴をナビゲート                                                                     | 前の入力を呼び出し                   |
-| `Esc` + `Esc`                                | コード/会話を巻き戻す                                                                      | コードおよび/または会話を前の状態に復元        |
-| `Tab`                                        | [拡張思考](https://docs.claude.com/ja/docs/build-with-claude/extended-thinking)を切り替え | 思考オンと思考オフを切り替え              |
-| `Shift+Tab` または `Alt+M` (一部の設定)              | 権限モードを切り替え                                                                       | 自動受け入れモード、プランモード、通常モードを切り替え |
+| Shortcut                                      | Description                        | Context                                                     |
+| :-------------------------------------------- | :--------------------------------- | :---------------------------------------------------------- |
+| `Ctrl+C`                                      | Cancel current input or generation | Standard interrupt                                          |
+| `Ctrl+D`                                      | Exit Claude Code session           | EOF signal                                                  |
+| `Ctrl+L`                                      | Clear terminal screen              | Keeps conversation history                                  |
+| `Ctrl+O`                                      | Toggle verbose output              | Shows detailed tool usage and execution                     |
+| `Ctrl+R`                                      | Reverse search command history     | Search through previous commands interactively              |
+| `Ctrl+V` (macOS/Linux) or `Alt+V` (Windows)   | Paste image from clipboard         | Pastes an image or path to an image file                    |
+| `Up/Down arrows`                              | Navigate command history           | Recall previous inputs                                      |
+| `Esc` + `Esc`                                 | Rewind the code/conversation       | Restore the code and/or conversation to a previous point    |
+| `Shift+Tab` or `Alt+M` (some configurations)  | Toggle permission modes            | Switch between Auto-Accept Mode, Plan Mode, and normal mode |
+| `Option+P` (macOS) or `Alt+P` (Windows/Linux) | Switch model                       | Switch models without clearing your prompt                  |
 
-### 複数行入力
+### Multiline input
 
-| 方法          | ショートカット        | コンテキスト               |
-| :---------- | :------------- | :------------------- |
-| クイック終了      | `\` + `Enter`  | すべてのターミナルで動作         |
-| macOS デフォルト | `Option+Enter` | macOS のデフォルト         |
-| ターミナル設定     | `Shift+Enter`  | `/terminal-setup` の後 |
-| 制御シーケンス     | `Ctrl+J`       | 複数行のラインフィード文字        |
-| ペーストモード     | 直接貼り付け         | コードブロック、ログの場合        |
+| Method           | Shortcut       | Context                           |
+| :--------------- | :------------- | :-------------------------------- |
+| Quick escape     | `\` + `Enter`  | Works in all terminals            |
+| macOS default    | `Option+Enter` | Default on macOS                  |
+| Terminal setup   | `Shift+Enter`  | After `/terminal-setup`           |
+| Control sequence | `Ctrl+J`       | Line feed character for multiline |
+| Paste mode       | Paste directly | For code blocks, logs             |
 
 <Tip>
-  ターミナル設定で優先される改行動作を設定します。`/terminal-setup`を実行して、iTerm2およびVS Codeターミナル用のShift+Enterバインディングをインストールします。
+  Configure your preferred line break behavior in terminal settings. Run `/terminal-setup` to install Shift+Enter binding for iTerm2 and VS Code terminals.
 </Tip>
 
-### クイックコマンド
+### Quick commands
 
-| ショートカット | 説明                        | 注記                                 |
-| :------ | :------------------------ | :--------------------------------- |
-| `#` で開始 | メモリショートカット - CLAUDE.mdに追加 | ファイル選択を促す                          |
-| `/` で開始 | スラッシュコマンド                 | [スラッシュコマンド](/ja/slash-commands)を参照 |
-| `!` で開始 | Bashモード                   | コマンドを直接実行し、実行出力をセッションに追加           |
-| `@`     | ファイルパスメンション               | ファイルパスオートコンプリートをトリガー               |
+| Shortcut     | Description                        | Notes                                                         |
+| :----------- | :--------------------------------- | :------------------------------------------------------------ |
+| `#` at start | Memory shortcut - add to CLAUDE.md | Prompts for file selection                                    |
+| `/` at start | Slash command                      | See [slash commands](/en/slash-commands)                      |
+| `!` at start | Bash mode                          | Run commands directly and add execution output to the session |
+| `@`          | File path mention                  | Trigger file path autocomplete                                |
 
-## Vimエディタモード
+## Vim editor mode
 
-`/vim`コマンドでVimスタイルの編集を有効にするか、`/config`で永続的に設定します。
+Enable vim-style editing with `/vim` command or configure permanently via `/config`.
 
-### モード切り替え
+### Mode switching
 
-| コマンド  | アクション        | モードから  |
-| :---- | :----------- | :----- |
-| `Esc` | NORMALモードに入る | INSERT |
-| `i`   | カーソルの前に挿入    | NORMAL |
-| `I`   | 行の開始に挿入      | NORMAL |
-| `a`   | カーソルの後に挿入    | NORMAL |
-| `A`   | 行の終了に挿入      | NORMAL |
-| `o`   | 下に行を開く       | NORMAL |
-| `O`   | 上に行を開く       | NORMAL |
+| Command | Action                      | From mode |
+| :------ | :-------------------------- | :-------- |
+| `Esc`   | Enter NORMAL mode           | INSERT    |
+| `i`     | Insert before cursor        | NORMAL    |
+| `I`     | Insert at beginning of line | NORMAL    |
+| `a`     | Insert after cursor         | NORMAL    |
+| `A`     | Insert at end of line       | NORMAL    |
+| `o`     | Open line below             | NORMAL    |
+| `O`     | Open line above             | NORMAL    |
 
-### ナビゲーション (NORMALモード)
+### Navigation (NORMAL mode)
 
-| コマンド            | アクション      |
-| :-------------- | :--------- |
-| `h`/`j`/`k`/`l` | 左/下/上/右に移動 |
-| `w`             | 次の単語       |
-| `e`             | 単語の終了      |
-| `b`             | 前の単語       |
-| `0`             | 行の開始       |
-| `$`             | 行の終了       |
-| `^`             | 最初の空白以外の文字 |
-| `gg`            | 入力の開始      |
-| `G`             | 入力の終了      |
+| Command         | Action                    |
+| :-------------- | :------------------------ |
+| `h`/`j`/`k`/`l` | Move left/down/up/right   |
+| `w`             | Next word                 |
+| `e`             | End of word               |
+| `b`             | Previous word             |
+| `0`             | Beginning of line         |
+| `$`             | End of line               |
+| `^`             | First non-blank character |
+| `gg`            | Beginning of input        |
+| `G`             | End of input              |
 
-### 編集 (NORMALモード)
+### Editing (NORMAL mode)
 
-| コマンド           | アクション         |
-| :------------- | :------------ |
-| `x`            | 文字を削除         |
-| `dd`           | 行を削除          |
-| `D`            | 行の終了まで削除      |
-| `dw`/`de`/`db` | 単語を削除/終了まで/戻す |
-| `cc`           | 行を変更          |
-| `C`            | 行の終了まで変更      |
-| `cw`/`ce`/`cb` | 単語を変更/終了まで/戻す |
-| `.`            | 最後の変更を繰り返す    |
+| Command        | Action                  |
+| :------------- | :---------------------- |
+| `x`            | Delete character        |
+| `dd`           | Delete line             |
+| `D`            | Delete to end of line   |
+| `dw`/`de`/`db` | Delete word/to end/back |
+| `cc`           | Change line             |
+| `C`            | Change to end of line   |
+| `cw`/`ce`/`cb` | Change word/to end/back |
+| `.`            | Repeat last change      |
 
-## コマンド履歴
+## Command history
 
-Claude Codeは現在のセッションのコマンド履歴を保持します:
+Claude Code maintains command history for the current session:
 
-* 履歴は作業ディレクトリごとに保存されます
-* `/clear`コマンドでクリアされます
-* 上下矢印を使用してナビゲートします (上記のキーボードショートカットを参照)
-* **注記**: 履歴展開 (`!`) はデフォルトで無効です
+* History is stored per working directory
+* Cleared with `/clear` command
+* Use Up/Down arrows to navigate (see keyboard shortcuts above)
+* **Note**: History expansion (`!`) is disabled by default
 
-### Ctrl+Rを使用した逆順検索
+### Reverse search with Ctrl+R
 
-`Ctrl+R`を押してコマンド履歴をインタラクティブに検索します:
+Press `Ctrl+R` to interactively search through your command history:
 
-1. **検索を開始**: `Ctrl+R`を押して逆順履歴検索をアクティブにします
-2. **クエリを入力**: 前のコマンドで検索するテキストを入力します - 検索用語は一致する結果で強調表示されます
-3. **一致をナビゲート**: `Ctrl+R`を再度押して、より古い一致をサイクルします
-4. **一致を受け入れ**:
-   * `Tab`または`Esc`を押して現在の一致を受け入れ、編集を続けます
-   * `Enter`を押して一致を受け入れ、コマンドをすぐに実行します
-5. **検索をキャンセル**:
-   * `Ctrl+C`を押して検索をキャンセルし、元の入力を復元します
-   * 空の検索で`Backspace`を押してキャンセルします
+1. **Start search**: Press `Ctrl+R` to activate reverse history search
+2. **Type query**: Enter text to search for in previous commands - the search term will be highlighted in matching results
+3. **Navigate matches**: Press `Ctrl+R` again to cycle through older matches
+4. **Accept match**:
+   * Press `Tab` or `Esc` to accept the current match and continue editing
+   * Press `Enter` to accept and execute the command immediately
+5. **Cancel search**:
+   * Press `Ctrl+C` to cancel and restore your original input
+   * Press `Backspace` on empty search to cancel
 
-検索は検索用語が強調表示されたマッチングコマンドを表示し、前の入力を簡単に見つけて再利用できます。
+The search displays matching commands with the search term highlighted, making it easy to find and reuse previous inputs.
 
-## バックグラウンドBashコマンド
+## Background bash commands
 
-Claude Codeはバックグラウンドでbashコマンドを実行することをサポートしており、長時間実行されるプロセスが実行されている間も作業を続けることができます。
+Claude Code supports running bash commands in the background, allowing you to continue working while long-running processes execute.
 
-### バックグラウンド実行の仕組み
+### How backgrounding works
 
-Claude Codeがコマンドをバックグラウンドで実行する場合、コマンドを非同期で実行し、すぐにバックグラウンドタスクIDを返します。Claude Codeはコマンドがバックグラウンドで実行され続けている間、新しいプロンプトに応答できます。
+When Claude Code runs a command in the background, it runs the command asynchronously and immediately returns a background task ID. Claude Code can respond to new prompts while the command continues executing in the background.
 
-コマンドをバックグラウンドで実行するには、以下のいずれかを実行できます:
+To run commands in the background, you can either:
 
-* Claude Codeにコマンドをバックグラウンドで実行するよう指示します
-* Ctrl+Bを押して、通常のBashツール呼び出しをバックグラウンドに移動します。(Tmuxユーザーはtmuxのプレフィックスキーのため、Ctrl+Bを2回押す必要があります。)
+* Prompt Claude Code to run a command in the background
+* Press Ctrl+B to move a regular Bash tool invocation to the background. (Tmux users must press Ctrl+B twice due to tmux's prefix key.)
 
-**主な機能:**
+**Key features:**
 
-* 出力はバッファリングされ、Claude はBashOutputツールを使用して取得できます
-* バックグラウンドタスクには追跡と出力取得用の一意のIDがあります
-* バックグラウンドタスクはClaude Code終了時に自動的にクリーンアップされます
+* Output is buffered and Claude can retrieve it using the BashOutput tool
+* Background tasks have unique IDs for tracking and output retrieval
+* Background tasks are automatically cleaned up when Claude Code exits
 
-**一般的なバックグラウンド実行コマンド:**
+**Common backgrounded commands:**
 
-* ビルドツール (webpack、vite、make)
-* パッケージマネージャー (npm、yarn、pnpm)
-* テストランナー (jest、pytest)
-* 開発サーバー
-* 長時間実行されるプロセス (docker、terraform)
+* Build tools (webpack, vite, make)
+* Package managers (npm, yarn, pnpm)
+* Test runners (jest, pytest)
+* Development servers
+* Long-running processes (docker, terraform)
 
-### `!` プレフィックス付きBashモード
+### Bash mode with `!` prefix
 
-入力に`!`をプレフィックスとして付けることで、Claudeを経由せずにbashコマンドを直接実行します:
+Run bash commands directly without going through Claude by prefixing your input with `!`:
 
 ```bash  theme={null}
 ! npm test
@@ -151,22 +151,22 @@ Claude Codeがコマンドをバックグラウンドで実行する場合、コ
 ! ls -la
 ```
 
-Bashモード:
+Bash mode:
 
-* コマンドとその出力を会話コンテキストに追加します
-* リアルタイムの進行状況と出力を表示します
-* 長時間実行されるコマンド用に同じ`Ctrl+B`バックグラウンド実行をサポートします
-* Claudeがコマンドを解釈または承認する必要はありません
+* Adds the command and its output to the conversation context
+* Shows real-time progress and output
+* Supports the same `Ctrl+B` backgrounding for long-running commands
+* Does not require Claude to interpret or approve the command
 
-これは会話コンテキストを維持しながら、クイックシェル操作に便利です。
+This is useful for quick shell operations while maintaining conversation context.
 
-## 関連項目
+## See also
 
-* [スラッシュコマンド](/ja/slash-commands) - インタラクティブセッションコマンド
-* [チェックポイント](/ja/checkpointing) - Claudeの編集を巻き戻し、前の状態を復元
-* [CLIリファレンス](/ja/cli-reference) - コマンドラインフラグとオプション
-* [設定](/ja/settings) - 設定オプション
-* [メモリ管理](/ja/memory) - CLAUDE.mdファイルの管理
+* [Slash commands](/en/slash-commands) - Interactive session commands
+* [Checkpointing](/en/checkpointing) - Rewind Claude's edits and restore previous states
+* [CLI reference](/en/cli-reference) - Command-line flags and options
+* [Settings](/en/settings) - Configuration options
+* [Memory management](/en/memory) - Managing CLAUDE.md files
 
 
 ---

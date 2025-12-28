@@ -1,90 +1,90 @@
-# 分析
+# Analytics
 
-> 組織の Claude Code デプロイメントの詳細な使用状況インサイトと生産性メトリクスを表示します。
+> View detailed usage insights and productivity metrics for your organization's Claude Code deployment.
 
-Claude Code は、組織が開発者の使用パターンを理解し、生産性メトリクスを追跡し、Claude Code の採用を最適化するのに役立つ分析ダッシュボードを提供します。
-
-<Note>
-  分析は現在、Claude API を通じて Claude Console で Claude Code を使用している組織でのみ利用可能です。
-</Note>
-
-## 分析にアクセスする
-
-[console.anthropic.com/claude-code](https://console.anthropic.com/claude-code) で分析ダッシュボードに移動します。
-
-### 必要なロール
-
-* **プライマリオーナー**
-* **オーナー**
-* **請求**
-* **管理者**
-* **開発者**
+Claude Code provides an analytics dashboard that helps organizations understand developer usage patterns, track productivity metrics, and optimize their Claude Code adoption.
 
 <Note>
-  **ユーザー**、**Claude Code ユーザー**、または **メンバーシップ管理者**ロールを持つユーザーは分析にアクセスできません。
+  Analytics are currently available only for organizations using Claude Code with the Claude API through the Claude Console.
 </Note>
 
-## 利用可能なメトリクス
+## Access analytics
 
-### 受け入れられたコード行数
+Navigate to the analytics dashboard at [console.anthropic.com/claude-code](https://console.anthropic.com/claude-code).
 
-Claude Code によって記述され、ユーザーがセッション中に受け入れたコード行の合計。
+### Required roles
 
-* 拒否されたコード提案は除外されます
-* その後の削除は追跡されません
+* **Primary Owner**
+* **Owner**
+* **Billing**
+* **Admin**
+* **Developer**
 
-### 提案受け入れ率
+<Note>
+  Users with **User**, **Claude Code User** or **Membership Admin** roles cannot access analytics.
+</Note>
 
-ユーザーがコード編集ツールの使用を受け入れる回数の割合。以下を含みます：
+## Available metrics
+
+### Lines of code accepted
+
+Total lines of code written by Claude Code that users have accepted in their sessions.
+
+* Excludes rejected code suggestions
+* Doesn't track subsequent deletions
+
+### Suggestion accept rate
+
+Percentage of times users accept code editing tool usage, including:
 
 * Edit
 * Write
 * NotebookEdit
 
-### アクティビティ
+### Activity
 
-**users**: 特定の日のアクティブユーザー数（左 Y 軸の数値）
+**users**: Number of active users in a given day (number on left Y-axis)
 
-**sessions**: 特定の日のアクティブセッション数（右 Y 軸の数値）
+**sessions**: Number of active sessions in a given day (number on right Y-axis)
 
-### 支出
+### Spend
 
-**users**: 特定の日のアクティブユーザー数（左 Y 軸の数値）
+**users**: Number of active users in a given day (number on left Y-axis)
 
-**spend**: 特定の日に費やされた合計ドル数（右 Y 軸の数値）
+**spend**: Total dollars spent in a given day (number on right Y-axis)
 
-### チームインサイト
+### Team insights
 
-**Members**: Claude Code に認証したすべてのユーザー
+**Members**: All users who have authenticated to Claude Code
 
-* API キーユーザーは **API キー識別子** で表示されます
-* OAuth ユーザーは **メールアドレス** で表示されます
+* API key users are displayed by **API key identifier**
+* OAuth users are displayed by **email address**
 
-**今月の支出:** 当月のユーザーあたりの合計支出。
+**Spend this month:** Per-user total spend for the current month.
 
-**今月のコード行数:** 当月のユーザーあたりの受け入れられたコード行の合計。
+**Lines this month:** Per-user total of accepted code lines for the current month.
 
-## 分析を効果的に使用する
+## Using analytics effectively
 
-### 採用を監視する
+### Monitor adoption
 
-チームメンバーのステータスを追跡して、以下を特定します：
+Track team member status to identify:
 
-* ベストプラクティスを共有できるアクティブユーザー
-* 組織全体の採用トレンド
+* Active users who can share best practices
+* Overall adoption trends across your organization
 
-### 生産性を測定する
+### Measure productivity
 
-ツール受け入れ率とコードメトリクスは、以下を支援します：
+Tool acceptance rates and code metrics help you:
 
-* Claude Code の提案に対する開発者の満足度を理解する
-* コード生成の有効性を追跡する
-* トレーニングまたはプロセス改善の機会を特定する
+* Understand developer satisfaction with Claude Code suggestions
+* Track code generation effectiveness
+* Identify opportunities for training or process improvements
 
-## 関連リソース
+## Related resources
 
-* [OpenTelemetry を使用した使用状況の監視](/ja/monitoring-usage) カスタムメトリクスとアラート用
-* [ID およびアクセス管理](/ja/iam) ロール構成用
+* [Monitoring usage with OpenTelemetry](/en/monitoring-usage) for custom metrics and alerting
+* [Identity and access management](/en/iam) for role configuration
 
 
 ---

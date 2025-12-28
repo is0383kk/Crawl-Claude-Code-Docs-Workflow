@@ -1,79 +1,79 @@
-# Google Vertex AI上のClaude Code
+# Claude Code on Google Vertex AI
 
-> Google Vertex AIを通じたClaude Codeの設定方法について学びます。セットアップ、IAM設定、トラブルシューティングを含みます。
+> Learn about configuring Claude Code through Google Vertex AI, including setup, IAM configuration, and troubleshooting.
 
-## 前提条件
+## Prerequisites
 
-Vertex AIでClaude Codeを設定する前に、以下を確認してください：
+Before configuring Claude Code with Vertex AI, ensure you have:
 
-* 請求が有効になっているGoogle Cloud Platform（GCP）アカウント
-* Vertex AI APIが有効になっているGCPプロジェクト
-* 目的のClaudeモデルへのアクセス（例：Claude Sonnet 4.5）
-* Google Cloud SDK（`gcloud`）がインストールおよび設定されていること
-* 目的のGCPリージョンに割り当てられたクォータ
+* A Google Cloud Platform (GCP) account with billing enabled
+* A GCP project with Vertex AI API enabled
+* Access to desired Claude models (for example, Claude Sonnet 4.5)
+* Google Cloud SDK (`gcloud`) installed and configured
+* Quota allocated in desired GCP region
 
-## リージョン設定
+## Region Configuration
 
-Claude CodeはVertex AI [グローバル](https://cloud.google.com/blog/products/ai-machine-learning/global-endpoint-for-claude-models-generally-available-on-vertex-ai)とリージョナルエンドポイントの両方で使用できます。
+Claude Code can be used with both Vertex AI [global](https://cloud.google.com/blog/products/ai-machine-learning/global-endpoint-for-claude-models-generally-available-on-vertex-ai) and regional endpoints.
 
 <Note>
-  Vertex AIは、すべてのリージョンでClaude Codeのデフォルトモデルをサポートしていない場合があります。[サポートされているリージョンまたはモデル](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations#genai-partner-models)に切り替える必要がある場合があります。
+  Vertex AI may not support the Claude Code default models on all regions. You may need to switch to a [supported region or model](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations#genai-partner-models).
 </Note>
 
 <Note>
-  Vertex AIは、グローバルエンドポイントでClaude Codeのデフォルトモデルをサポートしていない場合があります。リージョナルエンドポイントまたは[サポートされているモデル](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-partner-models#supported_models)に切り替える必要がある場合があります。
+  Vertex AI may not support the Claude Code default models on global endpoints. You may need to switch to a regional endpoint or [supported model](https://cloud.google.com/vertex-ai/generative-ai/docs/partner-models/use-partner-models#supported_models).
 </Note>
 
-## セットアップ
+## Setup
 
-### 1. Vertex AI APIを有効にする
+### 1. Enable Vertex AI API
 
-GCPプロジェクトでVertex AI APIを有効にします：
+Enable the Vertex AI API in your GCP project:
 
 ```bash  theme={null}
-# プロジェクトIDを設定
+# Set your project ID
 gcloud config set project YOUR-PROJECT-ID
 
-# Vertex AI APIを有効にする
+# Enable Vertex AI API
 gcloud services enable aiplatform.googleapis.com
 ```
 
-### 2. モデルアクセスをリクエストする
+### 2. Request model access
 
-Vertex AIでClaudeモデルへのアクセスをリクエストします：
+Request access to Claude models in Vertex AI:
 
-1. [Vertex AI Model Garden](https://console.cloud.google.com/vertex-ai/model-garden)に移動します
-2. 「Claude」モデルを検索します
-3. 目的のClaudeモデル（例：Claude Sonnet 4.5）へのアクセスをリクエストします
-4. 承認を待ちます（24～48時間かかる場合があります）
+1. Navigate to the [Vertex AI Model Garden](https://console.cloud.google.com/vertex-ai/model-garden)
+2. Search for "Claude" models
+3. Request access to desired Claude models (for example, Claude Sonnet 4.5)
+4. Wait for approval (may take 24-48 hours)
 
-### 3. GCP認証情報を設定する
+### 3. Configure GCP credentials
 
-Claude Codeは標準的なGoogle Cloud認証を使用します。
+Claude Code uses standard Google Cloud authentication.
 
-詳細については、[Google Cloud認証ドキュメント](https://cloud.google.com/docs/authentication)を参照してください。
+For more information, see [Google Cloud authentication documentation](https://cloud.google.com/docs/authentication).
 
 <Note>
-  認証時に、Claude Codeは`ANTHROPIC_VERTEX_PROJECT_ID`環境変数からプロジェクトIDを自動的に使用します。これをオーバーライドするには、`GCLOUD_PROJECT`、`GOOGLE_CLOUD_PROJECT`、または`GOOGLE_APPLICATION_CREDENTIALS`のいずれかの環境変数を設定します。
+  When authenticating, Claude Code will automatically use the project ID from the `ANTHROPIC_VERTEX_PROJECT_ID` environment variable. To override this, set one of these environment variables: `GCLOUD_PROJECT`, `GOOGLE_CLOUD_PROJECT`, or `GOOGLE_APPLICATION_CREDENTIALS`.
 </Note>
 
-### 4. Claude Codeを設定する
+### 4. Configure Claude Code
 
-以下の環境変数を設定します：
+Set the following environment variables:
 
 ```bash  theme={null}
-# Vertex AI統合を有効にする
+# Enable Vertex AI integration
 export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=global
 export ANTHROPIC_VERTEX_PROJECT_ID=YOUR-PROJECT-ID
 
-# オプション：必要に応じてプロンプトキャッシングを無効にする
+# Optional: Disable prompt caching if needed
 export DISABLE_PROMPT_CACHING=1
 
-# CLOUD_ML_REGION=globalの場合、サポートされていないモデルのリージョンをオーバーライドする
+# When CLOUD_ML_REGION=global, override region for unsupported models
 export VERTEX_REGION_CLAUDE_3_5_HAIKU=us-east5
 
-# オプション：他の特定のモデルのリージョンをオーバーライドする
+# Optional: Override regions for other specific models
 export VERTEX_REGION_CLAUDE_3_5_SONNET=us-east5
 export VERTEX_REGION_CLAUDE_3_7_SONNET=us-east5
 export VERTEX_REGION_CLAUDE_4_0_OPUS=europe-west1
@@ -82,81 +82,81 @@ export VERTEX_REGION_CLAUDE_4_1_OPUS=europe-west1
 ```
 
 <Note>
-  [プロンプトキャッシング](https://docs.claude.com/ja/docs/build-with-claude/prompt-caching)は、`cache_control`エフェメラルフラグを指定すると自動的にサポートされます。これを無効にするには、`DISABLE_PROMPT_CACHING=1`を設定します。レート制限を高くするには、Google Cloudサポートに連絡してください。
+  [Prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) is automatically supported when you specify the `cache_control` ephemeral flag. To disable it, set `DISABLE_PROMPT_CACHING=1`. For heightened rate limits, contact Google Cloud support.
 </Note>
 
 <Note>
-  Vertex AIを使用する場合、Google Cloud認証情報を通じて認証が処理されるため、`/login`および`/logout`コマンドは無効になります。
+  When using Vertex AI, the `/login` and `/logout` commands are disabled since authentication is handled through Google Cloud credentials.
 </Note>
 
-### 5. モデル設定
+### 5. Model configuration
 
-Claude CodeはVertex AIに対して以下のデフォルトモデルを使用します：
+Claude Code uses these default models for Vertex AI:
 
-| モデルタイプ   | デフォルト値                       |
-| :------- | :--------------------------- |
-| プライマリモデル | `claude-sonnet-4-5@20250929` |
-| 小型/高速モデル | `claude-haiku-4-5@20251001`  |
+| Model type       | Default value                |
+| :--------------- | :--------------------------- |
+| Primary model    | `claude-sonnet-4-5@20250929` |
+| Small/fast model | `claude-haiku-4-5@20251001`  |
 
 <Note>
-  Vertex AIユーザーの場合、Claude CodeはHaiku 3.5からHaiku 4.5に自動的にアップグレードされません。新しいHaikuモデルに手動で切り替えるには、`ANTHROPIC_DEFAULT_HAIKU_MODEL`環境変数をフルモデル名に設定します（例：`claude-haiku-4-5@20251001`）。
+  For Vertex AI users, Claude Code will not automatically upgrade from Haiku 3.5 to Haiku 4.5. To manually switch to a newer Haiku model, set the `ANTHROPIC_DEFAULT_HAIKU_MODEL` environment variable to the full model name (for example, `claude-haiku-4-5@20251001`).
 </Note>
 
-モデルをカスタマイズするには：
+To customize models:
 
 ```bash  theme={null}
 export ANTHROPIC_MODEL='claude-opus-4-1@20250805'
 export ANTHROPIC_SMALL_FAST_MODEL='claude-haiku-4-5@20251001'
 ```
 
-## IAM設定
+## IAM configuration
 
-必要なIAMパーミッションを割り当てます：
+Assign the required IAM permissions:
 
-`roles/aiplatform.user`ロールには必要なパーミッションが含まれています：
+The `roles/aiplatform.user` role includes the required permissions:
 
-* `aiplatform.endpoints.predict` - モデル呼び出しとトークンカウントに必要
+* `aiplatform.endpoints.predict` - Required for model invocation and token counting
 
-より制限的なパーミッションの場合は、上記のパーミッションのみを持つカスタムロールを作成します。
+For more restrictive permissions, create a custom role with only the permissions above.
 
-詳細については、[Vertex IAMドキュメント](https://cloud.google.com/vertex-ai/docs/general/access-control)を参照してください。
-
-<Note>
-  コスト追跡とアクセス制御を簡素化するために、Claude Code用の専用GCPプロジェクトを作成することをお勧めします。
-</Note>
-
-## 1Mトークンコンテキストウィンドウ
-
-Claude Sonnet 4およびSonnet 4.5は、Vertex AIで[1Mトークンコンテキストウィンドウ](https://docs.claude.com/ja/docs/build-with-claude/context-windows#1m-token-context-window)をサポートしています。
+For details, see [Vertex IAM documentation](https://cloud.google.com/vertex-ai/docs/general/access-control).
 
 <Note>
-  1Mトークンコンテキストウィンドウは現在ベータ版です。拡張コンテキストウィンドウを使用するには、Vertex AIリクエストに`context-1m-2025-08-07`ベータヘッダーを含めます。
+  We recommend creating a dedicated GCP project for Claude Code to simplify cost tracking and access control.
 </Note>
 
-## トラブルシューティング
+## 1M token context window
 
-クォータの問題が発生した場合：
+Claude Sonnet 4 and Sonnet 4.5 support the [1M token context window](https://docs.claude.com/en/docs/build-with-claude/context-windows#1m-token-context-window) on Vertex AI.
 
-* [Cloud Console](https://cloud.google.com/docs/quotas/view-manage)を通じて現在のクォータを確認するか、クォータ増加をリクエストします
+<Note>
+  The 1M token context window is currently in beta. To use the extended context window, include the `context-1m-2025-08-07` beta header in your Vertex AI requests.
+</Note>
 
-「モデルが見つかりません」404エラーが発生した場合：
+## Troubleshooting
 
-* [Model Garden](https://console.cloud.google.com/vertex-ai/model-garden)でモデルが有効になっていることを確認します
-* 指定されたリージョンへのアクセス権があることを確認します
-* `CLOUD_ML_REGION=global`を使用している場合、[Model Garden](https://console.cloud.google.com/vertex-ai/model-garden)の「サポートされている機能」でモデルがグローバルエンドポイントをサポートしていることを確認します。グローバルエンドポイントをサポートしていないモデルの場合は、以下のいずれかを実行します：
-  * `ANTHROPIC_MODEL`または`ANTHROPIC_SMALL_FAST_MODEL`を通じてサポートされているモデルを指定するか、
-  * `VERTEX_REGION_<MODEL_NAME>`環境変数を使用してリージョナルエンドポイントを設定します
+If you encounter quota issues:
 
-429エラーが発生した場合：
+* Check current quotas or request quota increase through [Cloud Console](https://cloud.google.com/docs/quotas/view-manage)
 
-* リージョナルエンドポイントの場合、プライマリモデルと小型/高速モデルが選択されたリージョンでサポートされていることを確認します
-* より良い可用性のために`CLOUD_ML_REGION=global`への切り替えを検討します
+If you encounter "model not found" 404 errors:
 
-## 追加リソース
+* Confirm model is Enabled in [Model Garden](https://console.cloud.google.com/vertex-ai/model-garden)
+* Verify you have access to the specified region
+* If using `CLOUD_ML_REGION=global`, check that your models support global endpoints in [Model Garden](https://console.cloud.google.com/vertex-ai/model-garden) under "Supported features". For models that don't support global endpoints, either:
+  * Specify a supported model via `ANTHROPIC_MODEL` or `ANTHROPIC_SMALL_FAST_MODEL`, or
+  * Set a regional endpoint using `VERTEX_REGION_<MODEL_NAME>` environment variables
 
-* [Vertex AIドキュメント](https://cloud.google.com/vertex-ai/docs)
-* [Vertex AI価格](https://cloud.google.com/vertex-ai/pricing)
-* [Vertex AIクォータと制限](https://cloud.google.com/vertex-ai/docs/quotas)
+If you encounter 429 errors:
+
+* For regional endpoints, ensure the primary model and small/fast model are supported in your selected region
+* Consider switching to `CLOUD_ML_REGION=global` for better availability
+
+## Additional resources
+
+* [Vertex AI documentation](https://cloud.google.com/vertex-ai/docs)
+* [Vertex AI pricing](https://cloud.google.com/vertex-ai/pricing)
+* [Vertex AI quotas and limits](https://cloud.google.com/vertex-ai/docs/quotas)
 
 
 ---

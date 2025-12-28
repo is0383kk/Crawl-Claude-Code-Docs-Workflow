@@ -1,23 +1,27 @@
-# フックリファレンス
+# Hooks reference
 
-> このページでは、Claude Codeでフックを実装するためのリファレンスドキュメントを提供します。
+> This page provides reference documentation for implementing hooks in Claude Code.
 
 <Tip>
-  クイックスタートガイドと例については、[Claude Codeフックの開始](/ja/hooks-guide)を参照してください。
+  For a quickstart guide with examples, see [Get started with Claude Code hooks](/en/hooks-guide).
 </Tip>
 
-## 設定
+## Configuration
 
-Claude Codeフックは[設定ファイル](/ja/settings)で設定されます：
+Claude Code hooks are configured in your [settings files](/en/settings):
 
-* `~/.claude/settings.json` - ユーザー設定
-* `.claude/settings.json` - プロジェクト設定
-* `.claude/settings.local.json` - ローカルプロジェクト設定（コミットされない）
-* エンタープライズ管理ポリシー設定
+* `~/.claude/settings.json` - User settings
+* `.claude/settings.json` - Project settings
+* `.claude/settings.local.json` - Local project settings (not committed)
+* Enterprise managed policy settings
 
-### 構造
+<Note>
+  Enterprise administrators can use `allowManagedHooksOnly` to block user, project, and plugin hooks. See [Hook configuration](/en/settings#hook-configuration).
+</Note>
 
-フックはマッチャーで整理され、各マッチャーは複数のフックを持つことができます：
+### Structure
+
+Hooks are organized by matchers, where each matcher can have multiple hooks:
 
 ```json  theme={null}
 {
@@ -37,17 +41,20 @@ Claude Codeフックは[設定ファイル](/ja/settings)で設定されます�
 }
 ```
 
-* **matcher**: ツール名にマッチするパターン、大文字小文字を区別します（`PreToolUse`と`PostToolUse`にのみ適用可能）
-  * シンプルな文字列は正確にマッチします：`Write`はWriteツールのみにマッチします
-  * 正規表現をサポートします：`Edit|Write`または`Notebook.*`
-  * `*`を使用してすべてのツールにマッチします。空の文字列（`""`）を使用することもできます、または`matcher`を空白のままにします。
-* **hooks**: パターンがマッチしたときに実行するフックの配列
-  * `type`: フック実行タイプ - bashコマンドの場合は`"command"`、LLMベースの評価の場合は`"prompt"`
-  * `command`: （`type: "command"`の場合）実行するbashコマンド（`$CLAUDE_PROJECT_DIR`環境変数を使用できます）
-  * `prompt`: （`type: "prompt"`の場合）LLMに送信する評価用プロンプト
-  * `timeout`: （オプション）フックが実行される時間（秒単位）、その特定のフックをキャンセルする前に
+* **matcher**: Pattern to match tool names, case-sensitive (only applicable for
+  `PreToolUse`, `PermissionRequest`, and `PostToolUse`)
+  * Simple strings match exactly: `Write` matches only the Write tool
+  * Supports regex: `Edit|Write` or `Notebook.*`
+  * Use `*` to match all tools. You can also use empty string (`""`) or leave
+    `matcher` blank.
+* **hooks**: Array of hooks to execute when the pattern matches
+  * `type`: Hook execution type - `"command"` for bash commands or `"prompt"` for LLM-based evaluation
+  * `command`: (For `type: "command"`) The bash command to execute (can use `$CLAUDE_PROJECT_DIR` environment variable)
+  * `prompt`: (For `type: "prompt"`) The prompt to send to the LLM for evaluation
+  * `timeout`: (Optional) How long a hook should run, in seconds, before canceling that specific hook
 
-`UserPromptSubmit`、`Notification`、`Stop`、`SubagentStop`などのマッチャーを使用しないイベントの場合、matcherフィールドを省略できます：
+For events like `UserPromptSubmit`, `Stop`, and `SubagentStop`
+that don't use matchers, you can omit the matcher field:
 
 ```json  theme={null}
 {
@@ -66,9 +73,11 @@ Claude Codeフックは[設定ファイル](/ja/settings)で設定されます�
 }
 ```
 
-### プロジェクト固有のフックスクリプト
+### Project-Specific Hook Scripts
 
-環境変数`CLAUDE_PROJECT_DIR`（Claude Codeがフックコマンドを生成するときのみ利用可能）を使用して、プロジェクトに保存されているスクリプトを参照できます。これにより、Claude Codeの現在のディレクトリに関係なく機能することが保証されます：
+You can use the environment variable `CLAUDE_PROJECT_DIR` (only available when
+Claude Code spawns the hook command) to reference scripts stored in your project,
+ensuring they work regardless of Claude's current directory:
 
 ```json  theme={null}
 {
@@ -88,22 +97,22 @@ Claude Codeフックは[設定ファイル](/ja/settings)で設定されます�
 }
 ```
 
-### プラグインフック
+### Plugin hooks
 
-[プラグイン](/ja/plugins)は、ユーザーおよびプロジェクトフックとシームレスに統合するフックを提供できます。プラグインフックは、プラグインが有効になると自動的に設定とマージされます。
+[Plugins](/en/plugins) can provide hooks that integrate seamlessly with your user and project hooks. Plugin hooks are automatically merged with your configuration when plugins are enabled.
 
-**プラグインフックの仕組み**：
+**How plugin hooks work**:
 
-* プラグインフックはプラグインの`hooks/hooks.json`ファイル、または`hooks`フィールドにカスタムパスで指定されたファイルで定義されます。
-* プラグインが有効になると、そのフックはユーザーおよびプロジェクトフックとマージされます
-* 異なるソースからの複数のフックが同じイベントに応答できます
-* プラグインフックは`${CLAUDE_PLUGIN_ROOT}`環境変数を使用してプラグインファイルを参照します
+* Plugin hooks are defined in the plugin's `hooks/hooks.json` file or in a file given by a custom path to the `hooks` field.
+* When a plugin is enabled, its hooks are merged with user and project hooks
+* Multiple hooks from different sources can respond to the same event
+* Plugin hooks use the `${CLAUDE_PLUGIN_ROOT}` environment variable to reference plugin files
 
-**プラグインフック設定の例**：
+**Example plugin hook configuration**:
 
 ```json  theme={null}
 {
-  "description": "自動コードフォーマット",
+  "description": "Automatic code formatting",
   "hooks": {
     "PostToolUse": [
       {
@@ -122,34 +131,34 @@ Claude Codeフックは[設定ファイル](/ja/settings)で設定されます�
 ```
 
 <Note>
-  プラグインフックは通常のフックと同じ形式を使用し、フックの目的を説明するオプションの`description`フィールドがあります。
+  Plugin hooks use the same format as regular hooks with an optional `description` field to explain the hook's purpose.
 </Note>
 
 <Note>
-  プラグインフックはカスタムフックと並行して実行されます。複数のフックがイベントにマッチする場合、すべてが並行して実行されます。
+  Plugin hooks run alongside your custom hooks. If multiple hooks match an event, they all execute in parallel.
 </Note>
 
-**プラグイン用の環境変数**：
+**Environment variables for plugins**:
 
-* `${CLAUDE_PLUGIN_ROOT}`: プラグインディレクトリへの絶対パス
-* `${CLAUDE_PROJECT_DIR}`: プロジェクトルートディレクトリ（プロジェクトフックと同じ）
-* すべての標準環境変数が利用可能です
+* `${CLAUDE_PLUGIN_ROOT}`: Absolute path to the plugin directory
+* `${CLAUDE_PROJECT_DIR}`: Project root directory (same as for project hooks)
+* All standard environment variables are available
 
-プラグインフックの作成の詳細については、[プラグインコンポーネントリファレンス](/ja/plugins-reference#hooks)を参照してください。
+See the [plugin components reference](/en/plugins-reference#hooks) for details on creating plugin hooks.
 
-## プロンプトベースのフック
+## Prompt-Based Hooks
 
-bashコマンドフック（`type: "command"`）に加えて、Claude Codeはプロンプトベースのフック（`type: "prompt"`）をサポートしており、LLMを使用してアクションを許可するかブロックするかを評価します。プロンプトベースのフックは現在`Stop`と`SubagentStop`フックのみでサポートされており、インテリジェントでコンテキスト認識の決定を可能にします。
+In addition to bash command hooks (`type: "command"`), Claude Code supports prompt-based hooks (`type: "prompt"`) that use an LLM to evaluate whether to allow or block an action. Prompt-based hooks are currently only supported for `Stop` and `SubagentStop` hooks, where they enable intelligent, context-aware decisions.
 
-### プロンプトベースのフックの仕組み
+### How prompt-based hooks work
 
-bashコマンドを実行する代わりに、プロンプトベースのフックは：
+Instead of executing a bash command, prompt-based hooks:
 
-1. フック入力とプロンプトを高速LLM（Haiku）に送信します
-2. LLMは決定を含む構造化JSONで応答します
-3. Claude Codeは決定を自動的に処理します
+1. Send the hook input and your prompt to a fast LLM (Haiku)
+2. The LLM responds with structured JSON containing a decision
+3. Claude Code processes the decision automatically
 
-### 設定
+### Configuration
 
 ```json  theme={null}
 {
@@ -159,7 +168,7 @@ bashコマンドを実行する代わりに、プロンプトベースのフッ�
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Claudeが停止すべきかどうかを評価してください：$ARGUMENTS。すべてのタスクが完了しているかどうかを確認してください。"
+            "prompt": "Evaluate if Claude should stop: $ARGUMENTS. Check if all tasks are complete."
           }
         ]
       }
@@ -168,46 +177,47 @@ bashコマンドを実行する代わりに、プロンプトベースのフッ�
 }
 ```
 
-**フィールド：**
+**Fields:**
 
-* `type`: `"prompt"`である必要があります
-* `prompt`: LLMに送信するプロンプトテキスト
-  * フック入力JSONのプレースホルダーとして`$ARGUMENTS`を使用します
-  * `$ARGUMENTS`が存在しない場合、入力JSONはプロンプトに追加されます
-* `timeout`: （オプション）タイムアウト（秒単位）（デフォルト：30秒）
+* `type`: Must be `"prompt"`
+* `prompt`: The prompt text to send to the LLM
+  * Use `$ARGUMENTS` as a placeholder for the hook input JSON
+  * If `$ARGUMENTS` is not present, input JSON is appended to the prompt
+* `timeout`: (Optional) Timeout in seconds (default: 30 seconds)
 
-### レスポンススキーマ
+### Response schema
 
-LLMは以下を含むJSONで応答する必要があります：
+The LLM must respond with JSON containing:
 
 ```json  theme={null}
 {
   "decision": "approve" | "block",
-  "reason": "決定の説明",
-  "continue": false,  // オプション：Claude全体を停止します
-  "stopReason": "ユーザーに表示されるメッセージ",  // オプション：カスタム停止メッセージ
-  "systemMessage": "警告またはコンテキスト"  // オプション：ユーザーに表示されます
+  "reason": "Explanation for the decision",
+  "continue": false,  // Optional: stops Claude entirely
+  "stopReason": "Message shown to user",  // Optional: custom stop message
+  "systemMessage": "Warning or context"  // Optional: shown to user
 }
 ```
 
-**レスポンスフィールド：**
+**Response fields:**
 
-* `decision`: `"approve"`はアクションを許可し、`"block"`はそれを防ぎます
-* `reason`: 決定が`"block"`の場合、Claudeに表示される説明
-* `continue`: （オプション）`false`の場合、Claude全体の実行を停止します
-* `stopReason`: （オプション）`continue`がfalseの場合に表示されるメッセージ
-* `systemMessage`: （オプション）ユーザーに表示される追加メッセージ
+* `decision`: `"approve"` allows the action, `"block"` prevents it
+* `reason`: Explanation shown to Claude when decision is `"block"`
+* `continue`: (Optional) If `false`, stops Claude's execution entirely
+* `stopReason`: (Optional) Message shown when `continue` is false
+* `systemMessage`: (Optional) Additional message shown to the user
 
-### サポートされているフックイベント
+### Supported hook events
 
-プロンプトベースのフックはすべてのフックイベントで機能しますが、以下に最も有用です：
+Prompt-based hooks work with any hook event, but are most useful for:
 
-* **Stop**: Claudeが作業を続けるべきかどうかをインテリジェントに決定します
-* **SubagentStop**: サブエージェントがそのタスクを完了したかどうかを評価します
-* **UserPromptSubmit**: LLM支援でユーザープロンプトを検証します
-* **PreToolUse**: コンテキスト認識の権限決定を行います
+* **Stop**: Intelligently decide if Claude should continue working
+* **SubagentStop**: Evaluate if a subagent has completed its task
+* **UserPromptSubmit**: Validate user prompts with LLM assistance
+* **PreToolUse**: Make context-aware permission decisions
+* **PermissionRequest**: Intelligently allow or deny permission dialogs
 
-### 例：インテリジェントStopフック
+### Example: Intelligent Stop hook
 
 ```json  theme={null}
 {
@@ -217,7 +227,7 @@ LLMは以下を含むJSONで応答する必要があります：
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Claudeが作業を停止すべきかどうかを評価しています。コンテキスト：$ARGUMENTS\n\n会話を分析し、以下を判断してください：\n1. すべてのユーザーがリクエストしたタスクが完了しているか\n2. 対処する必要があるエラーがあるか\n3. フォローアップ作業が必要か\n\nJSON形式で応答してください：{\"decision\": \"approve\"または\"block\"、\"reason\": \"あなたの説明\"}",
+            "prompt": "You are evaluating whether Claude should stop working. Context: $ARGUMENTS\n\nAnalyze the conversation and determine if:\n1. All user-requested tasks are complete\n2. Any errors need to be addressed\n3. Follow-up work is needed\n\nRespond with JSON: {\"decision\": \"approve\" or \"block\", \"reason\": \"your explanation\"}",
             "timeout": 30
           }
         ]
@@ -227,7 +237,7 @@ LLMは以下を含むJSONで応答する必要があります：
 }
 ```
 
-### 例：カスタムロジックを使用したSubagentStop
+### Example: SubagentStop with custom logic
 
 ```json  theme={null}
 {
@@ -237,7 +247,7 @@ LLMは以下を含むJSONで応答する必要があります：
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "このサブエージェントが停止すべきかどうかを評価してください。入力：$ARGUMENTS\n\n以下を確認してください：\n- サブエージェントが割り当てられたタスクを完了したか\n- 修正が必要なエラーが発生したか\n- 追加のコンテキスト収集が必要か\n\n戻り値：{\"decision\": \"approve\"または\"block\"、\"reason\": \"説明\"}"
+            "prompt": "Evaluate if this subagent should stop. Input: $ARGUMENTS\n\nCheck if:\n- The subagent completed its assigned task\n- Any errors occurred that need fixing\n- Additional context gathering is needed\n\nReturn: {\"decision\": \"approve\" or \"block\", \"reason\": \"explanation\"}"
           }
         ]
       }
@@ -246,94 +256,143 @@ LLMは以下を含むJSONで応答する必要があります：
 }
 ```
 
-### bashコマンドフックとの比較
+### Comparison with bash command hooks
 
-| 機能             | Bashコマンドフック  | プロンプトベースのフック  |
-| -------------- | ------------ | ------------- |
-| **実行**         | bashスクリプトを実行 | LLMにクエリ       |
-| **決定ロジック**     | コードで実装       | LLMがコンテキストを評価 |
-| **セットアップの複雑さ** | スクリプトファイルが必要 | プロンプトを設定するだけ  |
-| **コンテキスト認識**   | スクリプトロジックに限定 | 自然言語理解        |
-| **パフォーマンス**    | 高速（ローカル実行）   | 低速（APIコール）    |
-| **ユースケース**     | 決定論的ルール      | コンテキスト認識の決定   |
+| Feature               | Bash Command Hooks      | Prompt-Based Hooks             |
+| --------------------- | ----------------------- | ------------------------------ |
+| **Execution**         | Runs bash script        | Queries LLM                    |
+| **Decision logic**    | You implement in code   | LLM evaluates context          |
+| **Setup complexity**  | Requires script file    | Configure prompt               |
+| **Context awareness** | Limited to script logic | Natural language understanding |
+| **Performance**       | Fast (local execution)  | Slower (API call)              |
+| **Use case**          | Deterministic rules     | Context-aware decisions        |
 
-### ベストプラクティス
+### Best practices
 
-* **プロンプトで具体的に**: LLMに評価してほしいことを明確に述べてください
-* **決定基準を含める**: LLMが考慮すべき要因をリストアップしてください
-* **プロンプトをテストする**: LLMがユースケースに対して正しい決定を下すことを確認してください
-* **適切なタイムアウトを設定する**: デフォルトは30秒です、必要に応じて調整してください
-* **複雑な決定に使用する**: Bashフックはシンプルで決定論的なルールに適しています
+* **Be specific in prompts**: Clearly state what you want the LLM to evaluate
+* **Include decision criteria**: List the factors the LLM should consider
+* **Test your prompts**: Verify the LLM makes correct decisions for your use cases
+* **Set appropriate timeouts**: Default is 30 seconds, adjust if needed
+* **Use for complex decisions**: Bash hooks are better for simple, deterministic rules
 
-プラグインフックの作成の詳細については、[プラグインコンポーネントリファレンス](/ja/plugins-reference#hooks)を参照してください。
+See the [plugin components reference](/en/plugins-reference#hooks) for details on creating plugin hooks.
 
-## フックイベント
+## Hook Events
 
 ### PreToolUse
 
-Claudeがツールパラメータを作成した後、ツール呼び出しを処理する前に実行されます。
+Runs after Claude creates tool parameters and before processing the tool call.
 
-**一般的なマッチャー：**
+**Common matchers:**
 
-* `Task` - サブエージェントタスク（[サブエージェントドキュメント](/ja/sub-agents)を参照）
-* `Bash` - シェルコマンド
-* `Glob` - ファイルパターンマッチング
-* `Grep` - コンテンツ検索
-* `Read` - ファイル読み取り
-* `Edit` - ファイル編集
-* `Write` - ファイル書き込み
-* `WebFetch`、`WebSearch` - ウェブ操作
+* `Task` - Subagent tasks (see [subagents documentation](/en/sub-agents))
+* `Bash` - Shell commands
+* `Glob` - File pattern matching
+* `Grep` - Content search
+* `Read` - File reading
+* `Edit` - File editing
+* `Write` - File writing
+* `WebFetch`, `WebSearch` - Web operations
+
+Use [PreToolUse decision control](#pretooluse-decision-control) to allow, deny, or ask for permission to use the tool.
+
+### PermissionRequest
+
+Runs when the user is shown a permission dialog.
+Use [PermissionRequest decision control](#permissionrequest-decision-control) to allow or deny on behalf of the user.
+
+Recognizes the same matcher values as PreToolUse.
 
 ### PostToolUse
 
-ツールが正常に完了した直後に実行されます。
+Runs immediately after a tool completes successfully.
 
-PreToolUseと同じマッチャー値を認識します。
+Recognizes the same matcher values as PreToolUse.
 
 ### Notification
 
-Claude Codeが通知を送信するときに実行されます。通知は以下の場合に送信されます：
+Runs when Claude Code sends notifications. Supports matchers to filter by notification type.
 
-1. Claudeがツールを使用する権限が必要な場合。例：「Claudeがbashを使用する権限が必要です」
-2. プロンプト入力が少なくとも60秒間アイドル状態にある場合。「Claudeはあなたの入力を待っています」
+**Common matchers:**
+
+* `permission_prompt` - Permission requests from Claude Code
+* `idle_prompt` - When Claude is waiting for user input (after 60+ seconds of idle time)
+* `auth_success` - Authentication success notifications
+* `elicitation_dialog` - When Claude Code needs input for MCP tool elicitation
+
+You can use matchers to run different hooks for different notification types, or omit the matcher to run hooks for all notifications.
+
+**Example: Different notifications for different types**
+
+```json  theme={null}
+{
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/permission-alert.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/path/to/idle-notification.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 ### UserPromptSubmit
 
-ユーザーがプロンプトを送信するときに実行されます。Claudeがそれを処理する前に実行されます。これにより、プロンプト/会話に基づいて追加のコンテキストを追加したり、プロンプトを検証したり、特定の種類のプロンプトをブロックしたりできます。
+Runs when the user submits a prompt, before Claude processes it. This allows you
+to add additional context based on the prompt/conversation, validate prompts, or
+block certain types of prompts.
 
 ### Stop
 
-メインClaude Codeエージェントが応答を完了したときに実行されます。ユーザー割り込みが原因で停止が発生した場合は実行されません。
+Runs when the main Claude Code agent has finished responding. Does not run if
+the stoppage occurred due to a user interrupt.
 
 ### SubagentStop
 
-Claude Codeサブエージェント（Taskツール呼び出し）が応答を完了したときに実行されます。
+Runs when a Claude Code subagent (Task tool call) has finished responding.
 
 ### PreCompact
 
-Claude Codeがコンパクト操作を実行しようとする前に実行されます。
+Runs before Claude Code is about to run a compact operation.
 
-**マッチャー：**
+**Matchers:**
 
-* `manual` - `/compact`から呼び出された
-* `auto` - 自動コンパクトから呼び出された（コンテキストウィンドウが満杯のため）
+* `manual` - Invoked from `/compact`
+* `auto` - Invoked from auto-compact (due to full context window)
 
 ### SessionStart
 
-Claude Codeが新しいセッションを開始するか、既存のセッションを再開するときに実行されます（現在、内部的には新しいセッションを開始します）。既存の問題や最近のコードベースの変更などの開発コンテキストをロードしたり、依存関係をインストールしたり、環境変数を設定したりするのに便利です。
+Runs when Claude Code starts a new session or resumes an existing session (which
+currently does start a new session under the hood). Useful for loading in
+development context like existing issues or recent changes to your codebase, installing dependencies, or setting up environment variables.
 
-**マッチャー：**
+**Matchers:**
 
-* `startup` - スタートアップから呼び出された
-* `resume` - `--resume`、`--continue`、または`/resume`から呼び出された
-* `clear` - `/clear`から呼び出された
-* `compact` - 自動または手動コンパクトから呼び出された。
+* `startup` - Invoked from startup
+* `resume` - Invoked from `--resume`, `--continue`, or `/resume`
+* `clear` - Invoked from `/clear`
+* `compact` - Invoked from auto or manual compact.
 
-#### 環境変数の永続化
+#### Persisting environment variables
 
-SessionStartフックは`CLAUDE_ENV_FILE`環境変数にアクセスでき、後続のbashコマンドの環境変数を永続化できるファイルパスを提供します。
+SessionStart hooks have access to the `CLAUDE_ENV_FILE` environment variable, which provides a file path where you can persist environment variables for subsequent bash commands.
 
-**例：個別の環境変数を設定する**
+**Example: Setting individual environment variables**
 
 ```bash  theme={null}
 #!/bin/bash
@@ -347,16 +406,16 @@ fi
 exit 0
 ```
 
-**例：フックからのすべての環境変更を永続化する**
+**Example: Persisting all environment changes from the hook**
 
-セットアップが環境を変更する場合（例：`nvm use`）、環境をdiffして、すべての変更をキャプチャして永続化します：
+When your setup modifies the environment (for example, `nvm use`), capture and persist all changes by diffing the environment:
 
 ```bash  theme={null}
 #!/bin/bash
 
 ENV_BEFORE=$(export -p | sort)
 
-# 環境を変更するセットアップコマンドを実行します
+# Run your setup commands that modify the environment
 source ~/.nvm/nvm.sh
 nvm use 20
 
@@ -368,44 +427,46 @@ fi
 exit 0
 ```
 
-このファイルに書き込まれた変数は、セッション中にClaude Codeが実行するすべての後続のbashコマンドで利用可能になります。
+Any variables written to this file will be available in all subsequent bash commands that Claude Code executes during the session.
 
 <Note>
-  `CLAUDE_ENV_FILE`はSessionStartフックでのみ利用可能です。他のフックタイプはこの変数にアクセスできません。
+  `CLAUDE_ENV_FILE` is only available for SessionStart hooks. Other hook types do not have access to this variable.
 </Note>
 
 ### SessionEnd
 
-Claude Codeセッションが終了するときに実行されます。クリーンアップタスク、セッション統計のログ、またはセッション状態の保存に便利です。
+Runs when a Claude Code session ends. Useful for cleanup tasks, logging session
+statistics, or saving session state.
 
-フック入力の`reason`フィールドは以下のいずれかになります：
+The `reason` field in the hook input will be one of:
 
-* `clear` - /clearコマンドでセッションがクリアされた
-* `logout` - ユーザーがログアウトした
-* `prompt_input_exit` - プロンプト入力が表示されている間にユーザーが終了した
-* `other` - その他の終了理由
+* `clear` - Session cleared with /clear command
+* `logout` - User logged out
+* `prompt_input_exit` - User exited while prompt input was visible
+* `other` - Other exit reasons
 
-## フック入力
+## Hook Input
 
-フックはstdinを介してセッション情報とイベント固有のデータを含むJSONデータを受け取ります：
+Hooks receive JSON data via stdin containing session information and
+event-specific data:
 
 ```typescript  theme={null}
 {
-  // 共通フィールド
+  // Common fields
   session_id: string
-  transcript_path: string  // 会話JSONへのパス
-  cwd: string              // フックが呼び出されるときの現在の作業ディレクトリ
-  permission_mode: string  // 現在の権限モード："default"、"plan"、"acceptEdits"、または"bypassPermissions"
+  transcript_path: string  // Path to conversation JSON
+  cwd: string              // The current working directory when the hook is invoked
+  permission_mode: string  // Current permission mode: "default", "plan", "acceptEdits", or "bypassPermissions"
 
-  // イベント固有フィールド
+  // Event-specific fields
   hook_event_name: string
   ...
 }
 ```
 
-### PreToolUse入力
+### PreToolUse Input
 
-`tool_input`の正確なスキーマはツールによって異なります。
+The exact schema for `tool_input` depends on the tool.
 
 ```json  theme={null}
 {
@@ -418,13 +479,14 @@ Claude Codeセッションが終了するときに実行されます。クリー
   "tool_input": {
     "file_path": "/path/to/file.txt",
     "content": "file content"
-  }
+  },
+  "tool_use_id": "toolu_01ABC123..."
 }
 ```
 
-### PostToolUse入力
+### PostToolUse Input
 
-`tool_input`と`tool_response`の正確なスキーマはツールによって異なります。
+The exact schema for `tool_input` and `tool_response` depends on the tool.
 
 ```json  theme={null}
 {
@@ -441,11 +503,12 @@ Claude Codeセッションが終了するときに実行されます。クリー
   "tool_response": {
     "filePath": "/path/to/file.txt",
     "success": true
-  }
+  },
+  "tool_use_id": "toolu_01ABC123..."
 }
 ```
 
-### Notification入力
+### Notification Input
 
 ```json  theme={null}
 {
@@ -454,11 +517,12 @@ Claude Codeセッションが終了するときに実行されます。クリー
   "cwd": "/Users/...",
   "permission_mode": "default",
   "hook_event_name": "Notification",
-  "message": "Task completed successfully"
+  "message": "Claude needs your permission to use Bash",
+  "notification_type": "permission_prompt"
 }
 ```
 
-### UserPromptSubmit入力
+### UserPromptSubmit Input
 
 ```json  theme={null}
 {
@@ -467,13 +531,15 @@ Claude Codeセッションが終了するときに実行されます。クリー
   "cwd": "/Users/...",
   "permission_mode": "default",
   "hook_event_name": "UserPromptSubmit",
-  "prompt": "数値の階乗を計算する関数を書いてください"
+  "prompt": "Write a function to calculate the factorial of a number"
 }
 ```
 
-### StopおよびSubagentStop入力
+### Stop and SubagentStop Input
 
-`stop_hook_active`は、Claude Codeがすでにstopフックの結果として続行している場合、trueです。この値をチェックするか、トランスクリプトを処理して、Claude Codeが無限に実行されるのを防ぎます。
+`stop_hook_active` is true when Claude Code is already continuing as a result of
+a stop hook. Check this value or process the transcript to prevent Claude Code
+from running indefinitely.
 
 ```json  theme={null}
 {
@@ -485,9 +551,10 @@ Claude Codeセッションが終了するときに実行されます。クリー
 }
 ```
 
-### PreCompact入力
+### PreCompact Input
 
-`manual`の場合、`custom_instructions`はユーザーが`/compact`に渡すものから来ます。`auto`の場合、`custom_instructions`は空です。
+For `manual`, `custom_instructions` comes from what the user passes into
+`/compact`. For `auto`, `custom_instructions` is empty.
 
 ```json  theme={null}
 {
@@ -500,7 +567,7 @@ Claude Codeセッションが終了するときに実行されます。クリー
 }
 ```
 
-### SessionStart入力
+### SessionStart Input
 
 ```json  theme={null}
 {
@@ -512,7 +579,7 @@ Claude Codeセッションが終了するときに実行されます。クリー
 }
 ```
 
-### SessionEnd入力
+### SessionEnd Input
 
 ```json  theme={null}
 {
@@ -525,83 +592,108 @@ Claude Codeセッションが終了するときに実行されます。クリー
 }
 ```
 
-## フック出力
+## Hook Output
 
-フックがClaude Codeに出力を返す方法は2つあります。出力は、ブロックするかどうか、およびClaudeとユーザーに表示されるべきフィードバックを通信します。
+There are two mutually exclusive ways for hooks to return output back to Claude Code. The output
+communicates whether to block and any feedback that should be shown to Claude
+and the user.
 
-### シンプル：終了コード
+### Simple: Exit Code
 
-フックは終了コード、stdout、stderrを通じてステータスを通信します：
+Hooks communicate status through exit codes, stdout, and stderr:
 
-* **終了コード0**: 成功。`stdout`はトランスクリプトモード（CTRL-R）でユーザーに表示されます。ただし、`UserPromptSubmit`と`SessionStart`の場合を除き、stdoutはコンテキストに追加されます。
-* **終了コード2**: ブロッキングエラー。`stderr`はClaudeに自動的にフィードバックされます。フックイベントごとの動作については以下を参照してください。
-* **その他の終了コード**: ブロッキングなしのエラー。`stderr`はユーザーに表示され、実行は続行されます。
+* **Exit code 0**: Success. `stdout` is shown to the user in verbose mode
+  (ctrl+o), except for `UserPromptSubmit` and `SessionStart`, where stdout is
+  added to the context. JSON output in `stdout` is parsed for structured control
+  (see [Advanced: JSON Output](#advanced-json-output)).
+* **Exit code 2**: Blocking error. Only `stderr` is used as the error message
+  and fed back to Claude. The format is `[command]: {stderr}`. JSON in `stdout`
+  is **not** processed for exit code 2. See per-hook-event behavior below.
+* **Other exit codes**: Non-blocking error. `stderr` is shown to the user in verbose mode (ctrl+o) with
+  format `Failed with non-blocking status code: {stderr}`. If `stderr` is empty,
+  it shows `No stderr output`. Execution continues.
 
 <Warning>
-  リマインダー：Claude Codeは終了コードが0の場合、stdoutを見ません。ただし、`UserPromptSubmit`フックの場合を除き、stdoutはコンテキストに注入されます。
+  Reminder: Claude Code does not see stdout if the exit code is 0, except for
+  the `UserPromptSubmit` hook where stdout is injected as context.
 </Warning>
 
-#### 終了コード2の動作
+#### Exit Code 2 Behavior
 
-| フックイベント            | 動作                                     |
-| ------------------ | -------------------------------------- |
-| `PreToolUse`       | ツール呼び出しをブロックし、stderrをClaudeに表示         |
-| `PostToolUse`      | stderrをClaudeに表示（ツールはすでに実行済み）          |
-| `Notification`     | N/A、stderrはユーザーのみに表示                   |
-| `UserPromptSubmit` | プロンプト処理をブロック、プロンプトを消去、stderrはユーザーのみに表示 |
-| `Stop`             | 停止をブロック、stderrをClaudeに表示               |
-| `SubagentStop`     | 停止をブロック、stderrをClaudeサブエージェントに表示       |
-| `PreCompact`       | N/A、stderrはユーザーのみに表示                   |
-| `SessionStart`     | N/A、stderrはユーザーのみに表示                   |
-| `SessionEnd`       | N/A、stderrはユーザーのみに表示                   |
+| Hook Event          | Behavior                                                           |
+| ------------------- | ------------------------------------------------------------------ |
+| `PreToolUse`        | Blocks the tool call, shows stderr to Claude                       |
+| `PermissionRequest` | Denies the permission, shows stderr to Claude                      |
+| `PostToolUse`       | Shows stderr to Claude (tool already ran)                          |
+| `Notification`      | N/A, shows stderr to user only                                     |
+| `UserPromptSubmit`  | Blocks prompt processing, erases prompt, shows stderr to user only |
+| `Stop`              | Blocks stoppage, shows stderr to Claude                            |
+| `SubagentStop`      | Blocks stoppage, shows stderr to Claude subagent                   |
+| `PreCompact`        | N/A, shows stderr to user only                                     |
+| `SessionStart`      | N/A, shows stderr to user only                                     |
+| `SessionEnd`        | N/A, shows stderr to user only                                     |
 
-### 高度な：JSON出力
+### Advanced: JSON Output
 
-フックはより高度な制御のために`stdout`で構造化JSONを返すことができます：
+Hooks can return structured JSON in `stdout` for more sophisticated control.
 
-#### 共通JSONフィールド
+<Warning>
+  JSON output is only processed when the hook exits with code 0. If your hook
+  exits with code 2 (blocking error), `stderr` text is used directly—any JSON in `stdout`
+  is ignored. For other non-zero exit codes, only `stderr` is shown to the user in verbose mode (ctrl+o).
+</Warning>
 
-すべてのフックタイプは以下のオプションフィールドを含むことができます：
+#### Common JSON Fields
+
+All hook types can include these optional fields:
 
 ```json  theme={null}
 {
-  "continue": true, // フック実行後にClaudeが続行するかどうか（デフォルト：true）
-  "stopReason": "string", // continueがfalseの場合に表示されるメッセージ
+  "continue": true, // Whether Claude should continue after hook execution (default: true)
+  "stopReason": "string", // Message shown when continue is false
 
-  "suppressOutput": true, // トランスクリプトモードからstdoutを非表示（デフォルト：false）
-  "systemMessage": "string" // ユーザーに表示されるオプションの警告メッセージ
+  "suppressOutput": true, // Hide stdout from transcript mode (default: false)
+  "systemMessage": "string" // Optional warning message shown to the user
 }
 ```
 
-`continue`がfalseの場合、フックが実行された後、Claudeは処理を停止します。
+If `continue` is false, Claude stops processing after the hooks run.
 
-* `PreToolUse`の場合、これは`"permissionDecision": "deny"`と異なります。これは特定のツール呼び出しのみをブロックし、Claudeに自動フィードバックを提供します。
-* `PostToolUse`の場合、これは`"decision": "block"`と異なります。これはClaudeに自動フィードバックを提供します。
-* `UserPromptSubmit`の場合、これはプロンプトが処理されるのを防ぎます。
-* `Stop`と`SubagentStop`の場合、これは任意の`"decision": "block"`出力よりも優先されます。
-* すべての場合において、`"continue" = false`は任意の`"decision": "block"`出力よりも優先されます。
+* For `PreToolUse`, this is different from `"permissionDecision": "deny"`, which
+  only blocks a specific tool call and provides automatic feedback to Claude.
+* For `PostToolUse`, this is different from `"decision": "block"`, which
+  provides automated feedback to Claude.
+* For `UserPromptSubmit`, this prevents the prompt from being processed.
+* For `Stop` and `SubagentStop`, this takes precedence over any
+  `"decision": "block"` output.
+* In all cases, `"continue" = false` takes precedence over any
+  `"decision": "block"` output.
 
-`stopReason`は`continue`に付随し、ユーザーに表示される理由を示し、Claudeには表示されません。
+`stopReason` accompanies `continue` with a reason shown to the user, not shown
+to Claude.
 
-#### `PreToolUse`決定制御
+#### `PreToolUse` Decision Control
 
-`PreToolUse`フックはツール呼び出しが進行するかどうかを制御できます。
+`PreToolUse` hooks can control whether a tool call proceeds.
 
-* `"allow"`は権限システムをバイパスします。`permissionDecisionReason`はユーザーに表示されますが、Claudeには表示されません。
-* `"deny"`はツール呼び出しが実行されるのを防ぎます。`permissionDecisionReason`はClaudeに表示されます。
-* `"ask"`はUIでユーザーにツール呼び出しを確認するよう求めます。`permissionDecisionReason`はユーザーに表示されますが、Claudeには表示されません。
+* `"allow"` bypasses the permission system. `permissionDecisionReason` is shown
+  to the user but not to Claude.
+* `"deny"` prevents the tool call from executing. `permissionDecisionReason` is
+  shown to Claude.
+* `"ask"` asks the user to confirm the tool call in the UI.
+  `permissionDecisionReason` is shown to the user but not to Claude.
 
-さらに、フックは`updatedInput`を使用して実行前にツール入力を変更できます：
+Additionally, hooks can modify tool inputs before execution using `updatedInput`:
 
-* `updatedInput`を使用すると、ツールが実行される前にツールの入力パラメータを変更できます。これは変更または追加したいフィールドを含む`Record<string, unknown>`オブジェクトです。
-* これは`"permissionDecision": "allow"`で最も有用で、ツール呼び出しを変更して承認します。
+* `updatedInput` allows you to modify the tool's input parameters before the tool executes.
+* This is most useful with `"permissionDecision": "allow"` to modify and approve tool calls.
 
 ```json  theme={null}
 {
   "hookSpecificOutput": {
     "hookEventName": "PreToolUse",
     "permissionDecision": "allow"
-    "permissionDecisionReason": "ここに理由を入力",
+    "permissionDecisionReason": "My reason here",
     "updatedInput": {
       "field_to_modify": "new value"
     }
@@ -610,85 +702,128 @@ Claude Codeセッションが終了するときに実行されます。クリー
 ```
 
 <Note>
-  `decision`と`reason`フィールドはPreToolUseフックでは非推奨です。
-  代わりに`hookSpecificOutput.permissionDecision`と
-  `hookSpecificOutput.permissionDecisionReason`を使用してください。非推奨フィールド
-  `"approve"`と`"block"`は`"allow"`と`"deny"`にマップされます。
+  The `decision` and `reason` fields are deprecated for PreToolUse hooks.
+  Use `hookSpecificOutput.permissionDecision` and
+  `hookSpecificOutput.permissionDecisionReason` instead. The deprecated fields
+  `"approve"` and `"block"` map to `"allow"` and `"deny"` respectively.
 </Note>
 
-#### `PostToolUse`決定制御
+#### `PermissionRequest` Decision Control
 
-`PostToolUse`フックはツール実行後にClaudeにフィードバックを提供できます。
+`PermissionRequest` hooks can allow or deny permission requests shown to the user.
 
-* `"block"`は自動的に`reason`でClaudeにプロンプトを表示します。
-* `undefined`は何もしません。`reason`は無視されます。
-* `"hookSpecificOutput.additionalContext"`はClaudeが考慮するコンテキストを追加します。
+* For `"behavior": "allow"` you can also optionally pass in an `"updatedInput"` that modifies the tool's input parameters before the tool executes.
+* For `"behavior": "deny"` you can also optionally pass in a `"message"` string that tells the model why the permission was denied, and a boolean `"interrupt"` which will stop Claude.
+
+```json  theme={null}
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PermissionRequest",
+    "decision": {
+      "behavior": "allow",
+      "updatedInput": {
+        "command": "npm run lint"
+      }
+    }
+  }
+}
+```
+
+#### `PostToolUse` Decision Control
+
+`PostToolUse` hooks can provide feedback to Claude after tool execution.
+
+* `"block"` automatically prompts Claude with `reason`.
+* `undefined` does nothing. `reason` is ignored.
+* `"hookSpecificOutput.additionalContext"` adds context for Claude to consider.
 
 ```json  theme={null}
 {
   "decision": "block" | undefined,
-  "reason": "決定の説明",
+  "reason": "Explanation for decision",
   "hookSpecificOutput": {
     "hookEventName": "PostToolUse",
-    "additionalContext": "Claudeが考慮する追加情報"
+    "additionalContext": "Additional information for Claude"
   }
 }
 ```
 
-#### `UserPromptSubmit`決定制御
+#### `UserPromptSubmit` Decision Control
 
-`UserPromptSubmit`フックはユーザープロンプトが処理されるかどうかを制御できます。
+`UserPromptSubmit` hooks can control whether a user prompt is processed and add context.
 
-* `"block"`はプロンプトが処理されるのを防ぎます。送信されたプロンプトはコンテキストから消去されます。`"reason"`はユーザーに表示されますが、コンテキストには追加されません。
-* `undefined`はプロンプトが通常通り進行することを許可します。`"reason"`は無視されます。
-* `"hookSpecificOutput.additionalContext"`はブロックされていない場合、文字列をコンテキストに追加します。
+**Adding context (exit code 0):**
+There are two ways to add context to the conversation:
+
+1. **Plain text stdout** (simpler): Any non-JSON text written to stdout is added
+   as context. This is the easiest way to inject information.
+
+2. **JSON with `additionalContext`** (structured): Use the JSON format below for
+   more control. The `additionalContext` field is added as context.
+
+Both methods work with exit code 0. Plain stdout is shown as hook output in
+the transcript; `additionalContext` is added more discretely.
+
+**Blocking prompts:**
+
+* `"decision": "block"` prevents the prompt from being processed. The submitted
+  prompt is erased from context. `"reason"` is shown to the user but not added
+  to context.
+* `"decision": undefined` (or omitted) allows the prompt to proceed normally.
 
 ```json  theme={null}
 {
   "decision": "block" | undefined,
-  "reason": "決定の説明",
+  "reason": "Explanation for decision",
   "hookSpecificOutput": {
     "hookEventName": "UserPromptSubmit",
-    "additionalContext": "ここに追加コンテキストを入力"
+    "additionalContext": "My additional context here"
   }
 }
 ```
 
-#### `Stop`/`SubagentStop`決定制御
+<Note>
+  The JSON format isn't required for simple use cases. To add context, you can print plain text to stdout with exit code 0. Use JSON when you need to
+  block prompts or want more structured control.
+</Note>
 
-`Stop`と`SubagentStop`フックはClaudeが続行する必要があるかどうかを制御できます。
+#### `Stop`/`SubagentStop` Decision Control
 
-* `"block"`はClaudeが停止されるのを防ぎます。Claudeが進行方法を知るために`reason`を入力する必要があります。
-* `undefined`はClaudeが停止することを許可します。`reason`は無視されます。
+`Stop` and `SubagentStop` hooks can control whether Claude must continue.
+
+* `"block"` prevents Claude from stopping. You must populate `reason` for Claude
+  to know how to proceed.
+* `undefined` allows Claude to stop. `reason` is ignored.
 
 ```json  theme={null}
 {
   "decision": "block" | undefined,
-  "reason": "Claudeが停止されるのをブロックする場合は必須"
+  "reason": "Must be provided when Claude is blocked from stopping"
 }
 ```
 
-#### `SessionStart`決定制御
+#### `SessionStart` Decision Control
 
-`SessionStart`フックはセッションの開始時にコンテキストをロードできます。
+`SessionStart` hooks allow you to load in context at the start of a session.
 
-* `"hookSpecificOutput.additionalContext"`は文字列をコンテキストに追加します。
-* 複数のフックの`additionalContext`値は連結されます。
+* `"hookSpecificOutput.additionalContext"` adds the string to the context.
+* Multiple hooks' `additionalContext` values are concatenated.
 
 ```json  theme={null}
 {
   "hookSpecificOutput": {
     "hookEventName": "SessionStart",
-    "additionalContext": "ここに追加コンテキストを入力"
+    "additionalContext": "My additional context here"
   }
 }
 ```
 
-#### `SessionEnd`決定制御
+#### `SessionEnd` Decision Control
 
-`SessionEnd`フックはセッションが終了するときに実行されます。セッション終了をブロックすることはできませんが、クリーンアップタスクを実行できます。
+`SessionEnd` hooks run when a session ends. They cannot block session termination
+but can perform cleanup tasks.
 
-#### 終了コード例：Bashコマンド検証
+#### Exit Code Example: Bash Command Validation
 
 ```python  theme={null}
 #!/usr/bin/env python3
@@ -696,15 +831,15 @@ import json
 import re
 import sys
 
-# 検証ルールを（正規表現パターン、メッセージ）タプルのリストとして定義
+# Define validation rules as a list of (regex pattern, message) tuples
 VALIDATION_RULES = [
     (
         r"\bgrep\b(?!.*\|)",
-        "パフォーマンスと機能を向上させるために、'grep'の代わりに'rg'（ripgrep）を使用してください",
+        "Use 'rg' (ripgrep) instead of 'grep' for better performance and features",
     ),
     (
         r"\bfind\s+\S+\s+-name\b",
-        "パフォーマンスを向上させるために、'find -name'の代わりに'rg --files | rg pattern'または'rg --files -g pattern'を使用してください",
+        "Use 'rg --files | rg pattern' or 'rg --files -g pattern' instead of 'find -name' for better performance",
     ),
 ]
 
@@ -720,7 +855,7 @@ def validate_command(command: str) -> list[str]:
 try:
     input_data = json.load(sys.stdin)
 except json.JSONDecodeError as e:
-    print(f"エラー：無効なJSON入力：{e}", file=sys.stderr)
+    print(f"Error: Invalid JSON input: {e}", file=sys.stderr)
     sys.exit(1)
 
 tool_name = input_data.get("tool_name", "")
@@ -730,23 +865,27 @@ command = tool_input.get("command", "")
 if tool_name != "Bash" or not command:
     sys.exit(1)
 
-# コマンドを検証
+# Validate the command
 issues = validate_command(command)
 
 if issues:
     for message in issues:
         print(f"• {message}", file=sys.stderr)
-    # 終了コード2はツール呼び出しをブロックし、stderrをClaudeに表示
+    # Exit code 2 blocks tool call and shows stderr to Claude
     sys.exit(2)
 ```
 
-#### JSON出力例：コンテキストと検証を追加するUserPromptSubmit
+#### JSON Output Example: UserPromptSubmit to Add Context and Validation
 
 <Note>
-  `UserPromptSubmit`フックの場合、以下のいずれかの方法を使用してコンテキストを注入できます：
+  For `UserPromptSubmit` hooks, you can inject context using either method:
 
-  * 終了コード0とstdout：Claudeはコンテキストを見ます（`UserPromptSubmit`の特殊ケース）
-  * JSON出力：動作をより細かく制御できます
+  * **Plain text stdout** with exit code 0: Simplest approach, prints text
+  * **JSON output** with exit code 0: Use `"decision": "block"` to reject prompts,
+    or `additionalContext` for structured context injection
+
+  Remember: Exit code 2 only uses `stderr` for the error message. To block using
+  JSON (with a custom reason), use `"decision": "block"` with exit code 0.
 </Note>
 
 ```python  theme={null}
@@ -756,36 +895,36 @@ import sys
 import re
 import datetime
 
-# stdinから入力をロード
+# Load input from stdin
 try:
     input_data = json.load(sys.stdin)
 except json.JSONDecodeError as e:
-    print(f"エラー：無効なJSON入力：{e}", file=sys.stderr)
+    print(f"Error: Invalid JSON input: {e}", file=sys.stderr)
     sys.exit(1)
 
 prompt = input_data.get("prompt", "")
 
-# 機密パターンをチェック
+# Check for sensitive patterns
 sensitive_patterns = [
-    (r"(?i)\b(password|secret|key|token)\s*[:=]", "プロンプトに潜在的なシークレットが含まれています"),
+    (r"(?i)\b(password|secret|key|token)\s*[:=]", "Prompt contains potential secrets"),
 ]
 
 for pattern, message in sensitive_patterns:
     if re.search(pattern, prompt):
-        # JSON出力を使用して特定の理由でブロック
+        # Use JSON output to block with a specific reason
         output = {
             "decision": "block",
-            "reason": f"セキュリティポリシー違反：{message}。機密情報なしでリクエストを言い換えてください。"
+            "reason": f"Security policy violation: {message}. Please rephrase your request without sensitive information."
         }
         print(json.dumps(output))
         sys.exit(0)
 
-# コンテキストに現在の時刻を追加
-context = f"現在の時刻：{datetime.datetime.now()}"
+# Add current time to context
+context = f"Current time: {datetime.datetime.now()}"
 print(context)
 
 """
-以下も同等です：
+The following is also equivalent:
 print(json.dumps({
   "hookSpecificOutput": {
     "hookEventName": "UserPromptSubmit",
@@ -794,59 +933,62 @@ print(json.dumps({
 }))
 """
 
-# 追加コンテキストでプロンプトを続行することを許可
+# Allow the prompt to proceed with the additional context
 sys.exit(0)
 ```
 
-#### JSON出力例：承認を使用したPreToolUse
+#### JSON Output Example: PreToolUse with Approval
 
 ```python  theme={null}
 #!/usr/bin/env python3
 import json
 import sys
 
-# stdinから入力をロード
+# Load input from stdin
 try:
     input_data = json.load(sys.stdin)
 except json.JSONDecodeError as e:
-    print(f"エラー：無効なJSON入力：{e}", file=sys.stderr)
+    print(f"Error: Invalid JSON input: {e}", file=sys.stderr)
     sys.exit(1)
 
 tool_name = input_data.get("tool_name", "")
 tool_input = input_data.get("tool_input", {})
 
-# 例：ドキュメントファイルのファイル読み取りを自動承認
+# Example: Auto-approve file reads for documentation files
 if tool_name == "Read":
     file_path = tool_input.get("file_path", "")
     if file_path.endswith((".md", ".mdx", ".txt", ".json")):
-        # JSON出力を使用してツール呼び出しを自動承認
+        # Use JSON output to auto-approve the tool call
         output = {
             "decision": "approve",
-            "reason": "ドキュメントファイルは自動承認されました",
-            "suppressOutput": True  # トランスクリプトモードで表示しない
+            "reason": "Documentation file auto-approved",
+            "suppressOutput": True  # Don't show in verbose mode
         }
         print(json.dumps(output))
         sys.exit(0)
 
-# その他の場合は、通常の権限フローを続行
+# For other cases, let the normal permission flow proceed
 sys.exit(0)
 ```
 
-## MCPツールの操作
+## Working with MCP Tools
 
-Claude Codeフックは[Model Context Protocol（MCP）ツール](/ja/mcp)とシームレスに機能します。MCPサーバーがツールを提供する場合、フックでマッチできる特別な命名パターンで表示されます。
+Claude Code hooks work seamlessly with
+[Model Context Protocol (MCP) tools](/en/mcp). When MCP servers
+provide tools, they appear with a special naming pattern that you can match in
+your hooks.
 
-### MCPツール命名
+### MCP Tool Naming
 
-MCPツールは`mcp__<server>__<tool>`パターンに従います。例えば：
+MCP tools follow the pattern `mcp__<server>__<tool>`, for example:
 
-* `mcp__memory__create_entities` - メモリサーバーのエンティティ作成ツール
-* `mcp__filesystem__read_file` - ファイルシステムサーバーのファイル読み取りツール
-* `mcp__github__search_repositories` - GitHubサーバーの検索ツール
+* `mcp__memory__create_entities` - Memory server's create entities tool
+* `mcp__filesystem__read_file` - Filesystem server's read file tool
+* `mcp__github__search_repositories` - GitHub server's search tool
 
-### MCPツール用のフックの設定
+### Configuring Hooks for MCP Tools
 
-特定のMCPツールまたはMCPサーバー全体をターゲットにできます：
+You can target specific MCP tools or entire MCP servers:
 
 ```json  theme={null}
 {
@@ -875,111 +1017,119 @@ MCPツールは`mcp__<server>__<tool>`パターンに従います。例えば：
 }
 ```
 
-## 例
+## Examples
 
 <Tip>
-  コードフォーマット、通知、ファイル保護を含む実用的な例については、スタートガイドの[その他の例](/ja/hooks-guide#more-examples)を参照してください。
+  For practical examples including code formatting, notifications, and file protection, see [More Examples](/en/hooks-guide#more-examples) in the get started guide.
 </Tip>
 
-## セキュリティに関する考慮事項
+## Security Considerations
 
-### 免責事項
+### Disclaimer
 
-**自己責任で使用してください**：Claude Codeフックはシステム上で任意のシェルコマンドを自動的に実行します。フックを使用することで、以下を認めます：
+**USE AT YOUR OWN RISK**: Claude Code hooks execute arbitrary shell commands on
+your system automatically. By using hooks, you acknowledge that:
 
-* 設定したコマンドについてのみ責任があります
-* フックはユーザーアカウントがアクセスできるファイルを変更、削除、またはアクセスできます
-* 悪意のある、または不十分に書かれたフックはデータ損失またはシステム損害を引き起こす可能性があります
-* Anthropicは保証を提供せず、フック使用から生じるいかなる損害についても責任を負いません
-* 本番環境で使用する前に、安全な環境でフックを十分にテストする必要があります
+* You are solely responsible for the commands you configure
+* Hooks can modify, delete, or access any files your user account can access
+* Malicious or poorly written hooks can cause data loss or system damage
+* Anthropic provides no warranty and assumes no liability for any damages
+  resulting from hook usage
+* You should thoroughly test hooks in a safe environment before production use
 
-設定にフックコマンドを追加する前に、常にレビューして理解してください。
+Always review and understand any hook commands before adding them to your
+configuration.
 
-### セキュリティベストプラクティス
+### Security Best Practices
 
-より安全なフックを書くための重要なプラクティスは以下の通りです：
+Here are some key practices for writing more secure hooks:
 
-1. **入力を検証およびサニタイズする** - 入力データを盲目的に信頼しないでください
-2. **常にシェル変数をクォートする** - `$VAR`ではなく`"$VAR"`を使用してください
-3. **パストラバーサルをブロックする** - ファイルパスで`..`をチェックしてください
-4. **絶対パスを使用する** - スクリプトの完全パスを指定してください（プロジェクトパスには`"$CLAUDE_PROJECT_DIR"`を使用）
-5. **機密ファイルをスキップする** - `.env`、`.git/`、キーなどを避けてください
+1. **Validate and sanitize inputs** - Never trust input data blindly
+2. **Always quote shell variables** - Use `"$VAR"` not `$VAR`
+3. **Block path traversal** - Check for `..` in file paths
+4. **Use absolute paths** - Specify full paths for scripts (use
+   "\$CLAUDE\_PROJECT\_DIR" for the project path)
+5. **Skip sensitive files** - Avoid `.env`, `.git/`, keys, etc.
 
-### 設定セーフティ
+### Configuration Safety
 
-設定ファイルのフックへの直接編集は即座には有効になりません。Claude Codeは：
+Direct edits to hooks in settings files don't take effect immediately. Claude
+Code:
 
-1. スタートアップ時にフックのスナップショットをキャプチャします
-2. セッション全体でこのスナップショットを使用します
-3. フックが外部で変更された場合に警告します
-4. 変更を適用するために`/hooks`メニューでレビューが必要です
+1. Captures a snapshot of hooks at startup
+2. Uses this snapshot throughout the session
+3. Warns if hooks are modified externally
+4. Requires review in `/hooks` menu for changes to apply
 
-これにより、悪意のあるフック変更が現在のセッションに影響するのを防ぎます。
+This prevents malicious hook modifications from affecting your current session.
 
-## フック実行の詳細
+## Hook Execution Details
 
-* **タイムアウト**: デフォルトでは60秒の実行制限、コマンドごとに設定可能です。
-  * 個別のコマンドのタイムアウトは他のコマンドに影響しません。
-* **並列化**: マッチするすべてのフックが並行して実行されます
-* **重複排除**: 同一のフックコマンドは自動的に重複排除されます
-* **環境**: 現在のディレクトリでClaude Codeの環境で実行されます
-  * `CLAUDE_PROJECT_DIR`環境変数が利用可能で、プロジェクトルートディレクトリへの絶対パスが含まれます（Claude Codeが開始された場所）
-  * `CLAUDE_CODE_REMOTE`環境変数はフックがリモート（ウェブ）環境（`"true"`）で実行されているか、ローカルCLI環境（設定されていないか空）で実行されているかを示します。実行コンテキストに基づいて異なるロジックを実行するために使用してください。
-* **入力**: stdinを介したJSON
-* **出力**：
-  * PreToolUse/PostToolUse/Stop/SubagentStop：トランスクリプトに進行状況を表示（Ctrl-R）
-  * Notification/SessionEnd：デバッグのみにログ（`--debug`）
-  * UserPromptSubmit/SessionStart：stdoutはClaudeのコンテキストとして追加
+* **Timeout**: 60-second execution limit by default, configurable per command.
+  * A timeout for an individual command does not affect the other commands.
+* **Parallelization**: All matching hooks run in parallel
+* **Deduplication**: Multiple identical hook commands are deduplicated automatically
+* **Environment**: Runs in current directory with Claude Code's environment
+  * The `CLAUDE_PROJECT_DIR` environment variable is available and contains the
+    absolute path to the project root directory (where Claude Code was started)
+  * The `CLAUDE_CODE_REMOTE` environment variable indicates whether the hook is running in a remote (web) environment (`"true"`) or local CLI environment (not set or empty). Use this to run different logic based on execution context.
+* **Input**: JSON via stdin
+* **Output**:
+  * PreToolUse/PermissionRequest/PostToolUse/Stop/SubagentStop: Progress shown in verbose mode (ctrl+o)
+  * Notification/SessionEnd: Logged to debug only (`--debug`)
+  * UserPromptSubmit/SessionStart: stdout added as context for Claude
 
-## デバッグ
+## Debugging
 
-### 基本的なトラブルシューティング
+### Basic Troubleshooting
 
-フックが機能していない場合：
+If your hooks aren't working:
 
-1. **設定をチェック** - `/hooks`を実行してフックが登録されているかどうかを確認
-2. **構文を検証** - JSON設定が有効であることを確認
-3. **コマンドをテスト** - フックコマンドを手動で最初に実行
-4. **権限をチェック** - スクリプトが実行可能であることを確認
-5. **ログをレビュー** - `claude --debug`を使用してフック実行の詳細を確認
+1. **Check configuration** - Run `/hooks` to see if your hook is registered
+2. **Verify syntax** - Ensure your JSON settings are valid
+3. **Test commands** - Run hook commands manually first
+4. **Check permissions** - Make sure scripts are executable
+5. **Review logs** - Use `claude --debug` to see hook execution details
 
-一般的な問題：
+Common issues:
 
-* **エスケープされていないクォート** - JSON文字列内で`\"`を使用してください
-* **間違ったマッチャー** - ツール名が正確にマッチすることを確認してください（大文字小文字を区別）
-* **コマンドが見つからない** - スクリプトに完全なパスを使用してください
+* **Quotes not escaped** - Use `\"` inside JSON strings
+* **Wrong matcher** - Check tool names match exactly (case-sensitive)
+* **Command not found** - Use full paths for scripts
 
-### 高度なデバッグ
+### Advanced Debugging
 
-複雑なフック問題の場合：
+For complex hook issues:
 
-1. **フック実行を検査** - `claude --debug`を使用して詳細なフック実行を確認
-2. **JSONスキーマを検証** - 外部ツールでフック入力/出力をテスト
-3. **環境変数をチェック** - Claude Codeの環境が正しいことを確認
-4. **エッジケースをテスト** - 異常なファイルパスまたは入力でフックを試す
-5. **システムリソースを監視** - フック実行中のリソース枯渇をチェック
-6. **構造化ログを使用** - フックスクリプトにログを実装
+1. **Inspect hook execution** - Use `claude --debug` to see detailed hook
+   execution
+2. **Validate JSON schemas** - Test hook input/output with external tools
+3. **Check environment variables** - Verify Claude Code's environment is correct
+4. **Test edge cases** - Try hooks with unusual file paths or inputs
+5. **Monitor system resources** - Check for resource exhaustion during hook
+   execution
+6. **Use structured logging** - Implement logging in your hook scripts
 
-### デバッグ出力例
+### Debug Output Example
 
-`claude --debug`を使用してフック実行の詳細を確認：
+Use `claude --debug` to see hook execution details:
 
 ```
-[DEBUG] PostToolUse:Writeのフックを実行中
-[DEBUG] クエリ用のマッチングフックコマンドを取得中：Write
-[DEBUG] 設定で1つのフックマッチャーを見つけました
-[DEBUG] クエリ「Write」に対して1つのフックにマッチしました
-[DEBUG] 実行するフックコマンド1つを見つけました
-[DEBUG] フックコマンドを実行中：<Your command> タイムアウト60000ms
-[DEBUG] フックコマンドはステータス0で完了：<Your stdout>
+[DEBUG] Executing hooks for PostToolUse:Write
+[DEBUG] Getting matching hook commands for PostToolUse with query: Write
+[DEBUG] Found 1 hook matchers in settings
+[DEBUG] Matched 1 hooks for query "Write"
+[DEBUG] Found 1 hook commands to execute
+[DEBUG] Executing hook command: <Your command> with timeout 60000ms
+[DEBUG] Hook command completed with status 0: <Your stdout>
 ```
 
-進行状況メッセージはトランスクリプトモード（Ctrl-R）に表示されます：
+Progress messages appear in verbose mode (ctrl+o) showing:
 
-* どのフックが実行されているか
-* 実行されているコマンド
-* 成功/失敗ステータス
-* 出力またはエラーメッセージ
+* Which hook is running
+* Command being executed
+* Success/failure status
+* Output or error messages
 
 
 ---

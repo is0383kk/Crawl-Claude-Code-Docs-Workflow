@@ -1,85 +1,102 @@
-# Claude Code フックの使い始め
+# Get started with Claude Code hooks
 
-> シェルコマンドを登録して Claude Code の動作をカスタマイズおよび拡張する方法を学びます
+> Learn how to customize and extend Claude Code's behavior by registering shell commands
 
-Claude Code フックは、Claude Code のライフサイクルのさまざまなポイントで実行されるユーザー定義のシェルコマンドです。フックは Claude Code の動作に対して決定論的な制御を提供し、LLM が実行を選択することに依存するのではなく、特定のアクションが常に発生することを保証します。
+Claude Code hooks are user-defined shell commands that execute at various points
+in Claude Code's lifecycle. Hooks provide deterministic control over Claude
+Code's behavior, ensuring certain actions always happen rather than relying on
+the LLM to choose to run them.
 
 <Tip>
-  フックのリファレンスドキュメントについては、[フックリファレンス](/ja/hooks)を参照してください。
+  For reference documentation on hooks, see [Hooks reference](/en/hooks).
 </Tip>
 
-フックのユースケース例には以下が含まれます：
+Example use cases for hooks include:
 
-* **通知**: Claude Code があなたの入力または何かを実行する許可を待っているときに、通知を受け取る方法をカスタマイズします。
-* **自動フォーマット**: すべてのファイル編集後に、.ts ファイルで `prettier` を実行し、.go ファイルで `gofmt` を実行するなど。
-* **ログ記録**: コンプライアンスまたはデバッグのために、実行されたすべてのコマンドを追跡およびカウントします。
-* **フィードバック**: Claude Code がコードベースの規約に従わないコードを生成したときに、自動フィードバックを提供します。
-* **カスタム権限**: 本番ファイルまたは機密ディレクトリへの変更をブロックします。
+* **Notifications**: Customize how you get notified when Claude Code is awaiting
+  your input or permission to run something.
+* **Automatic formatting**: Run `prettier` on .ts files, `gofmt` on .go files,
+  etc. after every file edit.
+* **Logging**: Track and count all executed commands for compliance or
+  debugging.
+* **Feedback**: Provide automated feedback when Claude Code produces code that
+  does not follow your codebase conventions.
+* **Custom permissions**: Block modifications to production files or sensitive
+  directories.
 
-これらのルールをプロンプト指示としてではなくフックとしてエンコードすることで、提案をアプリレベルのコードに変え、期待されるたびに実行されるようにします。
+By encoding these rules as hooks rather than prompting instructions, you turn
+suggestions into app-level code that executes every time it is expected to run.
 
 <Warning>
-  フックを追加する際には、フックのセキュリティ上の影響を考慮する必要があります。フックはエージェントループ中に現在の環境の認証情報で自動的に実行されるためです。
-  たとえば、悪意のあるフックコードはあなたのデータを流出させる可能性があります。フックを登録する前に、常にフック実装を確認してください。
+  You must consider the security implication of hooks as you add them, because hooks run automatically during the agent loop with your current environment's credentials.
+  For example, malicious hooks code can exfiltrate your data. Always review your hooks implementation before registering them.
 
-  完全なセキュリティベストプラクティスについては、フックリファレンスドキュメントの[セキュリティに関する考慮事項](/ja/hooks#security-considerations)を参照してください。
+  For full security best practices, see [Security Considerations](/en/hooks#security-considerations) in the hooks reference documentation.
 </Warning>
 
-## フックイベント概要
+## Hook Events Overview
 
-Claude Code は、ワークフロー内のさまざまなポイントで実行される複数のフックイベントを提供します：
+Claude Code provides several hook events that run at different points in the
+workflow:
 
-* **PreToolUse**: ツール呼び出しの前に実行されます（ブロック可能）
-* **PostToolUse**: ツール呼び出しが完了した後に実行されます
-* **UserPromptSubmit**: ユーザーがプロンプトを送信したときに実行されます（Claude が処理する前）
-* **Notification**: Claude Code が通知を送信するときに実行されます
-* **Stop**: Claude Code が応答を終了するときに実行されます
-* **SubagentStop**: サブエージェントタスクが完了したときに実行されます
-* **PreCompact**: Claude Code がコンパクト操作を実行しようとする前に実行されます
-* **SessionStart**: Claude Code が新しいセッションを開始するか、既存のセッションを再開するときに実行されます
-* **SessionEnd**: Claude Code セッションが終了するときに実行されます
+* **PreToolUse**: Runs before tool calls (can block them)
+* **PermissionRequest**: Runs when a permission dialog is shown (can allow or deny)
+* **PostToolUse**: Runs after tool calls complete
+* **UserPromptSubmit**: Runs when the user submits a prompt, before Claude processes it
+* **Notification**: Runs when Claude Code sends notifications
+* **Stop**: Runs when Claude Code finishes responding
+* **SubagentStop**: Runs when subagent tasks complete
+* **PreCompact**: Runs before Claude Code is about to run a compact operation
+* **SessionStart**: Runs when Claude Code starts a new session or resumes an existing session
+* **SessionEnd**: Runs when Claude Code session ends
 
-各イベントは異なるデータを受け取り、異なる方法で Claude の動作を制御できます。
+Each event receives different data and can control Claude's behavior in
+different ways.
 
-## クイックスタート
+## Quickstart
 
-このクイックスタートでは、Claude Code が実行するシェルコマンドをログに記録するフックを追加します。
+In this quickstart, you'll add a hook that logs the shell commands that Claude
+Code runs.
 
-### 前提条件
+### Prerequisites
 
-コマンドラインで JSON 処理用に `jq` をインストールします。
+Install `jq` for JSON processing in the command line.
 
-### ステップ 1: フック設定を開く
+### Step 1: Open hooks configuration
 
-`/hooks` [スラッシュコマンド](/ja/slash-commands)を実行し、`PreToolUse` フックイベントを選択します。
+Run the `/hooks` [slash command](/en/slash-commands) and select
+the `PreToolUse` hook event.
 
-`PreToolUse` フックはツール呼び出しの前に実行され、Claude に異なる処理方法についてのフィードバックを提供しながらそれらをブロックできます。
+`PreToolUse` hooks run before tool calls and can block them while providing
+Claude feedback on what to do differently.
 
-### ステップ 2: マッチャーを追加する
+### Step 2: Add a matcher
 
-`+ Add new matcher…` を選択して、Bash ツール呼び出しのみでフックを実行します。
+Select `+ Add new matcher…` to run your hook only on Bash tool calls.
 
-マッチャーに `Bash` と入力します。
+Type `Bash` for the matcher.
 
-<Note>すべてのツールにマッチさせるには `*` を使用できます。</Note>
+<Note>You can use `*` to match all tools.</Note>
 
-### ステップ 3: フックを追加する
+### Step 3: Add the hook
 
-`+ Add new hook…` を選択して、このコマンドを入力します：
+Select `+ Add new hook…` and enter this command:
 
 ```bash  theme={null}
 jq -r '"\(.tool_input.command) - \(.tool_input.description // "No description")"' >> ~/.claude/bash-command-log.txt
 ```
 
-### ステップ 4: 設定を保存する
+### Step 4: Save your configuration
 
-ストレージの場所として `User settings` を選択します。ホームディレクトリにログを記録しているためです。このフックは現在のプロジェクトだけでなく、すべてのプロジェクトに適用されます。
+For storage location, select `User settings` since you're logging to your home
+directory. This hook will then apply to all projects, not just your current
+project.
 
-次に Esc を押して REPL に戻ります。フックが登録されました！
+Then press `Esc` until you return to the REPL. Your hook is now registered.
 
-### ステップ 5: フックを確認する
+### Step 5: Verify your hook
 
-`/hooks` を再度実行するか、`~/.claude/settings.json` をチェックして設定を確認します：
+Run `/hooks` again or check `~/.claude/settings.json` to see your configuration:
 
 ```json  theme={null}
 {
@@ -99,29 +116,29 @@ jq -r '"\(.tool_input.command) - \(.tool_input.description // "No description")"
 }
 ```
 
-### ステップ 6: フックをテストする
+### Step 6: Test your hook
 
-Claude に `ls` のような簡単なコマンドを実行するよう依頼し、ログファイルをチェックします：
+Ask Claude to run a simple command like `ls` and check your log file:
 
 ```bash  theme={null}
 cat ~/.claude/bash-command-log.txt
 ```
 
-次のようなエントリが表示されるはずです：
+You should see entries like:
 
 ```
 ls - Lists files and directories
 ```
 
-## その他の例
+## More Examples
 
 <Note>
-  完全な実装例については、公開コードベースの [bash コマンドバリデーター例](https://github.com/anthropics/claude-code/blob/main/examples/hooks/bash_command_validator_example.py)を参照してください。
+  For a complete example implementation, see the [bash command validator example](https://github.com/anthropics/claude-code/blob/main/examples/hooks/bash_command_validator_example.py) in our public codebase.
 </Note>
 
-### コードフォーマットフック
+### Code Formatting Hook
 
-編集後に TypeScript ファイルを自動的にフォーマットします：
+Automatically format TypeScript files after editing:
 
 ```json  theme={null}
 {
@@ -141,9 +158,9 @@ ls - Lists files and directories
 }
 ```
 
-### Markdown フォーマットフック
+### Markdown Formatting Hook
 
-Markdown ファイルの言語タグの欠落とフォーマットの問題を自動的に修正します：
+Automatically fix missing language tags and formatting issues in markdown files:
 
 ```json  theme={null}
 {
@@ -163,7 +180,7 @@ Markdown ファイルの言語タグの欠落とフォーマットの問題を�
 }
 ```
 
-このコンテンツで `.claude/hooks/markdown_formatter.py` を作成します：
+Create `.claude/hooks/markdown_formatter.py` with this content:
 
 ````python  theme={null}
 #!/usr/bin/env python3
@@ -251,22 +268,22 @@ except Exception as e:
     sys.exit(1)
 ````
 
-スクリプトを実行可能にします：
+Make the script executable:
 
 ```bash  theme={null}
 chmod +x .claude/hooks/markdown_formatter.py
 ```
 
-このフックは自動的に以下を実行します：
+This hook automatically:
 
-* ラベルなしのコードブロック内のプログラミング言語を検出します
-* 構文ハイライト用に適切な言語タグを追加します
-* コンテンツを保持しながら過度な空行を修正します
-* Markdown ファイル（`.md`、`.mdx`）のみを処理します
+* Detects programming languages in unlabeled code blocks
+* Adds appropriate language tags for syntax highlighting
+* Fixes excessive blank lines while preserving code content
+* Only processes markdown files (`.md`, `.mdx`)
 
-### カスタム通知フック
+### Custom Notification Hook
 
-Claude が入力を必要とするときにデスクトップ通知を取得します：
+Get desktop notifications when Claude needs input:
 
 ```json  theme={null}
 {
@@ -286,9 +303,9 @@ Claude が入力を必要とするときにデスクトップ通知を取得し�
 }
 ```
 
-### ファイル保護フック
+### File Protection Hook
 
-機密ファイルへの編集をブロックします：
+Block edits to sensitive files:
 
 ```json  theme={null}
 {
@@ -308,11 +325,12 @@ Claude が入力を必要とするときにデスクトップ通知を取得し�
 }
 ```
 
-## 詳細情報
+## Learn more
 
-* フックのリファレンスドキュメントについては、[フックリファレンス](/ja/hooks)を参照してください。
-* 包括的なセキュリティベストプラクティスと安全ガイドラインについては、フックリファレンスドキュメントの[セキュリティに関する考慮事項](/ja/hooks#security-considerations)を参照してください。
-* トラブルシューティング手順とデバッグ技術については、フックリファレンスドキュメントの[デバッグ](/ja/hooks#debugging)を参照してください。
+* For reference documentation on hooks, see [Hooks reference](/en/hooks).
+* For comprehensive security best practices and safety guidelines, see [Security Considerations](/en/hooks#security-considerations) in the hooks reference documentation.
+* For troubleshooting steps and debugging techniques, see [Debugging](/en/hooks#debugging) in the hooks reference
+  documentation.
 
 
 ---

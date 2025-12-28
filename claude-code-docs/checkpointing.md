@@ -1,42 +1,42 @@
-# チェックポイント
+# Checkpointing
 
-> Claudeの編集を自動的に追跡し、巻き戻して、不要な変更から素早く復旧します。
+> Automatically track and rewind Claude's edits to quickly recover from unwanted changes.
 
-Claude Codeは、作業中にClaudeのファイル編集を自動的に追跡し、変更を素早く元に戻したり、問題が発生した場合に以前の状態に巻き戻したりできます。
+Claude Code automatically tracks Claude's file edits as you work, allowing you to quickly undo changes and rewind to previous states if anything gets off track.
 
-## チェックポイントの仕組み
+## How checkpoints work
 
-Claude Codeで作業する際、チェックポイント機能は各編集の前にコードの状態を自動的にキャプチャします。このセーフティネットにより、野心的で大規模なタスクを実行する際に、いつでも以前のコード状態に戻ることができるという安心感を持って作業できます。
+As you work with Claude, checkpointing automatically captures the state of your code before each edit. This safety net lets you pursue ambitious, wide-scale tasks knowing you can always return to a prior code state.
 
-### 自動追跡
+### Automatic tracking
 
-Claude Codeはファイル編集ツールによるすべての変更を追跡します：
+Claude Code tracks all changes made by its file editing tools:
 
-* ユーザープロンプトごとに新しいチェックポイントが作成されます
-* チェックポイントはセッション間で保持されるため、再開した会話でアクセスできます
-* セッション後30日で自動的にクリーンアップされます（設定可能）
+* Every user prompt creates a new checkpoint
+* Checkpoints persist across sessions, so you can access them in resumed conversations
+* Automatically cleaned up along with sessions after 30 days (configurable)
 
-### 変更の巻き戻し
+### Rewinding changes
 
-`Esc`キーを2回押す（`Esc` + `Esc`）か、`/rewind`コマンドを使用して巻き戻しメニューを開きます。以下のいずれかを復元することを選択できます：
+Press `Esc` twice (`Esc` + `Esc`) or use the `/rewind` command to open up the rewind menu. You can choose to restore:
 
-* **会話のみ**: コード変更を保持しながらユーザーメッセージに巻き戻します
-* **コードのみ**: 会話を保持しながらファイル変更を元に戻します
-* **コードと会話の両方**: セッション内の以前のポイントに両方を復元します
+* **Conversation only**: Rewind to a user message while keeping code changes
+* **Code only**: Revert file changes while keeping the conversation
+* **Both code and conversation**: Restore both to a prior point in the session
 
-## 一般的なユースケース
+## Common use cases
 
-チェックポイントは以下の場合に特に便利です：
+Checkpoints are particularly useful when:
 
-* **代替案の検討**: 開始点を失わずに異なる実装アプローチを試します
-* **ミスからの復旧**: バグを導入したり機能を破損させた変更を素早く元に戻します
-* **機能の反復**: 動作状態に戻すことができるという確信を持ちながら、バリエーションを試験します
+* **Exploring alternatives**: Try different implementation approaches without losing your starting point
+* **Recovering from mistakes**: Quickly undo changes that introduced bugs or broke functionality
+* **Iterating on features**: Experiment with variations knowing you can revert to working states
 
-## 制限事項
+## Limitations
 
-### Bashコマンドの変更は追跡されません
+### Bash command changes not tracked
 
-チェックポイント機能は、bashコマンドで変更されたファイルを追跡しません。例えば、Claude Codeが以下を実行する場合：
+Checkpointing does not track files modified by bash commands. For example, if Claude Code runs:
 
 ```bash  theme={null}
 rm file.txt
@@ -44,25 +44,25 @@ mv old.txt new.txt
 cp source.txt dest.txt
 ```
 
-これらのファイル変更は巻き戻しで元に戻すことはできません。Claude のファイル編集ツールを通じて直接行われたファイル編集のみが追跡されます。
+These file modifications cannot be undone through rewind. Only direct file edits made through Claude's file editing tools are tracked.
 
-### 外部の変更は追跡されません
+### External changes not tracked
 
-チェックポイント機能は、現在のセッション内で編集されたファイルのみを追跡します。Claude Code外でユーザーが手動で行ったファイルの変更や、他の同時セッションからの編集は、通常はキャプチャされません。ただし、現在のセッションと同じファイルを変更する場合は除きます。
+Checkpointing only tracks files that have been edited within the current session. Manual changes you make to files outside of Claude Code and edits from other concurrent sessions are normally not captured, unless they happen to modify the same files as the current session.
 
-### バージョン管理の代替ではありません
+### Not a replacement for version control
 
-チェックポイントは、セッションレベルの迅速な復旧用に設計されています。永続的なバージョン履歴とコラボレーションのために：
+Checkpoints are designed for quick, session-level recovery. For permanent version history and collaboration:
 
-* バージョン管理（例：Git）を引き続き使用してコミット、ブランチ、長期履歴を管理します
-* チェックポイントは適切なバージョン管理を補完しますが、置き換えるものではありません
-* チェックポイントを「ローカルアンドゥ」、Gitを「永続履歴」と考えてください
+* Continue using version control (ex. Git) for commits, branches, and long-term history
+* Checkpoints complement but don't replace proper version control
+* Think of checkpoints as "local undo" and Git as "permanent history"
 
-## 関連項目
+## See also
 
-* [インタラクティブモード](/ja/interactive-mode) - キーボードショートカットとセッションコントロール
-* [スラッシュコマンド](/ja/slash-commands) - `/rewind`を使用したチェックポイントへのアクセス
-* [CLIリファレンス](/ja/cli-reference) - コマンドラインオプション
+* [Interactive mode](/en/interactive-mode) - Keyboard shortcuts and session controls
+* [Slash commands](/en/slash-commands) - Accessing checkpoints using `/rewind`
+* [CLI reference](/en/cli-reference) - Command-line options
 
 
 ---

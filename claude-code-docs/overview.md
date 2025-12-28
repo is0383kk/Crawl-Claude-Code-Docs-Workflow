@@ -1,123 +1,133 @@
-# Claude Code 概要
+# Claude Code overview
 
-> Claude Code について学びましょう。Anthropic のエージェント型コーディングツールで、ターミナルで動作し、アイデアをこれまで以上に速くコードに変えるのに役立ちます。
+> Learn about Claude Code, Anthropic's agentic coding tool that lives in your terminal and helps you turn ideas into code faster than ever before.
 
-## 30秒で始める
+## Get started in 30 seconds
 
-前提条件:
+Prerequisites:
 
-* [Claude.ai](https://claude.ai) (推奨) または [Claude Console](https://console.anthropic.com/) アカウント
+* A [Claude.ai](https://claude.ai) (recommended) or [Claude Console](https://console.anthropic.com/) account
 
-**Claude Code をインストール:**
+**Install Claude Code:**
+
+To install Claude Code, use one of the following methods:
 
 <Tabs>
-  <Tab title="macOS/Linux">
+  <Tab title="Native Install (Recommended)">
+    **macOS, Linux, WSL:**
+
     ```bash  theme={null}
     curl -fsSL https://claude.ai/install.sh | bash
+    ```
+
+    **Windows PowerShell:**
+
+    ```powershell  theme={null}
+    irm https://claude.ai/install.ps1 | iex
+    ```
+
+    **Windows CMD:**
+
+    ```batch  theme={null}
+    curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
     ```
   </Tab>
 
   <Tab title="Homebrew">
-    ```bash  theme={null}
+    ```sh  theme={null}
     brew install --cask claude-code
     ```
   </Tab>
 
-  <Tab title="Windows">
-    ```powershell  theme={null}
-    irm https://claude.ai/install.ps1 | iex
-    ```
-  </Tab>
-
   <Tab title="NPM">
-    ```bash  theme={null}
+    If you have [Node.js 18 or newer installed](https://nodejs.org/en/download/):
+
+    ```sh  theme={null}
     npm install -g @anthropic-ai/claude-code
     ```
-
-    [Node.js 18+](https://nodejs.org/en/download/) が必要です
   </Tab>
 </Tabs>
 
-**Claude Code の使用を開始:**
+**Start using Claude Code:**
 
 ```bash  theme={null}
 cd your-project
 claude
 ```
 
-初回使用時にログインするよう促されます。これだけです! [クイックスタート (5分) に進む →](/ja/quickstart)
+You'll be prompted to log in on first use. That's it! [Continue with Quickstart (5 minutes) →](/en/quickstart)
 
 <Tip>
-  インストールオプションについては [高度なセットアップ](/ja/setup) を、問題が発生した場合は [トラブルシューティング](/ja/troubleshooting) を参照してください。
+  Claude Code automatically keeps itself up to date. See [advanced setup](/en/setup) for installation options, manual updates, or uninstallation instructions. Visit [troubleshooting](/en/troubleshooting) if you hit issues.
 </Tip>
 
-<Note>
-  **新しい VS Code 拡張機能 (ベータ版)**: グラフィカルインターフェースをお好みですか? 新しい [VS Code 拡張機能](/ja/vs-code) は、ターミナルの知識を必要とせずに、使いやすいネイティブ IDE エクスペリエンスを提供します。マーケットプレイスからインストールして、サイドバーで Claude を使用してコーディングを開始するだけです。
-</Note>
+## What Claude Code does for you
 
-## Claude Code があなたのためにすること
+* **Build features from descriptions**: Tell Claude what you want to build in plain English. It will make a plan, write the code, and ensure it works.
+* **Debug and fix issues**: Describe a bug or paste an error message. Claude Code will analyze your codebase, identify the problem, and implement a fix.
+* **Navigate any codebase**: Ask anything about your team's codebase, and get a thoughtful answer back. Claude Code maintains awareness of your entire project structure, can find up-to-date information from the web, and with [MCP](/en/mcp) can pull from external data sources like Google Drive, Figma, and Slack.
+* **Automate tedious tasks**: Fix fiddly lint issues, resolve merge conflicts, and write release notes. Do all this in a single command from your developer machines, or automatically in CI.
 
-* **説明からフィーチャーを構築**: Claude に平易な英語で何を構築したいかを伝えます。計画を立て、コードを書き、それが機能することを確認します。
-* **バグをデバッグして修正**: バグを説明するか、エラーメッセージを貼り付けます。Claude Code はコードベースを分析し、問題を特定し、修正を実装します。
-* **任意のコードベースをナビゲート**: チームのコードベースについて何でも質問し、思慮深い回答を得ます。Claude Code はプロジェクト全体の構造を認識し、ウェブから最新情報を見つけることができ、[MCP](/ja/mcp) を使用すると Google Drive、Figma、Slack などの外部データソースから取得できます。
-* **退屈なタスクを自動化**: 厄介な lint の問題を修正し、マージコンフリクトを解決し、リリースノートを作成します。開発者マシンから単一のコマンドで、または CI で自動的にすべてを実行します。
+## Why developers love Claude Code
 
-## 開発者が Claude Code を愛する理由
+* **Works in your terminal**: Not another chat window. Not another IDE. Claude Code meets you where you already work, with the tools you already love.
+* **Takes action**: Claude Code can directly edit files, run commands, and create commits. Need more? [MCP](/en/mcp) lets Claude read your design docs in Google Drive, update your tickets in Jira, or use *your* custom developer tooling.
+* **Unix philosophy**: Claude Code is composable and scriptable. `tail -f app.log | claude -p "Slack me if you see any anomalies appear in this log stream"` *works*. Your CI can run `claude -p "If there are new text strings, translate them into French and raise a PR for @lang-fr-team to review"`.
+* **Enterprise-ready**: Use the Claude API, or host on AWS or GCP. Enterprise-grade [security](/en/security), [privacy](/en/data-usage), and [compliance](https://trust.anthropic.com/) is built-in.
 
-* **ターミナルで動作**: 別のチャットウィンドウではありません。別の IDE ではありません。Claude Code はあなたが既に作業している場所で、既に愛用しているツールで、あなたに会います。
-* **アクションを実行**: Claude Code はファイルを直接編集し、コマンドを実行し、コミットを作成できます。もっと必要ですか? [MCP](/ja/mcp) を使用すると、Claude は Google Drive のデザインドキュメントを読み、Jira のチケットを更新したり、*あなたの* カスタム開発者ツーリングを使用したりできます。
-* **Unix 哲学**: Claude Code は構成可能でスクリプト化可能です。`tail -f app.log | claude -p "Slack me if you see any anomalies appear in this log stream"` *が動作します*。CI は `claude -p "If there are new text strings, translate them into French and raise a PR for @lang-fr-team to review"` を実行できます。
-* **エンタープライズ対応**: Claude API を使用するか、AWS または GCP でホストします。エンタープライズグレードの [セキュリティ](/ja/security)、[プライバシー](/ja/data-usage)、および [コンプライアンス](https://trust.anthropic.com/) が組み込まれています。
-
-## 次のステップ
+## Next steps
 
 <CardGroup>
-  <Card title="クイックスタート" icon="rocket" href="/ja/quickstart">
-    実践的な例で Claude Code の動作を確認してください
+  <Card title="Quickstart" icon="rocket" href="/en/quickstart">
+    See Claude Code in action with practical examples
   </Card>
 
-  <Card title="一般的なワークフロー" icon="graduation-cap" href="/ja/common-workflows">
-    一般的なワークフローのステップバイステップガイド
+  <Card title="Common workflows" icon="graduation-cap" href="/en/common-workflows">
+    Step-by-step guides for common workflows
   </Card>
 
-  <Card title="トラブルシューティング" icon="wrench" href="/ja/troubleshooting">
-    Claude Code の一般的な問題の解決策
+  <Card title="Troubleshooting" icon="wrench" href="/en/troubleshooting">
+    Solutions for common issues with Claude Code
   </Card>
 
-  <Card title="IDE セットアップ" icon="laptop" href="/ja/vs-code">
-    IDE に Claude Code を追加
+  <Card title="IDE setup" icon="laptop" href="/en/vs-code">
+    Add Claude Code to your IDE
   </Card>
 </CardGroup>
 
-## 追加リソース
+## Additional resources
 
 <CardGroup>
-  <Card title="Agent SDK で構築" icon="code-branch" href="https://docs.claude.com/en/docs/agent-sdk/overview">
-    Claude Agent SDK でカスタム AI エージェントを作成
+  <Card title="About Claude Code" icon="sparkles" href="https://claude.com/product/claude-code">
+    Learn more about Claude Code on claude.com
   </Card>
 
-  <Card title="AWS または GCP でホスト" icon="cloud" href="/ja/third-party-integrations">
-    Amazon Bedrock または Google Vertex AI で Claude Code を構成
+  <Card title="Build with the Agent SDK" icon="code-branch" href="https://docs.claude.com/en/docs/agent-sdk/overview">
+    Create custom AI agents with the Claude Agent SDK
   </Card>
 
-  <Card title="設定" icon="gear" href="/ja/settings">
-    ワークフローに合わせて Claude Code をカスタマイズ
+  <Card title="Host on AWS or GCP" icon="cloud" href="/en/third-party-integrations">
+    Configure Claude Code with Amazon Bedrock or Google Vertex AI
   </Card>
 
-  <Card title="コマンド" icon="terminal" href="/ja/cli-reference">
-    CLI コマンドとコントロールについて学ぶ
+  <Card title="Settings" icon="gear" href="/en/settings">
+    Customize Claude Code for your workflow
   </Card>
 
-  <Card title="リファレンス実装" icon="code" href="https://github.com/anthropics/claude-code/tree/main/.devcontainer">
-    開発コンテナリファレンス実装をクローン
+  <Card title="Commands" icon="terminal" href="/en/cli-reference">
+    Learn about CLI commands and controls
   </Card>
 
-  <Card title="セキュリティ" icon="shield" href="/ja/security">
-    Claude Code のセーフガードと安全な使用のベストプラクティスを発見
+  <Card title="Reference implementation" icon="code" href="https://github.com/anthropics/claude-code/tree/main/.devcontainer">
+    Clone our development container reference implementation
   </Card>
 
-  <Card title="プライバシーとデータ使用" icon="lock" href="/ja/data-usage">
-    Claude Code がデータをどのように処理するかを理解
+  <Card title="Security" icon="shield" href="/en/security">
+    Discover Claude Code's safeguards and best practices for safe usage
+  </Card>
+
+  <Card title="Privacy and data usage" icon="lock" href="/en/data-usage">
+    Understand how Claude Code handles your data
   </Card>
 </CardGroup>
 

@@ -1,125 +1,134 @@
-# ウェブ上の Claude Code
+# Claude Code on the web
 
-> セキュアなクラウドインフラストラクチャ上で Claude Code タスクを非同期に実行します
+> Run Claude Code tasks asynchronously on secure cloud infrastructure
 
 <Note>
-  Claude Code on the web は現在リサーチプレビュー中です。
+  Claude Code on the web is currently in research preview.
 </Note>
 
-## Claude Code on the web とは何ですか？
+## What is Claude Code on the web?
 
-Claude Code on the web により、開発者は Claude アプリから Claude Code を開始できます。これは以下に最適です：
+Claude Code on the web lets developers kick off Claude Code from the Claude app. This is perfect for:
 
-* **質問への回答**: コードアーキテクチャと機能の実装方法について質問する
-* **バグ修正と定型タスク**: 頻繁な操舵が不要な明確に定義されたタスク
-* **並列作業**: 複数のバグ修正を並列で処理する
-* **ローカルマシンにないリポジトリ**: ローカルにチェックアウトしていないコードで作業する
-* **バックエンド変更**: Claude Code がテストを書き、その後そのテストに合格するコードを書く場合
+* **Answering questions**: Ask about code architecture and how features are implemented
+* **Bug fixes and routine tasks**: Well-defined tasks that don't require frequent steering
+* **Parallel work**: Tackle multiple bug fixes in parallel
+* **Repositories not on your local machine**: Work on code you don't have checked out locally
+* **Backend changes**: Where Claude Code can write tests and then write code to pass those tests
 
-Claude Code は Claude iOS アプリでも利用可能です。これは以下に最適です：
+Claude Code is also available on the Claude iOS app. This is perfect for:
 
-* **移動中**: 通勤中やノートパソコンから離れている間にタスクを開始する
-* **監視**: エージェントの作業の軌跡を監視し、操舵する
+* **On the go**: Kick off tasks while commuting or away from laptop
+* **Monitoring**: Watch the trajectory and steer the agent's work
 
-開発者は Claude アプリから Claude Code セッションをターミナルに移動して、タスクをローカルで続行することもできます。
+Developers can also move Claude Code sessions from the Claude app to their terminal to continue tasks locally.
 
-## Claude Code on the web は誰が使用できますか？
+## Who can use Claude Code on the web?
 
-Claude Code on the web はリサーチプレビューで以下に利用可能です：
+Claude Code on the web is available in research preview to:
 
-* **Pro ユーザー**
-* **Max ユーザー**
+* **Pro users**
+* **Max users**
+* **Team premium seat users**
+* **Enterprise premium seat users**
 
-Team および Enterprise プレミアムシートユーザーへの提供は近日予定です。
+## Getting started
 
-## はじめに
+1. Visit [claude.ai/code](https://claude.ai/code)
+2. Connect your GitHub account
+3. Install the Claude GitHub app in your repositories
+4. Select your default environment
+5. Submit your coding task
+6. Review changes and create a pull request in GitHub
 
-1. [claude.ai/code](https://claude.ai/code) にアクセスします
-2. GitHub アカウントを接続します
-3. リポジトリに Claude GitHub アプリをインストールします
-4. デフォルト環境を選択します
-5. コーディングタスクを送信します
-6. 変更を確認し、GitHub でプルリクエストを作成します
+## How it works
 
-## 仕組み
+When you start a task on Claude Code on the web:
 
-Claude Code on the web でタスクを開始すると：
+1. **Repository cloning**: Your repository is cloned to an Anthropic-managed virtual machine
+2. **Environment setup**: Claude prepares a secure cloud environment with your code
+3. **Network configuration**: Internet access is configured based on your settings
+4. **Task execution**: Claude analyzes code, makes changes, runs tests, and checks its work
+5. **Completion**: You're notified when finished and can create a PR with the changes
+6. **Results**: Changes are pushed to a branch, ready for pull request creation
 
-1. **リポジトリのクローン**: リポジトリが Anthropic 管理の仮想マシンにクローンされます
-2. **環境セットアップ**: Claude がコードを含むセキュアなクラウド環境を準備します
-3. **ネットワーク構成**: インターネットアクセスが設定に基づいて構成されます
-4. **タスク実行**: Claude がコードを分析し、変更を加え、テストを実行し、その作業を確認します
-5. **完了**: 完了時に通知され、変更を含むプルリクエストを作成できます
-6. **結果**: 変更がブランチにプッシュされ、プルリクエスト作成の準備ができます
+## Moving tasks between web and terminal
 
-## ウェブとターミナル間でのタスク移動
+### From web to terminal
 
-### ウェブからターミナルへ
+After starting a task on the web:
 
-ウェブでタスクを開始した後：
+1. Click the "Open in CLI" button
+2. Paste and run the command in your terminal in a checkout of the repo
+3. Any existing local changes will be stashed, and the remote session will be loaded
+4. Continue working locally
 
-1. 「Open in CLI」ボタンをクリックします
-2. コマンドをコピーしてリポジトリのチェックアウトでターミナルで実行します
-3. 既存のローカル変更はスタッシュされ、リモートセッションが読み込まれます
-4. ローカルで作業を続行します
+## Cloud environment
 
-## クラウド環境
+### Default image
 
-### デフォルトイメージ
+We build and maintain a universal image with common toolchains and language ecosystems pre-installed. This image includes:
 
-一般的なツールチェーンと言語エコシステムがプリインストールされた汎用イメージを構築・保守しています。このイメージには以下が含まれます：
+* Popular programming languages and runtimes
+* Common build tools and package managers
+* Testing frameworks and linters
 
-* 人気のあるプログラミング言語とランタイム
-* 一般的なビルドツールとパッケージマネージャー
-* テストフレームワークとリンター
+#### Checking available tools
 
-#### 利用可能なツールの確認
-
-環境にプリインストールされているものを確認するには、Claude Code に以下を実行するよう依頼します：
+To see what's pre-installed in your environment, ask Claude Code to run:
 
 ```bash  theme={null}
 check-tools
 ```
 
-このコマンドは以下を表示します：
+This command displays:
 
-* プログラミング言語とそのバージョン
-* 利用可能なパッケージマネージャー
-* インストールされた開発ツール
+* Programming languages and their versions
+* Available package managers
+* Installed development tools
 
-#### 言語固有のセットアップ
+#### Language-specific setups
 
-汎用イメージには以下の事前構成環境が含まれます：
+The universal image includes pre-configured environments for:
 
-* **Python**: pip、poetry、および一般的な科学ライブラリを備えた Python 3.x
-* **Node.js**: npm、yarn、および pnpm を備えた最新 LTS バージョン
-* **Java**: Maven と Gradle を備えた OpenJDK
-* **Go**: モジュールサポート付きの最新安定版
-* **Rust**: cargo を備えた Rust ツールチェーン
-* **C++**: GCC および Clang コンパイラ
+* **Python**: Python 3.x with pip, poetry, and common scientific libraries
+* **Node.js**: Latest LTS versions with npm, yarn, pnpm, and bun
+* **Ruby**: Versions 3.1.6, 3.2.6, 3.3.6 (default: 3.3.6) with gem, bundler, and rbenv for version management
+* **PHP**: Version 8.4.14
+* **Java**: OpenJDK with Maven and Gradle
+* **Go**: Latest stable version with module support
+* **Rust**: Rust toolchain with cargo
+* **C++**: GCC and Clang compilers
 
-### 環境構成
+#### Databases
 
-Claude Code on the web でセッションを開始すると、内部で以下が発生します：
+The universal image includes the following databases:
 
-1. **環境準備**: リポジトリをクローンし、初期化用に構成された Claude フックを実行します。リポジトリは GitHub リポジトリのデフォルトブランチでクローンされます。特定のブランチをチェックアウトしたい場合は、プロンプトで指定できます。
+* **PostgreSQL**: Version 16
+* **Redis**: Version 7.0
 
-2. **ネットワーク構成**: エージェント用のインターネットアクセスを構成します。インターネットアクセスはデフォルトで制限されていますが、ニーズに基づいて環境をインターネットなしまたは完全なインターネットアクセスを持つように構成できます。
+### Environment configuration
 
-3. **Claude Code 実行**: Claude Code が実行されてタスクを完了し、コードを書き、テストを実行し、その作業を確認します。ウェブインターフェース経由でセッション全体を通じて Claude をガイドし、操舵できます。Claude は `CLAUDE.md` で定義したコンテキストを尊重します。
+When you start a session in Claude Code on the web, here's what happens under the hood:
 
-4. **結果**: Claude が作業を完了すると、ブランチをリモートにプッシュします。ブランチのプルリクエストを作成できるようになります。
+1. **Environment preparation**: We clone your repository and run any configured Claude hooks for initialization. The repo will be cloned with the default branch on your GitHub repo. If you would like to check out a specific branch, you can specify that in the prompt.
+
+2. **Network configuration**: We configure internet access for the agent. Internet access is limited by default, but you can configure the environment to have no internet or full internet access based on your needs.
+
+3. **Claude Code execution**: Claude Code runs to complete your task, writing code, running tests, and checking its work. You can guide and steer Claude throughout the session via the web interface. Claude respects context you've defined in your `CLAUDE.md`.
+
+4. **Outcome**: When Claude completes its work, it will push the branch to remote. You will be able to create a PR for the branch.
 
 <Note>
-  Claude は環境で利用可能なターミナルと CLI ツールを完全に通じて動作します。汎用イメージにプリインストールされたツールと、フックまたは依存関係管理を通じてインストールする追加ツールを使用します。
+  Claude operates entirely through the terminal and CLI tools available in the environment. It uses the pre-installed tools in the universal image and any additional tools you install through hooks or dependency management.
 </Note>
 
-**新しい環境を追加するには：** 現在の環境を選択して環境セレクターを開き、「Add environment」を選択します。これにより、環境名、ネットワークアクセスレベル、および設定したい環境変数を指定できるダイアログが開きます。
+**To add a new environment:** Select the current environment to open the environment selector, and then select "Add environment". This will open a dialog where you can specify the environment name, network access level, and any environment variables you want to set.
 
-**既存の環境を更新するには：** 現在の環境を選択し、環境名の右側にある設定ボタンを選択します。これにより、環境名、ネットワークアクセス、および環境変数を更新できるダイアログが開きます。
+**To update an existing environment:** Select the current environment, to the right of the environment name, and select the settings button. This will open a dialog where you can update the environment name, network access, and environment variables.
 
 <Note>
-  環境変数は [`.env` 形式](https://www.dotenv.org/) でキーと値のペアとして指定する必要があります。例えば：
+  Environment variables must be specified as key-value pairs, in [`.env` format](https://www.dotenv.org/). For example:
 
   ```
   API_KEY=your_api_key
@@ -127,9 +136,9 @@ Claude Code on the web でセッションを開始すると、内部で以下が
   ```
 </Note>
 
-### 依存関係管理
+### Dependency management
 
-[SessionStart フック](/ja/hooks#sessionstart) を使用して自動依存関係インストールを構成します。これはリポジトリの `.claude/settings.json` ファイルで構成できます：
+Configure automatic dependency installation using [SessionStart hooks](/en/hooks#sessionstart). This can be configured in your repository's `.claude/settings.json` file:
 
 ```json  theme={null}
 {
@@ -149,7 +158,7 @@ Claude Code on the web でセッションを開始すると、内部で以下が
 }
 ```
 
-`scripts/install_pkgs.sh` に対応するスクリプトを作成します：
+Create the corresponding script at `scripts/install_pkgs.sh`:
 
 ```bash  theme={null}
 #!/bin/bash
@@ -158,16 +167,16 @@ pip install -r requirements.txt
 exit 0
 ```
 
-実行可能にします：`chmod +x scripts/install_pkgs.sh`
+Make it executable: `chmod +x scripts/install_pkgs.sh`
 
-#### ローカル対リモート実行
+#### Local vs remote execution
 
-デフォルトでは、すべてのフックはローカルとリモート（ウェブ）環境の両方で実行されます。フックを 1 つの環境でのみ実行するには、フックスクリプトで `CLAUDE_CODE_REMOTE` 環境変数を確認します。
+By default, all hooks execute both locally and in remote (web) environments. To run a hook only in one environment, check the `CLAUDE_CODE_REMOTE` environment variable in your hook script.
 
 ```bash  theme={null}
 #!/bin/bash
 
-# 例：リモート環境でのみ実行
+# Example: Only run in remote environments
 if [ "$CLAUDE_CODE_REMOTE" != "true" ]; then
   exit 0
 fi
@@ -176,47 +185,47 @@ npm install
 pip install -r requirements.txt
 ```
 
-#### 環境変数の永続化
+#### Persisting environment variables
 
-SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたファイルに書き込むことで、後続の bash コマンド用に環境変数を永続化できます。詳細については、フック参照の [SessionStart フック](/ja/hooks#sessionstart) を参照してください。
+SessionStart hooks can persist environment variables for subsequent bash commands by writing to the file specified in the `CLAUDE_ENV_FILE` environment variable. For details, see [SessionStart hooks](/en/hooks#sessionstart) in the hooks reference.
 
-## ネットワークアクセスとセキュリティ
+## Network access and security
 
-### ネットワークポリシー
+### Network policy
 
-#### GitHub プロキシ
+#### GitHub proxy
 
-セキュリティのため、すべての GitHub 操作は、すべての git インタラクションを透過的に処理する専用プロキシサービスを通じて行われます。サンドボックス内では、git クライアントはカスタムビルドのスコープ付き認証情報を使用して認証します。このプロキシは：
+For security, all GitHub operations go through a dedicated proxy service that transparently handles all git interactions. Inside the sandbox, the git client authenticates using a custom-built scoped credential. This proxy:
 
-* GitHub 認証をセキュアに管理します - git クライアントはサンドボックス内のスコープ付き認証情報を使用し、プロキシはこれを検証して実際の GitHub 認証トークンに変換します
-* 安全性のため git プッシュ操作を現在のワーキングブランチに制限します
-* セキュリティ境界を維持しながらシームレスなクローン、フェッチ、PR 操作を有効にします
+* Manages GitHub authentication securely - the git client uses a scoped credential inside the sandbox, which the proxy verifies and translates to your actual GitHub authentication token
+* Restricts git push operations to the current working branch for safety
+* Enables seamless cloning, fetching, and PR operations while maintaining security boundaries
 
-#### セキュリティプロキシ
+#### Security proxy
 
-環境はセキュリティと不正使用防止のため HTTP/HTTPS ネットワークプロキシの背後で実行されます。すべてのアウトバウンドインターネットトラフィックはこのプロキシを通じて渡され、以下を提供します：
+Environments run behind an HTTP/HTTPS network proxy for security and abuse prevention purposes. All outbound internet traffic passes through this proxy, which provides:
 
-* 悪意のあるリクエストからの保護
-* レート制限と不正使用防止
-* 強化されたセキュリティのためのコンテンツフィルタリング
+* Protection against malicious requests
+* Rate limiting and abuse prevention
+* Content filtering for enhanced security
 
-### アクセスレベル
+### Access levels
 
-デフォルトでは、ネットワークアクセスは [許可リストドメイン](#default-allowed-domains) に制限されています。
+By default, network access is limited to [allowlisted domains](#default-allowed-domains).
 
-カスタムネットワークアクセスを構成でき、ネットワークアクセスを無効にすることもできます。
+You can configure custom network access, including disabling network access.
 
-### デフォルト許可ドメイン
+### Default allowed domains
 
-「Limited」ネットワークアクセスを使用する場合、以下のドメインはデフォルトで許可されます：
+When using "Limited" network access, the following domains are allowed by default:
 
-#### Anthropic サービス
+#### Anthropic Services
 
 * api.anthropic.com
 * statsig.anthropic.com
 * claude.ai
 
-#### バージョン管理
+#### Version Control
 
 * github.com
 * [www.github.com](http://www.github.com)
@@ -234,7 +243,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * [www.bitbucket.org](http://www.bitbucket.org)
 * api.bitbucket.org
 
-#### コンテナレジストリ
+#### Container Registries
 
 * registry-1.docker.io
 * auth.docker.io
@@ -248,7 +257,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * mcr.microsoft.com
 * \*.data.mcr.microsoft.com
 
-#### クラウドプラットフォーム
+#### Cloud Platforms
 
 * cloud.google.com
 * accounts.google.com
@@ -276,7 +285,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * download.oracle.com
 * yum.oracle.com
 
-#### パッケージマネージャー - JavaScript/Node
+#### Package Managers - JavaScript/Node
 
 * registry.npmjs.org
 * [www.npmjs.com](http://www.npmjs.com)
@@ -286,7 +295,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * yarnpkg.com
 * registry.yarnpkg.com
 
-#### パッケージマネージャー - Python
+#### Package Managers - Python
 
 * pypi.org
 * [www.pypi.org](http://www.pypi.org)
@@ -297,7 +306,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * pypa.io
 * [www.pypa.io](http://www.pypa.io)
 
-#### パッケージマネージャー - Ruby
+#### Package Managers - Ruby
 
 * rubygems.org
 * [www.rubygems.org](http://www.rubygems.org)
@@ -312,7 +321,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * rvm.io
 * get.rvm.io
 
-#### パッケージマネージャー - Rust
+#### Package Managers - Rust
 
 * crates.io
 * [www.crates.io](http://www.crates.io)
@@ -321,7 +330,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * static.rust-lang.org
 * [www.rust-lang.org](http://www.rust-lang.org)
 
-#### パッケージマネージャー - Go
+#### Package Managers - Go
 
 * proxy.golang.org
 * sum.golang.org
@@ -331,7 +340,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * goproxy.io
 * pkg.go.dev
 
-#### パッケージマネージャー - JVM
+#### Package Managers - JVM
 
 * maven.org
 * repo.maven.org
@@ -344,7 +353,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * spring.io
 * repo.spring.io
 
-#### パッケージマネージャー - その他の言語
+#### Package Managers - Other Languages
 
 * packagist.org (PHP Composer)
 * [www.packagist.org](http://www.packagist.org)
@@ -370,7 +379,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * swift.org
 * [www.swift.org](http://www.swift.org)
 
-#### Linux ディストリビューション
+#### Linux Distributions
 
 * archive.ubuntu.com
 * security.ubuntu.com
@@ -381,7 +390,7 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * launchpad.net
 * [www.launchpad.net](http://www.launchpad.net)
 
-#### 開発ツール & プラットフォーム
+#### Development Tools & Platforms
 
 * dl.k8s.io (Kubernetes)
 * pkgs.k8s.io
@@ -409,20 +418,20 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * nodejs.org (Node.js)
 * [www.nodejs.org](http://www.nodejs.org)
 
-#### クラウドサービス & 監視
+#### Cloud Services & Monitoring
 
 * statsig.com
 * [www.statsig.com](http://www.statsig.com)
 * api.statsig.com
 * \*.sentry.io
 
-#### コンテンツ配信 & ミラー
+#### Content Delivery & Mirrors
 
 * \*.sourceforge.net
 * packagecloud.io
 * \*.packagecloud.io
 
-#### スキーマ & 構成
+#### Schema & Configuration
 
 * json-schema.org
 * [www.json-schema.org](http://www.json-schema.org)
@@ -430,49 +439,49 @@ SessionStart フックは、`CLAUDE_ENV_FILE` 環境変数で指定されたフ�
 * [www.schemastore.org](http://www.schemastore.org)
 
 <Note>
-  `*` でマークされたドメインはワイルドカードサブドメインマッチングを示します。例えば、`*.gcr.io` は `gcr.io` のすべてのサブドメインへのアクセスを許可します。
+  Domains marked with `*` indicate wildcard subdomain matching. For example, `*.gcr.io` allows access to any subdomain of `gcr.io`.
 </Note>
 
-### カスタマイズされたネットワークアクセスのセキュリティベストプラクティス
+### Security best practices for customized network access
 
-1. **最小権限の原則**: 必要な最小限のネットワークアクセスのみを有効にします
-2. **定期的に監査**: 許可されたドメインを定期的に確認します
-3. **HTTPS を使用**: HTTP エンドポイントより HTTPS エンドポイントを常に優先します
+1. **Principle of least privilege**: Only enable the minimum network access required
+2. **Audit regularly**: Review allowed domains periodically
+3. **Use HTTPS**: Always prefer HTTPS endpoints over HTTP
 
-## セキュリティと分離
+## Security and isolation
 
-Claude Code on the web は強力なセキュリティ保証を提供します：
+Claude Code on the web provides strong security guarantees:
 
-* **分離された仮想マシン**: 各セッションは分離された Anthropic 管理の VM で実行されます
-* **ネットワークアクセス制御**: ネットワークアクセスはデフォルトで制限され、無効にできます
+* **Isolated virtual machines**: Each session runs in an isolated, Anthropic-managed VM
+* **Network access controls**: Network access is limited by default, and can be disabled
 
 <Note>
-  ネットワークアクセスが無効な状態で実行する場合、Claude Code は Anthropic API と通信することが許可されており、これにより分離された Claude Code VM からデータが出ることがあります。
+  When running with network access disabled, Claude Code is allowed to communicate with the Anthropic API which may still allow data to exit the isolated Claude Code VM.
 </Note>
 
-* **認証情報保護**: 機密認証情報（git 認証情報や署名キーなど）はサンドボックス内の Claude Code と一緒にありません。認証はスコープ付き認証情報を使用したセキュアプロキシを通じて処理されます
-* **セキュア分析**: コードは PR を作成する前に分離された VM 内で分析および変更されます
+* **Credential protection**: Sensitive credentials (such as git credentials or signing keys) are never inside the sandbox with Claude Code. Authentication is handled through a secure proxy using scoped credentials
+* **Secure analysis**: Code is analyzed and modified within isolated VMs before creating PRs
 
-## 価格とレート制限
+## Pricing and rate limits
 
-Claude Code on the web は、アカウント内のすべての他の Claude および Claude Code 使用とレート制限を共有します。複数のタスクを並列で実行すると、レート制限をより多く消費します。
+Claude Code on the web shares rate limits with all other Claude and Claude Code usage within your account. Running multiple tasks in parallel will consume more rate limits proportionately.
 
-## 制限事項
+## Limitations
 
-* **リポジトリ認証**: ウェブからローカルへセッションを移動できるのは、同じアカウントに認証されている場合のみです
-* **プラットフォーム制限**: Claude Code on the web は GitHub でホストされているコードでのみ機能します。GitLab およびその他の非 GitHub リポジトリはクラウドセッションで使用できません
+* **Repository authentication**: You can only move sessions from web to local when you are authenticated to the same account
+* **Platform restrictions**: Claude Code on the web only works with code hosted in GitHub. GitLab and other non-GitHub repositories cannot be used with cloud sessions
 
-## ベストプラクティス
+## Best practices
 
-1. **Claude Code フックを使用**: [sessionStart フック](/ja/hooks#sessionstart) を構成して環境セットアップと依存関係インストールを自動化します。
-2. **要件を文書化**: `CLAUDE.md` ファイルで依存関係とコマンドを明確に指定します。`AGENTS.md` ファイルがある場合は、`@AGENTS.md` を使用して `CLAUDE.md` でソースすることで、単一の情報源を維持できます。
+1. **Use Claude Code hooks**: Configure [SessionStart hooks](/en/hooks#sessionstart) to automate environment setup and dependency installation.
+2. **Document requirements**: Clearly specify dependencies and commands in your `CLAUDE.md` file. If you have an `AGENTS.md` file, you can source it in your `CLAUDE.md` using `@AGENTS.md` to maintain a single source of truth.
 
-## 関連リソース
+## Related resources
 
-* [フック構成](/ja/hooks)
-* [設定リファレンス](/ja/settings)
-* [セキュリティ](/ja/security)
-* [データ使用](/ja/data-usage)
+* [Hooks configuration](/en/hooks)
+* [Settings reference](/en/settings)
+* [Security](/en/security)
+* [Data usage](/en/data-usage)
 
 
 ---

@@ -1,12 +1,12 @@
-# JetBrains IDE
+# JetBrains IDEs
 
-> IntelliJ、PyCharm、WebStorm など JetBrains IDE で Claude Code を使用する
+> Use Claude Code with JetBrains IDEs including IntelliJ, PyCharm, WebStorm, and more
 
-Claude Code は専用プラグインを通じて JetBrains IDE と統合され、インタラクティブな diff ビューイング、選択コンテキスト共有など、さまざまな機能を提供します。
+Claude Code integrates with JetBrains IDEs through a dedicated plugin, providing features like interactive diff viewing, selection context sharing, and more.
 
-## サポートされている IDE
+## Supported IDEs
 
-Claude Code プラグインは、以下を含むほとんどの JetBrains IDE で動作します：
+The Claude Code plugin works with most JetBrains IDEs, including:
 
 * IntelliJ IDEA
 * PyCharm
@@ -15,139 +15,137 @@ Claude Code プラグインは、以下を含むほとんどの JetBrains IDE �
 * PhpStorm
 * GoLand
 
-## 機能
+## Features
 
-* **クイック起動**: `Cmd+Esc`（Mac）または `Ctrl+Esc`（Windows/Linux）を使用してエディターから直接 Claude Code を開くか、UI の Claude Code ボタンをクリックします
-* **Diff ビューイング**: コード変更は、ターミナルではなく IDE diff ビューアーに直接表示できます
-* **選択コンテキスト**: IDE の現在の選択/タブが自動的に Claude Code と共有されます
-* **ファイル参照ショートカット**: `Cmd+Option+K`（Mac）または `Alt+Ctrl+K`（Linux/Windows）を使用してファイル参照（例：@File#L1-99）を挿入します
-* **診断共有**: IDE からの診断エラー（lint、構文など）が自動的に Claude と共有されます
+* **Quick launch**: Use `Cmd+Esc` (Mac) or `Ctrl+Esc` (Windows/Linux) to open Claude Code directly from your editor, or click the Claude Code button in the UI
+* **Diff viewing**: Code changes can be displayed directly in the IDE diff viewer instead of the terminal
+* **Selection context**: The current selection/tab in the IDE is automatically shared with Claude Code
+* **File reference shortcuts**: Use `Cmd+Option+K` (Mac) or `Alt+Ctrl+K` (Linux/Windows) to insert file references (for example, @File#L1-99)
+* **Diagnostic sharing**: Diagnostic errors (lint, syntax, etc.) from the IDE are automatically shared with Claude as you work
 
-## インストール
+## Installation
 
-### マーケットプレイスからのインストール
+### Marketplace Installation
 
-JetBrains マーケットプレイスから [Claude Code プラグイン](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) を見つけてインストールし、IDE を再起動します。
+Find and install the [Claude Code plugin](https://plugins.jetbrains.com/plugin/27310-claude-code-beta-) from the JetBrains marketplace and restart your IDE.
 
-### 自動インストール
-
-統合ターミナルで `claude` を実行すると、プラグインが自動的にインストールされることもあります。効果を発揮するには IDE を完全に再起動する必要があります。
+If you haven't installed Claude Code yet, see [our quickstart guide](/en/quickstart) for installation instructions.
 
 <Note>
-  プラグインをインストールした後、効果を発揮するには IDE を完全に再起動する必要があります。複数回の再起動が必要な場合があります。
+  After installing the plugin, you may need to restart your IDE completely for it to take effect.
 </Note>
 
-## 使用方法
+## Usage
 
-### IDE から
+### From Your IDE
 
-IDE の統合ターミナルから `claude` を実行すると、すべての統合機能がアクティブになります。
+Run `claude` from your IDE's integrated terminal, and all integration features will be active.
 
-### 外部ターミナルから
+### From External Terminals
 
-任意の外部ターミナルで `/ide` コマンドを使用して Claude Code を JetBrains IDE に接続し、すべての機能をアクティブにします：
+Use the `/ide` command in any external terminal to connect Claude Code to your JetBrains IDE and activate all features:
 
 ```bash  theme={null}
 claude
 > /ide
 ```
 
-Claude が IDE と同じファイルにアクセスできるようにしたい場合は、IDE プロジェクトルートと同じディレクトリから Claude Code を起動してください。
+If you want Claude to have access to the same files as your IDE, start Claude Code from the same directory as your IDE project root.
 
-## 設定
+## Configuration
 
-### Claude Code 設定
+### Claude Code Settings
 
-Claude Code の設定を通じて IDE 統合を設定します：
+Configure IDE integration through Claude Code's settings:
 
-1. `claude` を実行します
-2. `/config` コマンドを入力します
-3. diff ツールを `auto` に設定して自動 IDE 検出を行います
+1. Run `claude`
+2. Enter the `/config` command
+3. Set the diff tool to `auto` for automatic IDE detection
 
-### プラグイン設定
+### Plugin Settings
 
-**Settings → Tools → Claude Code \[Beta]** に移動して Claude Code プラグインを設定します：
+Configure the Claude Code plugin by going to **Settings → Tools → Claude Code \[Beta]**:
 
-#### 一般設定
+#### General Settings
 
-* **Claude command**: Claude を実行するカスタムコマンドを指定します（例：`claude`、`/usr/local/bin/claude`、または `npx @anthropic/claude`）
-* **Suppress notification for Claude command not found**: Claude コマンドが見つからないことに関する通知をスキップします
-* **Enable using Option+Enter for multi-line prompts**（macOS のみ）: 有効にすると、Option+Enter は Claude Code プロンプトに新しい行を挿入します。Option キーが予期せずキャプチャされる問題が発生している場合は無効にします（ターミナルの再起動が必要です）
-* **Enable automatic updates**: プラグインの更新を自動的にチェックしてインストールします（再起動時に適用されます）
+* **Claude command**: Specify a custom command to run Claude (for example, `claude`, `/usr/local/bin/claude`, or `npx @anthropic/claude`)
+* **Suppress notification for Claude command not found**: Skip notifications about not finding the Claude command
+* **Enable using Option+Enter for multi-line prompts** (macOS only): When enabled, Option+Enter inserts new lines in Claude Code prompts. Disable if experiencing issues with the Option key being captured unexpectedly (requires terminal restart)
+* **Enable automatic updates**: Automatically check for and install plugin updates (applied on restart)
 
 <Tip>
-  WSL ユーザーの場合: Claude コマンドとして `wsl -d Ubuntu -- bash -lic "claude"` を設定します（`Ubuntu` を WSL ディストリビューション名に置き換えます）
+  For WSL users: Set `wsl -d Ubuntu -- bash -lic "claude"` as your Claude command (replace `Ubuntu` with your WSL distribution name)
 </Tip>
 
-#### ESC キー設定
+#### ESC Key Configuration
 
-ESC キーが JetBrains ターミナルで Claude Code 操作を中断しない場合：
+If the ESC key doesn't interrupt Claude Code operations in JetBrains terminals:
 
-1. **Settings → Tools → Terminal** に移動します
-2. 以下のいずれかを実行します：
-   * 「Move focus to the editor with Escape」をオフにするか、
-   * 「Configure terminal keybindings」をクリックして「Switch focus to Editor」ショートカットを削除します
-3. 変更を適用します
+1. Go to **Settings → Tools → Terminal**
+2. Either:
+   * Uncheck "Move focus to the editor with Escape", or
+   * Click "Configure terminal keybindings" and delete the "Switch focus to Editor" shortcut
+3. Apply the changes
 
-これにより、ESC キーが Claude Code 操作を適切に中断できるようになります。
+This allows the ESC key to properly interrupt Claude Code operations.
 
-## 特別な設定
+## Special Configurations
 
-### リモート開発
-
-<Warning>
-  JetBrains リモート開発を使用する場合、**Settings → Plugin (Host)** を通じてリモートホストにプラグインをインストールする必要があります。
-</Warning>
-
-プラグインはローカルクライアントマシンではなく、リモートホストにインストールする必要があります。
-
-### WSL 設定
+### Remote Development
 
 <Warning>
-  WSL ユーザーは IDE 検出が正常に機能するために追加の設定が必要な場合があります。詳細なセットアップ手順については、[WSL トラブルシューティングガイド](/ja/troubleshooting#jetbrains-ide-not-detected-on-wsl2) を参照してください。
+  When using JetBrains Remote Development, you must install the plugin in the remote host via **Settings → Plugin (Host)**.
 </Warning>
 
-WSL 設定には以下が必要な場合があります：
+The plugin must be installed on the remote host, not on your local client machine.
 
-* 適切なターミナル設定
-* ネットワークモード調整
-* ファイアウォール設定の更新
+### WSL Configuration
 
-## トラブルシューティング
+<Warning>
+  WSL users may need additional configuration for IDE detection to work properly. See our [WSL troubleshooting guide](/en/troubleshooting#jetbrains-ide-not-detected-on-wsl2) for detailed setup instructions.
+</Warning>
 
-### プラグインが動作しない
+WSL configuration may require:
 
-* プロジェクトルートディレクトリから Claude Code を実行していることを確認します
-* JetBrains プラグインが IDE 設定で有効になっていることを確認します
-* IDE を完全に再起動します（複数回の再起動が必要な場合があります）
-* リモート開発の場合、プラグインがリモートホストにインストールされていることを確認します
+* Proper terminal configuration
+* Networking mode adjustments
+* Firewall settings updates
 
-### IDE が検出されない
+## Troubleshooting
 
-* プラグインがインストールされ、有効になっていることを確認します
-* IDE を完全に再起動します
-* 統合ターミナルから Claude Code を実行していることを確認します
-* WSL ユーザーの場合、[WSL トラブルシューティングガイド](/ja/troubleshooting#jetbrains-ide-not-detected-on-wsl2) を参照してください
+### Plugin Not Working
 
-### コマンドが見つからない
+* Ensure you're running Claude Code from the project root directory
+* Check that the JetBrains plugin is enabled in the IDE settings
+* Completely restart the IDE (you may need to do this multiple times)
+* For Remote Development, ensure the plugin is installed in the remote host
 
-Claude アイコンをクリックして「command not found」が表示される場合：
+### IDE Not Detected
 
-1. Claude Code がインストールされていることを確認します：`npm list -g @anthropic-ai/claude-code`
-2. プラグイン設定で Claude コマンドパスを設定します
-3. WSL ユーザーの場合、設定セクションで説明されている WSL コマンド形式を使用します
+* Verify the plugin is installed and enabled
+* Restart the IDE completely
+* Check that you're running Claude Code from the integrated terminal
+* For WSL users, see the [WSL troubleshooting guide](/en/troubleshooting#jetbrains-ide-not-detected-on-wsl2)
 
-## セキュリティに関する考慮事項
+### Command Not Found
 
-Claude Code が自動編集権限が有効になっている JetBrains IDE で実行される場合、IDE によって自動的に実行される可能性のある IDE 設定ファイルを変更できる場合があります。これにより、自動編集モードで Claude Code を実行するリスクが増加し、bash 実行に対する Claude Code の権限プロンプトをバイパスできる可能性があります。
+If clicking the Claude icon shows "command not found":
 
-JetBrains IDE で実行する場合、以下を検討してください：
+1. Verify Claude Code is installed: `npm list -g @anthropic-ai/claude-code`
+2. Configure the Claude command path in plugin settings
+3. For WSL users, use the WSL command format mentioned in the configuration section
 
-* 編集に対して手動承認モードを使用する
-* Claude が信頼できるプロンプトでのみ使用されることを確認するために特に注意する
-* Claude Code がアクセスして変更できるファイルを認識する
+## Security Considerations
 
-追加のヘルプについては、[トラブルシューティングガイド](/ja/troubleshooting) を参照してください。
+When Claude Code runs in a JetBrains IDE with auto-edit permissions enabled, it may be able to modify IDE configuration files that can be automatically executed by your IDE. This may increase the risk of running Claude Code in auto-edit mode and allow bypassing Claude Code's permission prompts for bash execution.
+
+When running in JetBrains IDEs, consider:
+
+* Using manual approval mode for edits
+* Taking extra care to ensure Claude is only used with trusted prompts
+* Being aware of which files Claude Code has access to modify
+
+For additional help, see our [troubleshooting guide](/en/troubleshooting).
 
 
 ---

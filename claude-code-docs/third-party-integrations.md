@@ -1,225 +1,263 @@
-# エンタープライズデプロイメント概要
+# Enterprise deployment overview
 
-> Claude Codeがさまざまなサードパーティサービスとインフラストラクチャとどのように統合され、エンタープライズデプロイメント要件を満たすかについて学びます。
+> Learn how Claude Code can integrate with various third-party services and infrastructure to meet enterprise deployment requirements.
 
-このページでは、利用可能なデプロイメントオプションの概要を提供し、組織に適した構成を選択するのに役立ちます。
+This page provides an overview of available deployment options and helps you choose the right configuration for your organization.
 
-## プロバイダー比較
+## Provider comparison
 
 <table>
   <thead>
     <tr>
-      <th>機能</th>
+      <th>Feature</th>
       <th>Anthropic</th>
       <th>Amazon Bedrock</th>
       <th>Google Vertex AI</th>
+      <th>Microsoft Foundry</th>
     </tr>
   </thead>
 
   <tbody>
     <tr>
-      <td>リージョン</td>
-      <td>サポート対象[国](https://www.anthropic.com/supported-countries)</td>
-      <td>複数のAWS [リージョン](https://docs.aws.amazon.com/bedrock/latest/userguide/models-regions.html)</td>
-      <td>複数のGCP [リージョン](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations)</td>
+      <td>Regions</td>
+      <td>Supported [countries](https://www.anthropic.com/supported-countries)</td>
+      <td>Multiple AWS [regions](https://docs.aws.amazon.com/bedrock/latest/userguide/models-regions.html)</td>
+      <td>Multiple GCP [regions](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/locations)</td>
+      <td>Multiple Azure [regions](https://azure.microsoft.com/en-us/explore/global-infrastructure/products-by-region/)</td>
     </tr>
 
     <tr>
-      <td>プロンプトキャッシング</td>
-      <td>デフォルトで有効</td>
-      <td>デフォルトで有効</td>
-      <td>デフォルトで有効</td>
+      <td>Prompt caching</td>
+      <td>Enabled by default</td>
+      <td>Enabled by default</td>
+      <td>Enabled by default</td>
+      <td>Enabled by default</td>
     </tr>
 
     <tr>
-      <td>認証</td>
-      <td>APIキー</td>
-      <td>AWSクレデンシャル（IAM）</td>
-      <td>GCPクレデンシャル（OAuth/サービスアカウント）</td>
+      <td>Authentication</td>
+      <td>API key</td>
+      <td>API key or AWS credentials</td>
+      <td>GCP credentials</td>
+      <td>API key or Microsoft Entra ID</td>
     </tr>
 
     <tr>
-      <td>コスト追跡</td>
-      <td>ダッシュボード</td>
+      <td>Cost tracking</td>
+      <td>Dashboard</td>
       <td>AWS Cost Explorer</td>
       <td>GCP Billing</td>
+      <td>Azure Cost Management</td>
     </tr>
 
     <tr>
-      <td>エンタープライズ機能</td>
-      <td>チーム、使用状況監視</td>
-      <td>IAMポリシー、CloudTrail</td>
-      <td>IAMロール、Cloud Audit Logs</td>
+      <td>Enterprise features</td>
+      <td>Teams, usage monitoring</td>
+      <td>IAM policies, CloudTrail</td>
+      <td>IAM roles, Cloud Audit Logs</td>
+      <td>RBAC policies, Azure Monitor</td>
     </tr>
   </tbody>
 </table>
 
-## クラウドプロバイダー
+## Cloud providers
 
-<CardGroup cols={2}>
-  <Card title="Amazon Bedrock" icon="aws" href="/ja/amazon-bedrock">
-    AWSインフラストラクチャを通じてClaudeモデルを使用し、IAMベースの認証とAWSネイティブ監視を実現します
+<CardGroup cols={3}>
+  <Card title="Amazon Bedrock" icon="aws" href="/en/amazon-bedrock">
+    Use Claude models through AWS infrastructure with API key or IAM-based authentication and AWS-native monitoring
   </Card>
 
-  <Card title="Google Vertex AI" icon="google" href="/ja/google-vertex-ai">
-    Google Cloud Platformを介してClaudeモデルにアクセスし、エンタープライズグレードのセキュリティとコンプライアンスを実現します
-  </Card>
-</CardGroup>
-
-## 企業インフラストラクチャ
-
-<CardGroup cols={2}>
-  <Card title="エンタープライズネットワーク" icon="shield" href="/ja/network-config">
-    Claude Codeを組織のプロキシサーバーとSSL/TLS要件と連携するように構成します
+  <Card title="Google Vertex AI" icon="google" href="/en/google-vertex-ai">
+    Access Claude models via Google Cloud Platform with enterprise-grade security and compliance
   </Card>
 
-  <Card title="LLMゲートウェイ" icon="server" href="/ja/llm-gateway">
-    使用状況追跡、予算管理、監査ログを備えた集中型モデルアクセスをデプロイします
+  <Card title="Microsoft Foundry" icon="microsoft" href="/en/microsoft-foundry">
+    Access Claude through Azure with API key or Microsoft Entra ID authentication and Azure billing
   </Card>
 </CardGroup>
 
-## 構成概要
+## Corporate infrastructure
 
-Claude Codeは、異なるプロバイダーとインフラストラクチャを組み合わせることができる柔軟な構成オプションをサポートしています。
+<CardGroup cols={2}>
+  <Card title="Enterprise Network" icon="shield" href="/en/network-config">
+    Configure Claude Code to work with your organization's proxy servers and SSL/TLS requirements
+  </Card>
+
+  <Card title="LLM Gateway" icon="server" href="/en/llm-gateway">
+    Deploy centralized model access with usage tracking, budgeting, and audit logging
+  </Card>
+</CardGroup>
+
+## Configuration overview
+
+Claude Code supports flexible configuration options that allow you to combine different providers and infrastructure:
 
 <Note>
-  以下の違いを理解してください：
+  Understand the difference between:
 
-  * **企業プロキシ**: トラフィックをルーティングするためのHTTP/HTTPSプロキシ（`HTTPS_PROXY`または`HTTP_PROXY`経由で設定）
-  * **LLMゲートウェイ**: 認証を処理し、プロバイダー互換のエンドポイントを提供するサービス（`ANTHROPIC_BASE_URL`、`ANTHROPIC_BEDROCK_BASE_URL`、または`ANTHROPIC_VERTEX_BASE_URL`経由で設定）
+  * **Corporate proxy**: An HTTP/HTTPS proxy for routing traffic (set via `HTTPS_PROXY` or `HTTP_PROXY`)
+  * **LLM Gateway**: A service that handles authentication and provides provider-compatible endpoints (set via `ANTHROPIC_BASE_URL`, `ANTHROPIC_BEDROCK_BASE_URL`, or `ANTHROPIC_VERTEX_BASE_URL`)
 
-  両方の構成を同時に使用できます。
+  Both configurations can be used in tandem.
 </Note>
 
-### 企業プロキシでのBedrockの使用
+### Using Bedrock with corporate proxy
 
-Bedrockトラフィックを企業HTTP/HTTPSプロキシ経由でルーティングします：
+Route Bedrock traffic through a corporate HTTP/HTTPS proxy:
 
 ```bash  theme={null}
-# Bedrockを有効化
+# Enable Bedrock
 export CLAUDE_CODE_USE_BEDROCK=1
 export AWS_REGION=us-east-1
 
-# 企業プロキシを構成
+# Configure corporate proxy
 export HTTPS_PROXY='https://proxy.example.com:8080'
 ```
 
-### LLMゲートウェイでのBedrockの使用
+### Using Bedrock with LLM Gateway
 
-Bedrock互換のエンドポイントを提供するゲートウェイサービスを使用します：
+Use a gateway service that provides Bedrock-compatible endpoints:
 
 ```bash  theme={null}
-# Bedrockを有効化
+# Enable Bedrock
 export CLAUDE_CODE_USE_BEDROCK=1
 
-# LLMゲートウェイを構成
+# Configure LLM gateway
 export ANTHROPIC_BEDROCK_BASE_URL='https://your-llm-gateway.com/bedrock'
-export CLAUDE_CODE_SKIP_BEDROCK_AUTH=1  # ゲートウェイがAWS認証を処理する場合
+export CLAUDE_CODE_SKIP_BEDROCK_AUTH=1  # If gateway handles AWS auth
 ```
 
-### 企業プロキシでのVertex AIの使用
+### Using Foundry with corporate proxy
 
-Vertex AIトラフィックを企業HTTP/HTTPSプロキシ経由でルーティングします：
+Route Azure traffic through a corporate HTTP/HTTPS proxy:
 
 ```bash  theme={null}
-# Vertexを有効化
+# Enable Microsoft Foundry
+export CLAUDE_CODE_USE_FOUNDRY=1
+export ANTHROPIC_FOUNDRY_RESOURCE=your-resource
+export ANTHROPIC_FOUNDRY_API_KEY=your-api-key  # Or omit for Entra ID auth
+
+# Configure corporate proxy
+export HTTPS_PROXY='https://proxy.example.com:8080'
+```
+
+### Using Foundry with LLM Gateway
+
+Use a gateway service that provides Azure-compatible endpoints:
+
+```bash  theme={null}
+# Enable Microsoft Foundry
+export CLAUDE_CODE_USE_FOUNDRY=1
+
+# Configure LLM gateway
+export ANTHROPIC_FOUNDRY_BASE_URL='https://your-llm-gateway.com'
+export CLAUDE_CODE_SKIP_FOUNDRY_AUTH=1  # If gateway handles Azure auth
+```
+
+### Using Vertex AI with corporate proxy
+
+Route Vertex AI traffic through a corporate HTTP/HTTPS proxy:
+
+```bash  theme={null}
+# Enable Vertex
 export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=us-east5
 export ANTHROPIC_VERTEX_PROJECT_ID=your-project-id
 
-# 企業プロキシを構成
+# Configure corporate proxy
 export HTTPS_PROXY='https://proxy.example.com:8080'
 ```
 
-### LLMゲートウェイでのVertex AIの使用
+### Using Vertex AI with LLM Gateway
 
-Google Vertex AIモデルをLLMゲートウェイと組み合わせて、集中管理を実現します：
+Combine Google Vertex AI models with an LLM gateway for centralized management:
 
 ```bash  theme={null}
-# Vertexを有効化
+# Enable Vertex
 export CLAUDE_CODE_USE_VERTEX=1
 
-# LLMゲートウェイを構成
+# Configure LLM gateway
 export ANTHROPIC_VERTEX_BASE_URL='https://your-llm-gateway.com/vertex'
-export CLAUDE_CODE_SKIP_VERTEX_AUTH=1  # ゲートウェイがGCP認証を処理する場合
+export CLAUDE_CODE_SKIP_VERTEX_AUTH=1  # If gateway handles GCP auth
 ```
 
-### 認証構成
+### Authentication configuration
 
-Claude Codeは、必要に応じて`Authorization`ヘッダーに`ANTHROPIC_AUTH_TOKEN`を使用します。`SKIP_AUTH`フラグ（`CLAUDE_CODE_SKIP_BEDROCK_AUTH`、`CLAUDE_CODE_SKIP_VERTEX_AUTH`）は、ゲートウェイがプロバイダー認証を処理するLLMゲートウェイシナリオで使用されます。
+Claude Code uses the `ANTHROPIC_AUTH_TOKEN` for the `Authorization` header when needed. The `SKIP_AUTH` flags (`CLAUDE_CODE_SKIP_BEDROCK_AUTH`, `CLAUDE_CODE_SKIP_VERTEX_AUTH`) are used in LLM gateway scenarios where the gateway handles provider authentication.
 
-## 適切なデプロイメント構成の選択
+## Choosing the right deployment configuration
 
-デプロイメントアプローチを選択する際は、以下の要因を考慮してください：
+Consider these factors when selecting your deployment approach:
 
-### 直接プロバイダーアクセス
+### Direct provider access
 
-以下の組織に最適です：
+Best for organizations that:
 
-* 最もシンプルなセットアップを望む
-* 既存のAWSまたはGCPインフラストラクチャを持っている
-* プロバイダーネイティブの監視とコンプライアンスが必要
+* Want the simplest setup
+* Have existing AWS or GCP infrastructure
+* Need provider-native monitoring and compliance
 
-### 企業プロキシ
+### Corporate proxy
 
-以下の組織に最適です：
+Best for organizations that:
 
-* 既存の企業プロキシ要件を持っている
-* トラフィック監視とコンプライアンスが必要
-* すべてのトラフィックを特定のネットワークパス経由でルーティングする必要がある
+* Have existing corporate proxy requirements
+* Need traffic monitoring and compliance
+* Must route all traffic through specific network paths
 
-### LLMゲートウェイ
+### LLM Gateway
 
-以下の組織に最適です：
+Best for organizations that:
 
-* チーム全体の使用状況追跡が必要
-* モデル間を動的に切り替えたい
-* カスタムレート制限または予算が必要
-* 集中型認証管理が必要
+* Need usage tracking across teams
+* Want to dynamically switch between models
+* Require custom rate limiting or budgets
+* Need centralized authentication management
 
-## デバッグ
+## Debugging
 
-デプロイメントをデバッグする場合：
+When debugging your deployment:
 
-* `claude /status` [スラッシュコマンド](/ja/slash-commands)を使用します。このコマンドは、適用されている認証、プロキシ、およびURL設定の可視性を提供します。
-* 環境変数`export ANTHROPIC_LOG=debug`を設定してリクエストをログに記録します。
+* Use the `claude /status` [slash command](/en/slash-commands). This command provides observability into any applied authentication, proxy, and URL settings.
+* Set environment variable `export ANTHROPIC_LOG=debug` to log requests.
 
-## 組織のベストプラクティス
+## Best practices for organizations
 
-### 1. ドキュメントとメモリへの投資
+### 1. Invest in documentation and memory
 
-Claude Codeがコードベースを理解するようにドキュメントに投資することを強くお勧めします。組織は複数のレベルでCLAUDE.mdファイルをデプロイできます：
+We strongly recommend investing in documentation so that Claude Code understands your codebase. Organizations can deploy CLAUDE.md files at multiple levels:
 
-* **組織全体**: `/Library/Application Support/ClaudeCode/CLAUDE.md`（macOS）などのシステムディレクトリにデプロイして、会社全体の標準を設定します
-* **リポジトリレベル**: リポジトリルートにCLAUDE.mdファイルを作成し、プロジェクトアーキテクチャ、ビルドコマンド、貢献ガイドラインを含めます。これらをソース管理にチェックインして、すべてのユーザーが利益を得られるようにします
+* **Organization-wide**: Deploy to system directories like `/Library/Application Support/ClaudeCode/CLAUDE.md` (macOS) for company-wide standards
+* **Repository-level**: Create `CLAUDE.md` files in repository roots containing project architecture, build commands, and contribution guidelines. Check these into source control so all users benefit
 
-  [詳細を学ぶ](/ja/memory)。
+  [Learn more](/en/memory).
 
-### 2. デプロイメントを簡素化
+### 2. Simplify deployment
 
-カスタム開発環境がある場合、Claude Codeをインストールする「ワンクリック」の方法を作成することが、組織全体での採用を促進するための鍵となります。
+If you have a custom development environment, we find that creating a "one click" way to install Claude Code is key to growing adoption across an organization.
 
-### 3. ガイド付き使用から始める
+### 3. Start with guided usage
 
-新しいユーザーにClaude CodeをコードベースのQ\&Aや、より小さなバグ修正または機能リクエストで試すことをお勧めします。Claude Codeに計画を立てるよう依頼してください。Claudeの提案を確認し、外れていればフィードバックを提供してください。時間とともに、ユーザーがこの新しいパラダイムをより理解するようになると、Claude Codeをより自律的に実行させるのに効果的になります。
+Encourage new users to try Claude Code for codebase Q\&A, or on smaller bug fixes or feature requests. Ask Claude Code to make a plan. Check Claude's suggestions and give feedback if it's off-track. Over time, as users understand this new paradigm better, then they'll be more effective at letting Claude Code run more agentically.
 
-### 4. セキュリティポリシーを構成
+### 4. Configure security policies
 
-セキュリティチームは、Claude Codeが何をすることが許可されており、何が許可されていないかについて、ローカル構成で上書きできない管理権限を構成できます。[詳細を学ぶ](/ja/security)。
+Security teams can configure managed permissions for what Claude Code is and is not allowed to do, which cannot be overwritten by local configuration. [Learn more](/en/security).
 
-### 5. 統合にMCPを活用
+### 5. Leverage MCP for integrations
 
-MCPは、チケット管理システムやエラーログへの接続など、Claude Codeにより多くの情報を提供する優れた方法です。1つの中央チームがMCPサーバーを構成し、`.mcp.json`構成をコードベースにチェックインして、すべてのユーザーが利益を得られるようにすることをお勧めします。[詳細を学ぶ](/ja/mcp)。
+MCP is a great way to give Claude Code more information, such as connecting to ticket management systems or error logs. We recommend that one central team configures MCP servers and checks a `.mcp.json` configuration into the codebase so that all users benefit. [Learn more](/en/mcp).
 
-Anthropicでは、Claude CodeがすべてのAnthropicコードベース全体の開発を支援することを信頼しています。Claude Codeを使用することを楽しんでいただけることを願っています。
+At Anthropic, we trust Claude Code to power development across every Anthropic codebase. We hope you enjoy using Claude Code as much as we do.
 
-## 次のステップ
+## Next steps
 
-* [Amazon Bedrockをセットアップ](/ja/amazon-bedrock)してAWSネイティブデプロイメント用
-* [Google Vertex AIを構成](/ja/google-vertex-ai)してGCPデプロイメント用
-* [エンタープライズネットワークを構成](/ja/network-config)してネットワーク要件用
-* [LLMゲートウェイをデプロイ](/ja/llm-gateway)してエンタープライズ管理用
-* [設定](/ja/settings)で構成オプションと環境変数用
+* [Set up Amazon Bedrock](/en/amazon-bedrock) for AWS-native deployment
+* [Configure Google Vertex AI](/en/google-vertex-ai) for GCP deployment
+* [Set up Microsoft Foundry](/en/microsoft-foundry) for Azure deployment
+* [Configure Enterprise Network](/en/network-config) for network requirements
+* [Deploy LLM Gateway](/en/llm-gateway) for enterprise management
+* [Settings](/en/settings) for configuration options and environment variables
 
 
 ---

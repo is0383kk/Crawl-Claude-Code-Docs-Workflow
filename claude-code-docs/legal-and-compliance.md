@@ -1,35 +1,35 @@
-# 法的およびコンプライアンス
+# Legal and compliance
 
-> Claude Codeの法的契約、コンプライアンス認証、およびセキュリティ情報。
+> Legal agreements, compliance certifications, and security information for Claude Code.
 
-## 法的契約
+## Legal agreements
 
-### ライセンス
+### License
 
-Claude Codeの使用は、以下の対象となります：
+Your use of Claude Code is subject to:
 
-* [商用利用規約](https://www.anthropic.com/legal/commercial-terms) - Team、Enterprise、およびClaude APIユーザー向け
-* [コンシューマー利用規約](https://www.anthropic.com/legal/consumer-terms) - Free、Pro、およびMaxユーザー向け
+* [Commercial Terms](https://www.anthropic.com/legal/commercial-terms) - for Team, Enterprise, and Claude API users
+* [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) - for Free, Pro, and Max users
 
-### 商用契約
+### Commercial agreements
 
-Claude APIを直接（1P）使用している場合でも、AWS BedrockまたはGoogle Vertex経由でアクセスしている場合（3P）でも、別途合意がない限り、既存の商用契約がClaude Codeの使用に適用されます。
+Whether you're using the Claude API directly (1P) or accessing it through AWS Bedrock or Google Vertex (3P), your existing commercial agreement will apply to Claude Code usage, unless we've mutually agreed otherwise.
 
-## コンプライアンス
+## Compliance
 
-### ヘルスケアコンプライアンス（BAA）
+### Healthcare compliance (BAA)
 
-顧客がビジネスアソシエイト契約（BAA）を当社と締結しており、Claude Codeを使用したい場合、顧客がBAAを実行済みでゼロデータリテンション（ZDR）が有効化されていれば、BAAは自動的にClaude Codeをカバーするように拡張されます。BAAはClaude Codeを通じて流れるその顧客のAPIトラフィックに適用されます。
+If a customer has a Business Associate Agreement (BAA) with us, and wants to use Claude Code, the BAA will automatically extend to cover Claude Code if the customer has executed a BAA and has Zero Data Retention (ZDR) activated. The BAA will be applicable to that customer's API traffic flowing through Claude Code.
 
-## セキュリティと信頼
+## Security and trust
 
-### 信頼とセーフティ
+### Trust and safety
 
-詳細情報は、[Anthropic Trust Center](https://trust.anthropic.com)および[Transparency Hub](https://www.anthropic.com/transparency)で確認できます。
+You can find more information in the [Anthropic Trust Center](https://trust.anthropic.com) and [Transparency Hub](https://www.anthropic.com/transparency).
 
-### セキュリティ脆弱性報告
+### Security vulnerability reporting
 
-Anthropicはセキュリティプログラムを HackerOne を通じて管理しています。[このフォームを使用して脆弱性を報告してください](https://hackerone.com/anthropic-vdp/reports/new?type=team\&report_type=vulnerability)。
+Anthropic manages our security program through HackerOne. [Use this form to report vulnerabilities](https://hackerone.com/anthropic-vdp/reports/new?type=team\&report_type=vulnerability).
 
 ***
 

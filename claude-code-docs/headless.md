@@ -1,207 +1,151 @@
-# ヘッドレスモード
+# Run Claude Code programmatically
 
-> インタラクティブUIなしでClaudeコードをプログラムで実行する
+> Use the Agent SDK to run Claude Code programmatically from the CLI, Python, or TypeScript.
 
-## 概要
+The [Agent SDK](https://platform.claude.com/docs/en/agent-sdk/overview) gives you the same tools, agent loop, and context management that power Claude Code. It's available as a CLI for scripts and CI/CD, or as [Python](https://platform.claude.com/docs/en/agent-sdk/python) and [TypeScript](https://platform.claude.com/docs/en/agent-sdk/typescript) packages for full programmatic control.
 
-ヘッドレスモードを使用すると、コマンドラインスクリプトと自動化ツールからClaudeコードをプログラムで実行でき、インタラクティブUIは不要です。
+<Note>
+  The CLI was previously called "headless mode." The `-p` flag and all CLI options work the same way.
+</Note>
 
-## 基本的な使用方法
-
-Claude Codeへの主なコマンドラインインターフェースは`claude`コマンドです。`--print`（または`-p`）フラグを使用して非インタラクティブモードで実行し、最終結果を出力します：
-
-```bash  theme={null}
-claude -p "Stage my changes and write a set of commits for them" \
-  --allowedTools "Bash,Read" \
-  --permission-mode acceptEdits
-```
-
-## 設定オプション
-
-ヘッドレスモードはClaude Codeで利用可能なすべてのCLIオプションを活用します。自動化とスクリプティングの主要なオプションは以下の通りです：
-
-| フラグ                        | 説明                                                 | 例                                                                                                                         |
-| :------------------------- | :------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| `--print`, `-p`            | 非インタラクティブモードで実行                                    | `claude -p "query"`                                                                                                       |
-| `--output-format`          | 出力形式を指定（`text`、`json`、`stream-json`）               | `claude -p --output-format json`                                                                                          |
-| `--resume`, `-r`           | セッションIDで会話を再開                                      | `claude --resume abc123`                                                                                                  |
-| `--continue`, `-c`         | 最新の会話を続行                                           | `claude --continue`                                                                                                       |
-| `--verbose`                | 詳細ログを有効化                                           | `claude --verbose`                                                                                                        |
-| `--append-system-prompt`   | システムプロンプトに追加（`--print`のみ）                          | `claude --append-system-prompt "Custom instruction"`                                                                      |
-| `--allowedTools`           | スペース区切りの許可ツールリスト、または<br /><br />コンマ区切りのツールリスト文字列   | `claude --allowedTools mcp__slack mcp__filesystem`<br /><br />`claude --allowedTools "Bash(npm install),mcp__filesystem"` |
-| `--disallowedTools`        | スペース区切りの拒否ツールリスト、または<br /><br />コンマ区切りの拒否ツールリスト文字列 | `claude --disallowedTools mcp__splunk mcp__github`<br /><br />`claude --disallowedTools "Bash(git commit),mcp__github"`   |
-| `--mcp-config`             | JSONファイルからMCPサーバーをロード                              | `claude --mcp-config servers.json`                                                                                        |
-| `--permission-prompt-tool` | パーミッションプロンプトを処理するMCPツール（`--print`のみ）               | `claude --permission-prompt-tool mcp__auth__prompt`                                                                       |
-
-CLIオプションと機能の完全なリストについては、[CLIリファレンス](/ja/cli-reference)ドキュメントを参照してください。
-
-## マルチターン会話
-
-マルチターン会話の場合、会話を再開するか最新のセッションから続行できます：
+To run Claude Code programmatically from the CLI, pass `-p` with your prompt and any [CLI options](/en/cli-reference):
 
 ```bash  theme={null}
-# 最新の会話を続行
-claude --continue "Now refactor this for better performance"
-
-# セッションIDで特定の会話を再開
-claude --resume 550e8400-e29b-41d4-a716-446655440000 "Update the tests"
-
-# 非インタラクティブモードで再開
-claude --resume 550e8400-e29b-41d4-a716-446655440000 "Fix all linting issues" --no-interactive
+claude -p "Find and fix the bug in auth.py" --allowedTools "Read,Edit,Bash"
 ```
 
-## 出力形式
+This page covers using the Agent SDK via the CLI (`claude -p`). For the Python and TypeScript SDK packages with structured outputs, tool approval callbacks, and native message objects, see the [full Agent SDK documentation](https://platform.claude.com/docs/en/agent-sdk/overview).
 
-### テキスト出力（デフォルト）
+## Basic usage
+
+Add the `-p` (or `--print`) flag to any `claude` command to run it non-interactively. All [CLI options](/en/cli-reference) work with `-p`, including:
+
+* `--continue` for [continuing conversations](#continue-conversations)
+* `--allowedTools` for [auto-approving tools](#auto-approve-tools)
+* `--output-format` for [structured output](#get-structured-output)
+
+This example asks Claude a question about your codebase and prints the response:
 
 ```bash  theme={null}
-claude -p "Explain file src/components/Header.tsx"
-# Output: This is a React component showing...
+claude -p "What does the auth module do?"
 ```
 
-### JSON出力
+## Examples
 
-メタデータを含む構造化データを返します：
+These examples highlight common CLI patterns.
+
+### Get structured output
+
+Use `--output-format` to control how responses are returned:
+
+* `text` (default): plain text output
+* `json`: structured JSON with result, session ID, and metadata
+* `stream-json`: newline-delimited JSON for real-time streaming
+
+This example returns a project summary as JSON with session metadata, with the text result in the `result` field:
 
 ```bash  theme={null}
-claude -p "How does the data layer work?" --output-format json
+claude -p "Summarize this project" --output-format json
 ```
 
-レスポンス形式：
+To get output conforming to a specific schema, use `--output-format json` with `--json-schema` and a [JSON Schema](https://json-schema.org/) definition. The response includes metadata about the request (session ID, usage, etc.) with the structured output in the `structured_output` field.
 
-```json  theme={null}
-{
-  "type": "result",
-  "subtype": "success",
-  "total_cost_usd": 0.003,
-  "is_error": false,
-  "duration_ms": 1234,
-  "duration_api_ms": 800,
-  "num_turns": 6,
-  "result": "The response text here...",
-  "session_id": "abc123"
-}
-```
-
-### ストリーミングJSON出力
-
-受信時に各メッセージをストリーミングします：
+This example extracts function names and returns them as an array of strings:
 
 ```bash  theme={null}
-claude -p "Build an application" --output-format stream-json
+claude -p "Extract the main function names from auth.py" \
+  --output-format json \
+  --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}},"required":["functions"]}'
 ```
 
-各会話は初期`init`システムメッセージで始まり、その後ユーザーとアシスタントのメッセージのリストが続き、最後に統計情報を含む最終`result`システムメッセージが続きます。各メッセージは個別のJSONオブジェクトとして出力されます。
-
-## 入力形式
-
-### テキスト入力（デフォルト）
-
-```bash  theme={null}
-# 直接引数
-claude -p "Explain this code"
-
-# stdinから
-echo "Explain this code" | claude -p
-```
-
-### ストリーミングJSON入力
-
-`stdin`経由で提供されるメッセージのストリーム。各メッセージはユーザーターンを表します。これにより、`claude`バイナリを再起動することなく複数ターンの会話が可能になり、モデルがリクエストを処理している間にガイダンスを提供できます。
-
-各メッセージはJSON「ユーザーメッセージ」オブジェクトで、出力メッセージスキーマと同じ形式に従います。メッセージは[jsonl](https://jsonlines.org/)形式を使用してフォーマットされ、入力の各行は完全なJSONオブジェクトです。ストリーミングJSON入力には`-p`と`--output-format stream-json`が必要です。
-
-```bash  theme={null}
-echo '{"type":"user","message":{"role":"user","content":[{"type":"text","text":"Explain this code"}]}}' | claude -p --output-format=stream-json --input-format=stream-json --verbose
-```
-
-## エージェント統合の例
-
-### SREインシデント対応ボット
-
-```bash  theme={null}
-#!/bin/bash
-
-# 自動化されたインシデント対応エージェント
-investigate_incident() {
-    local incident_description="$1"
-    local severity="${2:-medium}"
-
-    claude -p "Incident: $incident_description (Severity: $severity)" \
-      --append-system-prompt "You are an SRE expert. Diagnose the issue, assess impact, and provide immediate action items." \
-      --output-format json \
-      --allowedTools "Bash,Read,WebSearch,mcp__datadog" \
-      --mcp-config monitoring-tools.json
-}
-
-# 使用方法
-investigate_incident "Payment API returning 500 errors" "high"
-```
-
-### 自動セキュリティレビュー
-
-```bash  theme={null}
-# プルリクエストのセキュリティ監査エージェント
-audit_pr() {
-    local pr_number="$1"
-
-    gh pr diff "$pr_number" | claude -p \
-      --append-system-prompt "You are a security engineer. Review this PR for vulnerabilities, insecure patterns, and compliance issues." \
-      --output-format json \
-      --allowedTools "Read,Grep,WebSearch"
-}
-
-# 使用方法とファイルに保存
-audit_pr 123 > security-report.json
-```
-
-### マルチターン法務アシスタント
-
-```bash  theme={null}
-# セッション永続化を伴う法務文書レビュー
-session_id=$(claude -p "Start legal review session" --output-format json | jq -r '.session_id')
-
-# 複数のステップで契約書をレビュー
-claude -p --resume "$session_id" "Review contract.pdf for liability clauses"
-claude -p --resume "$session_id" "Check compliance with GDPR requirements"
-claude -p --resume "$session_id" "Generate executive summary of risks"
-```
-
-## ベストプラクティス
-
-* **JSON出力形式を使用**してレスポンスをプログラムで解析します：
+<Tip>
+  Use a tool like [jq](https://jqlang.github.io/jq/) to parse the response and extract specific fields:
 
   ```bash  theme={null}
-  # jqでJSON応答を解析
-  result=$(claude -p "Generate code" --output-format json)
-  code=$(echo "$result" | jq -r '.result')
-  cost=$(echo "$result" | jq -r '.cost_usd')
+  # Extract the text result
+  claude -p "Summarize this project" --output-format json | jq -r '.result'
+
+  # Extract structured output
+  claude -p "Extract function names from auth.py" \
+    --output-format json \
+    --json-schema '{"type":"object","properties":{"functions":{"type":"array","items":{"type":"string"}}},"required":["functions"]}' \
+    | jq '.structured_output'
   ```
+</Tip>
 
-* **エラーを適切に処理**してください。終了コードとstderrを確認します：
+### Auto-approve tools
 
-  ```bash  theme={null}
-  if ! claude -p "$prompt" 2>error.log; then
-      echo "Error occurred:" >&2
-      cat error.log >&2
-      exit 1
-  fi
-  ```
+Use `--allowedTools` to let Claude use certain tools without prompting. This example runs a test suite and fixes failures, allowing Claude to execute Bash commands and read/edit files without asking for permission:
 
-* **セッション管理を使用**してマルチターン会話でコンテキストを維持します
+```bash  theme={null}
+claude -p "Run the test suite and fix any failures" \
+  --allowedTools "Bash,Read,Edit"
+```
 
-* **長時間実行される操作のタイムアウトを検討**します：
+### Create a commit
 
-  ```bash  theme={null}
-  timeout 300 claude -p "$complex_prompt" || echo "Timed out after 5 minutes"
-  ```
+This example reviews staged changes and creates a commit with an appropriate message:
 
-* **複数のリクエストを行う場合は、呼び出し間に遅延を追加してレート制限を尊重**します
+```bash  theme={null}
+claude -p "Look at my staged changes and create an appropriate commit" \
+  --allowedTools "Bash(git diff:*),Bash(git log:*),Bash(git status:*),Bash(git commit:*)"
+```
 
-## 関連リソース
+<Note>
+  [Slash commands](/en/slash-commands) like `/commit` are only available in interactive mode. In `-p` mode, describe the task you want to accomplish instead.
+</Note>
 
-* [CLIの使用方法とコントロール](/ja/cli-reference) - 完全なCLIドキュメント
-* [一般的なワークフロー](/ja/common-workflows) - 一般的なユースケースのステップバイステップガイド
+### Customize the system prompt
+
+Use `--append-system-prompt` to add instructions while keeping Claude Code's default behavior. This example pipes a PR diff to Claude and instructs it to review for security vulnerabilities:
+
+```bash  theme={null}
+gh pr diff "$1" | claude -p \
+  --append-system-prompt "You are a security engineer. Review for vulnerabilities." \
+  --output-format json
+```
+
+See [system prompt flags](/en/cli-reference#system-prompt-flags) for more options including `--system-prompt` to fully replace the default prompt.
+
+### Continue conversations
+
+Use `--continue` to continue the most recent conversation, or `--resume` with a session ID to continue a specific conversation. This example runs a review, then sends follow-up prompts:
+
+```bash  theme={null}
+# First request
+claude -p "Review this codebase for performance issues"
+
+# Continue the most recent conversation
+claude -p "Now focus on the database queries" --continue
+claude -p "Generate a summary of all issues found" --continue
+```
+
+If you're running multiple conversations, capture the session ID to resume a specific one:
+
+```bash  theme={null}
+session_id=$(claude -p "Start a review" --output-format json | jq -r '.session_id')
+claude -p "Continue that review" --resume "$session_id"
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Agent SDK quickstart" icon="play" href="https://platform.claude.com/docs/en/agent-sdk/quickstart">
+    Build your first agent with Python or TypeScript
+  </Card>
+
+  <Card title="CLI reference" icon="terminal" href="/en/cli-reference">
+    Explore all CLI flags and options
+  </Card>
+
+  <Card title="GitHub Actions" icon="github" href="/en/github-actions">
+    Use the Agent SDK in GitHub workflows
+  </Card>
+
+  <Card title="GitLab CI/CD" icon="gitlab" href="/en/gitlab-ci-cd">
+    Use the Agent SDK in GitLab pipelines
+  </Card>
+</CardGroup>
 
 
 ---

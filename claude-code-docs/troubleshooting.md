@@ -1,161 +1,200 @@
-# トラブルシューティング
+# Troubleshooting
 
-> Claude Codeのインストールと使用に関する一般的な問題の解決策を発見してください。
+> Discover solutions to common issues with Claude Code installation and usage.
 
-## 一般的なインストールの問題
+## Common installation issues
 
-### Windowsインストールの問題：WSLでのエラー
+### Windows installation issues: errors in WSL
 
-WSLで以下の問題が発生する可能性があります：
+You might encounter the following issues in WSL:
 
-**OS/プラットフォーム検出の問題**：インストール中にエラーが発生した場合、WSLがWindows `npm`を使用している可能性があります。以下を試してください：
+**OS/platform detection issues**: If you receive an error during installation, WSL may be using Windows `npm`. Try:
 
-* インストール前に`npm config set os linux`を実行
-* `npm install -g @anthropic-ai/claude-code --force --no-os-check`でインストール（`sudo`は使用しないでください）
+* Run `npm config set os linux` before installation
+* Install with `npm install -g @anthropic-ai/claude-code --force --no-os-check` (Do NOT use `sudo`)
 
-**Nodeが見つからないエラー**：`claude`を実行時に`exec: node: not found`が表示される場合、WSL環境がWindows版のNode.jsを使用している可能性があります。`which npm`と`which node`で確認でき、これらは`/mnt/c/`ではなく`/usr/`で始まるLinuxパスを指している必要があります。これを修正するには、Linuxディストリビューションのパッケージマネージャーまたは[`nvm`](https://github.com/nvm-sh/nvm)を使用してNodeをインストールしてみてください。
+**Node not found errors**: If you see `exec: node: not found` when running `claude`, your WSL environment may be using a Windows installation of Node.js. You can confirm this with `which npm` and `which node`, which should point to Linux paths starting with `/usr/` rather than `/mnt/c/`. To fix this, try installing Node via your Linux distribution's package manager or via [`nvm`](https://github.com/nvm-sh/nvm).
 
-**nvmバージョンの競合**：WSLとWindowsの両方にnvmがインストールされている場合、WSLでNodeバージョンを切り替える際にバージョンの競合が発生する可能性があります。これは、WSLがデフォルトでWindows PATHをインポートするため、Windows nvm/npmがWSLインストールより優先されることが原因です。
+**nvm version conflicts**: If you have nvm installed in both WSL and Windows, you may experience version conflicts when switching Node versions in WSL. This happens because WSL imports the Windows PATH by default, causing Windows nvm/npm to take priority over the WSL installation.
 
-この問題は以下で識別できます：
+You can identify this issue by:
 
-* `which npm`と`which node`を実行 - これらがWindowsパス（`/mnt/c/`で始まる）を指している場合、Windowsバージョンが使用されています
-* WSLでnvmを使用してNodeバージョンを切り替えた後に機能が破損する
+* Running `which npm` and `which node` - if they point to Windows paths (starting with `/mnt/c/`), Windows versions are being used
+* Experiencing broken functionality after switching Node versions with nvm in WSL
 
-この問題を解決するには、Linux node/npmバージョンが優先されるようにLinux PATHを修正してください：
+To resolve this issue, fix your Linux PATH to ensure the Linux node/npm versions take priority:
 
-**主要な解決策：nvmがシェルで適切に読み込まれていることを確認**
+**Primary solution: Ensure nvm is properly loaded in your shell**
 
-最も一般的な原因は、nvmが非対話型シェルで読み込まれていないことです。シェル設定ファイル（`~/.bashrc`、`~/.zshrc`など）に以下を追加してください：
+The most common cause is that nvm isn't loaded in non-interactive shells. Add the following to your shell configuration file (`~/.bashrc`, `~/.zshrc`, etc.):
 
 ```bash  theme={null}
-# nvmが存在する場合は読み込む
+# Load nvm if it exists
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 ```
 
-または現在のセッションで直接実行：
+Or run directly in your current session:
 
 ```bash  theme={null}
 source ~/.nvm/nvm.sh
 ```
 
-**代替案：PATH順序の調整**
+**Alternative: Adjust PATH order**
 
-nvmが適切に読み込まれているがWindowsパスが依然として優先される場合、シェル設定でLinuxパスを明示的にPATHの前に追加できます：
+If nvm is properly loaded but Windows paths still take priority, you can explicitly prepend your Linux paths to PATH in your shell configuration:
 
 ```bash  theme={null}
 export PATH="$HOME/.nvm/versions/node/$(node -v)/bin:$PATH"
 ```
 
 <Warning>
-  Windows PATHインポートの無効化（`appendWindowsPath = false`）は、WSLからWindows実行ファイルを簡単に呼び出す機能を破損するため避けてください。同様に、Windows開発に使用している場合は、WindowsからNode.jsをアンインストールすることも避けてください。
+  Avoid disabling Windows PATH importing (`appendWindowsPath = false`) as this breaks the ability to call Windows executables from WSL. Similarly, avoid uninstalling Node.js from Windows if you use it for Windows development.
 </Warning>
 
-### LinuxとMacのインストール問題：権限またはコマンドが見つからないエラー
+### Linux and Mac installation issues: permission or command not found errors
 
-npmでClaude Codeをインストールする際、`PATH`の問題により`claude`にアクセスできない場合があります。
-npmグローバルプレフィックスがユーザー書き込み可能でない場合（例：`/usr`、または`/usr/local`）、権限エラーが発生する可能性もあります。
+When installing Claude Code with npm, `PATH` problems may prevent access to `claude`.
+You may also encounter permission errors if your npm global prefix is not user writable (for example, `/usr`, or `/usr/local`).
 
-#### 推奨解決策：ネイティブClaude Codeインストール
+#### Recommended solution: Native Claude Code installation
 
-Claude Codeには、npmやNode.jsに依存しないネイティブインストールがあります。
+Claude Code has a native installation that doesn't depend on npm or Node.js.
 
-<Note>
-  ネイティブClaude Codeインストーラーは現在ベータ版です。
-</Note>
+Use the following command to run the native installer.
 
-以下のコマンドを使用してネイティブインストーラーを実行してください。
-
-**macOS、Linux、WSL：**
+**macOS, Linux, WSL:**
 
 ```bash  theme={null}
-# 安定版をインストール（デフォルト）
+# Install stable version (default)
 curl -fsSL https://claude.ai/install.sh | bash
 
-# 最新版をインストール
+# Install latest version
 curl -fsSL https://claude.ai/install.sh | bash -s latest
 
-# 特定のバージョン番号をインストール
+# Install specific version number
 curl -fsSL https://claude.ai/install.sh | bash -s 1.0.58
 ```
 
-**Windows PowerShell：**
+**Windows PowerShell:**
 
 ```powershell  theme={null}
-# 安定版をインストール（デフォルト）
+# Install stable version (default)
 irm https://claude.ai/install.ps1 | iex
 
-# 最新版をインストール
+# Install latest version
 & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) latest
 
-# 特定のバージョン番号をインストール
+# Install specific version number
 & ([scriptblock]::Create((irm https://claude.ai/install.ps1))) 1.0.58
 
 ```
 
-このコマンドは、お使いのオペレーティングシステムとアーキテクチャに適したClaude Codeのビルドをインストールし、`~/.local/bin/claude`のインストールにシンボリックリンクを追加します。
+This command installs the appropriate build of Claude Code for your operating system and architecture and adds a symlink to the installation at `~/.local/bin/claude`.
 
 <Tip>
-  システムPATHにインストールディレクトリがあることを確認してください。
+  Make sure that you have the installation directory in your system PATH.
 </Tip>
 
-インストールの確認：
+Verify installation:
 
 ```bash  theme={null}
-claude doctor # インストールの健全性をチェック
+claude doctor # Check installation health
 ```
 
-## 権限と認証
+## Permissions and authentication
 
-### 繰り返される権限プロンプト
+### Repeated permission prompts
 
-同じコマンドを繰り返し承認している場合は、`/permissions`コマンドを使用して特定のツールを承認なしで実行できるようにすることができます。[権限ドキュメント](/ja/iam#configuring-permissions)を参照してください。
+If you find yourself repeatedly approving the same commands, you can allow specific tools
+to run without approval using the `/permissions` command. See [Permissions docs](/en/iam#configuring-permissions).
 
-### 認証の問題
+### Authentication issues
 
-認証の問題が発生している場合：
+If you're experiencing authentication problems:
 
-1. `/logout`を実行して完全にサインアウト
-2. Claude Codeを閉じる
-3. `claude`で再起動し、認証プロセスを再度完了
+1. Run `/logout` to sign out completely
+2. Close Claude Code
+3. Restart with `claude` and complete the authentication process again
 
-問題が続く場合は、以下を試してください：
+If problems persist, try:
 
 ```bash  theme={null}
 rm -rf ~/.config/claude-code/auth.json
 claude
 ```
 
-これにより保存された認証情報が削除され、クリーンなログインが強制されます。
+This removes your stored authentication information and forces a clean login.
 
-## パフォーマンスと安定性
+## Configuration file locations
 
-### 高いCPUまたはメモリ使用量
+Claude Code stores configuration in several locations:
 
-Claude Codeはほとんどの開発環境で動作するように設計されていますが、大規模なコードベースを処理する際に大量のリソースを消費する可能性があります。パフォーマンスの問題が発生している場合：
+| File                          | Purpose                                                                |
+| :---------------------------- | :--------------------------------------------------------------------- |
+| `~/.claude/settings.json`     | User settings (permissions, hooks, model overrides)                    |
+| `.claude/settings.json`       | Project settings (checked into source control)                         |
+| `.claude/settings.local.json` | Local project settings (not committed)                                 |
+| `~/.claude.json`              | Global state (theme, OAuth, MCP servers, allowed tools)                |
+| `.mcp.json`                   | Project MCP servers (checked into source control)                      |
+| `managed-settings.json`       | [Enterprise managed settings](/en/settings#settings-files)             |
+| `managed-mcp.json`            | [Enterprise managed MCP servers](/en/mcp#enterprise-mcp-configuration) |
 
-1. `/compact`を定期的に使用してコンテキストサイズを削減
-2. 主要なタスクの間でClaude Codeを閉じて再起動
-3. 大きなビルドディレクトリを`.gitignore`ファイルに追加することを検討
+On Windows, `~` refers to your user home directory, such as `C:\Users\YourName`.
 
-### コマンドのハングまたはフリーズ
+**Enterprise managed file locations:**
 
-Claude Codeが応答しない場合：
+* macOS: `/Library/Application Support/ClaudeCode/`
+* Linux/WSL: `/etc/claude-code/`
+* Windows: `C:\ProgramData\ClaudeCode\`
 
-1. Ctrl+Cを押して現在の操作をキャンセルしようとする
-2. 応答しない場合は、ターミナルを閉じて再起動する必要がある場合があります
+For details on configuring these files, see [Settings](/en/settings) and [MCP](/en/mcp).
 
-### 検索と発見の問題
+### Resetting configuration
 
-検索ツール、`@file`メンション、カスタムエージェント、カスタムスラッシュコマンドが機能しない場合は、システム`ripgrep`をインストールしてください：
+To reset Claude Code to default settings, you can remove the configuration files:
 
 ```bash  theme={null}
-# macOS（Homebrew）  
+# Reset all user settings and state
+rm ~/.claude.json
+rm -rf ~/.claude/
+
+# Reset project-specific settings
+rm -rf .claude/
+rm .mcp.json
+```
+
+<Warning>
+  This will remove all your settings, allowed tools, MCP server configurations, and session history.
+</Warning>
+
+## Performance and stability
+
+### High CPU or memory usage
+
+Claude Code is designed to work with most development environments, but may consume significant resources when processing large codebases. If you're experiencing performance issues:
+
+1. Use `/compact` regularly to reduce context size
+2. Close and restart Claude Code between major tasks
+3. Consider adding large build directories to your `.gitignore` file
+
+### Command hangs or freezes
+
+If Claude Code seems unresponsive:
+
+1. Press Ctrl+C to attempt to cancel the current operation
+2. If unresponsive, you may need to close the terminal and restart
+
+### Search and discovery issues
+
+If Search tool, `@file` mentions, custom agents, and custom slash commands aren't working, install system `ripgrep`:
+
+```bash  theme={null}
+# macOS (Homebrew)  
 brew install ripgrep
 
-# Windows（winget）
+# Windows (winget)
 winget install BurntSushi.ripgrep.MSVC
 
 # Ubuntu/Debian
@@ -168,92 +207,98 @@ apk add ripgrep
 pacman -S ripgrep
 ```
 
-次に、[環境](/ja/settings#environment-variables)で`USE_BUILTIN_RIPGREP=0`を設定してください。
+Then set `USE_BUILTIN_RIPGREP=0` in your [environment](/en/settings#environment-variables).
 
-### WSLでの遅いまたは不完全な検索結果
+### Slow or incomplete search results on WSL
 
-WSLで[ファイルシステム間での作業](https://learn.microsoft.com/en-us/windows/wsl/filesystems)時のディスク読み取りパフォーマンスのペナルティにより、WSLでClaude Codeを使用する際に期待より少ないマッチ（ただし検索機能の完全な欠如ではない）が生じる可能性があります。
+Disk read performance penalties when [working across file systems on WSL](https://learn.microsoft.com/en-us/windows/wsl/filesystems) may result in fewer-than-expected matches (but not a complete lack of search functionality) when using Claude Code on WSL.
 
 <Note>
-  この場合、`/doctor`は検索をOKとして表示します。
+  `/doctor` will show Search as OK in this case.
 </Note>
 
-**解決策：**
+**Solutions:**
 
-1. **より具体的な検索を送信**：ディレクトリやファイルタイプを指定して検索するファイル数を減らす：「auth-serviceパッケージでJWT検証ロジックを検索」または「JSファイルでmd5ハッシュの使用を見つける」。
+1. **Submit more specific searches**: Reduce the number of files searched by specifying directories or file types: "Search for JWT validation logic in the auth-service package" or "Find use of md5 hash in JS files".
 
-2. **プロジェクトをLinuxファイルシステムに移動**：可能であれば、プロジェクトがWindowsファイルシステム（`/mnt/c/`）ではなくLinuxファイルシステム（`/home/`）に配置されていることを確認してください。
+2. **Move project to Linux filesystem**: If possible, ensure your project is located on the Linux filesystem (`/home/`) rather than the Windows filesystem (`/mnt/c/`).
 
-3. **代わりにネイティブWindowsを使用**：より良いファイルシステムパフォーマンスのために、WSLを通してではなくWindows上でClaude Codeをネイティブに実行することを検討してください。
+3. **Use native Windows instead**: Consider running Claude Code natively on Windows instead of through WSL, for better file system performance.
 
-## IDE統合の問題
+## IDE integration issues
 
-### WSL2でJetBrains IDEが検出されない
+### JetBrains IDE not detected on WSL2
 
-WSL2でJetBrains IDEと共にClaude Codeを使用していて「利用可能なIDEが検出されません」エラーが発生する場合、これはWSL2のネットワーク設定またはWindows Firewallが接続をブロックしていることが原因の可能性があります。
+If you're using Claude Code on WSL2 with JetBrains IDEs and getting "No available IDEs detected" errors, this is likely due to WSL2's networking configuration or Windows Firewall blocking the connection.
 
-#### WSL2ネットワークモード
+#### WSL2 networking modes
 
-WSL2はデフォルトでNATネットワークを使用し、これがIDE検出を妨げる可能性があります。2つのオプションがあります：
+WSL2 uses NAT networking by default, which can prevent IDE detection. You have two options:
 
-**オプション1：Windows Firewallを設定**（推奨）
+**Option 1: Configure Windows Firewall** (recommended)
 
-1. WSL2 IPアドレスを見つける：
+1. Find your WSL2 IP address:
    ```bash  theme={null}
    wsl hostname -I
-   # 出力例：172.21.123.456
+   # Example output: 172.21.123.456
    ```
 
-2. 管理者としてPowerShellを開き、ファイアウォールルールを作成：
+2. Open PowerShell as Administrator and create a firewall rule:
    ```powershell  theme={null}
    New-NetFirewallRule -DisplayName "Allow WSL2 Internal Traffic" -Direction Inbound -Protocol TCP -Action Allow -RemoteAddress 172.21.0.0/16 -LocalAddress 172.21.0.0/16
    ```
-   （ステップ1のWSL2サブネットに基づいてIP範囲を調整）
+   (Adjust the IP range based on your WSL2 subnet from step 1)
 
-3. IDEとClaude Codeの両方を再起動
+3. Restart both your IDE and Claude Code
 
-**オプション2：ミラードネットワークに切り替え**
+**Option 2: Switch to mirrored networking**
 
-Windowsユーザーディレクトリの`.wslconfig`に追加：
+Add to `.wslconfig` in your Windows user directory:
 
 ```ini  theme={null}
 [wsl2]
 networkingMode=mirrored
 ```
 
-次に、PowerShellから`wsl --shutdown`でWSLを再起動。
+Then restart WSL with `wsl --shutdown` from PowerShell.
 
 <Note>
-  これらのネットワーク問題はWSL2のみに影響します。WSL1はホストのネットワークを直接使用し、これらの設定は必要ありません。
+  These networking issues only affect WSL2. WSL1 uses the host's network directly and doesn't require these configurations.
 </Note>
 
-追加のJetBrains設定のヒントについては、[IDE統合ガイド](/ja/vs-code#jetbrains-plugin-settings)を参照してください。
+For additional JetBrains configuration tips, see our [JetBrains IDE guide](/en/jetbrains#plugin-settings).
 
-### Windows IDE統合問題の報告（ネイティブとWSLの両方）
+### Reporting Windows IDE integration issues (both native and WSL)
 
-WindowsでIDE統合の問題が発生している場合は、以下の情報と共に[問題を作成](https://github.com/anthropics/claude-code/issues)してください：ネイティブ（git bash）かWSL1/WSL2か、WSLネットワークモード（NATまたはミラード）、IDE名/バージョン、Claude Code拡張/プラグインバージョン、シェルタイプ（bash/zsh/など）
+If you're experiencing IDE integration problems on Windows, [create an issue](https://github.com/anthropics/claude-code/issues) with the following information:
 
-### JetBrains（IntelliJ、PyCharmなど）ターミナルでESCキーが機能しない
+* Environment type: native Windows (Git Bash) or WSL1/WSL2
+* WSL networking mode (if applicable): NAT or mirrored
+* IDE name and version
+* Claude Code extension/plugin version
+* Shell type: Bash, Zsh, PowerShell, etc.
 
-JetBrainsターミナルでClaude Codeを使用していて、ESCキーが期待通りにエージェントを中断しない場合、これはJetBrainsのデフォルトショートカットとのキーバインドの競合が原因の可能性があります。
+### Escape key not working in JetBrains (IntelliJ, PyCharm, etc.) terminals
 
-この問題を修正するには：
+If you're using Claude Code in JetBrains terminals and the `Esc` key doesn't interrupt the agent as expected, this is likely due to a keybinding clash with JetBrains' default shortcuts.
 
-1. 設定 → ツール → ターミナルに移動
-2. 以下のいずれかを実行：
-   * 「Escapeでエディターにフォーカスを移動」のチェックを外す、または
-   * 「ターミナルキーバインドを設定」をクリックし、「エディターにフォーカスを切り替え」ショートカットを削除
-3. 変更を適用
+To fix this issue:
 
-これによりESCキーがClaude Code操作を適切に中断できるようになります。
+1. Go to Settings → Tools → Terminal
+2. Either:
+   * Uncheck "Move focus to the editor with Escape", or
+   * Click "Configure terminal keybindings" and delete the "Switch focus to Editor" shortcut
+3. Apply the changes
 
-## Markdownフォーマットの問題
+This allows the `Esc` key to properly interrupt Claude Code operations.
 
-Claude Codeは時々、コードフェンスに言語タグが欠けているMarkdownファイルを生成し、GitHub、エディター、ドキュメントツールでの構文ハイライトと可読性に影響を与える可能性があります。
+## Markdown formatting issues
 
-### コードブロックの言語タグの欠如
+Claude Code sometimes generates markdown files with missing language tags on code fences, which can affect syntax highlighting and readability in GitHub, editors, and documentation tools.
 
-生成されたMarkdownで以下のようなコードブロックに気づいた場合：
+### Missing language tags in code blocks
+
+If you notice code blocks like this in generated markdown:
 
 ````markdown  theme={null}
 ```
@@ -263,7 +308,7 @@ function example() {
 ```
 ````
 
-適切にタグ付けされたブロックの代わりに：
+Instead of properly tagged blocks like:
 
 ````markdown  theme={null}
 ```javascript
@@ -273,42 +318,42 @@ function example() {
 ```
 ````
 
-**解決策：**
+**Solutions:**
 
-1. **Claudeに言語タグの追加を依頼**：単純に「このMarkdownファイルのすべてのコードブロックに適切な言語タグを追加してください」と要求。
+1. **Ask Claude to add language tags**: Request "Add appropriate language tags to all code blocks in this markdown file."
 
-2. **後処理フックを使用**：欠けている言語タグを検出して追加する自動フォーマットフックを設定。実装の詳細については[Markdownフォーマットフックの例](/ja/hooks-guide#markdown-formatting-hook)を参照。
+2. **Use post-processing hooks**: Set up automatic formatting hooks to detect and add missing language tags. See the [markdown formatting hook example](/en/hooks-guide#markdown-formatting-hook) for implementation details.
 
-3. **手動検証**：Markdownファイルを生成した後、適切なコードブロックフォーマットを確認し、必要に応じて修正を要求。
+3. **Manual verification**: After generating markdown files, review them for proper code block formatting and request corrections if needed.
 
-### 一貫性のない間隔とフォーマット
+### Inconsistent spacing and formatting
 
-生成されたMarkdownに過度の空行や一貫性のない間隔がある場合：
+If generated markdown has excessive blank lines or inconsistent spacing:
 
-**解決策：**
+**Solutions:**
 
-1. **フォーマット修正を要求**：Claudeに「このMarkdownファイルの間隔とフォーマットの問題を修正してください」と依頼。
+1. **Request formatting corrections**: Ask Claude to "Fix spacing and formatting issues in this markdown file."
 
-2. **フォーマットツールを使用**：生成されたMarkdownファイルで`prettier`やカスタムフォーマットスクリプトなどのMarkdownフォーマッターを実行するフックを設定。
+2. **Use formatting tools**: Set up hooks to run markdown formatters like `prettier` or custom formatting scripts on generated markdown files.
 
-3. **フォーマット設定を指定**：プロンプトやプロジェクト[メモリ](/ja/memory)ファイルにフォーマット要件を含める。
+3. **Specify formatting preferences**: Include formatting requirements in your prompts or project [memory](/en/memory) files.
 
-### Markdown生成のベストプラクティス
+### Best practices for markdown generation
 
-フォーマットの問題を最小限に抑えるために：
+To minimize formatting issues:
 
-* **要求で明示的に**：「言語タグ付きコードブロックを含む適切にフォーマットされたMarkdown」を要求
-* **プロジェクト規約を使用**：[CLAUDE.md](/ja/memory)で好みのMarkdownスタイルを文書化
-* **検証フックを設定**：一般的なフォーマット問題を自動的に検証・修正する後処理フックを使用
+* **Be explicit in requests**: Ask for "properly formatted markdown with language-tagged code blocks"
+* **Use project conventions**: Document your preferred markdown style in [`CLAUDE.md`](/en/memory)
+* **Set up validation hooks**: Use post-processing hooks to automatically verify and fix common formatting issues
 
-## さらなるヘルプの取得
+## Getting more help
 
-ここでカバーされていない問題が発生している場合：
+If you're experiencing issues not covered here:
 
-1. Claude Code内で`/bug`コマンドを使用してAnthropicに直接問題を報告
-2. 既知の問題について[GitHubリポジトリ](https://github.com/anthropics/claude-code)を確認
-3. `/doctor`を実行してClaude Codeインストールの健全性をチェック
-4. Claudeの機能と特徴について直接Claudeに質問 - Claudeはそのドキュメントへの組み込みアクセスを持っています
+1. Use the `/bug` command within Claude Code to report problems directly to Anthropic
+2. Check the [GitHub repository](https://github.com/anthropics/claude-code) for known issues
+3. Run `/doctor` to check the health of your Claude Code installation
+4. Ask Claude directly about its capabilities and features - Claude has built-in access to its documentation
 
 
 ---
