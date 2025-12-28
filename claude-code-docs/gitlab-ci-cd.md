@@ -1,62 +1,62 @@
 # Claude Code GitLab CI/CD
 
-> Claude Code を GitLab CI/CD で開発ワークフローに統合する方法を学びます
+> Learn about integrating Claude Code into your development workflow with GitLab CI/CD
 
 <Info>
-  Claude Code for GitLab CI/CD は現在ベータ版です。機能と機能性は、エクスペリエンスを改善する際に進化する可能性があります。
+  Claude Code for GitLab CI/CD is currently in beta. Features and functionality may evolve as we refine the experience.
 
-  この統合は GitLab によって保守されています。サポートについては、以下の [GitLab issue](https://gitlab.com/gitlab-org/gitlab/-/issues/573776) を参照してください。
+  This integration is maintained by GitLab. For support, see the following [GitLab issue](https://gitlab.com/gitlab-org/gitlab/-/issues/573776).
 </Info>
 
 <Note>
-  この統合は [Claude Code CLI と SDK](https://docs.claude.com/ja/docs/agent-sdk) の上に構築されており、CI/CD ジョブとカスタム自動化ワークフローで Claude をプログラムで使用できます。
+  This integration is built on top of the [Claude Code CLI and SDK](https://docs.claude.com/en/docs/agent-sdk), enabling programmatic use of Claude in your CI/CD jobs and custom automation workflows.
 </Note>
 
-## GitLab で Claude Code を使用する理由
+## Why use Claude Code with GitLab?
 
-* **インスタント MR 作成**: 必要なものを説明すると、Claude は変更と説明を含む完全な MR を提案します
-* **自動実装**: 単一のコマンドまたはメンションで問題を実行可能なコードに変換します
-* **プロジェクト対応**: Claude は `CLAUDE.md` ガイドラインと既存のコードパターンに従います
-* **シンプルなセットアップ**: `.gitlab-ci.yml` に 1 つのジョブとマスクされた CI/CD 変数を追加します
-* **エンタープライズ対応**: Claude API、AWS Bedrock、または Google Vertex AI を選択して、データレジデンシーと調達のニーズを満たします
-* **デフォルトでセキュア**: GitLab ランナーで実行され、ブランチ保護と承認が適用されます
+* **Instant MR creation**: Describe what you need, and Claude proposes a complete MR with changes and explanation
+* **Automated implementation**: Turn issues into working code with a single command or mention
+* **Project-aware**: Claude follows your `CLAUDE.md` guidelines and existing code patterns
+* **Simple setup**: Add one job to `.gitlab-ci.yml` and a masked CI/CD variable
+* **Enterprise-ready**: Choose Claude API, AWS Bedrock, or Google Vertex AI to meet data residency and procurement needs
+* **Secure by default**: Runs in your GitLab runners with your branch protection and approvals
 
-## 仕組み
+## How it works
 
-Claude Code は GitLab CI/CD を使用して AI タスクを分離されたジョブで実行し、MR 経由で結果をコミットバックします:
+Claude Code uses GitLab CI/CD to run AI tasks in isolated jobs and commit results back via MRs:
 
-1. **イベント駆動型オーケストレーション**: GitLab は選択したトリガー（たとえば、issue、MR、またはレビュースレッドで `@claude` に言及するコメント）をリッスンします。ジョブはスレッドとリポジトリからコンテキストを収集し、その入力からプロンプトを構築し、Claude Code を実行します。
+1. **Event-driven orchestration**: GitLab listens for your chosen triggers (for example, a comment that mentions `@claude` in an issue, MR, or review thread). The job collects context from the thread and repository, builds prompts from that input, and runs Claude Code.
 
-2. **プロバイダー抽象化**: 環境に適したプロバイダーを使用します:
+2. **Provider abstraction**: Use the provider that fits your environment:
    * Claude API (SaaS)
-   * AWS Bedrock (IAM ベースのアクセス、クロスリージョンオプション)
-   * Google Vertex AI (GCP ネイティブ、Workload Identity Federation)
+   * AWS Bedrock (IAM-based access, cross-region options)
+   * Google Vertex AI (GCP-native, Workload Identity Federation)
 
-3. **サンドボックス実行**: 各インタラクションは厳密なネットワークとファイルシステムルールを持つコンテナで実行されます。Claude Code はワークスペーススコープの権限を適用して書き込みを制限します。すべての変更は MR を通じてフローするため、レビュアーは差分を確認でき、承認が引き続き適用されます。
+3. **Sandboxed execution**: Each interaction runs in a container with strict network and filesystem rules. Claude Code enforces workspace-scoped permissions to constrain writes. Every change flows through an MR so reviewers see the diff and approvals still apply.
 
-地域のエンドポイントを選択して、レイテンシーを削減し、既存のクラウド契約を使用しながらデータ主権要件を満たします。
+Pick regional endpoints to reduce latency and meet data-sovereignty requirements while using existing cloud agreements.
 
-## Claude は何ができますか?
+## What can Claude do?
 
-Claude Code は、コードの操作方法を変える強力な CI/CD ワークフローを実現します:
+Claude Code enables powerful CI/CD workflows that transform how you work with code:
 
-* issue の説明またはコメントから MR を作成および更新します
-* パフォーマンス低下を分析し、最適化を提案します
-* ブランチに直接機能を実装し、MR を開きます
-* テストまたはコメントで特定されたバグと低下を修正します
-* フォローアップコメントに応答して、リクエストされた変更を反復処理します
+* Create and update MRs from issue descriptions or comments
+* Analyze performance regressions and propose optimizations
+* Implement features directly in a branch, then open an MR
+* Fix bugs and regressions identified by tests or comments
+* Respond to follow-up comments to iterate on requested changes
 
-## セットアップ
+## Setup
 
-### クイックセットアップ
+### Quick setup
 
-最速で始める方法は、`.gitlab-ci.yml` に最小限のジョブを追加し、API キーをマスクされた変数として設定することです。
+The fastest way to get started is to add a minimal job to your `.gitlab-ci.yml` and set your API key as a masked variable.
 
-1. **マスクされた CI/CD 変数を追加します**
-   * **Settings** → **CI/CD** → **Variables** に移動します
-   * `ANTHROPIC_API_KEY` を追加します（マスク、必要に応じて保護）
+1. **Add a masked CI/CD variable**
+   * Go to **Settings** → **CI/CD** → **Variables**
+   * Add `ANTHROPIC_API_KEY` (masked, protected as needed)
 
-2. **Claude ジョブを `.gitlab-ci.yml` に追加します**
+2. **Add a Claude job to `.gitlab-ci.yml`**
 
 ```yaml  theme={null}
 stages:
@@ -65,10 +65,10 @@ stages:
 claude:
   stage: ai
   image: node:24-alpine3.21
-  # ジョブをトリガーする方法に合わせてルールを調整します:
-  # - 手動実行
-  # - マージリクエストイベント
-  # - '@claude' を含むコメント時の web/API トリガー
+  # Adjust rules to fit how you want to trigger the job:
+  # - manual runs
+  # - merge request events
+  # - web/API triggers when a comment contains '@claude'
   rules:
     - if: '$CI_PIPELINE_SOURCE == "web"'
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
@@ -79,9 +79,9 @@ claude:
     - apk add --no-cache git curl bash
     - npm install -g @anthropic-ai/claude-code
   script:
-    # オプション: セットアップが提供する場合は GitLab MCP サーバーを起動します
+    # Optional: start a GitLab MCP server if your setup provides one
     - /bin/gitlab-mcp-server || true
-    # web/API トリガーでコンテキストペイロードを使用して呼び出す場合は AI_FLOW_* 変数を使用します
+    # Use AI_FLOW_* variables when invoking via web/API triggers with context payloads
     - echo "$AI_FLOW_INPUT for $AI_FLOW_CONTEXT on $AI_FLOW_EVENT"
     - >
       claude
@@ -91,154 +91,154 @@ claude:
       --debug
 ```
 
-ジョブと `ANTHROPIC_API_KEY` 変数を追加した後、**CI/CD** → **Pipelines** からジョブを手動で実行してテストするか、MR からトリガーして Claude がブランチで更新を提案し、必要に応じて MR を開くようにします。
+After adding the job and your `ANTHROPIC_API_KEY` variable, test by running the job manually from **CI/CD** → **Pipelines**, or trigger it from an MR to let Claude propose updates in a branch and open an MR if needed.
 
 <Note>
-  Claude API の代わりに AWS Bedrock または Google Vertex AI で実行するには、以下の [AWS Bedrock & Google Vertex AI での使用](#using-with-aws-bedrock--google-vertex-ai) セクションを参照して、認証と環境セットアップを確認してください。
+  To run on AWS Bedrock or Google Vertex AI instead of the Claude API, see the [Using with AWS Bedrock & Google Vertex AI](#using-with-aws-bedrock--google-vertex-ai) section below for authentication and environment setup.
 </Note>
 
-### 手動セットアップ（本番環境に推奨）
+### Manual setup (recommended for production)
 
-より制御されたセットアップが必要な場合、またはエンタープライズプロバイダーが必要な場合:
+If you prefer a more controlled setup or need enterprise providers:
 
-1. **プロバイダーアクセスを構成します**:
-   * **Claude API**: `ANTHROPIC_API_KEY` を作成してマスクされた CI/CD 変数として保存します
-   * **AWS Bedrock**: **GitLab を構成** → **AWS OIDC** を構成し、Bedrock 用の IAM ロールを作成します
-   * **Google Vertex AI**: **GitLab 用 Workload Identity Federation を構成** → **GCP**
+1. **Configure provider access**:
+   * **Claude API**: Create and store `ANTHROPIC_API_KEY` as a masked CI/CD variable
+   * **AWS Bedrock**: **Configure GitLab** → **AWS OIDC** and create an IAM role for Bedrock
+   * **Google Vertex AI**: **Configure Workload Identity Federation for GitLab** → **GCP**
 
-2. **GitLab API 操作用のプロジェクト認証情報を追加します**:
-   * デフォルトで `CI_JOB_TOKEN` を使用するか、`api` スコープを持つプロジェクトアクセストークンを作成します
-   * PAT を使用する場合は `GITLAB_ACCESS_TOKEN`（マスク）として保存します
+2. **Add project credentials for GitLab API operations**:
+   * Use `CI_JOB_TOKEN` by default, or create a Project Access Token with `api` scope
+   * Store as `GITLAB_ACCESS_TOKEN` (masked) if using a PAT
 
-3. **Claude ジョブを `.gitlab-ci.yml` に追加します**（以下の例を参照）
+3. **Add the Claude job to `.gitlab-ci.yml`** (see examples below)
 
-4. **（オプション）メンション駆動型トリガーを有効にします**:
-   * 「Comments (notes)」のプロジェクト webhook をイベントリスナーに追加します（使用する場合）
-   * コメントに `@claude` が含まれている場合、リスナーがパイプライントリガー API を `AI_FLOW_INPUT` や `AI_FLOW_CONTEXT` などの変数で呼び出すようにします
+4. **(Optional) Enable mention-driven triggers**:
+   * Add a project webhook for "Comments (notes)" to your event listener (if you use one)
+   * Have the listener call the pipeline trigger API with variables like `AI_FLOW_INPUT` and `AI_FLOW_CONTEXT` when a comment contains `@claude`
 
-## 使用例
+## Example use cases
 
-### issue を MR に変換する
+### Turn issues into MRs
 
-issue コメント内:
+In an issue comment:
 
 ```
 @claude implement this feature based on the issue description
 ```
 
-Claude は issue とコードベースを分析し、ブランチに変更を書き込み、レビュー用に MR を開きます。
+Claude analyzes the issue and codebase, writes changes in a branch, and opens an MR for review.
 
-### 実装ヘルプを取得する
+### Get implementation help
 
-MR ディスカッション内:
+In an MR discussion:
 
 ```
 @claude suggest a concrete approach to cache the results of this API call
 ```
 
-Claude は変更を提案し、適切なキャッシングを使用してコードを追加し、MR を更新します。
+Claude proposes changes, adds code with appropriate caching, and updates the MR.
 
-### バグをすばやく修正する
+### Fix bugs quickly
 
-issue または MR コメント内:
+In an issue or MR comment:
 
 ```
 @claude fix the TypeError in the user dashboard component
 ```
 
-Claude はバグを特定し、修正を実装し、ブランチを更新するか新しい MR を開きます。
+Claude locates the bug, implements a fix, and updates the branch or opens a new MR.
 
-## AWS Bedrock & Google Vertex AI での使用
+## Using with AWS Bedrock & Google Vertex AI
 
-エンタープライズ環境では、同じ開発者エクスペリエンスで Claude Code をクラウドインフラストラクチャ全体で実行できます。
+For enterprise environments, you can run Claude Code entirely on your cloud infrastructure with the same developer experience.
 
 <Tabs>
   <Tab title="AWS Bedrock">
-    ### 前提条件
+    ### Prerequisites
 
-    AWS Bedrock で Claude Code をセットアップする前に、以下が必要です:
+    Before setting up Claude Code with AWS Bedrock, you need:
 
-    1. 目的の Claude モデルへの Amazon Bedrock アクセスを持つ AWS アカウント
-    2. AWS IAM で OIDC ID プロバイダーとして構成された GitLab
-    3. Bedrock 権限と GitLab プロジェクト/refs に制限されたトラストポリシーを持つ IAM ロール
-    4. ロール仮定用の GitLab CI/CD 変数:
-       * `AWS_ROLE_TO_ASSUME`（ロール ARN）
-       * `AWS_REGION`（Bedrock リージョン）
+    1. An AWS account with Amazon Bedrock access to the desired Claude models
+    2. GitLab configured as an OIDC identity provider in AWS IAM
+    3. An IAM role with Bedrock permissions and a trust policy restricted to your GitLab project/refs
+    4. GitLab CI/CD variables for role assumption:
+       * `AWS_ROLE_TO_ASSUME` (role ARN)
+       * `AWS_REGION` (Bedrock region)
 
-    ### セットアップ手順
+    ### Setup instructions
 
-    GitLab CI ジョブが OIDC 経由で IAM ロールを仮定できるように AWS を構成します（静的キーなし）。
+    Configure AWS to allow GitLab CI jobs to assume an IAM role via OIDC (no static keys).
 
-    **必須セットアップ:**
+    **Required setup:**
 
-    1. Amazon Bedrock を有効にし、ターゲット Claude モデルへのアクセスをリクエストします
-    2. まだ存在しない場合は GitLab 用の IAM OIDC プロバイダーを作成します
-    3. GitLab OIDC プロバイダーによって信頼され、プロジェクトと保護された refs に制限された IAM ロールを作成します
-    4. Bedrock invoke API の最小権限権限を付与します
+    1. Enable Amazon Bedrock and request access to your target Claude models
+    2. Create an IAM OIDC provider for GitLab if not already present
+    3. Create an IAM role trusted by the GitLab OIDC provider, restricted to your project and protected refs
+    4. Attach least-privilege permissions for Bedrock invoke APIs
 
-    **CI/CD 変数に保存する必須値:**
+    **Required values to store in CI/CD variables:**
 
     * `AWS_ROLE_TO_ASSUME`
     * `AWS_REGION`
 
-    Settings → CI/CD → Variables で変数を追加します:
+    Add variables in Settings → CI/CD → Variables:
 
     ```yaml  theme={null}
-    # AWS Bedrock の場合:
+    # For AWS Bedrock:
     - AWS_ROLE_TO_ASSUME
     - AWS_REGION
     ```
 
-    上記の AWS Bedrock ジョブの例を使用して、実行時に GitLab ジョブトークンを一時的な AWS 認証情報と交換します。
+    Use the AWS Bedrock job example above to exchange the GitLab job token for temporary AWS credentials at runtime.
   </Tab>
 
   <Tab title="Google Vertex AI">
-    ### 前提条件
+    ### Prerequisites
 
-    Google Vertex AI で Claude Code をセットアップする前に、以下が必要です:
+    Before setting up Claude Code with Google Vertex AI, you need:
 
-    1. 以下を含む Google Cloud プロジェクト:
-       * Vertex AI API が有効
-       * GitLab OIDC を信頼するように構成された Workload Identity Federation
-    2. 必要な Vertex AI ロールのみを持つ専用サービスアカウント
-    3. WIF 用の GitLab CI/CD 変数:
-       * `GCP_WORKLOAD_IDENTITY_PROVIDER`（完全なリソース名）
-       * `GCP_SERVICE_ACCOUNT`（サービスアカウントメール）
+    1. A Google Cloud project with:
+       * Vertex AI API enabled
+       * Workload Identity Federation configured to trust GitLab OIDC
+    2. A dedicated service account with only the required Vertex AI roles
+    3. GitLab CI/CD variables for WIF:
+       * `GCP_WORKLOAD_IDENTITY_PROVIDER` (full resource name)
+       * `GCP_SERVICE_ACCOUNT` (service account email)
 
-    ### セットアップ手順
+    ### Setup instructions
 
-    GitLab CI ジョブが Workload Identity Federation 経由でサービスアカウントを偽装できるように Google Cloud を構成します。
+    Configure Google Cloud to allow GitLab CI jobs to impersonate a service account via Workload Identity Federation.
 
-    **必須セットアップ:**
+    **Required setup:**
 
-    1. IAM Credentials API、STS API、および Vertex AI API を有効にします
-    2. GitLab OIDC 用の Workload Identity Pool とプロバイダーを作成します
-    3. Vertex AI ロールを持つ専用サービスアカウントを作成します
-    4. WIF プリンシパルにサービスアカウントを偽装する権限を付与します
+    1. Enable IAM Credentials API, STS API, and Vertex AI API
+    2. Create a Workload Identity Pool and provider for GitLab OIDC
+    3. Create a dedicated service account with Vertex AI roles
+    4. Grant the WIF principal permission to impersonate the service account
 
-    **CI/CD 変数に保存する必須値:**
+    **Required values to store in CI/CD variables:**
 
     * `GCP_WORKLOAD_IDENTITY_PROVIDER`
     * `GCP_SERVICE_ACCOUNT`
 
-    Settings → CI/CD → Variables で変数を追加します:
+    Add variables in Settings → CI/CD → Variables:
 
     ```yaml  theme={null}
-    # Google Vertex AI の場合:
+    # For Google Vertex AI:
     - GCP_WORKLOAD_IDENTITY_PROVIDER
     - GCP_SERVICE_ACCOUNT
-    - CLOUD_ML_REGION（例: us-east5）
+    - CLOUD_ML_REGION (for example, us-east5)
     ```
 
-    上記の Google Vertex AI ジョブの例を使用して、キーを保存せずに認証します。
+    Use the Google Vertex AI job example above to authenticate without storing keys.
   </Tab>
 </Tabs>
 
-## 構成例
+## Configuration examples
 
-以下は、パイプラインに適応できる準備完了のスニペットです。
+Below are ready-to-use snippets you can adapt to your pipeline.
 
-### 基本的な .gitlab-ci.yml (Claude API)
+### Basic .gitlab-ci.yml (Claude API)
 
 ```yaml  theme={null}
 stages:
@@ -264,21 +264,21 @@ claude:
       --permission-mode acceptEdits
       --allowedTools "Bash(*) Read(*) Edit(*) Write(*) mcp__gitlab"
       --debug
-  # Claude Code は CI/CD 変数から ANTHROPIC_API_KEY を使用します
+  # Claude Code will use ANTHROPIC_API_KEY from CI/CD variables
 ```
 
-### AWS Bedrock ジョブの例 (OIDC)
+### AWS Bedrock job example (OIDC)
 
-**前提条件:**
+**Prerequisites:**
 
-* Amazon Bedrock が有効で、選択した Claude モデルへのアクセスがある
-* GitLab OIDC が AWS で構成され、GitLab プロジェクトと refs を信頼するロールがある
-* Bedrock 権限を持つ IAM ロール（最小権限を推奨）
+* Amazon Bedrock enabled with access to your chosen Claude model(s)
+* GitLab OIDC configured in AWS with a role that trusts your GitLab project and refs
+* IAM role with Bedrock permissions (least privilege recommended)
 
-**必須 CI/CD 変数:**
+**Required CI/CD variables:**
 
-* `AWS_ROLE_TO_ASSUME`: Bedrock アクセス用の IAM ロールの ARN
-* `AWS_REGION`: Bedrock リージョン（例: `us-west-2`）
+* `AWS_ROLE_TO_ASSUME`: ARN of the IAM role for Bedrock access
+* `AWS_REGION`: Bedrock region (for example, `us-west-2`)
 
 ```yaml  theme={null}
 claude-bedrock:
@@ -290,7 +290,7 @@ claude-bedrock:
     - apk add --no-cache bash curl jq git python3 py3-pip
     - pip install --no-cache-dir awscli
     - npm install -g @anthropic-ai/claude-code
-    # GitLab OIDC トークンを AWS 認証情報と交換します
+    # Exchange GitLab OIDC token for AWS credentials
     - export AWS_WEB_IDENTITY_TOKEN_FILE="${CI_JOB_JWT_FILE:-/tmp/oidc_token}"
     - if [ -n "${CI_JOB_JWT_V2}" ]; then printf "%s" "$CI_JOB_JWT_V2" > "$AWS_WEB_IDENTITY_TOKEN_FILE"; fi
     - >
@@ -315,22 +315,22 @@ claude-bedrock:
 ```
 
 <Note>
-  Bedrock のモデル ID には、リージョン固有のプレフィックスとバージョンサフィックスが含まれます（例: `us.anthropic.claude-sonnet-4-5-20250929-v1:0`）。ワークフローがサポートしている場合は、ジョブ構成またはプロンプト経由で目的のモデルを渡します。
+  Model IDs for Bedrock include region-specific prefixes and version suffixes (for example, `us.anthropic.claude-sonnet-4-5-20250929-v1:0`). Pass the desired model via your job configuration or prompt if your workflow supports it.
 </Note>
 
-### Google Vertex AI ジョブの例 (Workload Identity Federation)
+### Google Vertex AI job example (Workload Identity Federation)
 
-**前提条件:**
+**Prerequisites:**
 
-* GCP プロジェクトで Vertex AI API が有効
-* GitLab OIDC を信頼するように構成された Workload Identity Federation
-* Vertex AI 権限を持つサービスアカウント
+* Vertex AI API enabled in your GCP project
+* Workload Identity Federation configured to trust GitLab OIDC
+* A service account with Vertex AI permissions
 
-**必須 CI/CD 変数:**
+**Required CI/CD variables:**
 
-* `GCP_WORKLOAD_IDENTITY_PROVIDER`: 完全なプロバイダーリソース名
-* `GCP_SERVICE_ACCOUNT`: サービスアカウントメール
-* `CLOUD_ML_REGION`: Vertex リージョン（例: `us-east5`）
+* `GCP_WORKLOAD_IDENTITY_PROVIDER`: Full provider resource name
+* `GCP_SERVICE_ACCOUNT`: Service account email
+* `CLOUD_ML_REGION`: Vertex region (for example, `us-east5`)
 
 ```yaml  theme={null}
 claude-vertex:
@@ -341,7 +341,7 @@ claude-vertex:
   before_script:
     - apt-get update && apt-get install -y git nodejs npm && apt-get clean
     - npm install -g @anthropic-ai/claude-code
-    # WIF 経由で Google Cloud に認証します（ダウンロードされたキーなし）
+    # Authenticate to Google Cloud via WIF (no downloaded keys)
     - >
       gcloud auth login --cred-file=<(cat <<EOF
       {
@@ -368,98 +368,98 @@ claude-vertex:
 ```
 
 <Note>
-  Workload Identity Federation では、サービスアカウントキーを保存する必要はありません。リポジトリ固有のトラスト条件と最小権限サービスアカウントを使用します。
+  With Workload Identity Federation, you do not need to store service account keys. Use repository-specific trust conditions and least-privilege service accounts.
 </Note>
 
-## ベストプラクティス
+## Best practices
 
-### CLAUDE.md 構成
+### CLAUDE.md configuration
 
-リポジトリルートに `CLAUDE.md` ファイルを作成して、コーディング標準、レビュー基準、およびプロジェクト固有のルールを定義します。Claude は実行中にこのファイルを読み取り、変更を提案する際にあなたの規約に従います。
+Create a `CLAUDE.md` file at the repository root to define coding standards, review criteria, and project-specific rules. Claude reads this file during runs and follows your conventions when proposing changes.
 
-### セキュリティに関する考慮事項
+### Security considerations
 
-API キーやクラウド認証情報をリポジトリにコミットしないでください。常に GitLab CI/CD 変数を使用します:
+**Never commit API keys or cloud credentials to your repository**. Always use GitLab CI/CD variables:
 
-* `ANTHROPIC_API_KEY` をマスクされた変数として追加します（必要に応じて保護）
-* 可能な限りプロバイダー固有の OIDC を使用します（長期キーなし）
-* ジョブ権限とネットワーク出力を制限します
-* 他の貢献者と同じように Claude の MR をレビューします
+* Add `ANTHROPIC_API_KEY` as a masked variable (and protect it if needed)
+* Use provider-specific OIDC where possible (no long-lived keys)
+* Limit job permissions and network egress
+* Review Claude's MRs like any other contributor
 
-### パフォーマンスの最適化
+### Optimizing performance
 
-* `CLAUDE.md` を焦点を絞った簡潔なものに保ちます
-* 明確な issue/MR の説明を提供して反復を減らします
-* 暴走実行を避けるために適切なジョブタイムアウトを構成します
-* ランナーが可能な場合は npm とパッケージインストールをキャッシュします
+* Keep `CLAUDE.md` focused and concise
+* Provide clear issue/MR descriptions to reduce iterations
+* Configure sensible job timeouts to avoid runaway runs
+* Cache npm and package installs in runners where possible
 
-### CI コスト
+### CI costs
 
-GitLab CI/CD で Claude Code を使用する場合、関連するコストに注意してください:
+When using Claude Code with GitLab CI/CD, be aware of associated costs:
 
-* **GitLab ランナー時間**:
-  * Claude は GitLab ランナーで実行され、コンピュート分を消費します
-  * GitLab プランのランナー請求の詳細を参照してください
+* **GitLab Runner time**:
+  * Claude runs on your GitLab runners and consumes compute minutes
+  * See your GitLab plan's runner billing for details
 
-* **API コスト**:
-  * 各 Claude インタラクションはプロンプトと応答サイズに基づいてトークンを消費します
-  * トークン使用量はタスクの複雑さとコードベースのサイズによって異なります
-  * 詳細は [Anthropic 価格](https://docs.claude.com/ja/docs/about-claude/pricing) を参照してください
+* **API costs**:
+  * Each Claude interaction consumes tokens based on prompt and response size
+  * Token usage varies by task complexity and codebase size
+  * See [Anthropic pricing](https://docs.claude.com/en/docs/about-claude/pricing) for details
 
-* **コスト最適化のヒント**:
-  * 特定の `@claude` コマンドを使用して不要なターンを減らします
-  * 適切な `max_turns` とジョブタイムアウト値を設定します
-  * 並列実行を制限して並行実行を制御します
+* **Cost optimization tips**:
+  * Use specific `@claude` commands to reduce unnecessary turns
+  * Set appropriate `max_turns` and job timeout values
+  * Limit concurrency to control parallel runs
 
-## セキュリティとガバナンス
+## Security and governance
 
-* 各ジョブは制限されたネットワークアクセスを持つ分離されたコンテナで実行されます
-* Claude の変更は MR を通じてフローするため、レビュアーはすべての差分を確認できます
-* ブランチ保護と承認ルールが AI 生成コードに適用されます
-* Claude Code はワークスペーススコープの権限を使用して書き込みを制限します
-* 独自のプロバイダー認証情報を持ち込むため、コストは管理下にあります
+* Each job runs in an isolated container with restricted network access
+* Claude's changes flow through MRs so reviewers see every diff
+* Branch protection and approval rules apply to AI-generated code
+* Claude Code uses workspace-scoped permissions to constrain writes
+* Costs remain under your control because you bring your own provider credentials
 
-## トラブルシューティング
+## Troubleshooting
 
-### Claude が @claude コマンドに応答しない
+### Claude not responding to @claude commands
 
-* パイプラインがトリガーされていることを確認します（手動、MR イベント、またはメモイベントリスナー/webhook 経由）
-* CI/CD 変数（`ANTHROPIC_API_KEY` またはクラウドプロバイダー設定）が存在し、マスク解除されていることを確認します
-* コメントに `@claude` が含まれている（`/claude` ではなく）こと、およびメンショントリガーが構成されていることを確認します
+* Verify your pipeline is being triggered (manually, MR event, or via a note event listener/webhook)
+* Ensure CI/CD variables (`ANTHROPIC_API_KEY` or cloud provider settings) are present and unmasked
+* Check that the comment contains `@claude` (not `/claude`) and that your mention trigger is configured
 
-### ジョブがコメントを書き込めない、または MR を開けない
+### Job can't write comments or open MRs
 
-* `CI_JOB_TOKEN` がプロジェクトに対して十分な権限を持っていることを確認するか、`api` スコープを持つプロジェクトアクセストークンを使用します
-* `mcp__gitlab` ツールが `--allowedTools` で有効になっていることを確認します
-* ジョブが MR のコンテキストで実行されているか、`AI_FLOW_*` 変数経由で十分なコンテキストを持っていることを確認します
+* Ensure `CI_JOB_TOKEN` has sufficient permissions for the project, or use a Project Access Token with `api` scope
+* Check the `mcp__gitlab` tool is enabled in `--allowedTools`
+* Confirm the job runs in the context of the MR or has enough context via `AI_FLOW_*` variables
 
-### 認証エラー
+### Authentication errors
 
-* **Claude API の場合**: `ANTHROPIC_API_KEY` が有効で期限切れでないことを確認します
-* **Bedrock/Vertex の場合**: OIDC/WIF 構成、ロール偽装、シークレット名を確認します。リージョンとモデルの可用性を確認します
+* **For Claude API**: Confirm `ANTHROPIC_API_KEY` is valid and unexpired
+* **For Bedrock/Vertex**: Verify OIDC/WIF configuration, role impersonation, and secret names; confirm region and model availability
 
-## 高度な構成
+## Advanced configuration
 
-### 一般的なパラメータと変数
+### Common parameters and variables
 
-Claude Code は以下の一般的に使用される入力をサポートしています:
+Claude Code supports these commonly used inputs:
 
-* `prompt` / `prompt_file`: インライン（`-p`）またはファイル経由で指示を提供します
-* `max_turns`: 前後の反復回数を制限します
-* `timeout_minutes`: 総実行時間を制限します
-* `ANTHROPIC_API_KEY`: Claude API に必須（Bedrock/Vertex では使用されません）
-* プロバイダー固有の環境: `AWS_REGION`、Vertex のプロジェクト/リージョン変数
+* `prompt` / `prompt_file`: Provide instructions inline (`-p`) or via a file
+* `max_turns`: Limit the number of back-and-forth iterations
+* `timeout_minutes`: Limit total execution time
+* `ANTHROPIC_API_KEY`: Required for the Claude API (not used for Bedrock/Vertex)
+* Provider-specific environment: `AWS_REGION`, project/region vars for Vertex
 
 <Note>
-  正確なフラグとパラメータは `@anthropic-ai/claude-code` のバージョンによって異なる場合があります。ジョブで `claude --help` を実行して、サポートされているオプションを確認してください。
+  Exact flags and parameters may vary by version of `@anthropic-ai/claude-code`. Run `claude --help` in your job to see supported options.
 </Note>
 
-### Claude の動作をカスタマイズする
+### Customizing Claude's behavior
 
-Claude をガイドするには、主に 2 つの方法があります:
+You can guide Claude in two primary ways:
 
-1. **CLAUDE.md**: コーディング標準、セキュリティ要件、およびプロジェクト規約を定義します。Claude は実行中にこれを読み取り、ルールに従います。
-2. **カスタムプロンプト**: ジョブの `prompt`/`prompt_file` 経由でタスク固有の指示を渡します。異なるジョブに異なるプロンプトを使用します（例: レビュー、実装、リファクタリング）。
+1. **CLAUDE.md**: Define coding standards, security requirements, and project conventions. Claude reads this during runs and follows your rules.
+2. **Custom prompts**: Pass task-specific instructions via `prompt`/`prompt_file` in the job. Use different prompts for different jobs (for example, review, implement, refactor).
 
 
 ---

@@ -1,137 +1,139 @@
-# セキュリティ
+# Security
 
-> Claude Codeのセキュリティ対策と安全な使用方法のベストプラクティスについて学びます。
+> Learn about Claude Code's security safeguards and best practices for safe usage.
 
-## セキュリティへのアプローチ方法
+## How we approach security
 
-### セキュリティの基盤
+### Security foundation
 
-コードのセキュリティは最優先事項です。Claude Codeはセキュリティを中核に据えて構築されており、Anthropicの包括的なセキュリティプログラムに従って開発されています。詳細情報とリソース（SOC 2 Type 2レポート、ISO 27001証明書など）については、[Anthropic Trust Center](https://trust.anthropic.com)をご覧ください。
+Your code's security is paramount. Claude Code is built with security at its core, developed according to Anthropic's comprehensive security program. Learn more and access resources (SOC 2 Type 2 report, ISO 27001 certificate, etc.) at [Anthropic Trust Center](https://trust.anthropic.com).
 
-### パーミッションベースのアーキテクチャ
+### Permission-based architecture
 
-Claude Codeはデフォルトで厳密な読み取り専用パーミッションを使用します。追加のアクション（ファイルの編集、テストの実行、コマンドの実行）が必要な場合、Claude Codeは明示的なパーミッションをリクエストします。ユーザーは、アクションを1回だけ承認するか、自動的に許可するかを制御できます。
+Claude Code uses strict read-only permissions by default. When additional actions are needed (editing files, running tests, executing commands), Claude Code requests explicit permission. Users control whether to approve actions once or allow them automatically.
 
-Claude Codeは透明性とセキュリティを備えるように設計されています。例えば、bashコマンドを実行する前に承認が必要であり、直接制御できます。このアプローチにより、ユーザーと組織はパーミッションを直接設定できます。
+We designed Claude Code to be transparent and secure. For example, we require approval for bash commands before executing them, giving you direct control. This approach enables users and organizations to configure permissions directly.
 
-詳細なパーミッション設定については、[Identity and Access Management](/ja/iam)を参照してください。
+For detailed permission configuration, see [Identity and Access Management](/en/iam).
 
-### 組み込み保護
+### Built-in protections
 
-エージェントシステムのリスクを軽減するために：
+To mitigate risks in agentic systems:
 
-* **サンドボックス化されたbashツール**: [Sandbox](/ja/sandboxing)でbashコマンドをファイルシステムとネットワークの分離により実行し、パーミッションプロンプトを減らしながらセキュリティを維持します。`/sandbox`で有効にして、Claude Codeが自律的に作業できる境界を定義します
-* **書き込みアクセス制限**: Claude Codeは開始されたフォルダとそのサブフォルダにのみ書き込みでき、明示的なパーミッションなしに親ディレクトリのファイルを変更することはできません。Claude Codeは作業ディレクトリ外のファイルを読み取ることができます（システムライブラリと依存関係へのアクセスに便利です）が、書き込み操作はプロジェクトスコープに厳密に限定され、明確なセキュリティ境界を作成します
-* **プロンプト疲労の軽減**: ユーザーごと、コードベースごと、または組織ごとに頻繁に使用される安全なコマンドをホワイトリストに登録するサポート
-* **Accept Editsモード**: 複数の編集をバッチで受け入れながら、副作用のあるコマンドのパーミッションプロンプトを維持します
+* **Sandboxed bash tool**: [Sandbox](/en/sandboxing) bash commands with filesystem and network isolation, reducing permission prompts while maintaining security. Enable with `/sandbox` to define boundaries where Claude Code can work autonomously
+* **Write access restriction**: Claude Code can only write to the folder where it was started and its subfolders—it cannot modify files in parent directories without explicit permission. While Claude Code can read files outside the working directory (useful for accessing system libraries and dependencies), write operations are strictly confined to the project scope, creating a clear security boundary
+* **Prompt fatigue mitigation**: Support for allowlisting frequently used safe commands per-user, per-codebase, or per-organization
+* **Accept Edits mode**: Batch accept multiple edits while maintaining permission prompts for commands with side effects
 
-### ユーザーの責任
+### User responsibility
 
-Claude Codeは、ユーザーが付与したパーミッションのみを持ちます。承認前に、提案されたコードとコマンドの安全性を確認する責任があります。
+Claude Code only has the permissions you grant it. You're responsible for reviewing proposed code and commands for safety before approval.
 
-## プロンプトインジェクションから保護する
+## Protect against prompt injection
 
-プロンプトインジェクションは、攻撃者がAIアシスタントの指示を悪意のあるテキストを挿入することでオーバーライドまたは操作しようとする技術です。Claude Codeにはこれらの攻撃に対する複数のセーフガードが含まれています：
+Prompt injection is a technique where an attacker attempts to override or manipulate an AI assistant's instructions by inserting malicious text. Claude Code includes several safeguards against these attacks:
 
-### コア保護
+### Core protections
 
-* **パーミッションシステム**: 機密操作には明示的な承認が必要です
-* **コンテキスト認識分析**: 完全なリクエストを分析して潜在的に有害な指示を検出します
-* **入力サニタイゼーション**: ユーザー入力を処理することでコマンドインジェクションを防止します
-* **コマンドブロックリスト**: `curl`や`wget`などのWebから任意のコンテンツを取得するリスクのあるコマンドをデフォルトでブロックします。明示的に許可する場合は、[パーミッションパターンの制限](/ja/iam#tool-specific-permission-rules)に注意してください
+* **Permission system**: Sensitive operations require explicit approval
+* **Context-aware analysis**: Detects potentially harmful instructions by analyzing the full request
+* **Input sanitization**: Prevents command injection by processing user inputs
+* **Command blocklist**: Blocks risky commands that fetch arbitrary content from the web like `curl` and `wget` by default. When explicitly allowed, be aware of [permission pattern limitations](/en/iam#tool-specific-permission-rules)
 
-### プライバシーセーフガード
+### Privacy safeguards
 
-データを保護するために、以下を含む複数のセーフガードを実装しています：
+We have implemented several safeguards to protect your data, including:
 
-* 機密情報の保持期間の制限（詳細については[Privacy Center](https://privacy.anthropic.com/en/articles/10023548-how-long-do-you-store-my-data)を参照してください）
-* ユーザーセッションデータへのアクセス制限
-* データトレーニング設定に対するユーザー制御。コンシューマーユーザーは[プライバシー設定](https://claude.ai/settings/privacy)をいつでも変更できます。
+* Limited retention periods for sensitive information (see the [Privacy Center](https://privacy.anthropic.com/en/articles/10023548-how-long-do-you-store-my-data) to learn more)
+* Restricted access to user session data
+* User control over data training preferences. Consumer users can change their [privacy settings](https://claude.ai/settings/privacy) at any time.
 
-詳細については、[Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms)（Team、Enterprise、APIユーザー向け）または[Consumer Terms](https://www.anthropic.com/legal/consumer-terms)（Free、Pro、Maxユーザー向け）および[Privacy Policy](https://www.anthropic.com/legal/privacy)をご確認ください。
+For full details, please review our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) (for Team, Enterprise, and API users) or [Consumer Terms](https://www.anthropic.com/legal/consumer-terms) (for Free, Pro, and Max users) and [Privacy Policy](https://www.anthropic.com/legal/privacy).
 
-### 追加のセーフガード
+### Additional safeguards
 
-* **ネットワークリクエスト承認**: ネットワークリクエストを行うツールはデフォルトでユーザー承認が必要です
-* **分離されたコンテキストウィンドウ**: Webフェッチは潜在的に悪意のあるプロンプトの注入を避けるために別のコンテキストウィンドウを使用します
-* **信頼検証**: 初回のコードベース実行と新しいMCPサーバーには信頼検証が必要です
-  * 注：`-p`フラグで非対話的に実行する場合、信頼検証は無効になります
-* **コマンドインジェクション検出**: 疑わしいbashコマンドは、以前にホワイトリストに登録されていても手動承認が必要です
-* **フェイルクローズドマッチング**: マッチしないコマンドはデフォルトで手動承認が必要です
-* **自然言語説明**: 複雑なbashコマンドにはユーザーの理解のための説明が含まれます
-* **安全な認証情報ストレージ**: APIキーとトークンは暗号化されます。[Credential Management](/ja/iam#credential-management)を参照してください
-
-<Warning>
-  **Windows WebDAVセキュリティリスク**: Windows上でClaude Codeを実行する場合、WebDAVを有効にするか、Claude Codeが`\\*`などのWebDAVサブディレクトリを含む可能性のあるパスにアクセスすることを許可しないことをお勧めします。[WebDAVはMicrosoftによって非推奨になっています](https://learn.microsoft.com/en-us/windows/whats-new/deprecated-features#:~:text=The%20Webclient%20\(WebDAV\)%20service%20is%20deprecated)セキュリティリスクのため。WebDAVを有効にすると、Claude Codeがリモートホストへのネットワークリクエストをトリガーし、パーミッションシステムをバイパスする可能性があります。
-</Warning>
-
-**信頼できないコンテンツを使用する場合のベストプラクティス**：
-
-1. 承認前に提案されたコマンドを確認します
-2. 信頼できないコンテンツをClaude Codeに直接パイプすることを避けます
-3. 重要なファイルへの提案された変更を確認します
-4. 仮想マシン（VM）を使用してスクリプトを実行し、ツール呼び出しを行います。特に外部Webサービスと相互作用する場合
-5. `/bug`で疑わしい動作を報告します
+* **Network request approval**: Tools that make network requests require user approval by default
+* **Isolated context windows**: Web fetch uses a separate context window to avoid injecting potentially malicious prompts
+* **Trust verification**: First-time codebase runs and new MCP servers require trust verification
+  * Note: Trust verification is disabled when running non-interactively with the `-p` flag
+* **Command injection detection**: Suspicious bash commands require manual approval even if previously allowlisted
+* **Fail-closed matching**: Unmatched commands default to requiring manual approval
+* **Natural language descriptions**: Complex bash commands include explanations for user understanding
+* **Secure credential storage**: API keys and tokens are encrypted. See [Credential Management](/en/iam#credential-management)
 
 <Warning>
-  これらの保護は大幅にリスクを軽減しますが、どのシステムもすべての攻撃に完全に免疫があるわけではありません。AIツールを使用する場合は常に良好なセキュリティプラクティスを維持してください。
+  **Windows WebDAV security risk**: When running Claude Code on Windows, we recommend against enabling WebDAV or allowing Claude Code to access paths such as `\\*` that may contain WebDAV subdirectories. [WebDAV has been deprecated by Microsoft](https://learn.microsoft.com/en-us/windows/whats-new/deprecated-features#:~:text=The%20Webclient%20\(WebDAV\)%20service%20is%20deprecated) due to security risks. Enabling WebDAV may allow Claude Code to trigger network requests to remote hosts, bypassing the permission system.
 </Warning>
 
-## MCPセキュリティ
+**Best practices for working with untrusted content**:
 
-Claude Codeにより、ユーザーはModel Context Protocol（MCP）サーバーを設定できます。許可されたMCPサーバーのリストはソースコードで設定され、Claude Code設定エンジニアがソース管理にチェックインします。
+1. Review suggested commands before approval
+2. Avoid piping untrusted content directly to Claude
+3. Verify proposed changes to critical files
+4. Use virtual machines (VMs) to run scripts and make tool calls, especially when interacting with external web services
+5. Report suspicious behavior with `/bug`
 
-独自のMCPサーバーを作成するか、信頼できるプロバイダーからのMCPサーバーを使用することをお勧めします。Claude CodeのMCPサーバーのパーミッションを設定できます。AnthropicはいかなるMCPサーバーも管理または監査しません。
+<Warning>
+  While these protections significantly reduce risk, no system is completely
+  immune to all attacks. Always maintain good security practices when working
+  with any AI tool.
+</Warning>
 
-## IDEセキュリティ
+## MCP security
 
-IDEでClaude Codeを実行するセキュリティの詳細については、[こちら](/ja/vs-code#security)を参照してください。
+Claude Code allows users to configure Model Context Protocol (MCP) servers. The list of allowed MCP servers is configured in your source code, as part of Claude Code settings engineers check into source control.
 
-## クラウド実行セキュリティ
+We encourage either writing your own MCP servers or using MCP servers from providers that you trust. You are able to configure Claude Code permissions for MCP servers. Anthropic does not manage or audit any MCP servers.
 
-[Claude Code on the web](/ja/claude-code-on-the-web)を使用する場合、追加のセキュリティ制御が実施されます：
+## IDE security
 
-* **分離された仮想マシン**: 各クラウドセッションはAnthropicが管理する分離されたVMで実行されます
-* **ネットワークアクセス制御**: ネットワークアクセスはデフォルトで制限され、無効にするか特定のドメインのみを許可するように設定できます
-* **認証情報保護**: 認証はサンドボックス内でスコープされた認証情報を使用するセキュアプロキシを通じて処理され、その後実際のGitHub認証トークンに変換されます
-* **ブランチ制限**: Gitプッシュ操作は現在のワーキングブランチに制限されます
-* **監査ログ**: クラウド環境内のすべての操作はコンプライアンスと監査目的でログに記録されます
-* **自動クリーンアップ**: クラウド環境はセッション完了後に自動的に終了されます
+See [here](/en/vs-code#security) for more information on the security of running Claude Code in an IDE.
 
-クラウド実行の詳細については、[Claude Code on the web](/ja/claude-code-on-the-web)を参照してください。
+## Cloud execution security
 
-## セキュリティベストプラクティス
+When using [Claude Code on the web](/en/claude-code-on-the-web), additional security controls are in place:
 
-### 機密コードの使用
+* **Isolated virtual machines**: Each cloud session runs in an isolated, Anthropic-managed VM
+* **Network access controls**: Network access is limited by default and can be configured to be disabled or allow only specific domains
+* **Credential protection**: Authentication is handled through a secure proxy that uses a scoped credential inside the sandbox, which is then translated to your actual GitHub authentication token
+* **Branch restrictions**: Git push operations are restricted to the current working branch
+* **Audit logging**: All operations in cloud environments are logged for compliance and audit purposes
+* **Automatic cleanup**: Cloud environments are automatically terminated after session completion
 
-* 承認前にすべての提案された変更を確認します
-* 機密リポジトリにはプロジェクト固有のパーミッション設定を使用します
-* 追加の分離のために[devcontainers](/ja/devcontainer)の使用を検討します
-* `/permissions`でパーミッション設定を定期的に監査します
+For more details on cloud execution, see [Claude Code on the web](/en/claude-code-on-the-web).
 
-### チームセキュリティ
+## Security best practices
 
-* [enterprise managed policies](/ja/iam#enterprise-managed-policy-settings)を使用して組織標準を実施します
-* 承認されたパーミッション設定をバージョン管理を通じて共有します
-* チームメンバーにセキュリティベストプラクティスについてトレーニングを行います
-* [OpenTelemetry metrics](/ja/monitoring-usage)を通じてClaude Codeの使用状況を監視します
+### Working with sensitive code
 
-### セキュリティ問題の報告
+* Review all suggested changes before approval
+* Use project-specific permission settings for sensitive repositories
+* Consider using [devcontainers](/en/devcontainer) for additional isolation
+* Regularly audit your permission settings with `/permissions`
 
-Claude Codeでセキュリティ脆弱性を発見した場合：
+### Team security
 
-1. 公開で開示しないでください
-2. [HackerOne program](https://hackerone.com/anthropic-vdp/reports/new?type=team\&report_type=vulnerability)を通じて報告してください
-3. 詳細な再現手順を含めてください
-4. 公開開示前に問題に対処する時間を与えてください
+* Use [enterprise managed settings](/en/iam#enterprise-managed-settings) to enforce organizational standards
+* Share approved permission configurations through version control
+* Train team members on security best practices
+* Monitor Claude Code usage through [OpenTelemetry metrics](/en/monitoring-usage)
 
-## 関連リソース
+### Reporting security issues
 
-* [Sandboxing](/ja/sandboxing) - bashコマンドのファイルシステムとネットワーク分離
-* [Identity and Access Management](/ja/iam) - パーミッションとアクセス制御を設定します
-* [Monitoring usage](/ja/monitoring-usage) - Claude Codeアクティビティを追跡および監査します
-* [Development containers](/ja/devcontainer) - セキュアで分離された環境
-* [Anthropic Trust Center](https://trust.anthropic.com) - セキュリティ認証とコンプライアンス
+If you discover a security vulnerability in Claude Code:
+
+1. Do not disclose it publicly
+2. Report it through our [HackerOne program](https://hackerone.com/anthropic-vdp/reports/new?type=team\&report_type=vulnerability)
+3. Include detailed reproduction steps
+4. Allow time for us to address the issue before public disclosure
+
+## Related resources
+
+* [Sandboxing](/en/sandboxing) - Filesystem and network isolation for bash commands
+* [Identity and Access Management](/en/iam) - Configure permissions and access controls
+* [Monitoring usage](/en/monitoring-usage) - Track and audit Claude Code activity
+* [Development containers](/en/devcontainer) - Secure, isolated environments
+* [Anthropic Trust Center](https://trust.anthropic.com) - Security certifications and compliance
 
 
 ---

@@ -1,42 +1,73 @@
-# LLM gateway設定
+# LLM gateway configuration
 
-> Claude CodeをLLM gatewayソリューションで設定する方法を学びます。LiteLLMセットアップ、認証方法、使用状況追跡やバジェット管理などのエンタープライズ機能を含みます。
+> Learn how to configure Claude Code to work with LLM gateway solutions. Covers gateway requirements, authentication configuration, model selection, and provider-specific endpoint setup.
 
-LLM gatewayは、Claude CodeとモデルプロバイダーとのCentralized proxyレイヤーを提供し、以下を提供します：
+LLM gateways provide a centralized proxy layer between Claude Code and model providers, often providing:
 
-* **Centralized authentication** - API キー管理の単一ポイント
-* **使用状況追跡** - チームとプロジェクト全体の使用状況を監視
-* **コスト管理** - バジェットとレート制限を実装
-* **監査ログ** - コンプライアンスのためにすべてのモデルインタラクションを追跡
-* **モデルルーティング** - コード変更なしでプロバイダー間を切り替え
+* **Centralized authentication** - Single point for API key management
+* **Usage tracking** - Monitor usage across teams and projects
+* **Cost controls** - Implement budgets and rate limits
+* **Audit logging** - Track all model interactions for compliance
+* **Model routing** - Switch between providers without code changes
 
-## LiteLLM設定
+## Gateway requirements
+
+For an LLM gateway to work with Claude Code, it must meet the following requirements:
+
+**API format**
+
+The gateway must expose to clients at least one of the following API formats:
+
+1. **Anthropic Messages**: `/v1/messages`, `/v1/messages/count_tokens`
+   * Must forward request headers: `anthropic-beta`, `anthropic-version`
+
+2. **Bedrock InvokeModel**: `/invoke`, `/invoke-with-response-stream`
+   * Must preserve request body fields: `anthropic_beta`, `anthropic_version`
+
+3. **Vertex rawPredict**: `:rawPredict`, `:streamRawPredict`, `/count-tokens:rawPredict`
+   * Must forward request headers: `anthropic-beta`, `anthropic-version`
+
+Failure to forward headers or preserve body fields may result in reduced functionality or inability to use Claude Code features.
 
 <Note>
-  LiteLLMはサードパーティのプロキシサービスです。Anthropicは、LiteLLMのセキュリティまたは機能を承認、保守、または監査していません。このガイドは情報提供目的で提供されており、古くなる可能性があります。自由裁量で使用してください。
+  Claude Code determines which features to enable based on the API format. When using the Anthropic Messages format with Bedrock or Vertex, you may need to set environment variable `CLAUDE_CODE_DISABLE_EXPERIMENTAL_BETAS=1`.
 </Note>
 
-### 前提条件
+## Configuration
 
-* Claude Codeが最新バージョンに更新されている
-* LiteLLM Proxy Serverがデプロイされてアクセス可能
-* 選択したプロバイダーを通じてClaudeモデルにアクセス可能
+### Model selection
 
-### 基本的なLiteLLMセットアップ
+By default, Claude Code will use standard model names for the selected API format.
 
-**Claude Codeを設定**：
+If you have configured custom model names in your gateway, use the environment variables documented in [Model configuration](/en/model-config) to match your custom names.
 
-#### 認証方法
+## LiteLLM configuration
 
-##### 静的APIキー
+<Note>
+  LiteLLM is a third-party proxy service. Anthropic doesn't endorse, maintain, or audit LiteLLM's security or functionality. This guide is provided for informational purposes and may become outdated. Use at your own discretion.
+</Note>
 
-固定APIキーを使用した最もシンプルな方法：
+### Prerequisites
+
+* Claude Code updated to the latest version
+* LiteLLM Proxy Server deployed and accessible
+* Access to Claude models through your chosen provider
+
+### Basic LiteLLM setup
+
+**Configure Claude Code**:
+
+#### Authentication methods
+
+##### Static API key
+
+Simplest method using a fixed API key:
 
 ```bash  theme={null}
-# 環境変数で設定
+# Set in environment
 export ANTHROPIC_AUTH_TOKEN=sk-litellm-static-key
 
-# またはClaude Code設定で
+# Or in Claude Code settings
 {
   "env": {
     "ANTHROPIC_AUTH_TOKEN": "sk-litellm-static-key"
@@ -44,29 +75,29 @@ export ANTHROPIC_AUTH_TOKEN=sk-litellm-static-key
 }
 ```
 
-この値は`Authorization`ヘッダーとして送信されます。
+This value will be sent as the `Authorization` header.
 
-##### ヘルパーを使用した動的APIキー
+##### Dynamic API key with helper
 
-キーのローテーションまたはユーザーごとの認証の場合：
+For rotating keys or per-user authentication:
 
-1. APIキーヘルパースクリプトを作成：
+1. Create an API key helper script:
 
 ```bash  theme={null}
 #!/bin/bash
 # ~/bin/get-litellm-key.sh
 
-# 例：vaultからキーを取得
+# Example: Fetch key from vault
 vault kv get -field=api_key secret/litellm/claude-code
 
-# 例：JWTトークンを生成
+# Example: Generate JWT token
 jwt encode \
   --secret="${JWT_SECRET}" \
   --exp="+1h" \
   '{"user":"'${USER}'","team":"engineering"}'
 ```
 
-2. ヘルパーを使用するようにClaude Code設定を構成：
+2. Configure Claude Code settings to use the helper:
 
 ```json  theme={null}
 {
@@ -74,42 +105,42 @@ jwt encode \
 }
 ```
 
-3. トークンリフレッシュ間隔を設定：
+3. Set token refresh interval:
 
 ```bash  theme={null}
-# 1時間ごとにリフレッシュ（3600000 ms）
+# Refresh every hour (3600000 ms)
 export CLAUDE_CODE_API_KEY_HELPER_TTL_MS=3600000
 ```
 
-この値は`Authorization`および`X-Api-Key`ヘッダーとして送信されます。`apiKeyHelper`は`ANTHROPIC_AUTH_TOKEN`または`ANTHROPIC_API_KEY`より優先度が低いです。
+This value will be sent as `Authorization` and `X-Api-Key` headers. The `apiKeyHelper` has lower precedence than `ANTHROPIC_AUTH_TOKEN` or `ANTHROPIC_API_KEY`.
 
-#### 統合エンドポイント（推奨）
+#### Unified endpoint (recommended)
 
-LiteLLMの[Anthropic形式エンドポイント](https://docs.litellm.ai/docs/anthropic_unified)を使用：
+Using LiteLLM's [Anthropic format endpoint](https://docs.litellm.ai/docs/anthropic_unified):
 
 ```bash  theme={null}
 export ANTHROPIC_BASE_URL=https://litellm-server:4000
 ```
 
-**パススルーエンドポイントに対する統合エンドポイントの利点：**
+**Benefits of the unified endpoint over pass-through endpoints:**
 
-* ロードバランシング
-* フェイルオーバー
-* コスト追跡とエンドユーザー追跡の一貫したサポート
+* Load balancing
+* Fallbacks
+* Consistent support for cost tracking and end-user tracking
 
-#### プロバイダー固有のパススルーエンドポイント（代替）
+#### Provider-specific pass-through endpoints (alternative)
 
-##### LiteLLMを通じたClaude API
+##### Claude API through LiteLLM
 
-[パススルーエンドポイント](https://docs.litellm.ai/docs/pass_through/anthropic_completion)を使用：
+Using [pass-through endpoint](https://docs.litellm.ai/docs/pass_through/anthropic_completion):
 
 ```bash  theme={null}
 export ANTHROPIC_BASE_URL=https://litellm-server:4000/anthropic
 ```
 
-##### LiteLLMを通じたAmazon Bedrock
+##### Amazon Bedrock through LiteLLM
 
-[パススルーエンドポイント](https://docs.litellm.ai/docs/pass_through/bedrock)を使用：
+Using [pass-through endpoint](https://docs.litellm.ai/docs/pass_through/bedrock):
 
 ```bash  theme={null}
 export ANTHROPIC_BEDROCK_BASE_URL=https://litellm-server:4000/bedrock
@@ -117,9 +148,9 @@ export CLAUDE_CODE_SKIP_BEDROCK_AUTH=1
 export CLAUDE_CODE_USE_BEDROCK=1
 ```
 
-##### LiteLLMを通じたGoogle Vertex AI
+##### Google Vertex AI through LiteLLM
 
-[パススルーエンドポイント](https://docs.litellm.ai/docs/pass_through/vertex_ai)を使用：
+Using [pass-through endpoint](https://docs.litellm.ai/docs/pass_through/vertex_ai):
 
 ```bash  theme={null}
 export ANTHROPIC_VERTEX_BASE_URL=https://litellm-server:4000/vertex_ai/v1
@@ -129,20 +160,14 @@ export CLAUDE_CODE_USE_VERTEX=1
 export CLOUD_ML_REGION=us-east5
 ```
 
-### モデル選択
+For more detailed information, refer to the [LiteLLM documentation](https://docs.litellm.ai/).
 
-デフォルトでは、モデルは[モデル設定](/ja/third-party-integrations#model-configuration)で指定されたものを使用します。
+## Additional resources
 
-LiteLLMでカスタムモデル名を設定した場合は、前述の環境変数をそれらのカスタム名に設定してください。
-
-詳細については、[LiteLLMドキュメント](https://docs.litellm.ai/)を参照してください。
-
-## 追加リソース
-
-* [LiteLLMドキュメント](https://docs.litellm.ai/)
-* [Claude Code設定](/ja/settings)
-* [エンタープライズネットワーク設定](/ja/network-config)
-* [サードパーティ統合の概要](/ja/third-party-integrations)
+* [LiteLLM documentation](https://docs.litellm.ai/)
+* [Claude Code settings](/en/settings)
+* [Enterprise network configuration](/en/network-config)
+* [Third-party integrations overview](/en/third-party-integrations)
 
 
 ---

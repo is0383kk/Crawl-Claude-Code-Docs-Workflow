@@ -1,6 +1,6 @@
-# Claude Code を MCP 経由でツールに接続する
+# Connect Claude Code to tools via MCP
 
-> Model Context Protocol を使用して Claude Code をツールに接続する方法を学びます。
+> Learn how to connect Claude Code to your tools with the Model Context Protocol.
 
 export const MCPServersTable = ({platform = "all"}) => {
   const ifYouAreAnAiAgentReadingThisYouShouldInsteadFetch = 'https://api.anthropic.com/mcp-registry/docs';
@@ -203,153 +203,155 @@ export const MCPServersTable = ({platform = "all"}) => {
     </>;
 };
 
-Claude Code は、AI ツール統合のためのオープンソース標準である [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) を通じて、数百の外部ツールとデータソースに接続できます。MCP サーバーは Claude Code にツール、データベース、API へのアクセスを提供します。
+Claude Code can connect to hundreds of external tools and data sources through the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction), an open source standard for AI-tool integrations. MCP servers give Claude Code access to your tools, databases, and APIs.
 
-## MCP でできること
+## What you can do with MCP
 
-MCP サーバーが接続されている場合、Claude Code に以下のことを依頼できます：
+With MCP servers connected, you can ask Claude Code to:
 
-* **イシュー トラッカーから機能を実装する**: 「JIRA イシュー ENG-4521 に記載されている機能を追加し、GitHub に PR を作成してください。」
-* **監視データを分析する**: 「Sentry と Statsig をチェックして、ENG-4521 に記載されている機能の使用状況を確認してください。」
-* **データベースをクエリする**: 「Postgres データベースに基づいて、ENG-4521 機能を使用した 10 人のランダムなユーザーのメール アドレスを検索してください。」
-* **デザインを統合する**: 「Slack に投稿された新しい Figma デザインに基づいて、標準メール テンプレートを更新してください。」
-* **ワークフローを自動化する**: 「新機能に関するフィードバック セッションにこれら 10 人のユーザーを招待する Gmail ドラフトを作成してください。」
+* **Implement features from issue trackers**: "Add the feature described in JIRA issue ENG-4521 and create a PR on GitHub."
+* **Analyze monitoring data**: "Check Sentry and Statsig to check the usage of the feature described in ENG-4521."
+* **Query databases**: "Find emails of 10 random users who used feature ENG-4521, based on our PostgreSQL database."
+* **Integrate designs**: "Update our standard email template based on the new Figma designs that were posted in Slack"
+* **Automate workflows**: "Create Gmail drafts inviting these 10 users to a feedback session about the new feature."
 
-## 人気のある MCP サーバー
+## Popular MCP servers
 
-Claude Code に接続できる一般的に使用される MCP サーバーをいくつか紹介します：
+Here are some commonly used MCP servers you can connect to Claude Code:
 
 <Warning>
-  サードパーティの MCP サーバーは自己責任で使用してください - Anthropic はこれらすべてのサーバーの正確性またはセキュリティを検証していません。
-  インストールする MCP サーバーを信頼していることを確認してください。
-  信頼されていないコンテンツを取得する可能性のある MCP サーバーを使用する場合は特に注意してください。これらはプロンプト インジェクション リスクにさらされる可能性があります。
+  Use third party MCP servers at your own risk - Anthropic has not verified
+  the correctness or security of all these servers.
+  Make sure you trust MCP servers you are installing.
+  Be especially careful when using MCP servers that could fetch untrusted
+  content, as these can expose you to prompt injection risk.
 </Warning>
 
 <MCPServersTable platform="claudeCode" />
 
 <Note>
-  **特定の統合が必要ですか？** [GitHub で数百以上の MCP サーバーを検索](https://github.com/modelcontextprotocol/servers)するか、[MCP SDK](https://modelcontextprotocol.io/quickstart/server) を使用して独自のサーバーを構築してください。
+  **Need a specific integration?** [Find hundreds more MCP servers on GitHub](https://github.com/modelcontextprotocol/servers), or build your own using the [MCP SDK](https://modelcontextprotocol.io/quickstart/server).
 </Note>
 
-## MCP サーバーのインストール
+## Installing MCP servers
 
-MCP サーバーは、ニーズに応じて 3 つの異なる方法で構成できます：
+MCP servers can be configured in three different ways depending on your needs:
 
-### オプション 1: リモート HTTP サーバーを追加する
+### Option 1: Add a remote HTTP server
 
-HTTP サーバーは、リモート MCP サーバーに接続するための推奨オプションです。これはクラウドベースのサービスに対して最も広くサポートされているトランスポートです。
+HTTP servers are the recommended option for connecting to remote MCP servers. This is the most widely supported transport for cloud-based services.
 
 ```bash  theme={null}
-# 基本的な構文
+# Basic syntax
 claude mcp add --transport http <name> <url>
 
-# 実際の例: Notion に接続する
+# Real example: Connect to Notion
 claude mcp add --transport http notion https://mcp.notion.com/mcp
 
-# Bearer トークンを使用した例
+# Example with Bearer token
 claude mcp add --transport http secure-api https://api.example.com/mcp \
   --header "Authorization: Bearer your-token"
 ```
 
-### オプション 2: リモート SSE サーバーを追加する
+### Option 2: Add a remote SSE server
 
 <Warning>
-  SSE (Server-Sent Events) トランスポートは非推奨です。利用可能な場合は、代わりに HTTP サーバーを使用してください。
+  The SSE (Server-Sent Events) transport is deprecated. Use HTTP servers instead, where available.
 </Warning>
 
 ```bash  theme={null}
-# 基本的な構文
+# Basic syntax
 claude mcp add --transport sse <name> <url>
 
-# 実際の例: Asana に接続する
+# Real example: Connect to Asana
 claude mcp add --transport sse asana https://mcp.asana.com/sse
 
-# 認証ヘッダーを使用した例
+# Example with authentication header
 claude mcp add --transport sse private-api https://api.company.com/sse \
   --header "X-API-Key: your-key-here"
 ```
 
-### オプション 3: ローカル stdio サーバーを追加する
+### Option 3: Add a local stdio server
 
-Stdio サーバーはマシン上のローカル プロセスとして実行されます。システムへの直接アクセスまたはカスタム スクリプトが必要なツールに最適です。
+Stdio servers run as local processes on your machine. They're ideal for tools that need direct system access or custom scripts.
 
 ```bash  theme={null}
-# 基本的な構文
+# Basic syntax
 claude mcp add --transport stdio <name> <command> [args...]
 
-# 実際の例: Airtable サーバーを追加する
+# Real example: Add Airtable server
 claude mcp add --transport stdio airtable --env AIRTABLE_API_KEY=YOUR_KEY \
   -- npx -y airtable-mcp-server
 ```
 
 <Note>
-  **「--」パラメータについて：**
-  `--`（ダブル ダッシュ）は Claude 独自の CLI フラグを MCP サーバーに渡されるコマンドと引数から分離します。`--` の前のすべてはオプション（`--env`、`--scope` など）で、`--` の後のすべてが MCP サーバーを実行するための実際のコマンドです。
+  **Understanding the "--" parameter:**
+  The `--` (double dash) separates Claude's own CLI flags from the command and arguments that get passed to the MCP server. Everything before `--` are options for Claude (like `--env`, `--scope`), and everything after `--` is the actual command to run the MCP server.
 
-  例：
+  For example:
 
-  * `claude mcp add --transport stdio myserver -- npx server` → `npx server` を実行します
-  * `claude mcp add --transport stdio myserver --env KEY=value -- python server.py --port 8080` → 環境に `KEY=value` を設定して `python server.py --port 8080` を実行します
+  * `claude mcp add --transport stdio myserver -- npx server` → runs `npx server`
+  * `claude mcp add --transport stdio myserver --env KEY=value -- python server.py --port 8080` → runs `python server.py --port 8080` with `KEY=value` in environment
 
-  これにより、Claude のフラグとサーバーのフラグ間の競合が防止されます。
+  This prevents conflicts between Claude's flags and the server's flags.
 </Note>
 
-### サーバーの管理
+### Managing your servers
 
-設定後、これらのコマンドで MCP サーバーを管理できます：
+Once configured, you can manage your MCP servers with these commands:
 
 ```bash  theme={null}
-# すべての設定済みサーバーをリストする
+# List all configured servers
 claude mcp list
 
-# 特定のサーバーの詳細を取得する
+# Get details for a specific server
 claude mcp get github
 
-# サーバーを削除する
+# Remove a server
 claude mcp remove github
 
-# (Claude Code 内) サーバーのステータスを確認する
+# (within Claude Code) Check server status
 /mcp
 ```
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * `--scope` フラグを使用して、設定の保存場所を指定します：
-    * `local`（デフォルト）: 現在のプロジェクト内のあなただけが利用可能（古いバージョンでは `project` と呼ばれていました）
-    * `project`: `.mcp.json` ファイルを通じてプロジェクト内のすべてのユーザーと共有
-    * `user`: すべてのプロジェクト全体であなたが利用可能（古いバージョンでは `global` と呼ばれていました）
-  * `--env` フラグで環境変数を設定します（例：`--env KEY=value`）
-  * MCP\_TIMEOUT 環境変数を使用して MCP サーバーのスタートアップ タイムアウトを構成します（例：`MCP_TIMEOUT=10000 claude` は 10 秒のタイムアウトを設定します）
-  * Claude Code は MCP ツール出力が 10,000 トークンを超える場合に警告を表示します。この制限を増やすには、`MAX_MCP_OUTPUT_TOKENS` 環境変数を設定します（例：`MAX_MCP_OUTPUT_TOKENS=50000`）
-  * `/mcp` を使用して、OAuth 2.0 認証が必要なリモート サーバーで認証します
+  * Use the `--scope` flag to specify where the configuration is stored:
+    * `local` (default): Available only to you in the current project (was called `project` in older versions)
+    * `project`: Shared with everyone in the project via `.mcp.json` file
+    * `user`: Available to you across all projects (was called `global` in older versions)
+  * Set environment variables with `--env` flags (for example, `--env KEY=value`)
+  * Configure MCP server startup timeout using the MCP\_TIMEOUT environment variable (for example, `MCP_TIMEOUT=10000 claude` sets a 10-second timeout)
+  * Claude Code will display a warning when MCP tool output exceeds 10,000 tokens. To increase this limit, set the `MAX_MCP_OUTPUT_TOKENS` environment variable (for example, `MAX_MCP_OUTPUT_TOKENS=50000`)
+  * Use `/mcp` to authenticate with remote servers that require OAuth 2.0 authentication
 </Tip>
 
 <Warning>
-  **Windows ユーザー**: ネイティブ Windows（WSL ではない）では、`npx` を使用するローカル MCP サーバーは適切な実行を確保するために `cmd /c` ラッパーが必要です。
+  **Windows Users**: On native Windows (not WSL), local MCP servers that use `npx` require the `cmd /c` wrapper to ensure proper execution.
 
   ```bash  theme={null}
-  # これにより command="cmd" が作成され、Windows が実行できます
+  # This creates command="cmd" which Windows can execute
   claude mcp add --transport stdio my-server -- cmd /c npx -y @some/package
   ```
 
-  `cmd /c` ラッパーがない場合、Windows は `npx` を直接実行できないため、「Connection closed」エラーが発生します。（`--` パラメータの説明については、上記のメモを参照してください。）
+  Without the `cmd /c` wrapper, you'll encounter "Connection closed" errors because Windows cannot directly execute `npx`. (See the note above for an explanation of the `--` parameter.)
 </Warning>
 
-### プラグイン提供の MCP サーバー
+### Plugin-provided MCP servers
 
-[プラグイン](/ja/plugins)は MCP サーバーをバンドルでき、プラグインが有効になると自動的にツールと統合を提供します。プラグイン MCP サーバーはユーザー設定サーバーと同じように機能します。
+[Plugins](/en/plugins) can bundle MCP servers, automatically providing tools and integrations when the plugin is enabled. Plugin MCP servers work identically to user-configured servers.
 
-**プラグイン MCP サーバーの仕組み**：
+**How plugin MCP servers work**:
 
-* プラグインはプラグイン ルートの `.mcp.json` または `plugin.json` 内でインラインで MCP サーバーを定義します
-* プラグインが有効になると、その MCP サーバーが自動的に起動します
-* プラグイン MCP ツールは手動で設定された MCP ツールと一緒に表示されます
-* プラグイン サーバーはプラグイン インストール経由で管理されます（`/mcp` コマンドではありません）
+* Plugins define MCP servers in `.mcp.json` at the plugin root or inline in `plugin.json`
+* When a plugin is enabled, its MCP servers start automatically
+* Plugin MCP tools appear alongside manually configured MCP tools
+* Plugin servers are managed through plugin installation (not `/mcp` commands)
 
-**プラグイン MCP 設定の例**：
+**Example plugin MCP configuration**:
 
-プラグイン ルートの `.mcp.json` 内：
+In `.mcp.json` at plugin root:
 
 ```json  theme={null}
 {
@@ -363,7 +365,7 @@ claude mcp remove github
 }
 ```
 
-または `plugin.json` 内でインライン：
+Or inline in `plugin.json`:
 
 ```json  theme={null}
 {
@@ -377,56 +379,56 @@ claude mcp remove github
 }
 ```
 
-**プラグイン MCP 機能**：
+**Plugin MCP features**:
 
-* **自動ライフサイクル**: プラグインが有効になるとサーバーが起動しますが、MCP サーバーの変更（有効化または無効化）を適用するには Claude Code を再起動する必要があります
-* **環境変数**: プラグイン相対パスに `${CLAUDE_PLUGIN_ROOT}` を使用します
-* **ユーザー環境アクセス**: 手動で設定されたサーバーと同じ環境変数へのアクセス
-* **複数のトランスポート タイプ**: stdio、SSE、HTTP トランスポートをサポート（トランスポート サポートはサーバーによって異なる場合があります）
+* **Automatic lifecycle**: Servers start when plugin enables, but you must restart Claude Code to apply MCP server changes (enabling or disabling)
+* **Environment variables**: Use `${CLAUDE_PLUGIN_ROOT}` for plugin-relative paths
+* **User environment access**: Access to same environment variables as manually configured servers
+* **Multiple transport types**: Support stdio, SSE, and HTTP transports (transport support may vary by server)
 
-**プラグイン MCP サーバーの表示**：
+**Viewing plugin MCP servers**:
 
 ```bash  theme={null}
-# Claude Code 内で、プラグインのものを含むすべての MCP サーバーを表示します
+# Within Claude Code, see all MCP servers including plugin ones
 /mcp
 ```
 
-プラグイン サーバーはプラグインから来ていることを示すインジケーター付きでリストに表示されます。
+Plugin servers appear in the list with indicators showing they come from plugins.
 
-**プラグイン MCP サーバーの利点**：
+**Benefits of plugin MCP servers**:
 
-* **バンドル配布**: ツールとサーバーが一緒にパッケージ化されます
-* **自動セットアップ**: 手動の MCP 設定は不要です
-* **チーム一貫性**: プラグインがインストールされると、すべてのユーザーが同じツールを取得します
+* **Bundled distribution**: Tools and servers packaged together
+* **Automatic setup**: No manual MCP configuration needed
+* **Team consistency**: Everyone gets the same tools when plugin is installed
 
-プラグインで MCP サーバーをバンドルする方法の詳細については、[プラグイン コンポーネント リファレンス](/ja/plugins-reference#mcp-servers)を参照してください。
+See the [plugin components reference](/en/plugins-reference#mcp-servers) for details on bundling MCP servers with plugins.
 
-## MCP インストール スコープ
+## MCP installation scopes
 
-MCP サーバーは 3 つの異なるスコープ レベルで設定でき、それぞれがサーバーのアクセス可能性と共有を管理するための異なる目的に役立ちます。これらのスコープを理解することで、特定のニーズに合わせてサーバーを設定する最適な方法を決定できます。
+MCP servers can be configured at three different scope levels, each serving distinct purposes for managing server accessibility and sharing. Understanding these scopes helps you determine the best way to configure servers for your specific needs.
 
-### ローカル スコープ
+### Local scope
 
-ローカル スコープ サーバーはデフォルトの設定レベルを表し、プロジェクト固有のユーザー設定に保存されます。これらのサーバーはあなたにのみプライベートで、現在のプロジェクト ディレクトリ内で作業する場合にのみアクセス可能です。このスコープは、個人開発サーバー、実験的な設定、または共有すべきでない機密認証情報を含むサーバーに最適です。
+Local-scoped servers represent the default configuration level and are stored in `~/.claude.json` under your project's path. These servers remain private to you and are only accessible when working within the current project directory. This scope is ideal for personal development servers, experimental configurations, or servers containing sensitive credentials that shouldn't be shared.
 
 ```bash  theme={null}
-# ローカル スコープ サーバーを追加する（デフォルト）
+# Add a local-scoped server (default)
 claude mcp add --transport http stripe https://mcp.stripe.com
 
-# ローカル スコープを明示的に指定する
+# Explicitly specify local scope
 claude mcp add --transport http stripe --scope local https://mcp.stripe.com
 ```
 
-### プロジェクト スコープ
+### Project scope
 
-プロジェクト スコープ サーバーは、プロジェクトのルート ディレクトリにある `.mcp.json` ファイルに設定を保存することで、チーム コラボレーションを実現します。このファイルはバージョン管理にチェックインされるように設計されており、すべてのチーム メンバーが同じ MCP ツールとサービスにアクセスできることを保証します。プロジェクト スコープ サーバーを追加すると、Claude Code は自動的にこのファイルを作成または更新し、適切な設定構造を使用します。
+Project-scoped servers enable team collaboration by storing configurations in a `.mcp.json` file at your project's root directory. This file is designed to be checked into version control, ensuring all team members have access to the same MCP tools and services. When you add a project-scoped server, Claude Code automatically creates or updates this file with the appropriate configuration structure.
 
 ```bash  theme={null}
-# プロジェクト スコープ サーバーを追加する
+# Add a project-scoped server
 claude mcp add --transport http paypal --scope project https://mcp.paypal.com/mcp
 ```
 
-結果の `.mcp.json` ファイルは標準化された形式に従います：
+The resulting `.mcp.json` file follows a standardized format:
 
 ```json  theme={null}
 {
@@ -440,48 +442,56 @@ claude mcp add --transport http paypal --scope project https://mcp.paypal.com/mc
 }
 ```
 
-セキュリティ上の理由から、Claude Code は `.mcp.json` ファイルからプロジェクト スコープ サーバーを使用する前に承認を求めます。これらの承認選択をリセットする必要がある場合は、`claude mcp reset-project-choices` コマンドを使用してください。
+For security reasons, Claude Code prompts for approval before using project-scoped servers from `.mcp.json` files. If you need to reset these approval choices, use the `claude mcp reset-project-choices` command.
 
-### ユーザー スコープ
+### User scope
 
-ユーザー スコープ サーバーはクロスプロジェクト アクセスを提供し、マシン上のすべてのプロジェクト全体で利用可能にしながら、ユーザー アカウントにプライベートのままにします。このスコープは、個人ユーティリティ サーバー、開発ツール、または異なるプロジェクト全体で頻繁に使用するサービスに適しています。
+User-scoped servers are stored in `~/.claude.json` and provide cross-project accessibility, making them available across all projects on your machine while remaining private to your user account. This scope works well for personal utility servers, development tools, or services you frequently use across different projects.
 
 ```bash  theme={null}
-# ユーザー サーバーを追加する
+# Add a user server
 claude mcp add --transport http hubspot --scope user https://mcp.hubspot.com/anthropic
 ```
 
-### 適切なスコープの選択
+### Choosing the right scope
 
-以下に基づいてスコープを選択します：
+Select your scope based on:
 
-* **ローカル スコープ**: 個人サーバー、実験的な設定、または 1 つのプロジェクトに固有の機密認証情報
-* **プロジェクト スコープ**: チーム共有サーバー、プロジェクト固有のツール、またはコラボレーションに必要なサービス
-* **ユーザー スコープ**: 複数のプロジェクト全体で必要な個人ユーティリティ、開発ツール、または頻繁に使用されるサービス
+* **Local scope**: Personal servers, experimental configurations, or sensitive credentials specific to one project
+* **Project scope**: Team-shared servers, project-specific tools, or services required for collaboration
+* **User scope**: Personal utilities needed across multiple projects, development tools, or frequently used services
 
-### スコープ階層と優先順位
+<Note>
+  **Where are MCP servers stored?**
 
-MCP サーバー設定は明確な優先順位階層に従います。同じ名前のサーバーが複数のスコープに存在する場合、システムはローカル スコープ サーバーを最初に優先し、次にプロジェクト スコープ サーバー、最後にユーザー スコープ サーバーを優先することで競合を解決します。この設計により、個人設定が必要に応じて共有設定をオーバーライドできることが保証されます。
+  * **User and local scope**: `~/.claude.json` (in the `mcpServers` field or under project paths)
+  * **Project scope**: `.mcp.json` in your project root (checked into source control)
+  * **Enterprise managed**: `managed-mcp.json` in system directories (see [Enterprise MCP configuration](#enterprise-mcp-configuration))
+</Note>
 
-### `.mcp.json` での環境変数展開
+### Scope hierarchy and precedence
 
-Claude Code は `.mcp.json` ファイルでの環境変数展開をサポートしており、チームが設定を共有しながら、マシン固有のパスと API キーなどの機密値の柔軟性を維持できます。
+MCP server configurations follow a clear precedence hierarchy. When servers with the same name exist at multiple scopes, the system resolves conflicts by prioritizing local-scoped servers first, followed by project-scoped servers, and finally user-scoped servers. This design ensures that personal configurations can override shared ones when needed.
 
-**サポートされている構文：**
+### Environment variable expansion in `.mcp.json`
 
-* `${VAR}` - 環境変数 `VAR` の値に展開されます
-* `${VAR:-default}` - `VAR` が設定されている場合は展開され、そうでない場合は `default` を使用します
+Claude Code supports environment variable expansion in `.mcp.json` files, allowing teams to share configurations while maintaining flexibility for machine-specific paths and sensitive values like API keys.
 
-**展開場所：**
-環境変数は以下で展開できます：
+**Supported syntax:**
 
-* `command` - サーバー実行可能ファイルのパス
-* `args` - コマンドライン引数
-* `env` - サーバーに渡される環境変数
-* `url` - HTTP サーバー タイプの場合
-* `headers` - HTTP サーバー認証の場合
+* `${VAR}` - Expands to the value of environment variable `VAR`
+* `${VAR:-default}` - Expands to `VAR` if set, otherwise uses `default`
 
-**変数展開を使用した例：**
+**Expansion locations:**
+Environment variables can be expanded in:
+
+* `command` - The server executable path
+* `args` - Command-line arguments
+* `env` - Environment variables passed to the server
+* `url` - For HTTP server types
+* `headers` - For HTTP server authentication
+
+**Example with variable expansion:**
 
 ```json  theme={null}
 {
@@ -497,118 +507,118 @@ Claude Code は `.mcp.json` ファイルでの環境変数展開をサポート�
 }
 ```
 
-必要な環境変数が設定されておらず、デフォルト値がない場合、Claude Code は設定の解析に失敗します。
+If a required environment variable is not set and has no default value, Claude Code will fail to parse the config.
 
-## 実践的な例
+## Practical examples
 
-{/* ### 例: Playwright でブラウザ テストを自動化する
+{/* ### Example: Automate browser testing with Playwright
 
   ```bash
-  # 1. Playwright MCP サーバーを追加する
+  # 1. Add the Playwright MCP server
   claude mcp add --transport stdio playwright -- npx -y @playwright/mcp@latest
 
-  # 2. ブラウザ テストを作成して実行する
+  # 2. Write and run browser tests
   > "Test if the login flow works with test@example.com"
   > "Take a screenshot of the checkout page on mobile"
   > "Verify that the search feature returns results"
   ``` */}
 
-### 例: Sentry でエラーを監視する
+### Example: Monitor errors with Sentry
 
 ```bash  theme={null}
-# 1. Sentry MCP サーバーを追加する
+# 1. Add the Sentry MCP server
 claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
 
-# 2. /mcp を使用して Sentry アカウントで認証する
+# 2. Use /mcp to authenticate with your Sentry account
 > /mcp
 
-# 3. 本番環境の問題をデバッグする
+# 3. Debug production issues
 > "What are the most common errors in the last 24 hours?"
 > "Show me the stack trace for error ID abc123"
 > "Which deployment introduced these new errors?"
 ```
 
-### 例: コード レビュー用に GitHub に接続する
+### Example: Connect to GitHub for code reviews
 
 ```bash  theme={null}
-# 1. GitHub MCP サーバーを追加する
+# 1. Add the GitHub MCP server
 claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 
-# 2. Claude Code で必要に応じて認証する
+# 2. In Claude Code, authenticate if needed
 > /mcp
-# GitHub の「認証」を選択します
+# Select "Authenticate" for GitHub
 
-# 3. これで Claude に GitHub で作業するよう依頼できます
+# 3. Now you can ask Claude to work with GitHub
 > "Review PR #456 and suggest improvements"
 > "Create a new issue for the bug we just found"
 > "Show me all open PRs assigned to me"
 ```
 
-### 例: PostgreSQL データベースをクエリする
+### Example: Query your PostgreSQL database
 
 ```bash  theme={null}
-# 1. 接続文字列を使用してデータベース サーバーを追加する
+# 1. Add the database server with your connection string
 claude mcp add --transport stdio db -- npx -y @bytebase/dbhub \
   --dsn "postgresql://readonly:pass@prod.db.com:5432/analytics"
 
-# 2. データベースを自然にクエリする
+# 2. Query your database naturally
 > "What's our total revenue this month?"
 > "Show me the schema for the orders table"
 > "Find customers who haven't made a purchase in 90 days"
 ```
 
-## リモート MCP サーバーで認証する
+## Authenticate with remote MCP servers
 
-多くのクラウドベースの MCP サーバーは認証が必要です。Claude Code は安全な接続のために OAuth 2.0 をサポートしています。
+Many cloud-based MCP servers require authentication. Claude Code supports OAuth 2.0 for secure connections.
 
 <Steps>
-  <Step title="認証が必要なサーバーを追加する">
-    例：
+  <Step title="Add the server that requires authentication">
+    For example:
 
     ```bash  theme={null}
     claude mcp add --transport http sentry https://mcp.sentry.dev/mcp
     ```
   </Step>
 
-  <Step title="Claude Code 内で /mcp コマンドを使用する">
-    Claude Code で、コマンドを使用します：
+  <Step title="Use the /mcp command within Claude Code">
+    In Claude code, use the command:
 
     ```
     > /mcp
     ```
 
-    次に、ブラウザのステップに従ってログインします。
+    Then follow the steps in your browser to login.
   </Step>
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 認証トークンは安全に保存され、自動的に更新されます
-  * `/mcp` メニューで「Clear authentication」を使用してアクセスを取り消します
-  * ブラウザが自動的に開かない場合は、提供された URL をコピーします
-  * OAuth 認証は HTTP サーバーで機能します
+  * Authentication tokens are stored securely and refreshed automatically
+  * Use "Clear authentication" in the `/mcp` menu to revoke access
+  * If your browser doesn't open automatically, copy the provided URL
+  * OAuth authentication works with HTTP servers
 </Tip>
 
-## JSON 設定から MCP サーバーを追加する
+## Add MCP servers from JSON configuration
 
-MCP サーバーの JSON 設定がある場合は、直接追加できます：
+If you have a JSON configuration for an MCP server, you can add it directly:
 
 <Steps>
-  <Step title="JSON から MCP サーバーを追加する">
+  <Step title="Add an MCP server from JSON">
     ```bash  theme={null}
-    # 基本的な構文
+    # Basic syntax
     claude mcp add-json <name> '<json>'
 
-    # 例: JSON 設定を使用して HTTP サーバーを追加する
+    # Example: Adding an HTTP server with JSON configuration
     claude mcp add-json weather-api '{"type":"http","url":"https://api.weather.com/mcp","headers":{"Authorization":"Bearer token"}}'
 
-    # 例: JSON 設定を使用して stdio サーバーを追加する
+    # Example: Adding a stdio server with JSON configuration
     claude mcp add-json local-weather '{"type":"stdio","command":"/path/to/weather-cli","args":["--api-key","abc123"],"env":{"CACHE_DIR":"/tmp"}}'
     ```
   </Step>
 
-  <Step title="サーバーが追加されたことを確認する">
+  <Step title="Verify the server was added">
     ```bash  theme={null}
     claude mcp get weather-api
     ```
@@ -616,30 +626,30 @@ MCP サーバーの JSON 設定がある場合は、直接追加できます：
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * JSON がシェルで適切にエスケープされていることを確認してください
-  * JSON は MCP サーバー設定スキーマに準拠する必要があります
-  * `--scope user` を使用して、プロジェクト固有のサーバーではなく、ユーザー設定にサーバーを追加できます
+  * Make sure the JSON is properly escaped in your shell
+  * The JSON must conform to the MCP server configuration schema
+  * You can use `--scope user` to add the server to your user configuration instead of the project-specific one
 </Tip>
 
-## Claude Desktop から MCP サーバーをインポートする
+## Import MCP servers from Claude Desktop
 
-Claude Desktop で MCP サーバーを既に設定している場合は、それらをインポートできます：
+If you've already configured MCP servers in Claude Desktop, you can import them:
 
 <Steps>
-  <Step title="Claude Desktop からサーバーをインポートする">
+  <Step title="Import servers from Claude Desktop">
     ```bash  theme={null}
-    # 基本的な構文 
+    # Basic syntax 
     claude mcp add-from-claude-desktop 
     ```
   </Step>
 
-  <Step title="インポートするサーバーを選択する">
-    コマンドを実行した後、インポートするサーバーを選択できるインタラクティブ ダイアログが表示されます。
+  <Step title="Select which servers to import">
+    After running the command, you'll see an interactive dialog that allows you to select which servers you want to import.
   </Step>
 
-  <Step title="サーバーがインポートされたことを確認する">
+  <Step title="Verify the servers were imported">
     ```bash  theme={null}
     claude mcp list 
     ```
@@ -647,25 +657,25 @@ Claude Desktop で MCP サーバーを既に設定している場合は、それ
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * この機能は macOS と Windows Subsystem for Linux (WSL) でのみ機能します
-  * これらのプラットフォームの標準的な場所から Claude Desktop 設定ファイルを読み取ります
-  * `--scope user` フラグを使用して、ユーザー設定にサーバーを追加します
-  * インポートされたサーバーは Claude Desktop と同じ名前を持ちます
-  * 同じ名前のサーバーが既に存在する場合、数値サフィックスが付けられます（例：`server_1`）
+  * This feature only works on macOS and Windows Subsystem for Linux (WSL)
+  * It reads the Claude Desktop configuration file from its standard location on those platforms
+  * Use the `--scope user` flag to add servers to your user configuration
+  * Imported servers will have the same names as in Claude Desktop
+  * If servers with the same names already exist, they will get a numerical suffix (for example, `server_1`)
 </Tip>
 
-## Claude Code を MCP サーバーとして使用する
+## Use Claude Code as an MCP server
 
-Claude Code 自体を MCP サーバーとして使用でき、他のアプリケーションがそれに接続できます：
+You can use Claude Code itself as an MCP server that other applications can connect to:
 
 ```bash  theme={null}
-# Claude を stdio MCP サーバーとして起動する
+# Start Claude as a stdio MCP server
 claude mcp serve
 ```
 
-これを Claude Desktop で使用するには、この設定を claude\_desktop\_config.json に追加します：
+You can use this in Claude Desktop by adding this configuration to claude\_desktop\_config.json:
 
 ```json  theme={null}
 {
@@ -681,15 +691,15 @@ claude mcp serve
 ```
 
 <Warning>
-  **実行可能ファイル パスの設定**: `command` フィールドは Claude Code 実行可能ファイルを参照する必要があります。`claude` コマンドがシステムの PATH にない場合は、実行可能ファイルへの完全なパスを指定する必要があります。
+  **Configuring the executable path**: The `command` field must reference the Claude Code executable. If the `claude` command is not in your system's PATH, you'll need to specify the full path to the executable.
 
-  完全なパスを見つけるには：
+  To find the full path:
 
   ```bash  theme={null}
   which claude
   ```
 
-  次に、設定で完全なパスを使用します：
+  Then use the full path in your configuration:
 
   ```json  theme={null}
   {
@@ -704,56 +714,56 @@ claude mcp serve
   }
   ```
 
-  正しい実行可能ファイル パスがない場合、`spawn claude ENOENT` などのエラーが発生します。
+  Without the correct executable path, you'll encounter errors like `spawn claude ENOENT`.
 </Warning>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * サーバーは View、Edit、LS などの Claude のツールへのアクセスを提供します
-  * Claude Desktop で、Claude にディレクトリ内のファイルを読み取り、編集などを行うよう依頼してみてください。
-  * この MCP サーバーは単に Claude Code のツールを MCP クライアントに公開しているため、独自のクライアントは個々のツール呼び出しのユーザー確認を実装する責任があります。
+  * The server provides access to Claude's tools like View, Edit, LS, etc.
+  * In Claude Desktop, try asking Claude to read files in a directory, make edits, and more.
+  * Note that this MCP server is only exposing Claude Code's tools to your MCP client, so your own client is responsible for implementing user confirmation for individual tool calls.
 </Tip>
 
-## MCP 出力制限と警告
+## MCP output limits and warnings
 
-MCP ツールが大きな出力を生成する場合、Claude Code はトークン使用量を管理して会話コンテキストを圧倒しないようにするのに役立ちます：
+When MCP tools produce large outputs, Claude Code helps manage the token usage to prevent overwhelming your conversation context:
 
-* **出力警告しきい値**: Claude Code は MCP ツール出力が 10,000 トークンを超える場合に警告を表示します
-* **設定可能な制限**: `MAX_MCP_OUTPUT_TOKENS` 環境変数を使用して、許可される最大 MCP 出力トークンを調整できます
-* **デフォルト制限**: デフォルトの最大値は 25,000 トークンです
+* **Output warning threshold**: Claude Code displays a warning when any MCP tool output exceeds 10,000 tokens
+* **Configurable limit**: You can adjust the maximum allowed MCP output tokens using the `MAX_MCP_OUTPUT_TOKENS` environment variable
+* **Default limit**: The default maximum is 25,000 tokens
 
-大きな出力を生成するツールの制限を増やすには：
+To increase the limit for tools that produce large outputs:
 
 ```bash  theme={null}
-# MCP ツール出力の制限を高くする
+# Set a higher limit for MCP tool outputs
 export MAX_MCP_OUTPUT_TOKENS=50000
 claude
 ```
 
-これは特に以下を行う MCP サーバーで作業する場合に便利です：
+This is particularly useful when working with MCP servers that:
 
-* 大規模なデータセットまたはデータベースをクエリする
-* 詳細なレポートまたはドキュメントを生成する
-* 広範なログ ファイルまたはデバッグ情報を処理する
+* Query large datasets or databases
+* Generate detailed reports or documentation
+* Process extensive log files or debugging information
 
 <Warning>
-  特定の MCP サーバーで出力警告が頻繁に発生する場合は、制限を増やすか、サーバーをページネーションまたはフィルタリング応答するように設定することを検討してください。
+  If you frequently encounter output warnings with specific MCP servers, consider increasing the limit or configuring the server to paginate or filter its responses.
 </Warning>
 
-## MCP リソースを使用する
+## Use MCP resources
 
-MCP サーバーはリソースを公開でき、ファイルを参照する方法と同様に @ メンションを使用して参照できます。
+MCP servers can expose resources that you can reference using @ mentions, similar to how you reference files.
 
-### MCP リソースを参照する
+### Reference MCP resources
 
 <Steps>
-  <Step title="利用可能なリソースをリストする">
-    プロンプトで `@` を入力して、接続されているすべての MCP サーバーから利用可能なリソースを表示します。リソースはオートコンプリート メニューのファイルと一緒に表示されます。
+  <Step title="List available resources">
+    Type `@` in your prompt to see available resources from all connected MCP servers. Resources appear alongside files in the autocomplete menu.
   </Step>
 
-  <Step title="特定のリソースを参照する">
-    `@server:protocol://resource/path` 形式を使用してリソースを参照します：
+  <Step title="Reference a specific resource">
+    Use the format `@server:protocol://resource/path` to reference a resource:
 
     ```
     > Can you analyze @github:issue://123 and suggest a fix?
@@ -764,8 +774,8 @@ MCP サーバーはリソースを公開でき、ファイルを参照する方�
     ```
   </Step>
 
-  <Step title="複数のリソース参照">
-    1 つのプロンプトで複数のリソースを参照できます：
+  <Step title="Multiple resource references">
+    You can reference multiple resources in a single prompt:
 
     ```
     > Compare @postgres:schema://users with @docs:file://database/user-model
@@ -774,33 +784,33 @@ MCP サーバーはリソースを公開でき、ファイルを参照する方�
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * リソースは参照されるときに自動的に取得され、添付ファイルとして含まれます
-  * リソース パスは @ メンション オートコンプリートでファジー検索可能です
-  * Claude Code は、サーバーがサポートしている場合、MCP リソースをリストおよび読み取るツールを自動的に提供します
-  * リソースには、MCP サーバーが提供するあらゆるタイプのコンテンツ（テキスト、JSON、構造化データなど）を含めることができます
+  * Resources are automatically fetched and included as attachments when referenced
+  * Resource paths are fuzzy-searchable in the @ mention autocomplete
+  * Claude Code automatically provides tools to list and read MCP resources when servers support them
+  * Resources can contain any type of content that the MCP server provides (text, JSON, structured data, etc.)
 </Tip>
 
-## MCP プロンプトをスラッシュ コマンドとして使用する
+## Use MCP prompts as slash commands
 
-MCP サーバーはプロンプトを公開でき、Claude Code でスラッシュ コマンドとして利用可能になります。
+MCP servers can expose prompts that become available as slash commands in Claude Code.
 
-### MCP プロンプトを実行する
+### Execute MCP prompts
 
 <Steps>
-  <Step title="利用可能なプロンプトを発見する">
-    `/` を入力して、MCP サーバーからのプロンプトを含むすべての利用可能なコマンドを表示します。MCP プロンプトは `/mcp__servername__promptname` 形式で表示されます。
+  <Step title="Discover available prompts">
+    Type `/` to see all available commands, including those from MCP servers. MCP prompts appear with the format `/mcp__servername__promptname`.
   </Step>
 
-  <Step title="引数なしでプロンプトを実行する">
+  <Step title="Execute a prompt without arguments">
     ```
     > /mcp__github__list_prs
     ```
   </Step>
 
-  <Step title="引数を使用してプロンプトを実行する">
-    多くのプロンプトは引数を受け入れます。コマンドの後にスペース区切りで渡します：
+  <Step title="Execute a prompt with arguments">
+    Many prompts accept arguments. Pass them space-separated after the command:
 
     ```
     > /mcp__github__pr_review 456
@@ -813,31 +823,42 @@ MCP サーバーはプロンプトを公開でき、Claude Code でスラッシ�
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * MCP プロンプトは接続されているサーバーから動的に発見されます
-  * 引数はプロンプトの定義されたパラメータに基づいて解析されます
-  * プロンプト結果は会話に直接挿入されます
-  * サーバーとプロンプト名は正規化されます（スペースはアンダースコアになります）
+  * MCP prompts are dynamically discovered from connected servers
+  * Arguments are parsed based on the prompt's defined parameters
+  * Prompt results are injected directly into the conversation
+  * Server and prompt names are normalized (spaces become underscores)
 </Tip>
 
-## エンタープライズ MCP 設定
+## Enterprise MCP configuration
 
-MCP サーバーの一元管理が必要な組織の場合、Claude Code はエンタープライズ管理の MCP 設定をサポートしています。これにより、IT 管理者は以下のことができます：
+For organizations that need centralized control over MCP servers, Claude Code supports two enterprise configuration options:
 
-* **従業員がアクセスできる MCP サーバーを制御する**: 組織全体で承認された MCP サーバーの標準化されたセットをデプロイします
-* **不正な MCP サーバーを防止する**: オプションで、ユーザーが独自の MCP サーバーを追加することを制限します
-* **MCP を完全に無効にする**: 必要に応じて MCP 機能を完全に削除します
+1. **Exclusive control with `managed-mcp.json`**: Deploy a fixed set of MCP servers that users cannot modify or extend
+2. **Policy-based control with allowlists/denylists**: Allow users to add their own servers, but restrict which ones are permitted
 
-### エンタープライズ MCP 設定のセットアップ
+These options allow IT administrators to:
 
-システム管理者は、管理設定ファイルと一緒にエンタープライズ MCP 設定ファイルをデプロイできます：
+* **Control which MCP servers employees can access**: Deploy a standardized set of approved MCP servers across the organization
+* **Prevent unauthorized MCP servers**: Restrict users from adding unapproved MCP servers
+* **Disable MCP entirely**: Remove MCP functionality completely if needed
 
-* **macOS**: `/Library/Application Support/ClaudeCode/managed-mcp.json`
-* **Windows**: `C:\ProgramData\ClaudeCode\managed-mcp.json`
-* **Linux**: `/etc/claude-code/managed-mcp.json`
+### Option 1: Exclusive control with managed-mcp.json
 
-`managed-mcp.json` ファイルは標準の `.mcp.json` ファイルと同じ形式を使用します：
+When you deploy a `managed-mcp.json` file, it takes **exclusive control** over all MCP servers. Users cannot add, modify, or use any MCP servers other than those defined in this file. This is the simplest approach for organizations that want complete control.
+
+System administrators deploy the configuration file to a system-wide directory:
+
+* macOS: `/Library/Application Support/ClaudeCode/managed-mcp.json`
+* Linux and WSL: `/etc/claude-code/managed-mcp.json`
+* Windows: `C:\Program Files\ClaudeCode\managed-mcp.json`
+
+<Note>
+  These are system-wide paths (not user home directories like `~/Library/...`) that require administrator privileges. They are designed to be deployed by IT administrators.
+</Note>
+
+The `managed-mcp.json` file uses the same format as a standard `.mcp.json` file:
 
 ```json  theme={null}
 {
@@ -862,46 +883,180 @@ MCP サーバーの一元管理が必要な組織の場合、Claude Code はエ�
 }
 ```
 
-### 許可リストと拒否リストで MCP サーバーを制限する
+### Option 2: Policy-based control with allowlists and denylists
 
-エンタープライズ管理サーバーの提供に加えて、管理者は `managed-settings.json` ファイルの `allowedMcpServers` と `deniedMcpServers` を使用して、ユーザーが設定できる MCP サーバーを制御できます：
+Instead of taking exclusive control, administrators can allow users to configure their own MCP servers while enforcing restrictions on which servers are permitted. This approach uses `allowedMcpServers` and `deniedMcpServers` in the [managed settings file](/en/settings#settings-files).
 
-* **macOS**: `/Library/Application Support/ClaudeCode/managed-settings.json`
-* **Windows**: `C:\ProgramData\ClaudeCode\managed-settings.json`
-* **Linux**: `/etc/claude-code/managed-settings.json`
+<Note>
+  **Choosing between options**: Use Option 1 (`managed-mcp.json`) when you want to deploy a fixed set of servers with no user customization. Use Option 2 (allowlists/denylists) when you want to allow users to add their own servers within policy constraints.
+</Note>
+
+#### Restriction options
+
+Each entry in the allowlist or denylist can restrict servers in three ways:
+
+1. **By server name** (`serverName`): Matches the configured name of the server
+2. **By command** (`serverCommand`): Matches the exact command and arguments used to start stdio servers
+3. **By URL pattern** (`serverUrl`): Matches remote server URLs with wildcard support
+
+**Important**: Each entry must have exactly one of `serverName`, `serverCommand`, or `serverUrl`.
+
+#### Example configuration
 
 ```json  theme={null}
 {
   "allowedMcpServers": [
+    // Allow by server name
     { "serverName": "github" },
     { "serverName": "sentry" },
-    { "serverName": "company-internal" }
+
+    // Allow by exact command (for stdio servers)
+    { "serverCommand": ["npx", "-y", "@modelcontextprotocol/server-filesystem"] },
+    { "serverCommand": ["python", "/usr/local/bin/approved-server.py"] },
+
+    // Allow by URL pattern (for remote servers)
+    { "serverUrl": "https://mcp.company.com/*" },
+    { "serverUrl": "https://*.internal.corp/*" }
   ],
   "deniedMcpServers": [
-    { "serverName": "filesystem" }
+    // Block by server name
+    { "serverName": "dangerous-server" },
+
+    // Block by exact command (for stdio servers)
+    { "serverCommand": ["npx", "-y", "unapproved-package"] },
+
+    // Block by URL pattern (for remote servers)
+    { "serverUrl": "https://*.untrusted.com/*" }
   ]
 }
 ```
 
-**許可リスト動作（`allowedMcpServers`）**：
+#### How command-based restrictions work
 
-* `undefined`（デフォルト）: 制限なし - ユーザーは任意の MCP サーバーを設定できます
-* 空の配列 `[]`: 完全なロックダウン - ユーザーは MCP サーバーを設定できません
-* サーバー名のリスト: ユーザーは指定されたサーバーのみを設定できます
+**Exact matching**:
 
-**拒否リスト動作（`deniedMcpServers`）**：
+* Command arrays must match **exactly** - both the command and all arguments in the correct order
+* Example: `["npx", "-y", "server"]` will NOT match `["npx", "server"]` or `["npx", "-y", "server", "--flag"]`
 
-* `undefined`（デフォルト）: サーバーはブロックされません
-* 空の配列 `[]`: サーバーはブロックされません
-* サーバー名のリスト: 指定されたサーバーはすべてのスコープ全体で明示的にブロックされます
+**Stdio server behavior**:
 
-**重要な注意**：
+* When the allowlist contains **any** `serverCommand` entries, stdio servers **must** match one of those commands
+* Stdio servers cannot pass by name alone when command restrictions are present
+* This ensures administrators can enforce which commands are allowed to run
 
-* これらの制限はすべてのスコープに適用されます：ユーザー、プロジェクト、ローカル、および `managed-mcp.json` からのエンタープライズ サーバーでも
-* **拒否リストは絶対的な優先順位を持ちます**: サーバーが両方のリストに表示される場合、ブロックされます
+**Non-stdio server behavior**:
+
+* Remote servers (HTTP, SSE, WebSocket) use URL-based matching when `serverUrl` entries exist in the allowlist
+* If no URL entries exist, remote servers fall back to name-based matching
+* Command restrictions do not apply to remote servers
+
+#### How URL-based restrictions work
+
+URL patterns support wildcards using `*` to match any sequence of characters. This is useful for allowing entire domains or subdomains.
+
+**Wildcard examples**:
+
+* `https://mcp.company.com/*` - Allow all paths on a specific domain
+* `https://*.example.com/*` - Allow any subdomain of example.com
+* `http://localhost:*/*` - Allow any port on localhost
+
+**Remote server behavior**:
+
+* When the allowlist contains **any** `serverUrl` entries, remote servers **must** match one of those URL patterns
+* Remote servers cannot pass by name alone when URL restrictions are present
+* This ensures administrators can enforce which remote endpoints are allowed
+
+<Accordion title="Example: URL-only allowlist">
+  ```json  theme={null}
+  {
+    "allowedMcpServers": [
+      { "serverUrl": "https://mcp.company.com/*" },
+      { "serverUrl": "https://*.internal.corp/*" }
+    ]
+  }
+  ```
+
+  **Result**:
+
+  * HTTP server at `https://mcp.company.com/api`: ✅ Allowed (matches URL pattern)
+  * HTTP server at `https://api.internal.corp/mcp`: ✅ Allowed (matches wildcard subdomain)
+  * HTTP server at `https://external.com/mcp`: ❌ Blocked (doesn't match any URL pattern)
+  * Stdio server with any command: ❌ Blocked (no name or command entries to match)
+</Accordion>
+
+<Accordion title="Example: Command-only allowlist">
+  ```json  theme={null}
+  {
+    "allowedMcpServers": [
+      { "serverCommand": ["npx", "-y", "approved-package"] }
+    ]
+  }
+  ```
+
+  **Result**:
+
+  * Stdio server with `["npx", "-y", "approved-package"]`: ✅ Allowed (matches command)
+  * Stdio server with `["node", "server.js"]`: ❌ Blocked (doesn't match command)
+  * HTTP server named "my-api": ❌ Blocked (no name entries to match)
+</Accordion>
+
+<Accordion title="Example: Mixed name and command allowlist">
+  ```json  theme={null}
+  {
+    "allowedMcpServers": [
+      { "serverName": "github" },
+      { "serverCommand": ["npx", "-y", "approved-package"] }
+    ]
+  }
+  ```
+
+  **Result**:
+
+  * Stdio server named "local-tool" with `["npx", "-y", "approved-package"]`: ✅ Allowed (matches command)
+  * Stdio server named "local-tool" with `["node", "server.js"]`: ❌ Blocked (command entries exist but doesn't match)
+  * Stdio server named "github" with `["node", "server.js"]`: ❌ Blocked (stdio servers must match commands when command entries exist)
+  * HTTP server named "github": ✅ Allowed (matches name)
+  * HTTP server named "other-api": ❌ Blocked (name doesn't match)
+</Accordion>
+
+<Accordion title="Example: Name-only allowlist">
+  ```json  theme={null}
+  {
+    "allowedMcpServers": [
+      { "serverName": "github" },
+      { "serverName": "internal-tool" }
+    ]
+  }
+  ```
+
+  **Result**:
+
+  * Stdio server named "github" with any command: ✅ Allowed (no command restrictions)
+  * Stdio server named "internal-tool" with any command: ✅ Allowed (no command restrictions)
+  * HTTP server named "github": ✅ Allowed (matches name)
+  * Any server named "other": ❌ Blocked (name doesn't match)
+</Accordion>
+
+#### Allowlist behavior (`allowedMcpServers`)
+
+* `undefined` (default): No restrictions - users can configure any MCP server
+* Empty array `[]`: Complete lockdown - users cannot configure any MCP servers
+* List of entries: Users can only configure servers that match by name, command, or URL pattern
+
+#### Denylist behavior (`deniedMcpServers`)
+
+* `undefined` (default): No servers are blocked
+* Empty array `[]`: No servers are blocked
+* List of entries: Specified servers are explicitly blocked across all scopes
+
+#### Important notes
+
+* **Option 1 and Option 2 can be combined**: If `managed-mcp.json` exists, it has exclusive control and users cannot add servers. Allowlists/denylists still apply to the enterprise servers themselves.
+* **Denylist takes absolute precedence**: If a server matches a denylist entry (by name, command, or URL), it will be blocked even if it's on the allowlist
+* Name-based, command-based, and URL-based restrictions work together: a server passes if it matches **either** a name entry, a command entry, or a URL pattern (unless blocked by denylist)
 
 <Note>
-  **エンタープライズ設定の優先順位**: エンタープライズ MCP 設定は最高の優先順位を持ち、ユーザー、ローカル、またはプロジェクト設定でオーバーライドすることはできません。
+  **When using `managed-mcp.json`**: Users cannot add MCP servers through `claude mcp add` or configuration files. The `allowedMcpServers` and `deniedMcpServers` settings still apply to filter which enterprise servers are actually loaded.
 </Note>
 
 

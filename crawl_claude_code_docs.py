@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Claude Code 日本語ドキュメント (https://code.claude.com/docs/ja/) を巡回し、
+Claude Code 公式ドキュメント (https://code.claude.com/docs/en/) を巡回し、
 対応する .md を取得してリポジトリの docs/ 配下に保存します。
-- 例: https://code.claude.com/docs/ja/sub-agents  -> docs/ja/sub-agents.md
-- 例: https://code.claude.com/docs/ja/            -> docs/ja/index.md
+- 例: https://code.claude.com/docs/en/sub-agents  -> docs/en/sub-agents.md
+- 例: https://code.claude.com/docs/en/            -> docs/en/index.md
 """
 
 import hashlib
@@ -19,7 +19,7 @@ import requests
 from bs4 import BeautifulSoup
 
 BASE = "https://code.claude.com"
-START_PATH = "/docs/ja/"
+START_PATH = "/docs/en/"
 START_URL = urljoin(BASE, START_PATH)
 OUTPUT_ROOT = pathlib.Path("claude-code-docs")
 TIMEOUT = 120
@@ -30,32 +30,32 @@ HEADERS = {
 }
 
 
-# 収集対象: /docs/ja/ 以下（クエリ・フラグメントは除外）
+# 収集対象: /docs/en/ 以下（クエリ・フラグメントは除外）
 def is_target_path(url: str) -> bool:
     try:
         p = urlparse(url)
         if p.netloc and p.netloc != urlparse(BASE).netloc:
             return False
         path = p.path or ""
-        return path.startswith("/docs/ja/")
+        return path.startswith("/docs/en/")
     except Exception:
         return False
 
 
-# 出力ファイルパス: /docs/ja/foo -> docs/ja/foo.md
+# 出力ファイルパス: /docs/en/foo -> docs/en/foo.md
 def to_output_path(path: str) -> Optional[pathlib.Path]:
     path = path.rstrip("/")
 
     # ルートは保存しない
-    if path in ("/docs/ja", "/docs/ja/"):
+    if path in ("/docs/en", "/docs/en/"):
         return None
 
     # 末尾 .md を除去（念のため）
     path = re.sub(r"\.md$", "", path)
 
-    # /docs/ja/ のプレフィックスを落として相対パス化
-    if path.startswith("/docs/ja/"):
-        rel = path[len("/docs/ja/") :]
+    # /docs/en/ のプレフィックスを落として相対パス化
+    if path.startswith("/docs/en/"):
+        rel = path[len("/docs/en/") :]
     elif path.startswith("/docs/"):
         # 念のためのフォールバック（将来他言語を取りたい場合など）
         rel = path[len("/docs/") :]
@@ -93,7 +93,7 @@ def normalize_href(href: str, base: str) -> str:
 
 
 def collect_paths() -> set[str]:
-    """/docs/ja/ 以下のHTMLを辿って内部リンクのパス集合を作る。"""
+    """/docs/en/ 以下のHTMLを辿って内部リンクのパス集合を作る。"""
     seen = set()
     queue = [START_URL]
 
@@ -131,8 +131,8 @@ def collect_paths() -> set[str]:
 
 
 def fetch_markdown_for_path(path: str) -> tuple[int, bytes | None]:
-    if path.rstrip("/") in ("/docs/ja", "/docs/ja/"):
-        md_url = urljoin(BASE, "/docs/ja.md")  # 一応試す（多くは404）
+    if path.rstrip("/") in ("/docs/en", "/docs/en/"):
+        md_url = urljoin(BASE, "/docs/en.md")  # 一応試す（多くは404）
         r = fetch(md_url)
         if r.status_code == 200 and "text/markdown" in r.headers.get(
             "Content-Type", ""
@@ -141,7 +141,7 @@ def fetch_markdown_for_path(path: str) -> tuple[int, bytes | None]:
         # ルートは通常、個別 .md 化されていない想定。代替としてHTML→簡易Headerを付けて保存
         r = fetch(START_URL)
         if r.status_code == 200:
-            fallback = f"# Claude Code ドキュメント（日本語トップ）\n\n元URL: {START_URL}\n".encode(
+            fallback = f"# Claude Code ドキュメント\n\n元URL: {START_URL}\n".encode(
                 "utf-8"
             )
             return 200, fallback
@@ -159,7 +159,7 @@ def main():
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
 
-    logging.info("Collecting paths under /docs/ja/ ...")
+    logging.info("Collecting paths under /docs/en/ ...")
     paths = sorted(collect_paths())
     logging.info(f"Found {len(paths)} html paths.")
 

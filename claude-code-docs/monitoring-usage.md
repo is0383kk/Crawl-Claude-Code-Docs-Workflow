@@ -1,59 +1,49 @@
-# モニタリング
+# Monitoring
 
-> Claude Codeに対してOpenTelemetryを有効にして設定する方法を学びます。
+> Learn how to enable and configure OpenTelemetry for Claude Code.
 
-Claude Codeはモニタリングと可観測性のためにOpenTelemetry (OTel)メトリクスとイベントをサポートしています。
+Claude Code supports OpenTelemetry (OTel) metrics and events for monitoring and observability.
 
-すべてのメトリクスはOpenTelemetryの標準メトリクスプロトコルを介してエクスポートされる時系列データであり、イベントはOpenTelemetryのログ/イベントプロトコルを介してエクスポートされます。メトリクスとログのバックエンドが適切に設定されており、集約の粒度がモニタリング要件を満たしていることを確認するのはユーザーの責任です。
+All metrics are time series data exported via OpenTelemetry's standard metrics protocol, and events are exported via OpenTelemetry's logs/events protocol. It is the user's responsibility to ensure their metrics and logs backends are properly configured and that the aggregation granularity meets their monitoring requirements.
 
-<Note>
-  OpenTelemetryサポートは現在ベータ版であり、詳細は変更される可能性があります。
-</Note>
+## Quick start
 
-## クイックスタート
-
-環境変数を使用してOpenTelemetryを設定します:
+Configure OpenTelemetry using environment variables:
 
 ```bash  theme={null}
-# 1. テレメトリを有効にする
+# 1. Enable telemetry
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 
-# 2. エクスポーターを選択する (両方はオプション - 必要なものだけを設定してください)
-export OTEL_METRICS_EXPORTER=otlp       # オプション: otlp, prometheus, console
-export OTEL_LOGS_EXPORTER=otlp          # オプション: otlp, console
+# 2. Choose exporters (both are optional - configure only what you need)
+export OTEL_METRICS_EXPORTER=otlp       # Options: otlp, prometheus, console
+export OTEL_LOGS_EXPORTER=otlp          # Options: otlp, console
 
-# 3. OTLPエンドポイントを設定する (OTLPエクスポーター用)
+# 3. Configure OTLP endpoint (for OTLP exporter)
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 
-# 4. 認証を設定する (必要な場合)
+# 4. Set authentication (if required)
 export OTEL_EXPORTER_OTLP_HEADERS="Authorization=Bearer your-token"
 
-# 5. デバッグ用: エクスポート間隔を短縮する
-export OTEL_METRIC_EXPORT_INTERVAL=10000  # 10秒 (デフォルト: 60000ms)
-export OTEL_LOGS_EXPORT_INTERVAL=5000     # 5秒 (デフォルト: 5000ms)
+# 5. For debugging: reduce export intervals
+export OTEL_METRIC_EXPORT_INTERVAL=10000  # 10 seconds (default: 60000ms)
+export OTEL_LOGS_EXPORT_INTERVAL=5000     # 5 seconds (default: 5000ms)
 
-# 6. Claude Codeを実行する
+# 6. Run Claude Code
 claude
 ```
 
 <Note>
-  デフォルトのエクスポート間隔はメトリクスで60秒、ログで5秒です。セットアップ中は、デバッグ目的でより短い間隔を使用したい場合があります。本番環境での使用のためにこれらをリセットすることを忘れないでください。
+  The default export intervals are 60 seconds for metrics and 5 seconds for logs. During setup, you may want to use shorter intervals for debugging purposes. Remember to reset these for production use.
 </Note>
 
-完全な設定オプションについては、[OpenTelemetry仕様](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/exporter.md#configuration-options)を参照してください。
+For full configuration options, see the [OpenTelemetry specification](https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/protocol/exporter.md#configuration-options).
 
-## 管理者設定
+## Administrator configuration
 
-管理者は、管理設定ファイルを通じてすべてのユーザーのOpenTelemetry設定を設定できます。これにより、組織全体のテレメトリ設定を一元的に制御できます。設定がどのように適用されるかについての詳細は、[設定の優先順位](/ja/settings#settings-precedence)を参照してください。
+Administrators can configure OpenTelemetry settings for all users through the [managed settings file](/en/settings#settings-files). This allows for centralized control of telemetry settings across an organization. See the [settings precedence](/en/settings#settings-precedence) for more information about how settings are applied.
 
-管理設定ファイルは以下の場所にあります:
-
-* macOS: `/Library/Application Support/ClaudeCode/managed-settings.json`
-* Linux and WSL: `/etc/claude-code/managed-settings.json`
-* Windows: `C:\ProgramData\ClaudeCode\managed-settings.json`
-
-管理設定設定の例:
+Example managed settings configuration:
 
 ```json  theme={null}
 {
@@ -69,50 +59,51 @@ claude
 ```
 
 <Note>
-  管理設定はMDM (Mobile Device Management)または他のデバイス管理ソリューションを通じて配布できます。管理設定ファイルで定義された環境変数は優先度が高く、ユーザーによってオーバーライドすることはできません。
+  Managed settings can be distributed via MDM (Mobile Device Management) or other device management solutions. Environment variables defined in the managed settings file have high precedence and cannot be overridden by users.
 </Note>
 
-## 設定の詳細
+## Configuration details
 
-### 一般的な設定変数
+### Common configuration variables
 
-| 環境変数                                            | 説明                                  | 例の値                                  |
-| ----------------------------------------------- | ----------------------------------- | ------------------------------------ |
-| `CLAUDE_CODE_ENABLE_TELEMETRY`                  | テレメトリ収集を有効にする (必須)                  | `1`                                  |
-| `OTEL_METRICS_EXPORTER`                         | メトリクスエクスポーターのタイプ (カンマ区切り)           | `console`, `otlp`, `prometheus`      |
-| `OTEL_LOGS_EXPORTER`                            | ログ/イベントエクスポーターのタイプ (カンマ区切り)         | `console`, `otlp`                    |
-| `OTEL_EXPORTER_OTLP_PROTOCOL`                   | OTLPエクスポーターのプロトコル (すべてのシグナル)        | `grpc`, `http/json`, `http/protobuf` |
-| `OTEL_EXPORTER_OTLP_ENDPOINT`                   | OTLPコレクターエンドポイント (すべてのシグナル)         | `http://localhost:4317`              |
-| `OTEL_EXPORTER_OTLP_METRICS_PROTOCOL`           | メトリクスのプロトコル (一般的なものをオーバーライド)        | `grpc`, `http/json`, `http/protobuf` |
-| `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`           | OTLPメトリクスエンドポイント (一般的なものをオーバーライド)   | `http://localhost:4318/v1/metrics`   |
-| `OTEL_EXPORTER_OTLP_LOGS_PROTOCOL`              | ログのプロトコル (一般的なものをオーバーライド)           | `grpc`, `http/json`, `http/protobuf` |
-| `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT`              | OTLPログエンドポイント (一般的なものをオーバーライド)      | `http://localhost:4318/v1/logs`      |
-| `OTEL_EXPORTER_OTLP_HEADERS`                    | OTLPの認証ヘッダー                         | `Authorization=Bearer token`         |
-| `OTEL_EXPORTER_OTLP_METRICS_CLIENT_KEY`         | mTLS認証用のクライアントキー                    | クライアントキーファイルへのパス                     |
-| `OTEL_EXPORTER_OTLP_METRICS_CLIENT_CERTIFICATE` | mTLS認証用のクライアント証明書                   | クライアント証明書ファイルへのパス                    |
-| `OTEL_METRIC_EXPORT_INTERVAL`                   | エクスポート間隔 (ミリ秒) (デフォルト: 60000)       | `5000`, `60000`                      |
-| `OTEL_LOGS_EXPORT_INTERVAL`                     | ログエクスポート間隔 (ミリ秒) (デフォルト: 5000)      | `1000`, `10000`                      |
-| `OTEL_LOG_USER_PROMPTS`                         | ユーザープロンプトコンテンツのログを有効にする (デフォルト: 無効) | `1` で有効にする                           |
+| Environment Variable                            | Description                                                               | Example Values                       |
+| ----------------------------------------------- | ------------------------------------------------------------------------- | ------------------------------------ |
+| `CLAUDE_CODE_ENABLE_TELEMETRY`                  | Enables telemetry collection (required)                                   | `1`                                  |
+| `OTEL_METRICS_EXPORTER`                         | Metrics exporter type(s) (comma-separated)                                | `console`, `otlp`, `prometheus`      |
+| `OTEL_LOGS_EXPORTER`                            | Logs/events exporter type(s) (comma-separated)                            | `console`, `otlp`                    |
+| `OTEL_EXPORTER_OTLP_PROTOCOL`                   | Protocol for OTLP exporter (all signals)                                  | `grpc`, `http/json`, `http/protobuf` |
+| `OTEL_EXPORTER_OTLP_ENDPOINT`                   | OTLP collector endpoint (all signals)                                     | `http://localhost:4317`              |
+| `OTEL_EXPORTER_OTLP_METRICS_PROTOCOL`           | Protocol for metrics (overrides general)                                  | `grpc`, `http/json`, `http/protobuf` |
+| `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`           | OTLP metrics endpoint (overrides general)                                 | `http://localhost:4318/v1/metrics`   |
+| `OTEL_EXPORTER_OTLP_LOGS_PROTOCOL`              | Protocol for logs (overrides general)                                     | `grpc`, `http/json`, `http/protobuf` |
+| `OTEL_EXPORTER_OTLP_LOGS_ENDPOINT`              | OTLP logs endpoint (overrides general)                                    | `http://localhost:4318/v1/logs`      |
+| `OTEL_EXPORTER_OTLP_HEADERS`                    | Authentication headers for OTLP                                           | `Authorization=Bearer token`         |
+| `OTEL_EXPORTER_OTLP_METRICS_CLIENT_KEY`         | Client key for mTLS authentication                                        | Path to client key file              |
+| `OTEL_EXPORTER_OTLP_METRICS_CLIENT_CERTIFICATE` | Client certificate for mTLS authentication                                | Path to client cert file             |
+| `OTEL_METRIC_EXPORT_INTERVAL`                   | Export interval in milliseconds (default: 60000)                          | `5000`, `60000`                      |
+| `OTEL_LOGS_EXPORT_INTERVAL`                     | Logs export interval in milliseconds (default: 5000)                      | `1000`, `10000`                      |
+| `OTEL_LOG_USER_PROMPTS`                         | Enable logging of user prompt content (default: disabled)                 | `1` to enable                        |
+| `CLAUDE_CODE_OTEL_HEADERS_HELPER_DEBOUNCE_MS`   | Interval for refreshing dynamic headers (default: 1740000ms / 29 minutes) | `900000`                             |
 
-### メトリクスカーディナリティ制御
+### Metrics cardinality control
 
-以下の環境変数は、カーディナリティを管理するためにメトリクスに含まれる属性を制御します:
+The following environment variables control which attributes are included in metrics to manage cardinality:
 
-| 環境変数                                | 説明                             | デフォルト値  | 無効にする例  |
-| ----------------------------------- | ------------------------------ | ------- | ------- |
-| `OTEL_METRICS_INCLUDE_SESSION_ID`   | メトリクスにsession.id属性を含める         | `true`  | `false` |
-| `OTEL_METRICS_INCLUDE_VERSION`      | メトリクスにapp.version属性を含める        | `false` | `true`  |
-| `OTEL_METRICS_INCLUDE_ACCOUNT_UUID` | メトリクスにuser.account\_uuid属性を含める | `true`  | `false` |
+| Environment Variable                | Description                                     | Default Value | Example to Disable |
+| ----------------------------------- | ----------------------------------------------- | ------------- | ------------------ |
+| `OTEL_METRICS_INCLUDE_SESSION_ID`   | Include session.id attribute in metrics         | `true`        | `false`            |
+| `OTEL_METRICS_INCLUDE_VERSION`      | Include app.version attribute in metrics        | `false`       | `true`             |
+| `OTEL_METRICS_INCLUDE_ACCOUNT_UUID` | Include user.account\_uuid attribute in metrics | `true`        | `false`            |
 
-これらの変数はメトリクスのカーディナリティを制御するのに役立ちます。これはメトリクスバックエンドのストレージ要件とクエリパフォーマンスに影響します。カーディナリティが低いほど、一般的にパフォーマンスが向上し、ストレージコストが低くなりますが、分析のためのデータの粒度が低くなります。
+These variables help control the cardinality of metrics, which affects storage requirements and query performance in your metrics backend. Lower cardinality generally means better performance and lower storage costs but less granular data for analysis.
 
-### 動的ヘッダー
+### Dynamic headers
 
-動的認証が必要なエンタープライズ環境では、ヘッダーを動的に生成するスクリプトを設定できます:
+For enterprise environments that require dynamic authentication, you can configure a script to generate headers dynamically:
 
-#### 設定の設定
+#### Settings configuration
 
-`.claude/settings.json`に追加します:
+Add to your `.claude/settings.json`:
 
 ```json  theme={null}
 {
@@ -120,69 +111,67 @@ claude
 }
 ```
 
-#### スクリプト要件
+#### Script requirements
 
-スクリプトはHTTPヘッダーを表す文字列キーと値のペアを持つ有効なJSONを出力する必要があります:
+The script must output valid JSON with string key-value pairs representing HTTP headers:
 
 ```bash  theme={null}
 #!/bin/bash
-# 例: 複数のヘッダー
+# Example: Multiple headers
 echo "{\"Authorization\": \"Bearer $(get-token.sh)\", \"X-API-Key\": \"$(get-api-key.sh)\"}"
 ```
 
-#### 重要な制限事項
+#### Refresh behavior
 
-**ヘッダーはスタートアップ時にのみ取得され、実行時には取得されません。** これはOpenTelemetryエクスポーターアーキテクチャの制限によるものです。
+The headers helper script runs at startup and periodically thereafter to support token refresh. By default, the script runs every 29 minutes. Customize the interval with the `CLAUDE_CODE_OTEL_HEADERS_HELPER_DEBOUNCE_MS` environment variable.
 
-頻繁なトークンリフレッシュが必要なシナリオでは、OpenTelemetry Collectorをプロキシとして使用して、独自のヘッダーをリフレッシュできます。
+### Multi-team organization support
 
-### マルチチーム組織サポート
-
-複数のチームまたは部門を持つ組織は、`OTEL_RESOURCE_ATTRIBUTES`環境変数を使用してカスタム属性を追加して、異なるグループを区別できます:
+Organizations with multiple teams or departments can add custom attributes to distinguish between different groups using the `OTEL_RESOURCE_ATTRIBUTES` environment variable:
 
 ```bash  theme={null}
-# チーム識別用のカスタム属性を追加する
+# Add custom attributes for team identification
 export OTEL_RESOURCE_ATTRIBUTES="department=engineering,team.id=platform,cost_center=eng-123"
 ```
 
-これらのカスタム属性はすべてのメトリクスとイベントに含まれ、以下を可能にします:
+These custom attributes will be included in all metrics and events, allowing you to:
 
-* チームまたは部門別にメトリクスをフィルタリングする
-* コストセンターごとのコストを追跡する
-* チーム固有のダッシュボードを作成する
-* 特定のチームのアラートを設定する
+* Filter metrics by team or department
+* Track costs per cost center
+* Create team-specific dashboards
+* Set up alerts for specific teams
 
 <Warning>
-  **OTEL\_RESOURCE\_ATTRIBUTESの重要なフォーマット要件:**
+  **Important formatting requirements for OTEL\_RESOURCE\_ATTRIBUTES:**
 
-  `OTEL_RESOURCE_ATTRIBUTES`環境変数は[W3C Baggage仕様](https://www.w3.org/TR/baggage/)に従い、厳密なフォーマット要件があります:
+  The `OTEL_RESOURCE_ATTRIBUTES` environment variable follows the [W3C Baggage specification](https://www.w3.org/TR/baggage/), which has strict formatting requirements:
 
-  * **スペースは許可されません**: 値にスペースを含めることはできません。例えば、`user.organizationName=My Company`は無効です
-  * **フォーマット**: カンマ区切りのkey=valueペアである必要があります: `key1=value1,key2=value2`
-  * **許可される文字**: 制御文字、空白、二重引用符、カンマ、セミコロン、バックスラッシュを除くUS-ASCII文字のみ
-  * **特殊文字**: 許可される範囲外の文字はパーセントエンコードする必要があります
+  * **No spaces allowed**: Values cannot contain spaces. For example, `user.organizationName=My Company` is invalid
+  * **Format**: Must be comma-separated key=value pairs: `key1=value1,key2=value2`
+  * **Allowed characters**: Only US-ASCII characters excluding control characters, whitespace, double quotes, commas, semicolons, and backslashes
+  * **Special characters**: Characters outside the allowed range must be percent-encoded
 
-  **例:**
+  **Examples:**
 
   ```bash  theme={null}
-  # ❌ 無効 - スペースを含む
+  # ❌ Invalid - contains spaces
   export OTEL_RESOURCE_ATTRIBUTES="org.name=John's Organization"
 
-  # ✅ 有効 - 代わりにアンダースコアまたはキャメルケースを使用する
+  # ✅ Valid - use underscores or camelCase instead
   export OTEL_RESOURCE_ATTRIBUTES="org.name=Johns_Organization"
   export OTEL_RESOURCE_ATTRIBUTES="org.name=JohnsOrganization"
 
-  # ✅ 有効 - 必要に応じて特殊文字をパーセントエンコードする
+  # ✅ Valid - percent-encode special characters if needed
   export OTEL_RESOURCE_ATTRIBUTES="org.name=John%27s%20Organization"
   ```
 
-  注: キーと値のペア全体をクォートする (例: `"key=value with spaces"`)はOpenTelemetry仕様でサポートされておらず、属性がクォートで接頭辞付けされることになります。
+  Note: wrapping values in quotes doesn't escape spaces. For example, `org.name="My Company"` results in the literal value `"My Company"` (with quotes included), not `My Company`.
 </Warning>
 
-### 設定例
+### Example configurations
 
 ```bash  theme={null}
-# コンソールデバッグ (1秒間隔)
+# Console debugging (1-second intervals)
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=console
 export OTEL_METRIC_EXPORT_INTERVAL=1000
@@ -197,12 +186,12 @@ export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=prometheus
 
-# 複数のエクスポーター
+# Multiple exporters
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=console,otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
 
-# メトリクスとログの異なるエンドポイント/バックエンド
+# Different endpoints/backends for metrics and logs
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=otlp
 export OTEL_LOGS_EXPORTER=otlp
@@ -211,300 +200,300 @@ export OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://metrics.company.com:4318
 export OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://logs.company.com:4317
 
-# メトリクスのみ (イベント/ログなし)
+# Metrics only (no events/logs)
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_METRICS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 
-# イベント/ログのみ (メトリクスなし)
+# Events/logs only (no metrics)
 export CLAUDE_CODE_ENABLE_TELEMETRY=1
 export OTEL_LOGS_EXPORTER=otlp
 export OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 export OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317
 ```
 
-## 利用可能なメトリクスとイベント
+## Available metrics and events
 
-### 標準属性
+### Standard attributes
 
-すべてのメトリクスとイベントは、これらの標準属性を共有します:
+All metrics and events share these standard attributes:
 
-| 属性                  | 説明                                                    | 制御者                                               |
-| ------------------- | ----------------------------------------------------- | ------------------------------------------------- |
-| `session.id`        | 一意のセッション識別子                                           | `OTEL_METRICS_INCLUDE_SESSION_ID` (デフォルト: true)   |
-| `app.version`       | 現在のClaude Codeバージョン                                   | `OTEL_METRICS_INCLUDE_VERSION` (デフォルト: false)     |
-| `organization.id`   | 組織UUID (認証時)                                          | 利用可能な場合は常に含まれる                                    |
-| `user.account_uuid` | アカウントUUID (認証時)                                       | `OTEL_METRICS_INCLUDE_ACCOUNT_UUID` (デフォルト: true) |
-| `terminal.type`     | ターミナルタイプ (例: `iTerm.app`, `vscode`, `cursor`, `tmux`) | 検出された場合は常に含まれる                                    |
+| Attribute           | Description                                                          | Controlled By                                       |
+| ------------------- | -------------------------------------------------------------------- | --------------------------------------------------- |
+| `session.id`        | Unique session identifier                                            | `OTEL_METRICS_INCLUDE_SESSION_ID` (default: true)   |
+| `app.version`       | Current Claude Code version                                          | `OTEL_METRICS_INCLUDE_VERSION` (default: false)     |
+| `organization.id`   | Organization UUID (when authenticated)                               | Always included when available                      |
+| `user.account_uuid` | Account UUID (when authenticated)                                    | `OTEL_METRICS_INCLUDE_ACCOUNT_UUID` (default: true) |
+| `terminal.type`     | Terminal type (for example, `iTerm.app`, `vscode`, `cursor`, `tmux`) | Always included when detected                       |
 
-### メトリクス
+### Metrics
 
-Claude Codeは以下のメトリクスをエクスポートします:
+Claude Code exports the following metrics:
 
-| メトリクス名                                | 説明                   | ユニット   |
-| ------------------------------------- | -------------------- | ------ |
-| `claude_code.session.count`           | 開始されたCLIセッションの数      | count  |
-| `claude_code.lines_of_code.count`     | 変更されたコード行の数          | count  |
-| `claude_code.pull_request.count`      | 作成されたプルリクエストの数       | count  |
-| `claude_code.commit.count`            | 作成されたgitコミットの数       | count  |
-| `claude_code.cost.usage`              | Claude Codeセッションのコスト | USD    |
-| `claude_code.token.usage`             | 使用されたトークン数           | tokens |
-| `claude_code.code_edit_tool.decision` | コード編集ツールの権限決定の数      | count  |
-| `claude_code.active_time.total`       | 総アクティブ時間 (秒)         | s      |
+| Metric Name                           | Description                                     | Unit   |
+| ------------------------------------- | ----------------------------------------------- | ------ |
+| `claude_code.session.count`           | Count of CLI sessions started                   | count  |
+| `claude_code.lines_of_code.count`     | Count of lines of code modified                 | count  |
+| `claude_code.pull_request.count`      | Number of pull requests created                 | count  |
+| `claude_code.commit.count`            | Number of git commits created                   | count  |
+| `claude_code.cost.usage`              | Cost of the Claude Code session                 | USD    |
+| `claude_code.token.usage`             | Number of tokens used                           | tokens |
+| `claude_code.code_edit_tool.decision` | Count of code editing tool permission decisions | count  |
+| `claude_code.active_time.total`       | Total active time in seconds                    | s      |
 
-### メトリクスの詳細
+### Metric details
 
-#### セッションカウンター
+#### Session counter
 
-各セッションの開始時にインクリメントされます。
+Incremented at the start of each session.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 
-#### コード行カウンター
+#### Lines of code counter
 
-コードが追加または削除されるとインクリメントされます。
+Incremented when code is added or removed.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `type`: (`"added"`, `"removed"`)
 
-#### プルリクエストカウンター
+#### Pull request counter
 
-Claude Codeを介してプルリクエストを作成するときにインクリメントされます。
+Incremented when creating pull requests via Claude Code.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 
-#### コミットカウンター
+#### Commit counter
 
-Claude Codeを介してgitコミットを作成するときにインクリメントされます。
+Incremented when creating git commits via Claude Code.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 
-#### コストカウンター
+#### Cost counter
 
-各APIリクエスト後にインクリメントされます。
+Incremented after each API request.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
-* `model`: モデル識別子 (例: "claude-sonnet-4-5-20250929")
+* All [standard attributes](#standard-attributes)
+* `model`: Model identifier (for example, "claude-sonnet-4-5-20250929")
 
-#### トークンカウンター
+#### Token counter
 
-各APIリクエスト後にインクリメントされます。
+Incremented after each API request.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `type`: (`"input"`, `"output"`, `"cacheRead"`, `"cacheCreation"`)
-* `model`: モデル識別子 (例: "claude-sonnet-4-5-20250929")
+* `model`: Model identifier (for example, "claude-sonnet-4-5-20250929")
 
-#### コード編集ツール決定カウンター
+#### Code edit tool decision counter
 
-ユーザーがEdit、Write、またはNotebookEditツールの使用を受け入れるか拒否するときにインクリメントされます。
+Incremented when user accepts or rejects Edit, Write, or NotebookEdit tool usage.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
-* `tool`: ツール名 (`"Edit"`, `"Write"`, `"NotebookEdit"`)
-* `decision`: ユーザーの決定 (`"accept"`, `"reject"`)
-* `language`: 編集されたファイルのプログラミング言語 (例: `"TypeScript"`, `"Python"`, `"JavaScript"`, `"Markdown"`)。認識されないファイル拡張子の場合は`"unknown"`を返します。
+* All [standard attributes](#standard-attributes)
+* `tool`: Tool name (`"Edit"`, `"Write"`, `"NotebookEdit"`)
+* `decision`: User decision (`"accept"`, `"reject"`)
+* `language`: Programming language of the edited file (for example, `"TypeScript"`, `"Python"`, `"JavaScript"`, `"Markdown"`). Returns `"unknown"` for unrecognized file extensions.
 
-#### アクティブ時間カウンター
+#### Active time counter
 
-Claude Codeを積極的に使用している実際の時間を追跡します (アイドル時間ではなく)。このメトリクスはプロンプトの入力や応答の受信などのユーザーインタラクション中にインクリメントされます。
+Tracks actual time spent actively using Claude Code (not idle time). This metric is incremented during user interactions such as typing prompts or receiving responses.
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 
-### イベント
+### Events
 
-Claude Codeは、OpenTelemetryログ/イベント経由で以下のイベントをエクスポートします (`OTEL_LOGS_EXPORTER`が設定されている場合):
+Claude Code exports the following events via OpenTelemetry logs/events (when `OTEL_LOGS_EXPORTER` is configured):
 
-#### ユーザープロンプトイベント
+#### User prompt event
 
-ユーザーがプロンプトを送信するときにログされます。
+Logged when a user submits a prompt.
 
-**イベント名**: `claude_code.user_prompt`
+**Event Name**: `claude_code.user_prompt`
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `event.name`: `"user_prompt"`
-* `event.timestamp`: ISO 8601タイムスタンプ
-* `prompt_length`: プロンプトの長さ
-* `prompt`: プロンプトコンテンツ (デフォルトではマスクされています。`OTEL_LOG_USER_PROMPTS=1`で有効にします)
+* `event.timestamp`: ISO 8601 timestamp
+* `prompt_length`: Length of the prompt
+* `prompt`: Prompt content (redacted by default, enable with `OTEL_LOG_USER_PROMPTS=1`)
 
-#### ツール結果イベント
+#### Tool result event
 
-ツールが実行を完了するときにログされます。
+Logged when a tool completes execution.
 
-**イベント名**: `claude_code.tool_result`
+**Event Name**: `claude_code.tool_result`
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `event.name`: `"tool_result"`
-* `event.timestamp`: ISO 8601タイムスタンプ
-* `tool_name`: ツールの名前
-* `success`: `"true"` または `"false"`
-* `duration_ms`: 実行時間 (ミリ秒)
-* `error`: エラーメッセージ (失敗した場合)
-* `decision`: `"accept"` または `"reject"`
-* `source`: 決定ソース - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, または `"user_reject"`
-* `tool_parameters`: ツール固有のパラメータを含むJSON文字列 (利用可能な場合)
-  * Bashツール用: `bash_command`, `full_command`, `timeout`, `description`, `sandbox`を含む
+* `event.timestamp`: ISO 8601 timestamp
+* `tool_name`: Name of the tool
+* `success`: `"true"` or `"false"`
+* `duration_ms`: Execution time in milliseconds
+* `error`: Error message (if failed)
+* `decision`: Either `"accept"` or `"reject"`
+* `source`: Decision source - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"`
+* `tool_parameters`: JSON string containing tool-specific parameters (when available)
+  * For Bash tool: includes `bash_command`, `full_command`, `timeout`, `description`, `sandbox`
 
-#### APIリクエストイベント
+#### API request event
 
-Claudeへの各APIリクエストについてログされます。
+Logged for each API request to Claude.
 
-**イベント名**: `claude_code.api_request`
+**Event Name**: `claude_code.api_request`
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `event.name`: `"api_request"`
-* `event.timestamp`: ISO 8601タイムスタンプ
-* `model`: 使用されたモデル (例: "claude-sonnet-4-5-20250929")
-* `cost_usd`: 推定コスト (USD)
-* `duration_ms`: リクエスト期間 (ミリ秒)
-* `input_tokens`: 入力トークン数
-* `output_tokens`: 出力トークン数
-* `cache_read_tokens`: キャッシュから読み取られたトークン数
-* `cache_creation_tokens`: キャッシュ作成に使用されたトークン数
+* `event.timestamp`: ISO 8601 timestamp
+* `model`: Model used (for example, "claude-sonnet-4-5-20250929")
+* `cost_usd`: Estimated cost in USD
+* `duration_ms`: Request duration in milliseconds
+* `input_tokens`: Number of input tokens
+* `output_tokens`: Number of output tokens
+* `cache_read_tokens`: Number of tokens read from cache
+* `cache_creation_tokens`: Number of tokens used for cache creation
 
-#### APIエラーイベント
+#### API error event
 
-ClaudeへのAPIリクエストが失敗するときにログされます。
+Logged when an API request to Claude fails.
 
-**イベント名**: `claude_code.api_error`
+**Event Name**: `claude_code.api_error`
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `event.name`: `"api_error"`
-* `event.timestamp`: ISO 8601タイムスタンプ
-* `model`: 使用されたモデル (例: "claude-sonnet-4-5-20250929")
-* `error`: エラーメッセージ
-* `status_code`: HTTPステータスコード (該当する場合)
-* `duration_ms`: リクエスト期間 (ミリ秒)
-* `attempt`: 試行番号 (再試行されたリクエストの場合)
+* `event.timestamp`: ISO 8601 timestamp
+* `model`: Model used (for example, "claude-sonnet-4-5-20250929")
+* `error`: Error message
+* `status_code`: HTTP status code (if applicable)
+* `duration_ms`: Request duration in milliseconds
+* `attempt`: Attempt number (for retried requests)
 
-#### ツール決定イベント
+#### Tool decision event
 
-ツール権限決定が行われるときにログされます (受け入れ/拒否)。
+Logged when a tool permission decision is made (accept/reject).
 
-**イベント名**: `claude_code.tool_decision`
+**Event Name**: `claude_code.tool_decision`
 
-**属性**:
+**Attributes**:
 
-* すべての[標準属性](#standard-attributes)
+* All [standard attributes](#standard-attributes)
 * `event.name`: `"tool_decision"`
-* `event.timestamp`: ISO 8601タイムスタンプ
-* `tool_name`: ツールの名前 (例: "Read", "Edit", "Write", "NotebookEdit"など)
-* `decision`: `"accept"` または `"reject"`
-* `source`: 決定ソース - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, または `"user_reject"`
+* `event.timestamp`: ISO 8601 timestamp
+* `tool_name`: Name of the tool (for example, "Read", "Edit", "Write", "NotebookEdit")
+* `decision`: Either `"accept"` or `"reject"`
+* `source`: Decision source - `"config"`, `"user_permanent"`, `"user_temporary"`, `"user_abort"`, or `"user_reject"`
 
-## メトリクスとイベントデータの解釈
+## Interpreting metrics and events data
 
-Claude Codeによってエクスポートされるメトリクスは、使用パターンと生産性に関する貴重な洞察を提供します。作成できる一般的な可視化と分析は次のとおりです:
+The metrics exported by Claude Code provide valuable insights into usage patterns and productivity. Here are some common visualizations and analyses you can create:
 
-### 使用状況モニタリング
+### Usage monitoring
 
-| メトリクス                                                         | 分析の機会                                |
-| ------------------------------------------------------------- | ------------------------------------ |
-| `claude_code.token.usage`                                     | `type` (入力/出力)、ユーザー、チーム、またはモデル別に分類する |
-| `claude_code.session.count`                                   | 時間経過に伴う採用とエンゲージメントを追跡する              |
-| `claude_code.lines_of_code.count`                             | コード追加/削除を追跡して生産性を測定する                |
-| `claude_code.commit.count` & `claude_code.pull_request.count` | 開発ワークフローへの影響を理解する                    |
+| Metric                                                        | Analysis Opportunity                                      |
+| ------------------------------------------------------------- | --------------------------------------------------------- |
+| `claude_code.token.usage`                                     | Break down by `type` (input/output), user, team, or model |
+| `claude_code.session.count`                                   | Track adoption and engagement over time                   |
+| `claude_code.lines_of_code.count`                             | Measure productivity by tracking code additions/removals  |
+| `claude_code.commit.count` & `claude_code.pull_request.count` | Understand impact on development workflows                |
 
-### コストモニタリング
+### Cost monitoring
 
-`claude_code.cost.usage`メトリクスは以下に役立ちます:
+The `claude_code.cost.usage` metric helps with:
 
-* チームまたは個人全体の使用トレンドを追跡する
-* 最適化のための高使用セッションを特定する
+* Tracking usage trends across teams or individuals
+* Identifying high-usage sessions for optimization
 
 <Note>
-  コストメトリクスは概算です。公式な請求データについては、APIプロバイダー (Claude Console、AWS Bedrock、またはGoogle Cloud Vertex)を参照してください。
+  Cost metrics are approximations. For official billing data, refer to your API provider (Claude Console, AWS Bedrock, or Google Cloud Vertex).
 </Note>
 
-### アラートとセグメンテーション
+### Alerting and segmentation
 
-検討すべき一般的なアラート:
+Common alerts to consider:
 
-* コストスパイク
-* 異常なトークン消費
-* 特定のユーザーからの高いセッションボリューム
+* Cost spikes
+* Unusual token consumption
+* High session volume from specific users
 
-すべてのメトリクスは、`user.account_uuid`、`organization.id`、`session.id`、`model`、および`app.version`でセグメント化できます。
+All metrics can be segmented by `user.account_uuid`, `organization.id`, `session.id`, `model`, and `app.version`.
 
-### イベント分析
+### Event analysis
 
-イベントデータはClaude Codeインタラクションに関する詳細な洞察を提供します:
+The event data provides detailed insights into Claude Code interactions:
 
-**ツール使用パターン**: ツール結果イベントを分析して以下を特定します:
+**Tool Usage Patterns**: analyze tool result events to identify:
 
-* 最も頻繁に使用されるツール
-* ツールの成功率
-* 平均ツール実行時間
-* ツールタイプ別のエラーパターン
+* Most frequently used tools
+* Tool success rates
+* Average tool execution times
+* Error patterns by tool type
 
-**パフォーマンスモニタリング**: APIリクエスト期間とツール実行時間を追跡して、パフォーマンスのボトルネックを特定します。
+**Performance Monitoring**: track API request durations and tool execution times to identify performance bottlenecks.
 
-## バックエンド考慮事項
+## Backend considerations
 
-メトリクスとログバックエンドの選択により、実行できる分析のタイプが決まります:
+Your choice of metrics and logs backends determines the types of analyses you can perform:
 
-### メトリクスの場合:
+### For metrics
 
-* **時系列データベース (例: Prometheus)**: レート計算、集約メトリクス
-* **カラムナーストア (例: ClickHouse)**: 複雑なクエリ、一意のユーザー分析
-* **フル機能の可観測性プラットフォーム (例: Honeycomb、Datadog)**: 高度なクエリ、可視化、アラート
+* **Time series databases (for example, Prometheus)**: Rate calculations, aggregated metrics
+* **Columnar stores (for example, ClickHouse)**: Complex queries, unique user analysis
+* **Full-featured observability platforms (for example, Honeycomb, Datadog)**: Advanced querying, visualization, alerting
 
-### イベント/ログの場合:
+### For events/logs
 
-* **ログ集約システム (例: Elasticsearch、Loki)**: フルテキスト検索、ログ分析
-* **カラムナーストア (例: ClickHouse)**: 構造化イベント分析
-* **フル機能の可観測性プラットフォーム (例: Honeycomb、Datadog)**: メトリクスとイベント間の相関
+* **Log aggregation systems (for example, Elasticsearch, Loki)**: Full-text search, log analysis
+* **Columnar stores (for example, ClickHouse)**: Structured event analysis
+* **Full-featured observability platforms (for example, Honeycomb, Datadog)**: Correlation between metrics and events
 
-日次/週次/月次アクティブユーザー (DAU/WAU/MAU)メトリクスが必要な組織の場合は、効率的な一意値クエリをサポートするバックエンドを検討してください。
+For organizations requiring Daily/Weekly/Monthly Active User (DAU/WAU/MAU) metrics, consider backends that support efficient unique value queries.
 
-## サービス情報
+## Service information
 
-すべてのメトリクスとイベントは、以下のリソース属性でエクスポートされます:
+All metrics and events are exported with the following resource attributes:
 
 * `service.name`: `claude-code`
-* `service.version`: 現在のClaude Codeバージョン
-* `os.type`: オペレーティングシステムタイプ (例: `linux`, `darwin`, `windows`)
-* `os.version`: オペレーティングシステムバージョン文字列
-* `host.arch`: ホストアーキテクチャ (例: `amd64`, `arm64`)
-* `wsl.version`: WSLバージョン番号 (Windows Subsystem for Linuxで実行している場合のみ存在)
-* メーター名: `com.anthropic.claude_code`
+* `service.version`: Current Claude Code version
+* `os.type`: Operating system type (for example, `linux`, `darwin`, `windows`)
+* `os.version`: Operating system version string
+* `host.arch`: Host architecture (for example, `amd64`, `arm64`)
+* `wsl.version`: WSL version number (only present when running on Windows Subsystem for Linux)
+* Meter Name: `com.anthropic.claude_code`
 
-## ROI測定リソース
+## ROI measurement resources
 
-テレメトリセットアップ、コスト分析、生産性メトリクス、および自動レポート生成を含むClaude CodeのROI (投資収益率)測定に関する包括的なガイドについては、[Claude Code ROI測定ガイド](https://github.com/anthropics/claude-code-monitoring-guide)を参照してください。このリポジトリは、すぐに使用できるDocker Compose設定、PrometheusおよびOpenTelemetryセットアップ、およびLinearなどのツールと統合された生産性レポート生成テンプレートを提供します。
+For a comprehensive guide on measuring return on investment for Claude Code, including telemetry setup, cost analysis, productivity metrics, and automated reporting, see the [Claude Code ROI Measurement Guide](https://github.com/anthropics/claude-code-monitoring-guide). This repository provides ready-to-use Docker Compose configurations, Prometheus and OpenTelemetry setups, and templates for generating productivity reports integrated with tools like Linear.
 
-## セキュリティ/プライバシーに関する考慮事項
+## Security/privacy considerations
 
-* テレメトリはオプトインであり、明示的な設定が必要です
-* APIキーやファイルコンテンツなどの機密情報はメトリクスやイベントに含まれることはありません
-* ユーザープロンプトコンテンツはデフォルトではマスクされています。プロンプト長のみが記録されます。ユーザープロンプトログを有効にするには、`OTEL_LOG_USER_PROMPTS=1`を設定します
+* Telemetry is opt-in and requires explicit configuration
+* Sensitive information like API keys or file contents are never included in metrics or events
+* User prompt content is redacted by default - only prompt length is recorded. To enable user prompt logging, set `OTEL_LOG_USER_PROMPTS=1`
 
-## Amazon Bedrock上のClaude Codeのモニタリング
+## Monitoring Claude Code on Amazon Bedrock
 
-Amazon Bedrock向けのClaude Code使用状況モニタリングガイダンスの詳細については、[Claude Code Monitoring Implementation (Bedrock)](https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/blob/main/assets/docs/MONITORING.md)を参照してください。
+For detailed Claude Code usage monitoring guidance for Amazon Bedrock, see [Claude Code Monitoring Implementation (Bedrock)](https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock/blob/main/assets/docs/MONITORING.md).
 
 
 ---

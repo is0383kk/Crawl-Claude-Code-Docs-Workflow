@@ -1,93 +1,93 @@
-# エンタープライズネットワーク構成
+# Enterprise network configuration
 
-> プロキシサーバー、カスタム認証局（CA）、および相互トランスポートレイヤーセキュリティ（mTLS）認証を使用して、エンタープライズ環境向けにClaude Codeを構成します。
+> Configure Claude Code for enterprise environments with proxy servers, custom Certificate Authorities (CA), and mutual Transport Layer Security (mTLS) authentication.
 
-Claude Codeは、環境変数を通じてさまざまなエンタープライズネットワークおよびセキュリティ構成をサポートしています。これには、企業プロキシサーバーを通じたトラフィックのルーティング、カスタム認証局（CA）の信頼、およびセキュリティ強化のための相互トランスポートレイヤーセキュリティ（mTLS）証明書による認証が含まれます。
+Claude Code supports various enterprise network and security configurations through environment variables. This includes routing traffic through corporate proxy servers, trusting custom Certificate Authorities (CA), and authenticating with mutual Transport Layer Security (mTLS) certificates for enhanced security.
 
 <Note>
-  このページに表示されているすべての環境変数は、[`settings.json`](/ja/settings)でも構成できます。
+  All environment variables shown on this page can also be configured in [`settings.json`](/en/settings).
 </Note>
 
-## プロキシ構成
+## Proxy configuration
 
-### 環境変数
+### Environment variables
 
-Claude Codeは標準的なプロキシ環境変数に対応しています：
+Claude Code respects standard proxy environment variables:
 
 ```bash  theme={null}
-# HTTPSプロキシ（推奨）
+# HTTPS proxy (recommended)
 export HTTPS_PROXY=https://proxy.example.com:8080
 
-# HTTPプロキシ（HTTPSが利用できない場合）
+# HTTP proxy (if HTTPS not available)
 export HTTP_PROXY=http://proxy.example.com:8080
 
-# 特定のリクエストのプロキシをバイパス - スペース区切り形式
+# Bypass proxy for specific requests - space-separated format
 export NO_PROXY="localhost 192.168.1.1 example.com .example.com"
-# 特定のリクエストのプロキシをバイパス - カンマ区切り形式
+# Bypass proxy for specific requests - comma-separated format
 export NO_PROXY="localhost,192.168.1.1,example.com,.example.com"
-# すべてのリクエストのプロキシをバイパス
+# Bypass proxy for all requests
 export NO_PROXY="*"
 ```
 
 <Note>
-  Claude CodeはSOCKSプロキシをサポートしていません。
+  Claude Code does not support SOCKS proxies.
 </Note>
 
-### 基本認証
+### Basic authentication
 
-プロキシが基本認証を必要とする場合は、プロキシURLに認証情報を含めます：
+If your proxy requires basic authentication, include credentials in the proxy URL:
 
 ```bash  theme={null}
 export HTTPS_PROXY=http://username:password@proxy.example.com:8080
 ```
 
 <Warning>
-  スクリプトにパスワードをハードコーディングすることは避けてください。代わりに環境変数またはセキュアな認証情報ストレージを使用してください。
+  Avoid hardcoding passwords in scripts. Use environment variables or secure credential storage instead.
 </Warning>
 
 <Tip>
-  高度な認証（NTLM、Kerberosなど）が必要なプロキシの場合は、認証方法をサポートするLLMゲートウェイサービスの使用を検討してください。
+  For proxies requiring advanced authentication (NTLM, Kerberos, etc.), consider using an LLM Gateway service that supports your authentication method.
 </Tip>
 
-## カスタムCA証明書
+## Custom CA certificates
 
-エンタープライズ環境がHTTPS接続用のカスタムCAを使用している場合（プロキシ経由であるか直接API アクセスであるかを問わず）、Claude Codeをそれらを信頼するように構成します：
+If your enterprise environment uses custom CAs for HTTPS connections (whether through a proxy or direct API access), configure Claude Code to trust them:
 
 ```bash  theme={null}
 export NODE_EXTRA_CA_CERTS=/path/to/ca-cert.pem
 ```
 
-## mTLS認証
+## mTLS authentication
 
-クライアント証明書認証を必要とするエンタープライズ環境の場合：
+For enterprise environments requiring client certificate authentication:
 
 ```bash  theme={null}
-# 認証用のクライアント証明書
+# Client certificate for authentication
 export CLAUDE_CODE_CLIENT_CERT=/path/to/client-cert.pem
 
-# クライアント秘密鍵
+# Client private key
 export CLAUDE_CODE_CLIENT_KEY=/path/to/client-key.pem
 
-# オプション：暗号化された秘密鍵のパスフレーズ
+# Optional: Passphrase for encrypted private key
 export CLAUDE_CODE_CLIENT_KEY_PASSPHRASE="your-passphrase"
 ```
 
-## ネットワークアクセス要件
+## Network access requirements
 
-Claude Codeは以下のURLへのアクセスが必要です：
+Claude Code requires access to the following URLs:
 
-* `api.anthropic.com` - Claude APIエンドポイント
-* `claude.ai` - WebFetchセーフガード
-* `statsig.anthropic.com` - テレメトリーとメトリクス
-* `sentry.io` - エラー報告
+* `api.anthropic.com` - Claude API endpoints
+* `claude.ai` - WebFetch safeguards
+* `statsig.anthropic.com` - Telemetry and metrics
+* `sentry.io` - Error reporting
 
-これらのURLがプロキシ構成とファイアウォールルールでホワイトリストに登録されていることを確認してください。これは、特にコンテナ化された環境または制限されたネットワーク環境でClaude Codeを使用する場合に重要です。
+Ensure these URLs are allowlisted in your proxy configuration and firewall rules. This is especially important when using Claude Code in containerized or restricted network environments.
 
-## 追加リソース
+## Additional resources
 
-* [Claude Code設定](/ja/settings)
-* [環境変数リファレンス](/ja/settings#environment-variables)
-* [トラブルシューティングガイド](/ja/troubleshooting)
+* [Claude Code settings](/en/settings)
+* [Environment variables reference](/en/settings#environment-variables)
+* [Troubleshooting guide](/en/troubleshooting)
 
 
 ---

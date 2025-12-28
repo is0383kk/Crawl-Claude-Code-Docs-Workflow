@@ -1,48 +1,53 @@
-# モデル設定
+# Model configuration
 
-> Claude Codeのモデル設定について学習します。`opusplan`などのモデルエイリアスを含みます
+> Learn about the Claude Code model configuration, including model aliases like `opusplan`
 
-## 利用可能なモデル
+## Available models
 
-Claude Codeの`model`設定では、以下のいずれかを設定できます：
+For the `model` setting in Claude Code, you can configure either:
 
-* **モデルエイリアス**
-* 完全な\*\*[モデル名](https://docs.claude.com/ja/docs/about-claude/models/overview#model-names)\*\*
-* Bedrockの場合、ARN
+* A **model alias**
+* A **model name**
+  * Anthropic API: A full **[model name](https://docs.claude.com/en/docs/about-claude/models/overview#model-names)**
+  * Bedrock: an inference profile ARN
+  * Foundry: a deployment name
+  * Vertex: a version name
 
-### モデルエイリアス
+### Model aliases
 
-モデルエイリアスは、正確なバージョン番号を覚えることなくモデル設定を選択するための便利な方法を提供します：
+Model aliases provide a convenient way to select model settings without
+remembering exact version numbers:
 
-| モデルエイリアス         | 動作                                                                                                                                     |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| **`default`**    | アカウントタイプに応じた推奨モデル設定                                                                                                                    |
-| **`sonnet`**     | 日常的なコーディングタスク用に最新のSonnetモデル（現在Sonnet 4.5）を使用                                                                                           |
-| **`opus`**       | 特殊な複雑な推論タスク用にOpusモデル（現在Opus 4.1）を使用                                                                                                    |
-| **`haiku`**      | シンプルなタスク用に高速で効率的なHaikuモデルを使用                                                                                                           |
-| **`sonnet[1m]`** | 長いセッション用に[100万トークンコンテキストウィンドウ](https://docs.claude.com/ja/docs/build-with-claude/context-windows#1m-token-context-window)を備えたSonnetを使用 |
-| **`opusplan`**   | プランモード中は`opus`を使用し、実行時に`sonnet`に切り替わる特別なモード                                                                                            |
+| Model alias      | Behavior                                                                                                                                                                |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`default`**    | Recommended model setting, depending on your account type                                                                                                               |
+| **`sonnet`**     | Uses the latest Sonnet model (currently Sonnet 4.5) for daily coding tasks                                                                                              |
+| **`opus`**       | Uses Opus model (currently Opus 4.5) for specialized complex reasoning tasks                                                                                            |
+| **`haiku`**      | Uses the fast and efficient Haiku model for simple tasks                                                                                                                |
+| **`sonnet[1m]`** | Uses Sonnet with a [1 million token context window](https://docs.claude.com/en/docs/build-with-claude/context-windows#1m-token-context-window) window for long sessions |
+| **`opusplan`**   | Special mode that uses `opus` during plan mode, then switches to `sonnet` for execution                                                                                 |
 
-### モデルの設定
+### Setting your model
 
-モデルは優先度順に複数の方法で設定できます：
+You can configure your model in several ways, listed in order of priority:
 
-1. **セッション中** - `/model <alias|name>`を使用してセッション中にモデルを切り替える
-2. **起動時** - `claude --model <alias|name>`で起動
-3. **環境変数** - `ANTHROPIC_MODEL=<alias|name>`を設定
-4. **設定** - `model`フィールドを使用して設定ファイルで永続的に設定
+1. **During session** - Use `/model <alias|name>` to switch models mid-session
+2. **At startup** - Launch with `claude --model <alias|name>`
+3. **Environment variable** - Set `ANTHROPIC_MODEL=<alias|name>`
+4. **Settings** - Configure permanently in your settings file using the `model`
+   field.
 
-使用例：
+Example usage:
 
 ```bash  theme={null}
-# Opusで起動
+# Start with Opus
 claude --model opus
 
-# セッション中にSonnetに切り替え
+# Switch to Sonnet during session
 /model sonnet
 ```
 
-設定ファイルの例：
+Example settings file:
 
 ```
 {
@@ -53,66 +58,75 @@ claude --model opus
 }
 ```
 
-## 特別なモデルの動作
+## Special model behavior
 
-### `default`モデル設定
+### `default` model setting
 
-`default`の動作はアカウントタイプに依存します。
+The behavior of `default` depends on your account type.
 
-特定のMaxユーザーの場合、Opusの使用量閾値に達するとClaude Codeは自動的にSonnetにフォールバックします。
+For certain Max users, Claude Code will automatically fall back to Sonnet if you
+hit a usage threshold with Opus.
 
-### `opusplan`モデル設定
+### `opusplan` model setting
 
-`opusplan`モデルエイリアスは自動化されたハイブリッドアプローチを提供します：
+The `opusplan` model alias provides an automated hybrid approach:
 
-* **プランモード** - 複雑な推論とアーキテクチャ決定用にOpusを使用
-* **実行モード** - コード生成と実装用に自動的にSonnetに切り替わり
+* **In plan mode** - Uses `opus` for complex reasoning and architecture
+  decisions
+* **In execution mode** - Automatically switches to `sonnet` for code generation
+  and implementation
 
-これにより両方の長所が得られます：プランニング用のOpusの優れた推論能力と、実行用のSonnetの効率性です。
+This gives you the best of both worlds: Opus's superior reasoning for planning,
+and Sonnet's efficiency for execution.
 
-### \[1m]による拡張コンテキスト
+### Extended context with \[1m]
 
-Console/APIユーザーの場合、完全なモデル名に`[1m]`サフィックスを追加して、[100万トークンコンテキストウィンドウ](https://docs.claude.com/ja/docs/build-with-claude/context-windows#1m-token-context-window)を有効にできます。
+For Console/API users, the `[1m]` suffix can be added to full model names to
+enable a
+[1 million token context window](https://docs.claude.com/en/docs/build-with-claude/context-windows#1m-token-context-window).
 
 ```bash  theme={null}
-# [1m]サフィックス付きの完全なモデル名を使用する例
+# Example of using a full model name with the [1m] suffix
 /model anthropic.claude-sonnet-4-5-20250929-v1:0[1m]
 ```
 
-注：拡張コンテキストモデルは[異なる価格設定](https://docs.claude.com/ja/docs/about-claude/pricing#long-context-pricing)があります。
+Note: Extended context models have
+[different pricing](https://docs.claude.com/en/docs/about-claude/pricing#long-context-pricing).
 
-## 現在のモデルを確認する
+## Checking your current model
 
-現在使用しているモデルは複数の方法で確認できます：
+You can see which model you're currently using in several ways:
 
-1. [ステータスライン](/ja/statusline)内（設定されている場合）
-2. `/status`内。アカウント情報も表示されます。
+1. In [status line](/en/statusline) (if configured)
+2. In `/status`, which also displays your account information.
 
-## 環境変数
+## Environment variables
 
-以下の環境変数を使用できます。これらは完全な**モデル名**である必要があり、エイリアスがマップするモデル名を制御します。
+You can use the following environment variables, which must be full **model
+names** (or equivalent for your API provider), to control the model names that the aliases map to.
 
-| 環境変数                             | 説明                                                                  |
-| -------------------------------- | ------------------------------------------------------------------- |
-| `ANTHROPIC_DEFAULT_OPUS_MODEL`   | `opus`用に使用するモデル、またはプランモードがアクティブな場合の`opusplan`用                      |
-| `ANTHROPIC_DEFAULT_SONNET_MODEL` | `sonnet`用に使用するモデル、またはプランモードがアクティブでない場合の`opusplan`用                  |
-| `ANTHROPIC_DEFAULT_HAIKU_MODEL`  | `haiku`用に使用するモデル、または[バックグラウンド機能](/ja/costs#background-token-usage)用 |
-| `CLAUDE_CODE_SUBAGENT_MODEL`     | [サブエージェント](/ja/sub-agents)用に使用するモデル                                 |
+| Environment variable             | Description                                                                                   |
+| -------------------------------- | --------------------------------------------------------------------------------------------- |
+| `ANTHROPIC_DEFAULT_OPUS_MODEL`   | The model to use for `opus`, or for `opusplan` when Plan Mode is active.                      |
+| `ANTHROPIC_DEFAULT_SONNET_MODEL` | The model to use for `sonnet`, or for `opusplan` when Plan Mode is not active.                |
+| `ANTHROPIC_DEFAULT_HAIKU_MODEL`  | The model to use for `haiku`, or [background functionality](/en/costs#background-token-usage) |
+| `CLAUDE_CODE_SUBAGENT_MODEL`     | The model to use for [subagents](/en/sub-agents)                                              |
 
-注：`ANTHROPIC_SMALL_FAST_MODEL`は非推奨です。`ANTHROPIC_DEFAULT_HAIKU_MODEL`を使用してください。
+Note: `ANTHROPIC_SMALL_FAST_MODEL` is deprecated in favor of
+`ANTHROPIC_DEFAULT_HAIKU_MODEL`.
 
-### プロンプトキャッシング設定
+### Prompt caching configuration
 
-Claude Codeは[プロンプトキャッシング](https://docs.claude.com/ja/docs/build-with-claude/prompt-caching)を自動的に使用してパフォーマンスを最適化し、コストを削減します。プロンプトキャッシングをグローバルに、または特定のモデルティア用に無効にできます：
+Claude Code automatically uses [prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) to optimize performance and reduce costs. You can disable prompt caching globally or for specific model tiers:
 
-| 環境変数                            | 説明                                              |
-| ------------------------------- | ----------------------------------------------- |
-| `DISABLE_PROMPT_CACHING`        | すべてのモデルのプロンプトキャッシングを無効にするには`1`に設定（モデル固有の設定より優先） |
-| `DISABLE_PROMPT_CACHING_HAIKU`  | Haikuモデルのみのプロンプトキャッシングを無効にするには`1`に設定            |
-| `DISABLE_PROMPT_CACHING_SONNET` | Sonnetモデルのみのプロンプトキャッシングを無効にするには`1`に設定           |
-| `DISABLE_PROMPT_CACHING_OPUS`   | Opusモデルのみのプロンプトキャッシングを無効にするには`1`に設定             |
+| Environment variable            | Description                                                                                    |
+| ------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `DISABLE_PROMPT_CACHING`        | Set to `1` to disable prompt caching for all models (takes precedence over per-model settings) |
+| `DISABLE_PROMPT_CACHING_HAIKU`  | Set to `1` to disable prompt caching for Haiku models only                                     |
+| `DISABLE_PROMPT_CACHING_SONNET` | Set to `1` to disable prompt caching for Sonnet models only                                    |
+| `DISABLE_PROMPT_CACHING_OPUS`   | Set to `1` to disable prompt caching for Opus models only                                      |
 
-これらの環境変数は、プロンプトキャッシング動作に対する細かい制御を提供します。グローバルな`DISABLE_PROMPT_CACHING`設定はモデル固有の設定より優先され、必要に応じてすべてのキャッシングを迅速に無効にできます。モデル固有の設定は、特定のモデルをデバッグする場合や、異なるキャッシング実装を持つ可能性があるクラウドプロバイダーと連携する場合など、選択的な制御に役立ちます。
+These environment variables give you fine-grained control over prompt caching behavior. The global `DISABLE_PROMPT_CACHING` setting takes precedence over the model-specific settings, allowing you to quickly disable all caching when needed. The per-model settings are useful for selective control, such as when debugging specific models or working with cloud providers that may have different caching implementations.
 
 
 ---

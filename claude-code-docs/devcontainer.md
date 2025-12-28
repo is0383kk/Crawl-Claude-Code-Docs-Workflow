@@ -1,80 +1,80 @@
-# 開発コンテナ
+# Development containers
 
-> 一貫性のある安全な環境が必要なチーム向けのClaude Code開発コンテナについて学びます。
+> Learn about the Claude Code development container for teams that need consistent, secure environments.
 
-参照用の[devcontainerセットアップ](https://github.com/anthropics/claude-code/tree/main/.devcontainer)と関連する[Dockerfile](https://github.com/anthropics/claude-code/blob/main/.devcontainer/Dockerfile)は、そのまま使用することも、ニーズに合わせてカスタマイズすることもできる事前設定済みの開発コンテナを提供します。このdevcontainerはVisual Studio Code [Dev Containers拡張機能](https://code.visualstudio.com/docs/devcontainers/containers)および同様のツールと連携します。
+The reference [devcontainer setup](https://github.com/anthropics/claude-code/tree/main/.devcontainer) and associated [Dockerfile](https://github.com/anthropics/claude-code/blob/main/.devcontainer/Dockerfile) offer a preconfigured development container that you can use as is, or customize for your needs. This devcontainer works with the Visual Studio Code [Dev Containers extension](https://code.visualstudio.com/docs/devcontainers/containers) and similar tools.
 
-コンテナの強化されたセキュリティ対策（分離とファイアウォールルール）により、`claude --dangerously-skip-permissions`を実行して権限プロンプトをバイパスし、無人操作を行うことができます。
+The container's enhanced security measures (isolation and firewall rules) allow you to run `claude --dangerously-skip-permissions` to bypass permission prompts for unattended operation.
 
 <Warning>
-  devcontainerは実質的な保護を提供していますが、すべての攻撃に完全に耐性のあるシステムはありません。
-  `--dangerously-skip-permissions`で実行する場合、devcontainerはClaude Codeの認証情報を含むdevcontainer内でアクセス可能なものすべてを悪意のあるプロジェクトが流出させるのを防ぎません。
-  devcontainerは信頼できるリポジトリで開発する場合にのみ使用することをお勧めします。
-  常に適切なセキュリティ慣行を維持し、Claudeのアクティビティを監視してください。
+  While the devcontainer provides substantial protections, no system is completely immune to all attacks.
+  When executed with `--dangerously-skip-permissions`, devcontainers don't prevent a malicious project from exfiltrating anything accessible in the devcontainer including Claude Code credentials.
+  We recommend only using devcontainers when developing with trusted repositories.
+  Always maintain good security practices and monitor Claude's activities.
 </Warning>
 
-## 主な機能
+## Key features
 
-* **本番環境対応のNode.js**: Node.js 20に基づき、必須の開発依存関係を含む
-* **設計によるセキュリティ**: 必要なサービスのみへのネットワークアクセスを制限するカスタムファイアウォール
-* **開発者向けツール**: git、生産性向上機能付きZSH、fzfなどを含む
-* **VS Code統合のシームレス化**: 事前設定済みの拡張機能と最適化された設定
-* **セッション永続性**: コンテナ再起動間でコマンド履歴と設定を保持
-* **どこでも動作**: macOS、Windows、Linuxの開発環境と互換性
+* **Production-ready Node.js**: Built on Node.js 20 with essential development dependencies
+* **Security by design**: Custom firewall restricting network access to only necessary services
+* **Developer-friendly tools**: Includes git, ZSH with productivity enhancements, fzf, and more
+* **Seamless VS Code integration**: Pre-configured extensions and optimized settings
+* **Session persistence**: Preserves command history and configurations between container restarts
+* **Works everywhere**: Compatible with macOS, Windows, and Linux development environments
 
-## 4ステップで始める
+## Getting started in 4 steps
 
-1. VS Codeとリモート - コンテナ拡張機能をインストール
-2. [Claude Code参照実装](https://github.com/anthropics/claude-code/tree/main/.devcontainer)リポジトリをクローン
-3. VS Codeでリポジトリを開く
-4. プロンプトが表示されたら、「コンテナで再度開く」をクリック（またはコマンドパレットを使用: Cmd+Shift+P → 「Remote-Containers: Reopen in Container」）
+1. Install VS Code and the Remote - Containers extension
+2. Clone the [Claude Code reference implementation](https://github.com/anthropics/claude-code/tree/main/.devcontainer) repository
+3. Open the repository in VS Code
+4. When prompted, click "Reopen in Container" (or use Command Palette: Cmd+Shift+P → "Remote-Containers: Reopen in Container")
 
-## 設定の詳細
+## Configuration breakdown
 
-devcontainerセットアップは3つの主要なコンポーネントで構成されています:
+The devcontainer setup consists of three primary components:
 
-* [**devcontainer.json**](https://github.com/anthropics/claude-code/blob/main/.devcontainer/devcontainer.json): コンテナ設定、拡張機能、ボリュームマウントを制御
-* [**Dockerfile**](https://github.com/anthropics/claude-code/blob/main/.devcontainer/Dockerfile): コンテナイメージとインストール済みツールを定義
-* [**init-firewall.sh**](https://github.com/anthropics/claude-code/blob/main/.devcontainer/init-firewall.sh): ネットワークセキュリティルールを確立
+* [**devcontainer.json**](https://github.com/anthropics/claude-code/blob/main/.devcontainer/devcontainer.json): Controls container settings, extensions, and volume mounts
+* [**Dockerfile**](https://github.com/anthropics/claude-code/blob/main/.devcontainer/Dockerfile): Defines the container image and installed tools
+* [**init-firewall.sh**](https://github.com/anthropics/claude-code/blob/main/.devcontainer/init-firewall.sh): Establishes network security rules
 
-## セキュリティ機能
+## Security features
 
-コンテナはファイアウォール設定により多層的なセキュリティアプローチを実装しています:
+The container implements a multi-layered security approach with its firewall configuration:
 
-* **正確なアクセス制御**: ホワイトリストに登録されたドメインのみへの送信接続を制限（npmレジストリ、GitHub、Claude APIなど）
-* **許可された送信接続**: ファイアウォールは送信DNS接続とSSH接続を許可
-* **デフォルト拒否ポリシー**: その他すべての外部ネットワークアクセスをブロック
-* **スタートアップ検証**: コンテナ初期化時にファイアウォールルールを検証
-* **分離**: メインシステムから分離された安全な開発環境を作成
+* **Precise access control**: Restricts outbound connections to whitelisted domains only (npm registry, GitHub, Claude API, etc.)
+* **Allowed outbound connections**: The firewall permits outbound DNS and SSH connections
+* **Default-deny policy**: Blocks all other external network access
+* **Startup verification**: Validates firewall rules when the container initializes
+* **Isolation**: Creates a secure development environment separated from your main system
 
-## カスタマイズオプション
+## Customization options
 
-devcontainer設定はニーズに適応するように設計されています:
+The devcontainer configuration is designed to be adaptable to your needs:
 
-* ワークフローに基づいてVS Code拡張機能を追加または削除
-* 異なるハードウェア環境向けにリソース割り当てを変更
-* ネットワークアクセス権限を調整
-* シェル設定と開発者ツールをカスタマイズ
+* Add or remove VS Code extensions based on your workflow
+* Modify resource allocations for different hardware environments
+* Adjust network access permissions
+* Customize shell configurations and developer tooling
 
-## 使用例
+## Example use cases
 
-### セキュアなクライアント作業
+### Secure client work
 
-devcontainerを使用して異なるクライアントプロジェクトを分離し、コードと認証情報が環境間で混在しないようにします。
+Use devcontainers to isolate different client projects, ensuring code and credentials never mix between environments.
 
-### チームオンボーディング
+### Team onboarding
 
-新しいチームメンバーは数分で完全に設定された開発環境を取得でき、必要なすべてのツールと設定が事前にインストールされています。
+New team members can get a fully configured development environment in minutes, with all necessary tools and settings pre-installed.
 
-### 一貫性のあるCI/CD環境
+### Consistent CI/CD environments
 
-devcontainer設定をCI/CDパイプラインにミラーリングして、開発環境と本番環境が一致することを確認します。
+Mirror your devcontainer configuration in CI/CD pipelines to ensure development and production environments match.
 
-## 関連リソース
+## Related resources
 
-* [VS Code devcontainersドキュメント](https://code.visualstudio.com/docs/devcontainers/containers)
-* [Claude Codeセキュリティベストプラクティス](/ja/security)
-* [エンタープライズネットワーク設定](/ja/network-config)
+* [VS Code devcontainers documentation](https://code.visualstudio.com/docs/devcontainers/containers)
+* [Claude Code security best practices](/en/security)
+* [Enterprise network configuration](/en/network-config)
 
 
 ---

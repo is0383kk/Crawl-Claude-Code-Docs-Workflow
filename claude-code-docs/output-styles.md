@@ -1,42 +1,59 @@
-# 出力スタイル
+# Output styles
 
-> ソフトウェアエンジニアリング以外の用途にClaudeコードを適応させる
+> Adapt Claude Code for uses beyond software engineering
 
-出力スタイルを使用すると、Claude Codeをあらゆるタイプのエージェントとして使用しながら、ローカルスクリプトの実行、ファイルの読み書き、TODOの追跡などのコア機能を保持できます。
+Output styles allow you to use Claude Code as any type of agent while keeping
+its core capabilities, such as running local scripts, reading/writing files, and
+tracking TODOs.
 
-## 組み込み出力スタイル
+## Built-in output styles
 
-Claude Codeの**デフォルト**出力スタイルは既存のシステムプロンプトであり、ソフトウェアエンジニアリングタスクを効率的に完了するのに役立つように設計されています。
+Claude Code's **Default** output style is the existing system prompt, designed
+to help you complete software engineering tasks efficiently.
 
-コードベースとClaudeの動作方法を教えることに焦点を当てた、2つの追加の組み込み出力スタイルがあります：
+There are two additional built-in output styles focused on teaching you the
+codebase and how Claude operates:
 
-* **説明的（Explanatory）**: ソフトウェアエンジニアリングタスクの完了を支援しながら、教育的な「インサイト」を提供します。実装の選択肢とコードベースのパターンを理解するのに役立ちます。
+* **Explanatory**: Provides educational "Insights" in between helping you
+  complete software engineering tasks. Helps you understand implementation
+  choices and codebase patterns.
 
-* **学習（Learning）**: 協調的な学習型モードで、Claude Codeはコーディング中に「インサイト」を共有するだけでなく、小さな戦略的なコードの一部を自分で実装するよう求めます。Claude Codeは実装するためにコード内に`TODO(human)`マーカーを追加します。
+* **Learning**: Collaborative, learn-by-doing mode where Claude will not only
+  share "Insights" while coding, but also ask you to contribute small, strategic
+  pieces of code yourself. Claude Code will add `TODO(human)` markers in your
+  code for you to implement.
 
-## 出力スタイルの仕組み
+## How output styles work
 
-出力スタイルはClaude Codeのシステムプロンプトを直接変更します。
+Output styles directly modify Claude Code's system prompt.
 
-* デフォルト以外の出力スタイルは、コード生成と効率的な出力に固有の指示を除外します。これは通常Claude Codeに組み込まれています（簡潔に応答し、テストでコードを検証するなど）。
-* 代わりに、これらの出力スタイルにはシステムプロンプトに追加されたカスタム指示があります。
+* All output styles exclude instructions for efficient output (such as
+  responding concisely).
+* Custom output styles exclude instructions for coding (such as verifying code
+  with tests), unless `keep-coding-instructions` is true.
+* All output styles have their own custom instructions added to the end of the
+  system prompt.
+* All output styles trigger reminders for Claude to adhere to the output style
+  instructions during the conversation.
 
-## 出力スタイルを変更する
+## Change your output style
 
-以下のいずれかを実行できます：
+You can either:
 
-* `/output-style`を実行してメニューにアクセスし、出力スタイルを選択します（これは`/config`メニューからもアクセスできます）
+* Run `/output-style` to access a menu and select your output style (this can
+  also be accessed from the `/config` menu)
 
-* `/output-style [style]`（例：`/output-style explanatory`）を実行して、スタイルに直接切り替えます
+* Run `/output-style [style]`, such as `/output-style explanatory`, to directly
+  switch to a style
 
-これらの変更は[ローカルプロジェクトレベル](/ja/settings)に適用され、`.claude/settings.local.json`に保存されます。
+These changes apply to the [local project level](/en/settings) and are saved in
+`.claude/settings.local.json`. You can also directly edit the `outputStyle`
+field in a settings file at a different level.
 
-## カスタム出力スタイルを作成する
+## Create a custom output style
 
-Claudeの助けを借りて新しい出力スタイルを設定するには、
-`/output-style:new I want an output style that ...`を実行します
-
-デフォルトでは、`/output-style:new`を通じて作成された出力スタイルはユーザーレベルで`~/.claude/output-styles`にマークダウンファイルとして保存され、プロジェクト全体で使用できます。これらは以下の構造を持ちます：
+Custom output styles are Markdown files with frontmatter and the text that will
+be added to the system prompt:
 
 ```markdown  theme={null}
 ---
@@ -55,21 +72,41 @@ tasks. [Your custom instructions here...]
 [Define how the assistant should behave in this style...]
 ```
 
-また、独自の出力スタイルマークダウンファイルを作成し、ユーザーレベル（`~/.claude/output-styles`）またはプロジェクトレベル（`.claude/output-styles`）のいずれかに保存することもできます。
+You can save these files at the user level (`~/.claude/output-styles`) or
+project level (`.claude/output-styles`).
 
-## 関連機能との比較
+### Frontmatter
 
-### 出力スタイル対CLAUDE.md対--append-system-prompt
+Output style files support frontmatter, useful for specifying metadata about the
+command:
 
-出力スタイルはClaude Codeのデフォルトシステムプロンプトのソフトウェアエンジニアリング固有の部分を完全に「オフ」にします。CLAUDE.mdも`--append-system-prompt`もClaude Codeのデフォルトシステムプロンプトを編集しません。CLAUDE.mdはコンテンツをユーザーメッセージとして追加します。これはClaude Codeのデフォルトシステムプロンプトの\_後に\_続きます。`--append-system-prompt`はコンテンツをシステムプロンプトに追加します。
+| Frontmatter                | Purpose                                                                     | Default                 |
+| :------------------------- | :-------------------------------------------------------------------------- | :---------------------- |
+| `name`                     | Name of the output style, if not the file name                              | Inherits from file name |
+| `description`              | Description of the output style. Used only in the UI of `/output-style`     | None                    |
+| `keep-coding-instructions` | Whether to keep the parts of Claude Code's system prompt related to coding. | false                   |
 
-### 出力スタイル対[エージェント](/ja/sub-agents)
+## Comparisons to related features
 
-出力スタイルはメインエージェントループに直接影響し、システムプロンプトのみに影響します。エージェントは特定のタスクを処理するために呼び出され、使用するモデル、利用可能なツール、エージェントを使用する時期に関するコンテキストなどの追加設定を含めることができます。
+### Output Styles vs. CLAUDE.md vs. --append-system-prompt
 
-### 出力スタイル対[カスタムスラッシュコマンド](/ja/slash-commands)
+Output styles completely "turn off" the parts of Claude Code's default system
+prompt specific to software engineering. Neither CLAUDE.md nor
+`--append-system-prompt` edit Claude Code's default system prompt. CLAUDE.md
+adds the contents as a user message *following* Claude Code's default system
+prompt. `--append-system-prompt` appends the content to the system prompt.
 
-出力スタイルを「保存されたシステムプロンプト」と考え、カスタムスラッシュコマンドを「保存されたプロンプト」と考えることができます。
+### Output Styles vs. [Agents](/en/sub-agents)
+
+Output styles directly affect the main agent loop and only affect the system
+prompt. Agents are invoked to handle specific tasks and can include additional
+settings like the model to use, the tools they have available, and some context
+about when to use the agent.
+
+### Output Styles vs. [Custom Slash Commands](/en/slash-commands)
+
+You can think of output styles as "stored system prompts" and custom slash
+commands as "stored prompts".
 
 
 ---

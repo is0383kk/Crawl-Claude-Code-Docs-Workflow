@@ -2,7 +2,7 @@ name: Auto-merge docs PRs
 
 on:
   workflow_run:
-    workflows: ["Sync Claude Code docs (ja)"]
+    workflows: ["Sync Claude Code docs (en)"]
     types:
       - completed
 

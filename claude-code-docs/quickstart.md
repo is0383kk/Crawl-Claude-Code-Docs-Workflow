@@ -1,18 +1,18 @@
-# クイックスタート
+# Quickstart
 
-> Claude Codeへようこそ！
+> Welcome to Claude Code!
 
-このクイックスタートガイドを使用すれば、わずか数分でAI搭載のコーディング支援を使用できるようになります。最後には、一般的な開発タスクにClaude Codeを使用する方法を理解できるようになります。
+This quickstart guide will have you using AI-powered coding assistance in just a few minutes. By the end, you'll understand how to use Claude Code for common development tasks.
 
-## 始める前に
+## Before you begin
 
-以下のものを用意してください：
+Make sure you have:
 
-* ターミナルまたはコマンドプロンプトを開いた状態
-* 作業するコードプロジェクト
-* [Claude.ai](https://claude.ai)（推奨）または[Claude Console](https://console.anthropic.com/)アカウント
+* A terminal or command prompt open
+* A code project to work with
+* A [Claude.ai](https://claude.ai) (recommended) or [Claude Console](https://console.anthropic.com/) account
 
-## ステップ1：Claude Codeをインストール
+## Step 1: Install Claude Code
 
 To install Claude Code, use one of the following methods:
 
@@ -52,59 +52,59 @@ To install Claude Code, use one of the following methods:
   </Tab>
 </Tabs>
 
-## ステップ2：アカウントにログイン
+## Step 2: Log in to your account
 
-Claude Codeを使用するにはアカウントが必要です。`claude`コマンドでインタラクティブセッションを開始すると、ログインが必要になります：
+Claude Code requires an account to use. When you start an interactive session with the `claude` command, you'll need to log in:
 
 ```bash  theme={null}
 claude
-# 初回使用時にログインするよう促されます
+# You'll be prompted to log in on first use
 ```
 
 ```bash  theme={null}
 /login
-# プロンプトに従ってアカウントでログインします
+# Follow the prompts to log in with your account
 ```
 
-以下のいずれかのアカウントタイプでログインできます：
+You can log in using either account type:
 
-* [Claude.ai](https://claude.ai)（サブスクリプションプラン - 推奨）
-* [Claude Console](https://console.anthropic.com/)（プリペイドクレジット付きAPIアクセス）
+* [Claude.ai](https://claude.ai) (subscription plans - recommended)
+* [Claude Console](https://console.anthropic.com/) (API access with pre-paid credits)
 
-ログイン後、認証情報が保存され、再度ログインする必要はありません。
+Once logged in, your credentials are stored and you won't need to log in again.
 
 <Note>
-  Claude ConsoleアカウントでClaude Codeを初めて認証すると、「Claude Code」というワークスペースが自動的に作成されます。このワークスペースは、組織内のすべてのClaude Code使用に対する一元化されたコスト追跡と管理を提供します。
+  When you first authenticate Claude Code with your Claude Console account, a workspace called "Claude Code" is automatically created for you. This workspace provides centralized cost tracking and management for all Claude Code usage in your organization.
 </Note>
 
 <Note>
-  同じメールアドレスの下に両方のアカウントタイプを持つことができます。再度ログインする必要がある場合またはアカウントを切り替える場合は、Claude Code内で`/login`コマンドを使用してください。
+  You can have both account types under the same email address. If you need to log in again or switch accounts, use the `/login` command within Claude Code.
 </Note>
 
-## ステップ3：最初のセッションを開始
+## Step 3: Start your first session
 
-任意のプロジェクトディレクトリでターミナルを開き、Claude Codeを開始します：
+Open your terminal in any project directory and start Claude Code:
 
 ```bash  theme={null}
 cd /path/to/your/project
 claude
 ```
 
-セッション情報、最近の会話、最新の更新が表示されたClaude Codeウェルカムスクリーンが表示されます。利用可能なコマンドについては`/help`を入力するか、前の会話を続行するには`/resume`を入力してください。
+You'll see the Claude Code welcome screen with your session information, recent conversations, and latest updates. Type `/help` for available commands or `/resume` to continue a previous conversation.
 
 <Tip>
-  ログイン後（ステップ2）、認証情報がシステムに保存されます。詳細については、[認証情報管理](/ja/iam#credential-management)を参照してください。
+  After logging in (Step 2), your credentials are stored on your system. Learn more in [Credential Management](/en/iam#credential-management).
 </Tip>
 
-## ステップ4：最初の質問をする
+## Step 4: Ask your first question
 
-コードベースを理解することから始めましょう。以下のコマンドのいずれかを試してください：
+Let's start with understanding your codebase. Try one of these commands:
 
 ```
 > what does this project do?
 ```
 
-Claudeはファイルを分析し、概要を提供します。より具体的な質問をすることもできます：
+Claude will analyze your files and provide a summary. You can also ask more specific questions:
 
 ```
 > what technologies does this project use?
@@ -118,7 +118,7 @@ Claudeはファイルを分析し、概要を提供します。より具体的�
 > explain the folder structure
 ```
 
-Claude自身の機能について質問することもできます：
+You can also ask Claude about its own capabilities:
 
 ```
 > what can Claude Code do?
@@ -133,31 +133,31 @@ Claude自身の機能について質問することもできます：
 ```
 
 <Note>
-  Claude Codeは必要に応じてファイルを読み込みます。コンテキストを手動で追加する必要はありません。Claudeは独自のドキュメントにアクセスでき、その機能と機能について質問に答えることができます。
+  Claude Code reads your files as needed - you don't have to manually add context. Claude also has access to its own documentation and can answer questions about its features and capabilities.
 </Note>
 
-## ステップ5：最初のコード変更を行う
+## Step 5: Make your first code change
 
-次に、Claude Codeに実際のコーディングを行わせましょう。簡単なタスクを試してください：
+Now let's make Claude Code do some actual coding. Try a simple task:
 
 ```
 > add a hello world function to the main file
 ```
 
-Claude Codeは以下を実行します：
+Claude Code will:
 
-1. 適切なファイルを見つける
-2. 提案された変更を表示する
-3. 承認を求める
-4. 編集を行う
+1. Find the appropriate file
+2. Show you the proposed changes
+3. Ask for your approval
+4. Make the edit
 
 <Note>
-  Claude Codeは常にファイルを変更する前に許可を求めます。個別の変更を承認するか、セッション中に「すべて受け入れる」モードを有効にすることができます。
+  Claude Code always asks for permission before modifying files. You can approve individual changes or enable "Accept all" mode for a session.
 </Note>
 
-## ステップ6：Claude CodeでGitを使用
+## Step 6: Use Git with Claude Code
 
-Claude Codeはgit操作を会話型にします：
+Claude Code makes Git operations conversational:
 
 ```
 > what files have I changed?
@@ -167,7 +167,7 @@ Claude Codeはgit操作を会話型にします：
 > commit my changes with a descriptive message
 ```
 
-より複雑なGit操作を促すこともできます：
+You can also prompt for more complex Git operations:
 
 ```
 > create a new branch called feature/quickstart
@@ -181,90 +181,90 @@ Claude Codeはgit操作を会話型にします：
 > help me resolve merge conflicts
 ```
 
-## ステップ7：バグを修正するか機能を追加
+## Step 7: Fix a bug or add a feature
 
-Claudeはデバッグと機能実装に精通しています。
+Claude is proficient at debugging and feature implementation.
 
-自然言語で実現したいことを説明してください：
+Describe what you want in natural language:
 
 ```
 > add input validation to the user registration form
 ```
 
-または既存の問題を修正してください：
+Or fix existing issues:
 
 ```
 > there's a bug where users can submit empty forms - fix it
 ```
 
-Claude Codeは以下を実行します：
+Claude Code will:
 
-* 関連するコードを見つける
-* コンテキストを理解する
-* ソリューションを実装する
-* 利用可能な場合はテストを実行する
+* Locate the relevant code
+* Understand the context
+* Implement a solution
+* Run tests if available
 
-## ステップ8：その他の一般的なワークフローを試す
+## Step 8: Test out other common workflows
 
-Claudeと連携する方法はいくつかあります：
+There are a number of ways to work with Claude:
 
-**コードをリファクタリング**
+**Refactor code**
 
 ```
 > refactor the authentication module to use async/await instead of callbacks
 ```
 
-**テストを作成**
+**Write tests**
 
 ```
 > write unit tests for the calculator functions
 ```
 
-**ドキュメントを更新**
+**Update documentation**
 
 ```
 > update the README with installation instructions
 ```
 
-**コードレビュー**
+**Code review**
 
 ```
 > review my changes and suggest improvements
 ```
 
 <Tip>
-  **覚えておいてください**：Claude Codeはあなたのペアプログラマーです。有能な同僚と話すように話しかけてください。実現したいことを説明すれば、それを達成するのに役立ちます。
+  **Remember**: Claude Code is your AI pair programmer. Talk to it like you would a helpful colleague - describe what you want to achieve, and it will help you get there.
 </Tip>
 
-## 必須コマンド
+## Essential commands
 
-日常的に使用する最も重要なコマンドは以下の通りです：
+Here are the most important commands for daily use:
 
-| コマンド                | 機能                | 例                                   |
-| ------------------- | ----------------- | ----------------------------------- |
-| `claude`            | インタラクティブモードを開始    | `claude`                            |
-| `claude "task"`     | 1回限りのタスクを実行       | `claude "fix the build error"`      |
-| `claude -p "query"` | 1回限りのクエリを実行してから終了 | `claude -p "explain this function"` |
-| `claude -c`         | 最新の会話を続行          | `claude -c`                         |
-| `claude -r`         | 前の会話を再開           | `claude -r`                         |
-| `claude commit`     | Gitコミットを作成        | `claude commit`                     |
-| `/clear`            | 会話履歴をクリア          | `> /clear`                          |
-| `/help`             | 利用可能なコマンドを表示      | `> /help`                           |
-| `exit` または Ctrl+C   | Claude Codeを終了    | `> exit`                            |
+| Command             | What it does                      | Example                             |
+| ------------------- | --------------------------------- | ----------------------------------- |
+| `claude`            | Start interactive mode            | `claude`                            |
+| `claude "task"`     | Run a one-time task               | `claude "fix the build error"`      |
+| `claude -p "query"` | Run one-off query, then exit      | `claude -p "explain this function"` |
+| `claude -c`         | Continue most recent conversation | `claude -c`                         |
+| `claude -r`         | Resume a previous conversation    | `claude -r`                         |
+| `claude commit`     | Create a Git commit               | `claude commit`                     |
+| `/clear`            | Clear conversation history        | `> /clear`                          |
+| `/help`             | Show available commands           | `> /help`                           |
+| `exit` or Ctrl+C    | Exit Claude Code                  | `> exit`                            |
 
-完全なコマンドリストについては、[CLIリファレンス](/ja/cli-reference)を参照してください。
+See the [CLI reference](/en/cli-reference) for a complete list of commands.
 
-## 初心者向けのプロのヒント
+## Pro tips for beginners
 
 <AccordionGroup>
-  <Accordion title="リクエストを具体的にする">
-    代わりに：「バグを修正して」
+  <Accordion title="Be specific with your requests">
+    Instead of: "fix the bug"
 
-    試してください：「ユーザーが間違った認証情報を入力した後に空白の画面が表示されるログインバグを修正してください」
+    Try: "fix the login bug where users see a blank screen after entering wrong credentials"
   </Accordion>
 
-  <Accordion title="段階的な指示を使用">
-    複雑なタスクをステップに分割します：
+  <Accordion title="Use step-by-step instructions">
+    Break complex tasks into steps:
 
     ```
     > 1. create a new database table for user profiles
@@ -279,8 +279,8 @@ Claudeと連携する方法はいくつかあります：
     ```
   </Accordion>
 
-  <Accordion title="Claudeに最初に探索させる">
-    変更を加える前に、Claudeにコードを理解させます：
+  <Accordion title="Let Claude explore first">
+    Before making changes, let Claude understand your code:
 
     ```
     > analyze the database schema
@@ -291,41 +291,45 @@ Claudeと連携する方法はいくつかあります：
     ```
   </Accordion>
 
-  <Accordion title="ショートカットで時間を節約">
-    * `?`を押してすべての利用可能なキーボードショートカットを表示
-    * タブをコマンド補完に使用
-    * ↑を押してコマンド履歴を表示
-    * `/`を入力してすべてのスラッシュコマンドを表示
+  <Accordion title="Save time with shortcuts">
+    * Press `?` to see all available keyboard shortcuts
+    * Use Tab for command completion
+    * Press ↑ for command history
+    * Type `/` to see all slash commands
   </Accordion>
 </AccordionGroup>
 
-## 次は何ですか？
+## What's next?
 
-基本を学習したので、より高度な機能を探索してください：
+Now that you've learned the basics, explore more advanced features:
 
 <CardGroup cols={3}>
-  <Card title="一般的なワークフロー" icon="graduation-cap" href="/ja/common-workflows">
-    一般的なタスクのステップバイステップガイド
+  <Card title="Common workflows" icon="graduation-cap" href="/en/common-workflows">
+    Step-by-step guides for common tasks
   </Card>
 
-  <Card title="CLIリファレンス" icon="terminal" href="/ja/cli-reference">
-    すべてのコマンドとオプションをマスター
+  <Card title="CLI reference" icon="terminal" href="/en/cli-reference">
+    Master all commands and options
   </Card>
 
-  <Card title="設定" icon="gear" href="/ja/settings">
-    Claude Codeをワークフローに合わせてカスタマイズ
+  <Card title="Configuration" icon="gear" href="/en/settings">
+    Customize Claude Code for your workflow
   </Card>
 
-  <Card title="ウェブ上のClaude Code" icon="cloud" href="/ja/claude-code-on-the-web">
-    クラウドでタスクを非同期に実行
+  <Card title="Claude Code on the web" icon="cloud" href="/en/claude-code-on-the-web">
+    Run tasks asynchronously in the cloud
+  </Card>
+
+  <Card title="About Claude Code" icon="sparkles" href="https://claude.com/product/claude-code">
+    Learn more on claude.com
   </Card>
 </CardGroup>
 
-## ヘルプを取得
+## Getting help
 
-* **Claude Code内**：`/help`を入力するか、「how do I...」と質問してください
-* **ドキュメント**：ここにいます！他のガイドを参照してください
-* **コミュニティ**：[Discord](https://www.anthropic.com/discord)に参加してヒントとサポートを受けてください
+* **In Claude Code**: Type `/help` or ask "how do I..."
+* **Documentation**: You're here! Browse other guides
+* **Community**: Join our [Discord](https://www.anthropic.com/discord) for tips and support
 
 
 ---

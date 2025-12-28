@@ -1,35 +1,35 @@
-# 一般的なワークフロー
+# Common workflows
 
-> Claude Codeを使用した一般的なワークフローについて学びます。
+> Learn about common workflows with Claude Code.
 
-このドキュメント内の各タスクには、明確な指示、コマンド例、およびClaudeコードを最大限に活用するためのベストプラクティスが含まれています。
+Each task in this document includes clear instructions, example commands, and best practices to help you get the most from Claude Code.
 
-## 新しいコードベースを理解する
+## Understand new codebases
 
-### コードベースの概要をすばやく取得する
+### Get a quick codebase overview
 
-新しいプロジェクトに参加したばかりで、その構造をすばやく理解する必要があるとします。
+Suppose you've just joined a new project and need to understand its structure quickly.
 
 <Steps>
-  <Step title="プロジェクトルートディレクトリに移動する">
+  <Step title="Navigate to the project root directory">
     ```bash  theme={null}
     cd /path/to/project 
     ```
   </Step>
 
-  <Step title="Claude Codeを開始する">
+  <Step title="Start Claude Code">
     ```bash  theme={null}
     claude 
     ```
   </Step>
 
-  <Step title="高レベルの概要をリクエストする">
+  <Step title="Ask for a high-level overview">
     ```
     > give me an overview of this codebase 
     ```
   </Step>
 
-  <Step title="特定のコンポーネントをさらに詳しく調べる">
+  <Step title="Dive deeper into specific components">
     ```
     > explain the main architecture patterns used here 
     ```
@@ -45,31 +45,31 @@
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 広い質問から始めて、特定の領域に絞り込んでいきます
-  * プロジェクトで使用されているコーディング規約とパターンについて尋ねます
-  * プロジェクト固有の用語の用語集をリクエストします
+  * Start with broad questions, then narrow down to specific areas
+  * Ask about coding conventions and patterns used in the project
+  * Request a glossary of project-specific terms
 </Tip>
 
-### 関連するコードを見つける
+### Find relevant code
 
-特定の機能または機能に関連するコードを見つける必要があるとします。
+Suppose you need to locate code related to a specific feature or functionality.
 
 <Steps>
-  <Step title="Claudeに関連ファイルを見つけるよう依頼する">
+  <Step title="Ask Claude to find relevant files">
     ```
     > find the files that handle user authentication 
     ```
   </Step>
 
-  <Step title="コンポーネントがどのように相互作用するかについてのコンテキストを取得する">
+  <Step title="Get context on how components interact">
     ```
     > how do these authentication files work together? 
     ```
   </Step>
 
-  <Step title="実行フローを理解する">
+  <Step title="Understand the execution flow">
     ```
     > trace the login process from front-end to database 
     ```
@@ -77,32 +77,32 @@
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 探しているものについて具体的にしてください
-  * プロジェクトのドメイン言語を使用します
+  * Be specific about what you're looking for
+  * Use domain language from the project
 </Tip>
 
 ***
 
-## バグを効率的に修正する
+## Fix bugs efficiently
 
-エラーメッセージが表示され、そのソースを見つけて修正する必要があるとします。
+Suppose you've encountered an error message and need to find and fix its source.
 
 <Steps>
-  <Step title="エラーをClaudeと共有する">
+  <Step title="Share the error with Claude">
     ```
     > I'm seeing an error when I run npm test 
     ```
   </Step>
 
-  <Step title="修正の推奨事項をリクエストする">
+  <Step title="Ask for fix recommendations">
     ```
     > suggest a few ways to fix the @ts-ignore in user.ts 
     ```
   </Step>
 
-  <Step title="修正を適用する">
+  <Step title="Apply the fix">
     ```
     > update user.ts to add the null check you suggested 
     ```
@@ -110,39 +110,39 @@
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * Claudeに問題を再現するコマンドとスタックトレースを伝えます
-  * エラーを再現するための手順を記載します
-  * エラーが断続的か一貫しているかをClaudeに知らせます
+  * Tell Claude the command to reproduce the issue and get a stack trace
+  * Mention any steps to reproduce the error
+  * Let Claude know if the error is intermittent or consistent
 </Tip>
 
 ***
 
-## コードをリファクタリングする
+## Refactor code
 
-古いコードを更新して、最新のパターンとプラクティスを使用する必要があるとします。
+Suppose you need to update old code to use modern patterns and practices.
 
 <Steps>
-  <Step title="リファクタリング用のレガシーコードを特定する">
+  <Step title="Identify legacy code for refactoring">
     ```
     > find deprecated API usage in our codebase 
     ```
   </Step>
 
-  <Step title="リファクタリングの推奨事項を取得する">
+  <Step title="Get refactoring recommendations">
     ```
     > suggest how to refactor utils.js to use modern JavaScript features 
     ```
   </Step>
 
-  <Step title="変更を安全に適用する">
+  <Step title="Apply the changes safely">
     ```
     > refactor utils.js to use ES2024 features while maintaining the same behavior 
     ```
   </Step>
 
-  <Step title="リファクタリングを検証する">
+  <Step title="Verify the refactoring">
     ```
     > run tests for the refactored code 
     ```
@@ -150,30 +150,30 @@
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * Claudeに最新のアプローチの利点を説明するよう依頼します
-  * 必要に応じて、変更が後方互換性を維持することをリクエストします
-  * リファクタリングは小さくテスト可能な増分で実行します
+  * Ask Claude to explain the benefits of the modern approach
+  * Request that changes maintain backward compatibility when needed
+  * Do refactoring in small, testable increments
 </Tip>
 
 ***
 
-## 特化したサブエージェントを使用する
+## Use specialized subagents
 
-特化したAIサブエージェントを使用して、特定のタスクをより効果的に処理したいとします。
+Suppose you want to use specialized AI subagents to handle specific tasks more effectively.
 
 <Steps>
-  <Step title="利用可能なサブエージェントを表示する">
+  <Step title="View available subagents">
     ```
     > /agents
     ```
 
-    これにより、すべての利用可能なサブエージェントが表示され、新しいものを作成できます。
+    This shows all available subagents and lets you create new ones.
   </Step>
 
-  <Step title="サブエージェントを自動的に使用する">
-    Claude Codeは、特化したサブエージェントに適切なタスクを自動的に委譲します：
+  <Step title="Use subagents automatically">
+    Claude Code automatically delegates appropriate tasks to specialized subagents:
 
     ```
     > review my recent code changes for security issues
@@ -184,7 +184,7 @@
     ```
   </Step>
 
-  <Step title="特定のサブエージェントを明示的にリクエストする">
+  <Step title="Explicitly request specific subagents">
     ```
     > use the code-reviewer subagent to check the auth module
     ```
@@ -194,66 +194,66 @@
     ```
   </Step>
 
-  <Step title="ワークフロー用のカスタムサブエージェントを作成する">
+  <Step title="Create custom subagents for your workflow">
     ```
     > /agents
     ```
 
-    次に、「新しいサブエージェントを作成」を選択し、プロンプトに従って以下を定義します：
+    Then select "Create New subagent" and follow the prompts to define:
 
-    * サブエージェントタイプ（例：`api-designer`、`performance-optimizer`）
-    * 使用する時期
-    * アクセスできるツール
-    * その特化したシステムプロンプト
+    * A unique identifier that describes the subagent's purpose (for example, `code-reviewer`, `api-designer`).
+    * When Claude should use this agent
+    * Which tools it can access
+    * A system prompt describing the agent's role and behavior
   </Step>
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * チームで共有するために、`.claude/agents/`にプロジェクト固有のサブエージェントを作成します
-  * 自動委譲を有効にするために、説明的な`description`フィールドを使用します
-  * 各サブエージェントが実際に必要とするツールアクセスのみに制限します
-  * 詳細な例については、[サブエージェントドキュメント](/ja/sub-agents)を確認してください
+  * Create project-specific subagents in `.claude/agents/` for team sharing
+  * Use descriptive `description` fields to enable automatic delegation
+  * Limit tool access to what each subagent actually needs
+  * Check the [subagents documentation](/en/sub-agents) for detailed examples
 </Tip>
 
 ***
 
-## プランモードを使用して安全なコード分析を行う
+## Use Plan Mode for safe code analysis
 
-プランモードは、読み取り専用操作でコードベースを分析することでプランを作成するようClaudeに指示します。これは、コードベースの探索、複雑な変更の計画、またはコードの安全なレビューに最適です。
+Plan Mode instructs Claude to create a plan by analyzing the codebase with read-only operations, perfect for exploring codebases, planning complex changes, or reviewing code safely.
 
-### プランモードを使用する場合
+### When to use Plan Mode
 
-* **マルチステップ実装**：機能が多くのファイルへの編集を必要とする場合
-* **コード探索**：何かを変更する前にコードベースを徹底的に調査したい場合
-* **インタラクティブ開発**：Claudeとの方向性について反復したい場合
+* **Multi-step implementation**: When your feature requires making edits to many files
+* **Code exploration**: When you want to research the codebase thoroughly before changing anything
+* **Interactive development**: When you want to iterate on the direction with Claude
 
-### プランモードの使用方法
+### How to use Plan Mode
 
-**セッション中にプランモードをオンにする**
+**Turn on Plan Mode during a session**
 
-**Shift+Tab**を使用してセッション中にプランモードに切り替えることができます。
+You can switch into Plan Mode during a session using **Shift+Tab** to cycle through permission modes.
 
-通常モードの場合、**Shift+Tab**は最初にオートアクセプトモードに切り替わります。これはターミナルの下部に`⏵⏵ accept edits on`で示されます。その後の**Shift+Tab**はプランモードに切り替わります。これは`⏸ plan mode on`で示されます。
+If you are in Normal Mode, **Shift+Tab** first switches into Auto-Accept Mode, indicated by `⏵⏵ accept edits on` at the bottom of the terminal. A subsequent **Shift+Tab** will switch into Plan Mode, indicated by `⏸ plan mode on`.
 
-**プランモードで新しいセッションを開始する**
+**Start a new session in Plan Mode**
 
-プランモードで新しいセッションを開始するには、`--permission-mode plan`フラグを使用します：
+To start a new session in Plan Mode, use the `--permission-mode plan` flag:
 
 ```bash  theme={null}
 claude --permission-mode plan
 ```
 
-**プランモードで「ヘッドレス」クエリを実行する**
+**Run "headless" queries in Plan Mode**
 
-`-p`を使用してプランモードでクエリを直接実行することもできます（つまり、[「ヘッドレスモード」](/ja/headless)で）：
+You can also run a query in Plan Mode directly with `-p` (that is, in ["headless mode"](/en/headless)):
 
 ```bash  theme={null}
 claude --permission-mode plan -p "Analyze the authentication system and suggest improvements"
 ```
 
-### 例：複雑なリファクタリングの計画
+### Example: Planning a complex refactor
 
 ```bash  theme={null}
 claude --permission-mode plan
@@ -263,14 +263,14 @@ claude --permission-mode plan
 > I need to refactor our authentication system to use OAuth2. Create a detailed migration plan.
 ```
 
-Claudeは現在の実装を分析し、包括的なプランを作成します。フォローアップで改善します：
+Claude analyzes the current implementation and create a comprehensive plan. Refine with follow-ups:
 
 ```
 > What about backward compatibility?
 > How should we handle database migration?
 ```
 
-### プランモードをデフォルトとして設定する
+### Configure Plan Mode as default
 
 ```json  theme={null}
 // .claude/settings.json
@@ -281,74 +281,70 @@ Claudeは現在の実装を分析し、包括的なプランを作成します�
 }
 ```
 
-詳細な設定オプションについては、[設定ドキュメント](/ja/settings#available-settings)を参照してください。
+See [settings documentation](/en/settings#available-settings) for more configuration options.
 
 ***
 
-## テストを使用する
+## Work with tests
 
-カバーされていないコードのテストを追加する必要があるとします。
+Suppose you need to add tests for uncovered code.
 
 <Steps>
-  <Step title="テストされていないコードを特定する">
+  <Step title="Identify untested code">
     ```
     > find functions in NotificationsService.swift that are not covered by tests 
     ```
   </Step>
 
-  <Step title="テストスキャフォルディングを生成する">
+  <Step title="Generate test scaffolding">
     ```
     > add tests for the notification service 
     ```
   </Step>
 
-  <Step title="意味のあるテストケースを追加する">
+  <Step title="Add meaningful test cases">
     ```
     > add test cases for edge conditions in the notification service 
     ```
   </Step>
 
-  <Step title="テストを実行して検証する">
+  <Step title="Run and verify tests">
     ```
     > run the new tests and fix any failures 
     ```
   </Step>
 </Steps>
 
-<Tip>
-  ヒント：
+Claude can generate tests that follow your project's existing patterns and conventions. When asking for tests, be specific about what behavior you want to verify. Claude examines your existing test files to match the style, frameworks, and assertion patterns already in use.
 
-  * エッジケースとエラー条件をカバーするテストをリクエストします
-  * 必要に応じて、ユニットテストと統合テストの両方をリクエストします
-  * Claudeにテスト戦略を説明させます
-</Tip>
+For comprehensive coverage, ask Claude to identify edge cases you might have missed. Claude can analyze your code paths and suggest tests for error conditions, boundary values, and unexpected inputs that are easy to overlook.
 
 ***
 
-## プルリクエストを作成する
+## Create pull requests
 
-変更に対して、よく文書化されたプルリクエストを作成する必要があるとします。
+Suppose you need to create a well-documented pull request for your changes.
 
 <Steps>
-  <Step title="変更を要約する">
+  <Step title="Summarize your changes">
     ```
     > summarize the changes I've made to the authentication module 
     ```
   </Step>
 
-  <Step title="Claudeを使用してPRを生成する">
+  <Step title="Generate a pull request with Claude">
     ```
     > create a pr 
     ```
   </Step>
 
-  <Step title="レビューと改善">
+  <Step title="Review and refine">
     ```
     > enhance the PR description with more context about the security improvements 
     ```
   </Step>
 
-  <Step title="テストの詳細を追加する">
+  <Step title="Add testing details">
     ```
     > add information about how these changes were tested 
     ```
@@ -356,37 +352,37 @@ Claudeは現在の実装を分析し、包括的なプランを作成します�
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * Claudeに直接PRを作成するよう依頼します
-  * 送信する前にClaudeが生成したPRをレビューします
-  * Claudeに潜在的なリスクまたは考慮事項を強調するよう依頼します
+  * Ask Claude directly to make a PR for you
+  * Review Claude's generated PR before submitting
+  * Ask Claude to highlight potential risks or considerations
 </Tip>
 
-## ドキュメントを処理する
+## Handle documentation
 
-コードのドキュメントを追加または更新する必要があるとします。
+Suppose you need to add or update documentation for your code.
 
 <Steps>
-  <Step title="文書化されていないコードを特定する">
+  <Step title="Identify undocumented code">
     ```
     > find functions without proper JSDoc comments in the auth module 
     ```
   </Step>
 
-  <Step title="ドキュメントを生成する">
+  <Step title="Generate documentation">
     ```
     > add JSDoc comments to the undocumented functions in auth.js 
     ```
   </Step>
 
-  <Step title="レビューと改善">
+  <Step title="Review and enhance">
     ```
     > improve the generated documentation with more context and examples 
     ```
   </Step>
 
-  <Step title="ドキュメントを検証する">
+  <Step title="Verify documentation">
     ```
     > check if the documentation follows our project standards 
     ```
@@ -394,29 +390,29 @@ Claudeは現在の実装を分析し、包括的なプランを作成します�
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 必要なドキュメントスタイルを指定します（JSDoc、docstringsなど）
-  * ドキュメント内の例をリクエストします
-  * パブリックAPI、インターフェース、および複雑なロジックのドキュメントをリクエストします
+  * Specify the documentation style you want (JSDoc, docstrings, etc.)
+  * Ask for examples in the documentation
+  * Request documentation for public APIs, interfaces, and complex logic
 </Tip>
 
 ***
 
-## 画像を使用する
+## Work with images
 
-コードベース内の画像を使用する必要があり、Claudeが画像コンテンツの分析を支援することを望むとします。
+Suppose you need to work with images in your codebase, and you want Claude's help analyzing image content.
 
 <Steps>
-  <Step title="会話に画像を追加する">
-    次のいずれかの方法を使用できます：
+  <Step title="Add an image to the conversation">
+    You can use any of these methods:
 
-    1. Claude Codeウィンドウに画像をドラッグアンドドロップします
-    2. 画像をコピーしてCLIにctrl+vで貼り付けます（cmd+vは使用しないでください）
-    3. 画像パスをClaudeに提供します。例：「この画像を分析してください：/path/to/your/image.png」
+    1. Drag and drop an image into the Claude Code window
+    2. Copy an image and paste it into the CLI with ctrl+v (Do not use cmd+v)
+    3. Provide an image path to Claude. E.g., "Analyze this image: /path/to/your/image.png"
   </Step>
 
-  <Step title="Claudeに画像を分析するよう依頼する">
+  <Step title="Ask Claude to analyze the image">
     ```
     > What does this image show?
     ```
@@ -430,7 +426,7 @@ Claudeは現在の実装を分析し、包括的なプランを作成します�
     ```
   </Step>
 
-  <Step title="コンテキストに画像を使用する">
+  <Step title="Use images for context">
     ```
     > Here's a screenshot of the error. What's causing it?
     ```
@@ -440,7 +436,7 @@ Claudeは現在の実装を分析し、包括的なプランを作成します�
     ```
   </Step>
 
-  <Step title="ビジュアルコンテンツからコード提案を取得する">
+  <Step title="Get code suggestions from visual content">
     ```
     > Generate CSS to match this design mockup
     ```
@@ -452,261 +448,286 @@ Claudeは現在の実装を分析し、包括的なプランを作成します�
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * テキストの説明が不明確または面倒な場合は、画像を使用します
-  * より良いコンテキストのために、エラー、UIデザイン、または図のスクリーンショットを含めます
-  * 会話で複数の画像を使用できます
-  * 画像分析は、図、スクリーンショット、モックアップなどで機能します
+  * Use images when text descriptions would be unclear or cumbersome
+  * Include screenshots of errors, UI designs, or diagrams for better context
+  * You can work with multiple images in a conversation
+  * Image analysis works with diagrams, screenshots, mockups, and more
 </Tip>
 
 ***
 
-## ファイルとディレクトリを参照する
+## Reference files and directories
 
-@を使用して、Claudeが読み込むのを待たずにファイルまたはディレクトリをすばやく含めます。
+Use @ to quickly include files or directories without waiting for Claude to read them.
 
 <Steps>
-  <Step title="単一ファイルを参照する">
+  <Step title="Reference a single file">
     ```
     > Explain the logic in @src/utils/auth.js
     ```
 
-    これにより、ファイルの完全な内容が会話に含まれます。
+    This includes the full content of the file in the conversation.
   </Step>
 
-  <Step title="ディレクトリを参照する">
+  <Step title="Reference a directory">
     ```
     > What's the structure of @src/components?
     ```
 
-    これにより、ファイル情報を含むディレクトリリストが提供されます。
+    This provides a directory listing with file information.
   </Step>
 
-  <Step title="MCPリソースを参照する">
+  <Step title="Reference MCP resources">
     ```
     > Show me the data from @github:repos/owner/repo/issues
     ```
 
-    これにより、@server:resourceの形式を使用して接続されたMCPサーバーからデータを取得します。詳細については、[MCPリソース](/ja/mcp#use-mcp-resources)を参照してください。
+    This fetches data from connected MCP servers using the format @server:resource. See [MCP resources](/en/mcp#use-mcp-resources) for details.
   </Step>
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * ファイルパスは相対パスまたは絶対パスです
-  * @ファイル参照は、ファイルのディレクトリと親ディレクトリにCLAUDE.mdを追加します
-  * ディレクトリ参照はファイルリストを表示し、内容は表示しません
-  * 単一のメッセージで複数のファイルを参照できます（例：「@file1.jsと@file2.js」）
+  * File paths can be relative or absolute
+  * @ file references add `CLAUDE.md` in the file's directory and parent directories to context
+  * Directory references show file listings, not contents
+  * You can reference multiple files in a single message (for example, "@file1.js and @file2.js")
 </Tip>
 
 ***
 
-## 拡張思考を使用する
+## Use extended thinking (thinking mode)
 
-複雑なアーキテクチャの決定、難しいバグ、または深い推論が必要なマルチステップ実装の計画に取り組んでいるとします。
+[Extended thinking](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) reserves a portion of the total output token budget for Claude to reason through complex problems step-by-step. This reasoning is visible in verbose mode, which you can toggle on with `Ctrl+O`.
+
+Extended thinking is particularly valuable for complex architectural decisions, challenging bugs, multi-step implementation planning, and evaluating tradeoffs between different approaches. It provides more space for exploring multiple solutions, analyzing edge cases, and self-correcting mistakes.
 
 <Note>
-  [拡張思考](https://docs.claude.com/en/docs/build-with-claude/extended-thinking)はClaudeコードではデフォルトで無効になっています。`Tab`を使用して思考をオンに切り替えるか、「think」または「think hard」などのプロンプトを使用してオンデマンドで有効にできます。また、設定で[`MAX_THINKING_TOKENS`環境変数](/ja/settings#environment-variables)を設定することで、永続的に有効にすることもできます。
+  Sonnet 4.5 and Opus 4.5 have thinking enabled by default. All other models have thinking disabled by default. Use `/model` to view or switch your current model.
 </Note>
 
+You can configure thinking mode for Claude Code in two ways:
+
+| Scope                             | How to enable                                                                        | Details                                                                                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Global default**                | Use `/config` to toggle thinking mode on                                             | Sets your default across all projects.<br />Saved as `alwaysThinkingEnabled` in `~/.claude/settings.json`                                        |
+| **Environment variable override** | Set [`MAX_THINKING_TOKENS`](/en/settings#environment-variables) environment variable | When set, applies a custom token budget to all requests, overriding your thinking mode configuration. Example: `export MAX_THINKING_TOKENS=1024` |
+
+### Per-request thinking with `ultrathink`
+
+You can include `ultrathink` as a keyword in your message to enable thinking for a single request:
+
+```
+> ultrathink: design a caching layer for our API
+```
+
+Note that `ultrathink` both allocates the thinking budget AND semantically signals to Claude to reason more thoroughly, which may result in deeper thinking than necessary for your task.
+
+The `ultrathink` keyword only works when `MAX_THINKING_TOKENS` is not set. When `MAX_THINKING_TOKENS` is configured, it takes priority and controls the thinking budget for all requests.
+
+Other phrases like "think", "think hard", and "think more" are interpreted as regular prompt instructions and don't allocate thinking tokens.
+
+To view Claude's thinking process, press `Ctrl+O` to toggle verbose mode and see the internal reasoning displayed as gray italic text.
+
+See the [token budget section below](#how-extended-thinking-token-budgets-work) for detailed budget information and cost implications.
+
+### How extended thinking token budgets work
+
+Extended thinking uses a **token budget** that controls how much internal reasoning Claude can perform before responding.
+
+A larger thinking token budget provides:
+
+* More space to explore multiple solution approaches step-by-step
+* Room to analyze edge cases and evaluate tradeoffs thoroughly
+* Ability to revise reasoning and self-correct mistakes
+
+Token budgets for thinking mode:
+
+* When thinking is **enabled** (via `/config` or `ultrathink`), Claude can use up to **31,999 tokens** from your output budget for internal reasoning
+* When thinking is **disabled**, Claude uses **0 tokens** for thinking
+
+**Custom token budgets:**
+
+* You can set a custom thinking token budget using the [`MAX_THINKING_TOKENS` environment variable](/en/settings#environment-variables)
+* This takes highest priority and overrides the default 31,999 token budget
+* See the [extended thinking documentation](https://docs.claude.com/en/docs/build-with-claude/extended-thinking) for valid token ranges
+
+<Warning>
+  You're charged for all thinking tokens used, even though Claude 4 models show summarized thinking
+</Warning>
+
+***
+
+## Resume previous conversations
+
+When starting Claude Code, you can resume a previous session:
+
+* `claude --continue` continues the most recent conversation in the current directory
+* `claude --resume` opens a conversation picker or resumes by name
+
+From inside an active session, use `/resume` to switch to a different conversation.
+
+Sessions are stored per project directory. The `/resume` picker shows sessions from the same git repository, including worktrees.
+
+### Name your sessions
+
+Give sessions descriptive names to find them later. This is a best practice when working on multiple tasks or features.
+
 <Steps>
-  <Step title="コンテキストを提供し、Claudeに考えるよう依頼する">
+  <Step title="Name the current session">
+    Use `/rename` during a session to give it a memorable name:
+
     ```
-    > I need to implement a new authentication system using OAuth2 for our API. Think deeply about the best approach for implementing this in our codebase.
+    > /rename auth-refactor
     ```
 
-    Claudeはコードベースから関連情報を収集し、
-    拡張思考を使用します。これはインターフェースに表示されます。
+    You can also rename any session from the picker: run `/resume`, navigate to a session, and press `R`.
   </Step>
 
-  <Step title="フォローアップのプロンプトで思考を改善する">
-    ```
-    > think about potential security vulnerabilities in this approach 
+  <Step title="Resume by name later">
+    From the command line:
+
+    ```bash  theme={null}
+    claude --resume auth-refactor
     ```
 
+    Or from inside an active session:
+
     ```
-    > think hard about edge cases we should handle 
+    > /resume auth-refactor
     ```
   </Step>
 </Steps>
 
-<Tip>
-  拡張思考から最大の価値を得るためのヒント：
+### Use the session picker
 
-  [拡張思考](https://docs.claude.com/en/docs/build-with-claude/extended-thinking)は、以下のような複雑なタスクに最も価値があります：
+The `/resume` command (or `claude --resume` without arguments) opens an interactive session picker with these features:
 
-  * 複雑なアーキテクチャの変更を計画する
-  * 複雑な問題をデバッグする
-  * 新機能の実装計画を作成する
-  * 複雑なコードベースを理解する
-  * 異なるアプローチ間のトレードオフを評価する
+**Keyboard shortcuts in the picker:**
 
-  セッション中に`Tab`を使用して思考をオンとオフに切り替えます。
+| Shortcut  | Action                                            |
+| :-------- | :------------------------------------------------ |
+| `↑` / `↓` | Navigate between sessions                         |
+| `→` / `←` | Expand or collapse grouped sessions               |
+| `Enter`   | Select and resume the highlighted session         |
+| `P`       | Preview the session content                       |
+| `R`       | Rename the highlighted session                    |
+| `/`       | Search to filter sessions                         |
+| `A`       | Toggle between current directory and all projects |
+| `B`       | Filter to sessions from your current git branch   |
+| `Esc`     | Exit the picker or search mode                    |
 
-  思考をリクエストする方法は、思考の深さのレベルが異なります：
+**Session organization:**
 
-  * 「think」は基本的な拡張思考をトリガーします
-  * 「keep hard」、「think more」、「think a lot」、「think longer」などの強化フレーズは、より深い思考をトリガーします
+The picker displays sessions with helpful metadata:
 
-  拡張思考プロンプトのヒントについては、[拡張思考のヒント](https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/extended-thinking-tips)を参照してください。
-</Tip>
+* Session name or initial prompt
+* Time elapsed since last activity
+* Message count
+* Git branch (if applicable)
 
-<Note>
-  Claudeは、その思考プロセスをレスポンスの上にイタリック体の灰色のテキストとして表示します。
-</Note>
-
-***
-
-## 前の会話を再開する
-
-Claude Codeでタスクに取り組んでいて、後のセッションで中断したところから続ける必要があるとします。
-
-Claude Codeは、前の会話を再開するための2つのオプションを提供します：
-
-* `--continue`で最新の会話を自動的に続ける
-* `--resume`で会話ピッカーを表示する
-
-<Steps>
-  <Step title="最新の会話を続ける">
-    ```bash  theme={null}
-    claude --continue
-    ```
-
-    これにより、プロンプトなしで最新の会話がすぐに再開されます。
-  </Step>
-
-  <Step title="非対話モードで続ける">
-    ```bash  theme={null}
-    claude --continue --print "Continue with my task"
-    ```
-
-    `--continue`で`--print`を使用して、最新の会話を非対話モードで再開します。これはスクリプトまたは自動化に最適です。
-  </Step>
-
-  <Step title="会話ピッカーを表示する">
-    ```bash  theme={null}
-    claude --resume
-    ```
-
-    これにより、以下を表示するクリーンなリストビューを含むインタラクティブな会話セレクターが表示されます：
-
-    * セッション要約（または初期プロンプト）
-    * メタデータ：経過時間、メッセージ数、およびgitブランチ
-
-    矢印キーを使用してナビゲートし、Enterキーを押して会話を選択します。Escキーを押して終了します。
-  </Step>
-</Steps>
+Forked sessions (created with `/rewind` or `--fork-session`) are grouped together under their root session, making it easier to find related conversations.
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 会話履歴はマシンにローカルに保存されます
-  * 最新の会話にすばやくアクセスするには`--continue`を使用します
-  * 特定の過去の会話を選択する必要がある場合は`--resume`を使用します
-  * 再開すると、続行する前に会話履歴全体が表示されます
-  * 再開された会話は、元の会話と同じモデルと設定で開始されます
+  * **Name sessions early**: Use `/rename` when starting work on a distinct task—it's much easier to find "payment-integration" than "explain this function" later
+  * Use `--continue` for quick access to your most recent conversation
+  * Use `--resume session-name` when you know which session you need
+  * Use `--resume` (without a name) when you need to browse and select
+  * For scripts, use `claude --continue --print "prompt"` to resume in non-interactive mode
+  * Press `P` in the picker to preview a session before resuming it
+  * The resumed conversation starts with the same model and configuration as the original
 
-  動作方法：
+  How it works:
 
-  1. **会話ストレージ**：すべての会話は、完全なメッセージ履歴を含めてローカルに自動保存されます
-  2. **メッセージ逆シリアル化**：再開時に、コンテキストを維持するために会話履歴全体が復元されます
-  3. **ツール状態**：前の会話からのツール使用と結果が保持されます
-  4. **コンテキスト復元**：会話は、以前のコンテキストがすべて保持された状態で再開されます
-
-  例：
-
-  ```bash  theme={null}
-  # 最新の会話を続ける
-  claude --continue
-
-  # 特定のプロンプトで最新の会話を続ける
-  claude --continue --print "Show me our progress"
-
-  # 会話ピッカーを表示する
-  claude --resume
-
-  # 非対話モードで最新の会話を続ける
-  claude --continue --print "Run the tests again"
-  ```
+  1. **Conversation Storage**: All conversations are automatically saved locally with their full message history
+  2. **Message Deserialization**: When resuming, the entire message history is restored to maintain context
+  3. **Tool State**: Tool usage and results from the previous conversation are preserved
+  4. **Context Restoration**: The conversation resumes with all previous context intact
 </Tip>
 
 ***
 
-## Gitワークツリーを使用して並列Claude Codeセッションを実行する
+## Run parallel Claude Code sessions with Git worktrees
 
-複数のタスクに同時に取り組む必要があり、Claude Codeインスタンス間で完全なコード分離が必要なとします。
+Suppose you need to work on multiple tasks simultaneously with complete code isolation between Claude Code instances.
 
 <Steps>
-  <Step title="Gitワークツリーを理解する">
-    Gitワークツリーを使用すると、同じリポジトリから複数のブランチを別々のディレクトリにチェックアウトできます。各ワークツリーは、Git履歴を共有しながら、独自の作業ディレクトリを持ちます。詳細については、[公式Gitワークツリー
-    ドキュメント](https://git-scm.com/docs/git-worktree)を参照してください。
+  <Step title="Understand Git worktrees">
+    Git worktrees allow you to check out multiple branches from the same
+    repository into separate directories. Each worktree has its own working
+    directory with isolated files, while sharing the same Git history. Learn
+    more in the [official Git worktree
+    documentation](https://git-scm.com/docs/git-worktree).
   </Step>
 
-  <Step title="新しいワークツリーを作成する">
+  <Step title="Create a new worktree">
     ```bash  theme={null}
-    # 新しいブランチで新しいワークツリーを作成する
+    # Create a new worktree with a new branch 
     git worktree add ../project-feature-a -b feature-a
 
-    # または既存のブランチでワークツリーを作成する
+    # Or create a worktree with an existing branch
     git worktree add ../project-bugfix bugfix-123
     ```
 
-    これにより、リポジトリの個別の作業コピーを含む新しいディレクトリが作成されます。
+    This creates a new directory with a separate working copy of your repository.
   </Step>
 
-  <Step title="各ワークツリーでClaudeコードを実行する">
+  <Step title="Run Claude Code in each worktree">
     ```bash  theme={null}
-    # ワークツリーに移動する
+    # Navigate to your worktree 
     cd ../project-feature-a
 
-    # この分離された環境でClaudeコードを実行する
+    # Run Claude Code in this isolated environment
     claude
     ```
   </Step>
 
-  <Step title="別のワークツリーでClaudeを実行する">
+  <Step title="Run Claude in another worktree">
     ```bash  theme={null}
     cd ../project-bugfix
     claude
     ```
   </Step>
 
-  <Step title="ワークツリーを管理する">
+  <Step title="Manage your worktrees">
     ```bash  theme={null}
-    # すべてのワークツリーをリストする
+    # List all worktrees
     git worktree list
 
-    # 完了したワークツリーを削除する
+    # Remove a worktree when done
     git worktree remove ../project-feature-a
     ```
   </Step>
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 各ワークツリーは独立したファイル状態を持ち、並列Claude Codeセッションに最適です
-  * 1つのワークツリーで行われた変更は他に影響を与えず、Claudeインスタンスが相互に干渉するのを防ぎます
-  * すべてのワークツリーは同じGit履歴とリモート接続を共有します
-  * 長時間実行されるタスクの場合、1つのワークツリーでClaudeが作業している間に、別のワークツリーで開発を続けることができます
-  * 各ワークツリーが何のタスク用かを簡単に識別するために、説明的なディレクトリ名を使用します
-  * 各新しいワークツリーでプロジェクトの設定に従って開発環境を初期化することを忘れないでください。スタックによっては、以下が含まれる場合があります：
-    * JavaScriptプロジェクト：依存関係のインストール（`npm install`、`yarn`）を実行する
-    * Pythonプロジェクト：仮想環境を設定するか、パッケージマネージャーでインストールする
-    * その他の言語：プロジェクトの標準的なセットアッププロセスに従う
+  * Each worktree has its own independent file state, making it perfect for parallel Claude Code sessions
+  * Changes made in one worktree won't affect others, preventing Claude instances from interfering with each other
+  * All worktrees share the same Git history and remote connections
+  * For long-running tasks, you can have Claude working in one worktree while you continue development in another
+  * Use descriptive directory names to easily identify which task each worktree is for
+  * Remember to initialize your development environment in each new worktree according to your project's setup. Depending on your stack, this might include:
+    * JavaScript projects: Running dependency installation (`npm install`, `yarn`)
+    * Python projects: Setting up virtual environments or installing with package managers
+    * Other languages: Following your project's standard setup process
 </Tip>
 
 ***
 
-## Claudeをunixスタイルのユーティリティとして使用する
+## Use Claude as a unix-style utility
 
-### 検証プロセスにClaudeを追加する
+### Add Claude to your verification process
 
-Claude Codeをリンターまたはコードレビュアーとして使用したいとします。
+Suppose you want to use Claude Code as a linter or code reviewer.
 
-**ビルドスクリプトにClaudeを追加する：**
+**Add Claude to your build script:**
 
 ```json  theme={null}
 // package.json
@@ -720,95 +741,95 @@ Claude Codeをリンターまたはコードレビュアーとして使用した
 ```
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * CI/CDパイプラインで自動コードレビューにClaudeを使用します
-  * プロンプトをカスタマイズして、プロジェクトに関連する特定の問題をチェックします
-  * 異なるタイプの検証用に複数のスクリプトを作成することを検討してください
+  * Use Claude for automated code review in your CI/CD pipeline
+  * Customize the prompt to check for specific issues relevant to your project
+  * Consider creating multiple scripts for different types of verification
 </Tip>
 
-### パイプイン、パイプアウト
+### Pipe in, pipe out
 
-Claudeにデータをパイプインし、構造化された形式でデータを取得したいとします。
+Suppose you want to pipe data into Claude, and get back data in a structured format.
 
-**Claudeを通じてデータをパイプする：**
+**Pipe data through Claude:**
 
 ```bash  theme={null}
 cat build-error.txt | claude -p 'concisely explain the root cause of this build error' > output.txt
 ```
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * パイプを使用してClaudeを既存のシェルスクリプトに統合します
-  * 他のUnixツールと組み合わせて、強力なワークフローを実現します
-  * 構造化された出力に`--output-format`を使用することを検討してください
+  * Use pipes to integrate Claude into existing shell scripts
+  * Combine with other Unix tools for powerful workflows
+  * Consider using --output-format for structured output
 </Tip>
 
-### 出力形式を制御する
+### Control output format
 
-特にClaudeコードをスクリプトまたは他のツールに統合する場合、Claudeの出力が特定の形式である必要があるとします。
+Suppose you need Claude's output in a specific format, especially when integrating Claude Code into scripts or other tools.
 
 <Steps>
-  <Step title="テキスト形式を使用する（デフォルト）">
+  <Step title="Use text format (default)">
     ```bash  theme={null}
     cat data.txt | claude -p 'summarize this data' --output-format text > summary.txt
     ```
 
-    これにより、Claudeのプレーンテキストレスポンスのみが出力されます（デフォルトの動作）。
+    This outputs just Claude's plain text response (default behavior).
   </Step>
 
-  <Step title="JSON形式を使用する">
+  <Step title="Use JSON format">
     ```bash  theme={null}
     cat code.py | claude -p 'analyze this code for bugs' --output-format json > analysis.json
     ```
 
-    これにより、コストと期間を含むメタデータを含むメッセージのJSON配列が出力されます。
+    This outputs a JSON array of messages with metadata including cost and duration.
   </Step>
 
-  <Step title="ストリーミングJSON形式を使用する">
+  <Step title="Use streaming JSON format">
     ```bash  theme={null}
     cat log.txt | claude -p 'parse this log file for errors' --output-format stream-json
     ```
 
-    これにより、Claudeがリクエストを処理するときにリアルタイムでJSONオブジェクトのシリーズが出力されます。各メッセージは有効なJSONオブジェクトですが、連結された場合、全体の出力は有効なJSONではありません。
+    This outputs a series of JSON objects in real-time as Claude processes the request. Each message is a valid JSON object, but the entire output is not valid JSON if concatenated.
   </Step>
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * Claudeのレスポンスだけが必要な単純な統合には`--output-format text`を使用します
-  * 完全な会話ログが必要な場合は`--output-format json`を使用します
-  * 各会話ターンのリアルタイム出力には`--output-format stream-json`を使用します
+  * Use `--output-format text` for simple integrations where you just need Claude's response
+  * Use `--output-format json` when you need the full conversation log
+  * Use `--output-format stream-json` for real-time output of each conversation turn
 </Tip>
 
 ***
 
-## カスタムスラッシュコマンドを作成する
+## Create custom slash commands
 
-Claude Codeは、特定のプロンプトまたはタスクをすばやく実行するために作成できるカスタムスラッシュコマンドをサポートしています。
+Claude Code supports custom slash commands that you can create to quickly execute specific prompts or tasks.
 
-詳細については、[スラッシュコマンド](/ja/slash-commands)リファレンスページを参照してください。
+For more details, see the [Slash commands](/en/slash-commands) reference page.
 
-### プロジェクト固有のコマンドを作成する
+### Create project-specific commands
 
-すべてのチームメンバーが使用できるプロジェクト用の再利用可能なスラッシュコマンドを作成したいとします。
+Suppose you want to create reusable slash commands for your project that all team members can use.
 
 <Steps>
-  <Step title="プロジェクトにコマンドディレクトリを作成する">
+  <Step title="Create a commands directory in your project">
     ```bash  theme={null}
     mkdir -p .claude/commands
     ```
   </Step>
 
-  <Step title="各コマンド用にMarkdownファイルを作成する">
+  <Step title="Create a Markdown file for each command">
     ```bash  theme={null}
     echo "Analyze the performance of this code and suggest three specific optimizations:" > .claude/commands/optimize.md 
     ```
   </Step>
 
-  <Step title="Claude Codeでカスタムコマンドを使用する">
+  <Step title="Use your custom command in Claude Code">
     ```
     > /optimize 
     ```
@@ -816,20 +837,20 @@ Claude Codeは、特定のプロンプトまたはタスクをすばやく実行
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * コマンド名はファイル名から派生します（例：`optimize.md`は`/optimize`になります）
-  * コマンドをサブディレクトリに整理できます（例：`.claude/commands/frontend/component.md`は説明に「(project:frontend)」が表示される`/component`を作成します）
-  * プロジェクトコマンドは、リポジトリをクローンするすべてのユーザーが利用できます
-  * Markdownファイルの内容は、コマンドが呼び出されたときにClaudeに送信されるプロンプトになります
+  * Command names are derived from the filename (for example, `optimize.md` becomes `/optimize`)
+  * You can organize commands in subdirectories (for example, `.claude/commands/frontend/component.md` creates `/component` with "(project:frontend)" shown in the description)
+  * Project commands are available to everyone who clones the repository
+  * The Markdown file content becomes the prompt sent to Claude when the command is invoked
 </Tip>
 
-### \$ARGUMENTSでコマンド引数を追加する
+### Add command arguments with \$ARGUMENTS
 
-ユーザーからの追加入力を受け入れることができる柔軟なスラッシュコマンドを作成したいとします。
+Suppose you want to create flexible slash commands that can accept additional input from users.
 
 <Steps>
-  <Step title="$ARGUMENTSプレースホルダーを含むコマンドファイルを作成する">
+  <Step title="Create a command file with the $ARGUMENTS placeholder">
     ```bash  theme={null}
     echo 'Find and fix issue #$ARGUMENTS. Follow these steps: 1.
     Understand the issue described in the ticket 2. Locate the relevant code in
@@ -839,44 +860,44 @@ Claude Codeは、特定のプロンプトまたはタスクをすばやく実行
     ```
   </Step>
 
-  <Step title="問題番号を指定してコマンドを使用する">
-    Claude Codeセッションでコマンドを引数と共に使用します。
+  <Step title="Use the command with an issue number">
+    In your Claude session, use the command with arguments.
 
     ```
     > /fix-issue 123 
     ```
 
-    これにより、プロンプト内の\$ARGUMENTSが「123」に置き換えられます。
+    This replaces \$ARGUMENTS with "123" in the prompt.
   </Step>
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * \$ARGUMENTSプレースホルダーは、コマンドに続くテキストに置き換えられます
-  * \$ARGUMENTSをコマンドテンプレート内の任意の場所に配置できます
-  * その他の有用なアプリケーション：特定の関数のテストケースの生成、コンポーネントのドキュメント作成、特定のファイルのコードレビュー、または指定された言語へのコンテンツの翻訳
+  * The \$ARGUMENTS placeholder is replaced with any text that follows the command
+  * You can position \$ARGUMENTS anywhere in your command template
+  * Other useful applications: generating test cases for specific functions, creating documentation for components, reviewing code in particular files, or translating content to specified languages
 </Tip>
 
-### 個人用スラッシュコマンドを作成する
+### Create personal slash commands
 
-すべてのプロジェクトで機能する個人用スラッシュコマンドを作成したいとします。
+Suppose you want to create personal slash commands that work across all your projects.
 
 <Steps>
-  <Step title="ホームフォルダにコマンドディレクトリを作成する">
+  <Step title="Create a commands directory in your home folder">
     ```bash  theme={null}
     mkdir -p ~/.claude/commands 
     ```
   </Step>
 
-  <Step title="各コマンド用にMarkdownファイルを作成する">
+  <Step title="Create a Markdown file for each command">
     ```bash  theme={null}
     echo "Review this code for security vulnerabilities, focusing on:" >
     ~/.claude/commands/security-review.md 
     ```
   </Step>
 
-  <Step title="個人用カスタムコマンドを使用する">
+  <Step title="Use your personal custom command">
     ```
     > /security-review 
     ```
@@ -884,21 +905,21 @@ Claude Codeは、特定のプロンプトまたはタスクをすばやく実行
 </Steps>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * 個人用コマンドは、`/help`でリストされるときに説明に「(user)」が表示されます
-  * 個人用コマンドはあなただけが利用でき、チームと共有されません
-  * 個人用コマンドはすべてのプロジェクトで機能します
-  * これらを使用して、異なるコードベース全体で一貫したワークフローを実現できます
+  * Personal commands show "(user)" in their description when listed with `/help`
+  * Personal commands are only available to you and not shared with your team
+  * Personal commands work across all your projects
+  * You can use these for consistent workflows across different codebases
 </Tip>
 
 ***
 
-## Claudeの機能について尋ねる
+## Ask Claude about its capabilities
 
-Claudeは、ドキュメントへの組み込みアクセスを持ち、独自の機能と制限について質問に答えることができます。
+Claude has built-in access to its documentation and can answer questions about its own features and limitations.
 
-### 質問例
+### Example questions
 
 ```
 > can Claude Code create pull requests?
@@ -925,23 +946,23 @@ Claudeは、ドキュメントへの組み込みアクセスを持ち、独自�
 ```
 
 <Note>
-  Claudeは、これらの質問に対してドキュメントベースの回答を提供します。実行可能な例とハンズオンデモンストレーションについては、上記の特定のワークフローセクションを参照してください。
+  Claude provides documentation-based answers to these questions. For executable examples and hands-on demonstrations, refer to the specific workflow sections above.
 </Note>
 
 <Tip>
-  ヒント：
+  Tips:
 
-  * Claudeは、使用しているバージョンに関係なく、常に最新のClaudeコードドキュメントにアクセスできます
-  * 詳細な回答を得るために、具体的な質問をします
-  * Claudeは、MCP統合、エンタープライズ構成、高度なワークフローなどの複雑な機能を説明できます
+  * Claude always has access to the latest Claude Code documentation, regardless of the version you're using
+  * Ask specific questions to get detailed answers
+  * Claude can explain complex features like MCP integration, enterprise configurations, and advanced workflows
 </Tip>
 
 ***
 
-## 次のステップ
+## Next steps
 
-<Card title="Claude Codeリファレンス実装" icon="code" href="https://github.com/anthropics/claude-code/tree/main/.devcontainer">
-  開発コンテナリファレンス実装をクローンします。
+<Card title="Claude Code reference implementation" icon="code" href="https://github.com/anthropics/claude-code/tree/main/.devcontainer">
+  Clone our development container reference implementation.
 </Card>
 
 

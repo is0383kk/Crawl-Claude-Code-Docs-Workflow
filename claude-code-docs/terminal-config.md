@@ -1,72 +1,72 @@
-# ターミナルセットアップを最適化する
+# Optimize your terminal setup
 
-> Claude Codeはターミナルが適切に設定されている場合に最適に機能します。これらのガイドラインに従って、エクスペリエンスを最適化してください。
+> Claude Code works best when your terminal is properly configured. Follow these guidelines to optimize your experience.
 
-### テーマと外観
+### Themes and appearance
 
-Claude はターミナルのテーマを制御できません。これはターミナルアプリケーションによって処理されます。`/config` コマンドを使用して、Claude Code のテーマをターミナルと一致させることができます。
+Claude cannot control the theme of your terminal. That's handled by your terminal application. You can match Claude Code's theme to your terminal any time via the `/config` command.
 
-Claude Code インターフェイス自体のさらなるカスタマイズについては、[カスタムステータスライン](/ja/statusline)を設定して、現在のモデル、作業ディレクトリ、または git ブランチなどのコンテキスト情報をターミナルの下部に表示できます。
+For additional customization of the Claude Code interface itself, you can configure a [custom status line](/en/statusline) to display contextual information like the current model, working directory, or git branch at the bottom of your terminal.
 
-### 改行
+### Line breaks
 
-Claude Code に改行を入力するためのいくつかのオプションがあります：
+You have several options for entering line breaks into Claude Code:
 
-* **クイックエスケープ**: `\` の後に Enter キーを押して改行を作成します
-* **キーボードショートカット**: キーバインディングを設定して改行を挿入します
+* **Quick escape**: Type `\` followed by Enter to create a newline
+* **Keyboard shortcut**: Set up a keybinding to insert a newline
 
-#### Shift+Enter を設定する（VS Code または iTerm2）：
+#### Set up Shift+Enter (VS Code or iTerm2):
 
-Claude Code 内で `/terminal-setup` を実行して、Shift+Enter を自動的に設定します。
+Run `/terminal-setup` within Claude Code to automatically configure Shift+Enter.
 
-#### Option+Enter を設定する（VS Code、iTerm2、または macOS Terminal.app）：
+#### Set up Option+Enter (VS Code, iTerm2 or macOS Terminal.app):
 
-**Mac Terminal.app の場合：**
+**For Mac Terminal.app:**
 
-1. 設定 → プロファイル → キーボードを開きます
-2. 「Option キーをメタキーとして使用」をチェックします
+1. Open Settings → Profiles → Keyboard
+2. Check "Use Option as Meta Key"
 
-**iTerm2 および VS Code ターミナルの場合：**
+**For iTerm2 and VS Code terminal:**
 
-1. 設定 → プロファイル → キーを開きます
-2. 一般の下で、左右の Option キーを「Esc+」に設定します
+1. Open Settings → Profiles → Keys
+2. Under General, set Left/Right Option key to "Esc+"
 
-### 通知設定
+### Notification setup
 
-適切な通知設定で Claude がタスクを完了したときを見逃さないようにしてください：
+Never miss when Claude completes a task with proper notification configuration:
 
-#### iTerm 2 システム通知
+#### iTerm 2 system notifications
 
-iTerm 2 でタスク完了時にアラートを表示する場合：
+For iTerm 2 alerts when tasks complete:
 
-1. iTerm 2 の環境設定を開きます
-2. プロファイル → ターミナルに移動します
-3. 「ベルを消音」を有効にして、フィルターアラート → 「エスケープシーケンスで生成されたアラートを送信」を選択します
-4. 希望する通知遅延を設定します
+1. Open iTerm 2 Preferences
+2. Navigate to Profiles → Terminal
+3. Enable "Silence bell" and Filter Alerts → "Send escape sequence-generated alerts"
+4. Set your preferred notification delay
 
-これらの通知は iTerm 2 に固有であり、デフォルトの macOS ターミナルでは利用できないことに注意してください。
+Note that these notifications are specific to iTerm 2 and not available in the default macOS Terminal.
 
-#### カスタム通知フック
+#### Custom notification hooks
 
-高度な通知処理については、[通知フック](/ja/hooks#notification)を作成して独自のロジックを実行できます。
+For advanced notification handling, you can create [notification hooks](/en/hooks#notification) to run your own logic.
 
-### 大きな入力の処理
+### Handling large inputs
 
-広範なコードまたは長い指示を使用する場合：
+When working with extensive code or long instructions:
 
-* **直接貼り付けを避ける**: Claude Code は非常に長い貼り付けコンテンツで問題が発生する可能性があります
-* **ファイルベースのワークフローを使用する**: コンテンツをファイルに書き込み、Claude に読み込むよう依頼します
-* **VS Code の制限に注意する**: VS Code ターミナルは特に長い貼り付けを切り詰める傾向があります
+* **Avoid direct pasting**: Claude Code may struggle with very long pasted content
+* **Use file-based workflows**: Write content to a file and ask Claude to read it
+* **Be aware of VS Code limitations**: The VS Code terminal is particularly prone to truncating long pastes
 
-### Vim モード
+### Vim Mode
 
-Claude Code は `/vim` で有効にするか、`/config` で設定できる Vim キーバインディングのサブセットをサポートしています。
+Claude Code supports a subset of Vim keybindings that can be enabled with `/vim` or configured via `/config`.
 
-サポートされているサブセットには以下が含まれます：
+The supported subset includes:
 
-* モード切り替え: `Esc`（NORMAL へ）、`i`/`I`、`a`/`A`、`o`/`O`（INSERT へ）
-* ナビゲーション: `h`/`j`/`k`/`l`、`w`/`e`/`b`、`0`/`$`/`^`、`gg`/`G`
-* 編集: `x`、`dw`/`de`/`db`/`dd`/`D`、`cw`/`ce`/`cb`/`cc`/`C`、`.`（繰り返し）
+* Mode switching: `Esc` (to NORMAL), `i`/`I`, `a`/`A`, `o`/`O` (to INSERT)
+* Navigation: `h`/`j`/`k`/`l`, `w`/`e`/`b`, `0`/`$`/`^`, `gg`/`G`
+* Editing: `x`, `dw`/`de`/`db`/`dd`/`D`, `cw`/`ce`/`cb`/`cc`/`C`, `.` (repeat)
 
 
 ---

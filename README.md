@@ -1,16 +1,16 @@
 # Crawl Claude Code Docs Workflow
 
-Claude Code の[日本語ドキュメント](https://code.claude.com/docs/ja/)を自動的にクロールし、  
+Claude Code の[公式ドキュメント](https://code.claude.com/docs/en/)を自動的にクロールし、  
 Markdown ファイルとしてリポジトリに保存するためのワークフローです。
 
 ## 概要
 
-このプロジェクトは、Claude Code の日本語ドキュメントを定期的に取得し、マークダウンファイルとして保存＋変更を追跡するためのツールです。  
+このプロジェクトは、Claude Code の公式ドキュメントを定期的に取得し、マークダウンファイルとして保存＋変更を追跡するためのツールです。  
 GitHub Actions を使用して毎日自動実行され、ドキュメントの更新を検出すると自動的にリポジトリにコミットします。
 
 ## 機能
 
-- `https://code.claude.com/docs/ja/` 配下の全ページを自動巡回
+- `https://code.claude.com/docs/en/` 配下の全ページを自動巡回
 - 各ページの Markdown ファイルを取得して保存
 - ファイルの変更検出（ハッシュ比較）
 - GitHub Actions による自動実行（毎日 JST 03:00）
@@ -47,7 +47,7 @@ uv run crawl_claude_code_docs.py
 ### GitHub Actions での実行
 
 - **自動実行**: 毎日 JST 03:00 に自動的に実行されます
-- **手動実行**: GitHub Actions の UI から「Sync Claude Code docs (ja)」ワークフローを手動で実行できます
+- **手動実行**: GitHub Actions の UI から「Sync Claude Code docs (en)」ワークフローを手動で実行できます
 
 ## プロジェクト構造
 

@@ -1,4 +1,4 @@
-name: Sync Claude Code docs (ja)
+name: Sync Claude Code docs (en)
 
 on:
   workflow_dispatch: {}
@@ -34,8 +34,8 @@ jobs:
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: sync Claude Code docs (ja)"
-          title: "Sync Claude Code docs (ja)"
+          commit-message: "chore: sync Claude Code docs (en)"
+          title: "Sync Claude Code docs (en)"
           body: |
             Claude Code の公式ドキュメントを自動更新しました。
             差分をご確認ください。

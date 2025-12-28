@@ -1,203 +1,186 @@
-# アイデンティティとアクセス管理
+# Identity and Access Management
 
-> Claude Codeの組織内でのユーザー認証、認可、アクセス制御を設定する方法を学びます。
+> Learn how to configure user authentication, authorization, and access controls for Claude Code in your organization.
 
-## 認証方法
+## Authentication methods
 
-Claude Codeのセットアップには、Anthropicモデルへのアクセスが必要です。チームの場合、Claude Codeアクセスを次の3つの方法のいずれかで設定できます：
+Setting up Claude Code requires access to Anthropic models. For teams, you can set up Claude Code access in one of four ways:
 
-* Claude API（Claude Consoleを経由）
+* Claude API via the Claude Console
 * Amazon Bedrock
+* Microsoft Foundry
 * Google Vertex AI
 
-### Claude API認証
+### Claude API authentication
 
-**Claude APIを経由してチーム向けにClaude Codeアクセスを設定するには：**
+**To set up Claude Code access for your team via Claude API:**
 
-1. 既存のClaude Consoleアカウントを使用するか、新しいClaude Consoleアカウントを作成します
-2. 以下のいずれかの方法でユーザーを追加できます：
-   * Console内からユーザーを一括招待します（Console -> Settings -> Members -> Invite）
-   * [SSOを設定する](https://support.claude.com/en/articles/10280258-setting-up-single-sign-on-on-the-api-console)
-3. ユーザーを招待する際、ユーザーは以下のいずれかのロールが必要です：
-   * 「Claude Code」ロールはユーザーがClaude Code APIキーのみを作成できることを意味します
-   * 「Developer」ロールはユーザーがあらゆる種類のAPIキーを作成できることを意味します
-4. 招待されたユーザーは以下の手順を完了する必要があります：
-   * Console招待を受け入れます
-   * [システム要件を確認する](/ja/setup#system-requirements)
-   * [Claude Codeをインストールする](/ja/setup#installation)
-   * Consoleアカウント認証情報でログインします
+1. Use your existing Claude Console account or create a new Claude Console account
+2. You can add users through either method below:
+   * Bulk invite users from within the Console (Console -> Settings -> Members -> Invite)
+   * [Set up SSO](https://support.claude.com/en/articles/10280258-setting-up-single-sign-on-on-the-api-console)
+3. When inviting users, they need one of the following roles:
+   * "Claude Code" role means users can only create Claude Code API keys
+   * "Developer" role means users can create any kind of API key
+4. Each invited user needs to complete these steps:
+   * Accept the Console invite
+   * [Check system requirements](/en/setup#system-requirements)
+   * [Install Claude Code](/en/setup#installation)
+   * Login with Console account credentials
 
-### クラウドプロバイダー認証
+### Cloud provider authentication
 
-**BedrockまたはVertexを経由してチーム向けにClaude Codeアクセスを設定するには：**
+**To set up Claude Code access for your team via Bedrock, Vertex, or Azure:**
 
-1. [Bedrockドキュメント](/ja/amazon-bedrock)または[Vertexドキュメント](/ja/google-vertex-ai)に従います
-2. 環境変数とクラウド認証情報を生成するための指示をユーザーに配布します。[ここで設定を管理する方法について詳しく読む](/ja/settings)。
-3. ユーザーは[Claude Codeをインストール](/ja/setup#installation)できます
+1. Follow the [Bedrock docs](/en/amazon-bedrock), [Vertex docs](/en/google-vertex-ai), or [Microsoft Foundry docs](/en/microsoft-foundry)
+2. Distribute the environment variables and instructions for generating cloud credentials to your users. Read more about how to [manage configuration here](/en/settings).
+3. Users can [install Claude Code](/en/setup#installation)
 
-## アクセス制御と権限
+## Access control and permissions
 
-エージェントが実行できることを正確に指定できるきめ細かい権限をサポートしています（例：テストの実行、linterの実行）。また、実行できないことも指定できます（例：クラウドインフラストラクチャの更新）。これらの権限設定はバージョン管理にチェックインでき、組織内のすべての開発者に配布できるほか、個々の開発者がカスタマイズできます。
+We support fine-grained permissions so that you're able to specify exactly what the agent is allowed to do (e.g. run tests, run linter) and what it is not allowed to do (e.g. update cloud infrastructure). These permission settings can be checked into version control and distributed to all developers in your organization, as well as customized by individual developers.
 
-### 権限システム
+### Permission system
 
-Claude Codeは、パワーとセーフティのバランスを取るために、段階的な権限システムを使用しています：
+Claude Code uses a tiered permission system to balance power and safety:
 
-| ツールタイプ   | 例                | 承認が必要 | 「はい、今後は聞かない」の動作         |
-| :------- | :--------------- | :---- | :---------------------- |
-| 読み取り専用   | ファイル読み取り、LS、Grep | いいえ   | N/A                     |
-| Bashコマンド | シェル実行            | はい    | プロジェクトディレクトリとコマンドごとに永続的 |
-| ファイル変更   | ファイルの編集/書き込み     | はい    | セッション終了まで               |
+| Tool Type         | Example              | Approval Required | "Yes, don't ask again" Behavior               |
+| :---------------- | :------------------- | :---------------- | :-------------------------------------------- |
+| Read-only         | File reads, LS, Grep | No                | N/A                                           |
+| Bash Commands     | Shell execution      | Yes               | Permanently per project directory and command |
+| File Modification | Edit/write files     | Yes               | Until session end                             |
 
-### 権限の設定
+### Configuring permissions
 
-`/permissions`を使用してClaude Codeのツール権限を表示および管理できます。このUIはすべての権限ルールと、それらが取得されるsettings.jsonファイルをリストします。
+You can view & manage Claude Code's tool permissions with `/permissions`. This UI lists all permission rules and the settings.json file they are sourced from.
 
-* **Allow**ルールは、Claude Codeが指定されたツールをさらなる手動承認なしで使用できるようにします。
-* **Ask**ルールは、Claude Codeが指定されたツールを使用しようとするたびにユーザーに確認を求めます。Askルールはallowルールより優先されます。
-* **Deny**ルールは、Claude Codeが指定されたツールを使用することを防止します。Denyルールはallowルールとaskルールより優先されます。
-* **追加ディレクトリ**は、Claude のファイルアクセスを初期作業ディレクトリを超えたディレクトリに拡張します。
-* **デフォルトモード**は、新しいリクエストに遭遇したときのClaudeの権限動作を制御します。
+* **Allow** rules will allow Claude Code to use the specified tool without further manual approval.
+* **Ask** rules will ask the user for confirmation whenever Claude Code tries to use the specified tool. Ask rules take precedence over allow rules.
+* **Deny** rules will prevent Claude Code from using the specified tool. Deny rules take precedence over allow and ask rules.
+* **Additional directories** extend Claude's file access to directories beyond the initial working directory.
+* **Default mode** controls Claude's permission behavior when encountering new requests.
 
-権限ルールは以下の形式を使用します：`Tool`または`Tool(optional-specifier)`
+Permission rules use the format: `Tool` or `Tool(optional-specifier)`
 
-ツール名だけのルールは、そのツールの任意の使用に一致します。たとえば、allowルールのリストに`Bash`を追加すると、Claude Codeはユーザー承認を必要とせずにBashツールを使用できるようになります。
+A rule that is just the tool name matches any use of that tool. For example, adding `Bash` to the list of allow rules would allow Claude Code to use the Bash tool without requiring user approval.
 
-#### 権限モード
+#### Permission modes
 
-Claude Codeは、[設定ファイル](/ja/settings#settings-files)で`defaultMode`として設定できるいくつかの権限モードをサポートしています：
+Claude Code supports several permission modes that can be set as the `defaultMode` in [settings files](/en/settings#settings-files):
 
-| モード                 | 説明                                                 |
-| :------------------ | :------------------------------------------------- |
-| `default`           | 標準動作 - 各ツールの最初の使用時に権限を求めます                         |
-| `acceptEdits`       | セッション中のファイル編集権限を自動的に受け入れます                         |
-| `plan`              | プランモード - Claudeはファイルを分析できますが、ファイルの変更やコマンドの実行はできません |
-| `bypassPermissions` | すべての権限プロンプトをスキップします（安全な環境が必要 - 下記の警告を参照）           |
+| Mode                | Description                                                                  |
+| :------------------ | :--------------------------------------------------------------------------- |
+| `default`           | Standard behavior - prompts for permission on first use of each tool         |
+| `acceptEdits`       | Automatically accepts file edit permissions for the session                  |
+| `plan`              | Plan Mode - Claude can analyze but not modify files or execute commands      |
+| `bypassPermissions` | Skips all permission prompts (requires safe environment - see warning below) |
 
-#### 作業ディレクトリ
+#### Working directories
 
-デフォルトでは、Claudeは起動されたディレクトリ内のファイルにアクセスできます。このアクセスを拡張できます：
+By default, Claude has access to files in the directory where it was launched. You can extend this access:
 
-* **起動時**：`--add-dir <path>` CLIオプションを使用します
-* **セッション中**：`/add-dir`スラッシュコマンドを使用します
-* **永続的な設定**：[設定ファイル](/ja/settings#settings-files)の`additionalDirectories`に追加します
+* **During startup**: Use `--add-dir <path>` CLI argument
+* **During session**: Use `/add-dir` slash command
+* **Persistent configuration**: Add to `additionalDirectories` in [settings files](/en/settings#settings-files)
 
-追加ディレクトリ内のファイルは、元の作業ディレクトリと同じ権限ルールに従います。プロンプトなしで読み取り可能になり、ファイル編集権限は現在の権限モードに従います。
+Files in additional directories follow the same permission rules as the original working directory - they become readable without prompts, and file editing permissions follow the current permission mode.
 
-#### ツール固有の権限ルール
+#### Tool-specific permission rules
 
-一部のツールはより細かい権限制御をサポートしています：
+Some tools support more fine-grained permission controls:
 
 **Bash**
 
-* `Bash(npm run build)` 正確なBashコマンド`npm run build`に一致します
-* `Bash(npm run test:*)` `npm run test`で始まるBashコマンドに一致します
-* `Bash(curl http://site.com/:*)` `curl http://site.com/`で正確に始まるcurlコマンドに一致します
+* `Bash(npm run build)` Matches the exact Bash command `npm run build`
+* `Bash(npm run test:*)` Matches Bash commands starting with `npm run test`
+* `Bash(curl http://site.com/:*)` Matches curl commands that start with exactly `curl http://site.com/`
 
 <Tip>
-  Claude Codeはシェルオペレータ（`&&`など）を認識しているため、`Bash(safe-cmd:*)`のようなプレフィックスマッチルールは、`safe-cmd && other-cmd`コマンドを実行する権限を与えません
+  Claude Code is aware of shell operators (like `&&`) so a prefix match rule like `Bash(safe-cmd:*)` won't give it permission to run the command `safe-cmd && other-cmd`
 </Tip>
 
 <Warning>
-  Bash権限パターンの重要な制限事項：
+  Important limitations of Bash permission patterns:
 
-  1. このツールは**プレフィックスマッチ**を使用し、正規表現またはglobパターンではありません
-  2. ワイルカード`:*`はパターンの末尾でのみ機能し、任意の継続にマッチします
-  3. `Bash(curl http://github.com/:*)`のようなパターンは多くの方法でバイパスできます：
-     * URLの前のオプション：`curl -X GET http://github.com/...`はマッチしません
-     * 異なるプロトコル：`curl https://github.com/...`はマッチしません
-     * リダイレクト：`curl -L http://bit.ly/xyz`（githubにリダイレクト）
-     * 変数：`URL=http://github.com && curl $URL`はマッチしません
-     * 余分なスペース：`curl  http://github.com`はマッチしません
+  1. This tool uses **prefix matches**, not regex or glob patterns
+  2. The wildcard `:*` only works at the end of a pattern to match any continuation
+  3. Patterns like `Bash(curl http://github.com/:*)` can be bypassed in many ways:
+     * Options before URL: `curl -X GET http://github.com/...` won't match
+     * Different protocol: `curl https://github.com/...` won't match
+     * Redirects: `curl -L http://bit.ly/xyz` (redirects to github)
+     * Variables: `URL=http://github.com && curl $URL` won't match
+     * Extra spaces: `curl  http://github.com` won't match
 
-  より信頼性の高いURLフィルタリングについては、以下を検討してください：
+  For more reliable URL filtering, consider:
 
-  * `WebFetch(domain:github.com)`権限でWebFetchツールを使用する
-  * CLAUDE.mdを経由してClaude Codeに許可されたcurlパターンについて指示する
-  * カスタム権限検証のためのフックを使用する
+  * Using the WebFetch tool with `WebFetch(domain:github.com)` permission
+  * Instructing Claude Code about your allowed curl patterns via CLAUDE.md
+  * Using hooks for custom permission validation
 </Warning>
 
 **Read & Edit**
 
-`Edit`ルールはファイルを編集するすべての組み込みツールに適用されます。Claudeは、Grep、Glob、LSなどのファイルを読み取るすべての組み込みツールに`Read`ルールを適用するためにベストエフォートを試みます。
+`Edit` rules apply to all built-in tools that edit files. Claude will make a best-effort attempt to apply `Read` rules to all built-in tools that read files like Grep, Glob, and LS.
 
-Read & Editルールは両方とも[gitignore](https://git-scm.com/docs/gitignore)仕様に従い、4つの異なるパターンタイプがあります：
+Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore) specification with four distinct pattern types:
 
-| パターン              | 意味                     | 例                                | マッチ                                |
-| ----------------- | ---------------------- | -------------------------------- | ---------------------------------- |
-| `//path`          | ファイルシステムルートからの**絶対**パス | `Read(//Users/alice/secrets/**)` | `/Users/alice/secrets/**`          |
-| `~/path`          | **ホーム**ディレクトリからのパス     | `Read(~/Documents/*.pdf)`        | `/Users/alice/Documents/*.pdf`     |
-| `/path`           | **設定ファイルに相対的な**パス      | `Edit(/src/**/*.ts)`             | `<settings file path>/src/**/*.ts` |
-| `path`または`./path` | **現在のディレクトリに相対的な**パス   | `Read(*.env)`                    | `<cwd>/*.env`                      |
+| Pattern            | Meaning                                | Example                          | Matches                            |
+| ------------------ | -------------------------------------- | -------------------------------- | ---------------------------------- |
+| `//path`           | **Absolute** path from filesystem root | `Read(//Users/alice/secrets/**)` | `/Users/alice/secrets/**`          |
+| `~/path`           | Path from **home** directory           | `Read(~/Documents/*.pdf)`        | `/Users/alice/Documents/*.pdf`     |
+| `/path`            | Path **relative to settings file**     | `Edit(/src/**/*.ts)`             | `<settings file path>/src/**/*.ts` |
+| `path` or `./path` | Path **relative to current directory** | `Read(*.env)`                    | `<cwd>/*.env`                      |
 
 <Warning>
-  `/Users/alice/file`のようなパターンは絶対パスではなく、設定ファイルに相対的です。絶対パスには`//Users/alice/file`を使用してください。
+  A pattern like `/Users/alice/file` is NOT an absolute path - it's relative to your settings file! Use `//Users/alice/file` for absolute paths.
 </Warning>
 
-* `Edit(/docs/**)` - `<project>/docs/`での編集（`/docs/`ではありません！）
-* `Read(~/.zshrc)` - ホームディレクトリの`.zshrc`を読み取ります
-* `Edit(//tmp/scratch.txt)` - 絶対パス`/tmp/scratch.txt`を編集します
-* `Read(src/**)` - `<current-directory>/src/`から読み取ります
+* `Edit(/docs/**)` - Edits in `<project>/docs/` (NOT `/docs/`!)
+* `Read(~/.zshrc)` - Reads your home directory's `.zshrc`
+* `Edit(//tmp/scratch.txt)` - Edits the absolute path `/tmp/scratch.txt`
+* `Read(src/**)` - Reads from `<current-directory>/src/`
 
 **WebFetch**
 
-* `WebFetch(domain:example.com)` example.comへのフェッチリクエストにマッチします
+* `WebFetch(domain:example.com)` Matches fetch requests to example.com
 
 **MCP**
 
-* `mcp__puppeteer` `puppeteer`サーバーが提供するあらゆるツールにマッチします（Claude Codeで設定された名前）
-* `mcp__puppeteer__puppeteer_navigate` `puppeteer`サーバーが提供する`puppeteer_navigate`ツールにマッチします
+* `mcp__puppeteer` Matches any tool provided by the `puppeteer` server (name configured in Claude Code)
+* `mcp__puppeteer__*` Wildcard syntax that also matches all tools from the `puppeteer` server
+* `mcp__puppeteer__puppeteer_navigate` Matches the `puppeteer_navigate` tool provided by the `puppeteer` server
 
-<Warning>
-  他の権限タイプとは異なり、MCP権限はワイルカード（`*`）をサポートしていません。
+### Additional permission control with hooks
 
-  MCPサーバーからすべてのツールを承認するには：
+[Claude Code hooks](/en/hooks-guide) provide a way to register custom shell commands to perform permission evaluation at runtime. When Claude Code makes a tool call, PreToolUse hooks run before the permission system runs, and the hook output can determine whether to approve or deny the tool call in place of the permission system.
 
-  * ✅ 使用：`mcp__github`（すべてのGitHubツールを承認）
-  * ❌ 使用しないでください：`mcp__github__*`（ワイルカードはサポートされていません）
+### Enterprise managed settings
 
-  特定のツールのみを承認するには、各ツールをリストします：
+For enterprise deployments of Claude Code, administrators can configure and distribute settings to their organization through the [Claude.ai admin console](https://claude.ai/admin-settings/claude-code). These settings are fetched automatically when users authenticate and cannot be overridden locally. This feature is available to Claude for Enterprise customers. If you don't see this option in your admin console, contact your Anthropic account team to have the feature enabled.
 
-  * ✅ 使用：`mcp__github__get_issue`
-  * ✅ 使用：`mcp__github__list_issues`
-</Warning>
+For organizations that prefer file-based policy distribution, Claude Code also supports `managed-settings.json` files that can be deployed to [system directories](/en/settings#settings-files). These policy files follow the same format as regular settings files and cannot be overridden by user or project settings.
 
-### フックを使用した追加の権限制御
+### Settings precedence
 
-[Claude Codeフック](/ja/hooks-guide)は、実行時に権限評価を実行するカスタムシェルコマンドを登録する方法を提供します。Claude Codeがツール呼び出しを行うと、PreToolUseフックは権限システムが実行される前に実行され、フック出力は権限システムの代わりにツール呼び出しを承認または拒否するかどうかを決定できます。
+When multiple settings sources exist, they are applied in the following order (highest to lowest precedence):
 
-### エンタープライズ管理ポリシー設定
+1. Managed settings (via Claude.ai admin console)
+2. File-based managed settings (`managed-settings.json`)
+3. Command line arguments
+4. Local project settings (`.claude/settings.local.json`)
+5. Shared project settings (`.claude/settings.json`)
+6. User settings (`~/.claude/settings.json`)
 
-Claude Codeのエンタープライズデプロイメントの場合、ユーザーおよびプロジェクト設定より優先されるエンタープライズ管理ポリシー設定をサポートしています。これにより、システム管理者はユーザーがオーバーライドできないセキュリティポリシーを実施できます。
+This hierarchy ensures that organizational policies are always enforced while still allowing flexibility at the project and user levels where appropriate.
 
-システム管理者は以下にポリシーをデプロイできます：
+## Credential management
 
-* macOS：`/Library/Application Support/ClaudeCode/managed-settings.json`
-* LinuxおよびWSL：`/etc/claude-code/managed-settings.json`
-* Windows：`C:\ProgramData\ClaudeCode\managed-settings.json`
+Claude Code securely manages your authentication credentials:
 
-これらのポリシーファイルは通常の[設定ファイル](/ja/settings#settings-files)と同じ形式に従いますが、ユーザーまたはプロジェクト設定によってオーバーライドできません。これにより、組織全体で一貫したセキュリティポリシーが確保されます。
-
-### 設定の優先順位
-
-複数の設定ソースが存在する場合、以下の順序（優先度が高い順から低い順）で適用されます：
-
-1. エンタープライズポリシー
-2. コマンドラインオプション
-3. ローカルプロジェクト設定（`.claude/settings.local.json`）
-4. 共有プロジェクト設定（`.claude/settings.json`）
-5. ユーザー設定（`~/.claude/settings.json`）
-
-この階層により、組織のポリシーが常に実施されながら、プロジェクトおよびユーザーレベルで適切な柔軟性が許可されます。
-
-## 認証情報管理
-
-Claude Codeは認証認証情報を安全に管理します：
-
-* **保存場所**：macOSでは、APIキー、OAuthトークン、およびその他の認証情報は暗号化されたmacOS Keychainに保存されます。
-* **サポートされている認証タイプ**：Claude.ai認証情報、Claude API認証情報、Bedrock認証、およびVertex認証。
-* **カスタム認証情報スクリプト**：[`apiKeyHelper`](/ja/settings#available-settings)設定を設定して、APIキーを返すシェルスクリプトを実行できます。
-* **更新間隔**：デフォルトでは、`apiKeyHelper`は5分後またはHTTP 401レスポンス時に呼び出されます。カスタム更新間隔については、`CLAUDE_CODE_API_KEY_HELPER_TTL_MS`環境変数を設定してください。
+* **Storage location**: On macOS, API keys, OAuth tokens, and other credentials are stored in the encrypted macOS Keychain.
+* **Supported authentication types**: Claude.ai credentials, Claude API credentials, Azure Auth, Bedrock Auth, and Vertex Auth.
+* **Custom credential scripts**: The [`apiKeyHelper`](/en/settings#available-settings) setting can be configured to run a shell script that returns an API key.
+* **Refresh intervals**: By default, `apiKeyHelper` is called after 5 minutes or on HTTP 401 response. Set `CLAUDE_CODE_API_KEY_HELPER_TTL_MS` environment variable for custom refresh intervals.
 
 
 ---
