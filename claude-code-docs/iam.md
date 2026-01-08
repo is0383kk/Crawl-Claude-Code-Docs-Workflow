@@ -92,9 +92,13 @@ Some tools support more fine-grained permission controls:
 
 **Bash**
 
+Bash permission rules support both prefix matching with `:*` and wildcard matching with `*`:
+
 * `Bash(npm run build)` Matches the exact Bash command `npm run build`
 * `Bash(npm run test:*)` Matches Bash commands starting with `npm run test`
-* `Bash(curl http://site.com/:*)` Matches curl commands that start with exactly `curl http://site.com/`
+* `Bash(npm *)` Matches any command starting with `npm ` (e.g., `npm install`, `npm run build`)
+* `Bash(* install)` Matches any command ending with ` install` (e.g., `npm install`, `yarn install`)
+* `Bash(git * main)` Matches commands like `git checkout main`, `git merge main`
 
 <Tip>
   Claude Code is aware of shell operators (like `&&`) so a prefix match rule like `Bash(safe-cmd:*)` won't give it permission to run the command `safe-cmd && other-cmd`
@@ -103,8 +107,8 @@ Some tools support more fine-grained permission controls:
 <Warning>
   Important limitations of Bash permission patterns:
 
-  1. This tool uses **prefix matches**, not regex or glob patterns
-  2. The wildcard `:*` only works at the end of a pattern to match any continuation
+  1. The `:*` wildcard only works at the end of a pattern for prefix matching
+  2. The `*` wildcard can appear at any position and matches any sequence of characters
   3. Patterns like `Bash(curl http://github.com/:*)` can be bypassed in many ways:
      * Options before URL: `curl -X GET http://github.com/...` won't match
      * Different protocol: `curl https://github.com/...` won't match
@@ -151,26 +155,41 @@ Read & Edit rules both follow the [gitignore](https://git-scm.com/docs/gitignore
 * `mcp__puppeteer__*` Wildcard syntax that also matches all tools from the `puppeteer` server
 * `mcp__puppeteer__puppeteer_navigate` Matches the `puppeteer_navigate` tool provided by the `puppeteer` server
 
+**Task (Subagents)**
+
+Use `Task(AgentName)` rules to control which [subagents](/en/sub-agents) Claude can use:
+
+* `Task(Explore)` Matches the Explore subagent
+* `Task(Plan)` Matches the Plan subagent
+* `Task(Verify)` Matches the Verify subagent
+
+Add these rules to the `deny` array in your [settings](/en/settings#permission-settings) or use the `--disallowedTools` CLI flag to disable specific agents. For example, to disable the Explore agent:
+
+```json  theme={null}
+{
+  "permissions": {
+    "deny": ["Task(Explore)"]
+  }
+}
+```
+
 ### Additional permission control with hooks
 
 [Claude Code hooks](/en/hooks-guide) provide a way to register custom shell commands to perform permission evaluation at runtime. When Claude Code makes a tool call, PreToolUse hooks run before the permission system runs, and the hook output can determine whether to approve or deny the tool call in place of the permission system.
 
-### Enterprise managed settings
+### Managed settings
 
-For enterprise deployments of Claude Code, administrators can configure and distribute settings to their organization through the [Claude.ai admin console](https://claude.ai/admin-settings/claude-code). These settings are fetched automatically when users authenticate and cannot be overridden locally. This feature is available to Claude for Enterprise customers. If you don't see this option in your admin console, contact your Anthropic account team to have the feature enabled.
-
-For organizations that prefer file-based policy distribution, Claude Code also supports `managed-settings.json` files that can be deployed to [system directories](/en/settings#settings-files). These policy files follow the same format as regular settings files and cannot be overridden by user or project settings.
+For organizations that need centralized control over Claude Code configuration, administrators can deploy `managed-settings.json` files to [system directories](/en/settings#settings-files). These policy files follow the same format as regular settings files and cannot be overridden by user or project settings.
 
 ### Settings precedence
 
 When multiple settings sources exist, they are applied in the following order (highest to lowest precedence):
 
-1. Managed settings (via Claude.ai admin console)
-2. File-based managed settings (`managed-settings.json`)
-3. Command line arguments
-4. Local project settings (`.claude/settings.local.json`)
-5. Shared project settings (`.claude/settings.json`)
-6. User settings (`~/.claude/settings.json`)
+1. Managed settings (`managed-settings.json`)
+2. Command line arguments
+3. Local project settings (`.claude/settings.local.json`)
+4. Shared project settings (`.claude/settings.json`)
+5. User settings (`~/.claude/settings.json`)
 
 This hierarchy ensures that organizational policies are always enforced while still allowing flexibility at the project and user levels where appropriate.
 
