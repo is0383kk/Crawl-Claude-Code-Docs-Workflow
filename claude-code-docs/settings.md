@@ -106,11 +106,11 @@ Code through hierarchical settings:
   "permissions": {
     "allow": [
       "Bash(npm run lint)",
-      "Bash(npm run test:*)",
+      "Bash(npm run test *)",
       "Read(~/.zshrc)"
     ],
     "deny": [
-      "Bash(curl:*)",
+      "Bash(curl *)",
       "Read(./.env)",
       "Read(./.env.*)",
       "Read(./secrets/**)"
@@ -172,9 +172,9 @@ Code through hierarchical settings:
 
 | Keys                           | Description                                                                                                                                                                                                                              | Example                                                                |
 | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------- |
-| `allow`                        | Array of permission rules to allow tool use. See [Permission rule syntax](#permission-rule-syntax) below for pattern matching details                                                                                                    | `[ "Bash(git diff:*)" ]`                                               |
-| `ask`                          | Array of permission rules to ask for confirmation upon tool use. See [Permission rule syntax](#permission-rule-syntax) below                                                                                                             | `[ "Bash(git push:*)" ]`                                               |
-| `deny`                         | Array of permission rules to deny tool use. Use this to exclude sensitive files from Claude Code access. See [Permission rule syntax](#permission-rule-syntax) and [Bash permission limitations](/en/iam#tool-specific-permission-rules) | `[ "WebFetch", "Bash(curl:*)", "Read(./.env)", "Read(./secrets/**)" ]` |
+| `allow`                        | Array of permission rules to allow tool use. See [Permission rule syntax](#permission-rule-syntax) below for pattern matching details                                                                                                    | `[ "Bash(git diff *)" ]`                                               |
+| `ask`                          | Array of permission rules to ask for confirmation upon tool use. See [Permission rule syntax](#permission-rule-syntax) below                                                                                                             | `[ "Bash(git push *)" ]`                                               |
+| `deny`                         | Array of permission rules to deny tool use. Use this to exclude sensitive files from Claude Code access. See [Permission rule syntax](#permission-rule-syntax) and [Bash permission limitations](/en/iam#tool-specific-permission-rules) | `[ "WebFetch", "Bash(curl *)", "Read(./.env)", "Read(./secrets/**)" ]` |
 | `additionalDirectories`        | Additional [working directories](/en/iam#working-directories) that Claude has access to                                                                                                                                                  | `[ "../docs/" ]`                                                       |
 | `defaultMode`                  | Default [permission mode](/en/iam#permission-modes) when opening Claude Code                                                                                                                                                             | `"acceptEdits"`                                                        |
 | `disableBypassPermissionsMode` | Set to `"disable"` to prevent `bypassPermissions` mode from being activated. This disables the `--dangerously-skip-permissions` command-line flag. See [managed settings](/en/iam#managed-settings)                                      | `"disable"`                                                            |
@@ -217,50 +217,29 @@ Add a specifier in parentheses to match specific tool uses:
 
 #### Wildcard patterns
 
-Two wildcard syntaxes are available for Bash rules:
-
-| Wildcard | Position            | Behavior                                                                                         | Example                                      |
-| :------- | :------------------ | :----------------------------------------------------------------------------------------------- | :------------------------------------------- |
-| `:*`     | End of pattern only | **Prefix matching** with word boundary. The prefix must be followed by a space or end-of-string. | `Bash(ls:*)` matches `ls -la` but not `lsof` |
-| `*`      | Anywhere in pattern | **Glob matching** with no word boundary. Matches any sequence of characters at that position.    | `Bash(ls*)` matches both `ls -la` and `lsof` |
-
-**Prefix matching with `:*`**
-
-The `:*` suffix matches any command that starts with the specified prefix. This works with multi-word commands. The following configuration allows npm and git commit commands while blocking git push and rm -rf:
+Bash rules support glob patterns with `*`. Wildcards can appear at any position in the command, including at the beginning, middle, or end. The following configuration allows npm and git commit commands while blocking git push:
 
 ```json  theme={null}
 {
   "permissions": {
     "allow": [
-      "Bash(npm run:*)",
-      "Bash(git commit:*)",
-      "Bash(docker compose:*)"
+      "Bash(npm run *)",
+      "Bash(git commit *)",
+      "Bash(git * main)",
+      "Bash(* --version)",
+      "Bash(* --help *)"
     ],
     "deny": [
-      "Bash(git push:*)",
-      "Bash(rm -rf:*)"
+      "Bash(git push *)"
     ]
   }
 }
 ```
 
-**Glob matching with `*`**
-
-The `*` wildcard can appear at the beginning, middle, or end of a pattern. The following configuration allows any git command targeting main (like `git checkout main`, `git merge main`) and any version check command (like `node --version`, `npm --version`):
-
-```json  theme={null}
-{
-  "permissions": {
-    "allow": [
-      "Bash(git * main)",
-      "Bash(* --version)"
-    ]
-  }
-}
-```
+The space before `*` matters: `Bash(ls *)` matches `ls -la` but not `lsof`, while `Bash(ls*)` matches both. The legacy `:*` suffix syntax (e.g., `Bash(npm run:*)`) is equivalent to ` *` but is deprecated.
 
 <Warning>
-  Bash permission patterns that try to constrain command arguments are fragile. For example, `Bash(curl http://github.com/:*)` intends to restrict curl to GitHub URLs, but won't match `curl -X GET http://github.com/...` (flags before URL), `curl https://github.com/...` (different protocol), or commands using shell variables. Do not rely on argument-constraining patterns as a security boundary. See [Bash permission limitations](/en/iam#tool-specific-permission-rules) for alternatives.
+  Bash permission patterns that try to constrain command arguments are fragile. For example, `Bash(curl http://github.com/ *)` intends to restrict curl to GitHub URLs, but won't match `curl -X GET http://github.com/...` (flags before URL), `curl https://github.com/...` (different protocol), or commands using shell variables. Do not rely on argument-constraining patterns as a security boundary. See [Bash permission limitations](/en/iam#tool-specific-permission-rules) for alternatives.
 </Warning>
 
 For detailed information about tool-specific permission patterns—including Read, Edit, WebFetch, MCP, Task rules, and Bash permission limitations—see [Tool-specific permission rules](/en/iam#tool-specific-permission-rules).
@@ -429,7 +408,7 @@ Settings apply in order of precedence. From highest to lowest:
 
 This hierarchy ensures that organizational policies are always enforced while still allowing teams and individuals to customize their experience.
 
-For example, if your user settings allow `Bash(npm run:*)` but a project's shared settings deny it, the project setting takes precedence and the command is blocked.
+For example, if your user settings allow `Bash(npm run *)` but a project's shared settings deny it, the project setting takes precedence and the command is blocked.
 
 ### Key points about the configuration system
 
@@ -556,6 +535,7 @@ Defines additional marketplaces that should be made available for the repository
 * `github`: GitHub repository (uses `repo`)
 * `git`: Any git URL (uses `url`)
 * `directory`: Local filesystem path (uses `path`, for development only)
+* `hostPattern`: regex pattern to match marketplace hosts (uses `hostPattern`)
 
 #### `strictKnownMarketplaces`
 
@@ -572,7 +552,7 @@ Defines additional marketplaces that should be made available for the repository
 * Only available in managed settings (`managed-settings.json`)
 * Cannot be overridden by user or project settings (highest precedence)
 * Enforced BEFORE network/filesystem operations (blocked sources never execute)
-* Uses exact matching for source specifications (including `ref`, `path` for git sources)
+* Uses exact matching for source specifications (including `ref`, `path` for git sources), except `hostPattern`, which uses regex matching
 
 **Allowlist behavior**:
 
@@ -582,7 +562,7 @@ Defines additional marketplaces that should be made available for the repository
 
 **All supported source types**:
 
-The allowlist supports six marketplace source types. Each source must match exactly for a user's marketplace addition to be allowed.
+The allowlist supports seven marketplace source types. Most sources use exact matching, while `hostPattern` uses regex matching against the marketplace host.
 
 1. **GitHub repositories**:
 
@@ -644,9 +624,27 @@ Fields: `path` (required: absolute path to marketplace.json file)
 
 Fields: `path` (required: absolute path to directory containing `.claude-plugin/marketplace.json`)
 
+7. **Host pattern matching**:
+
+```json  theme={null}
+{ "source": "hostPattern", "hostPattern": "^github\\.example\\.com$" }
+{ "source": "hostPattern", "hostPattern": "^gitlab\\.internal\\.example\\.com$" }
+```
+
+Fields: `hostPattern` (required: regex pattern to match against the marketplace host)
+
+Use host pattern matching when you want to allow all marketplaces from a specific host without enumerating each repository individually. This is useful for organizations with internal GitHub Enterprise or GitLab servers where developers create their own marketplaces.
+
+Host extraction by source type:
+
+* `github`: always matches against `github.com`
+* `git`: extracts hostname from the URL (supports both HTTPS and SSH formats)
+* `url`: extracts hostname from the URL
+* `npm`, `file`, `directory`: not supported for host pattern matching
+
 **Configuration examples**:
 
-Example - Allow specific marketplaces only:
+Example: allow specific marketplaces only:
 
 ```json  theme={null}
 {
@@ -677,6 +675,19 @@ Example - Disable all marketplace additions:
 ```json  theme={null}
 {
   "strictKnownMarketplaces": []
+}
+```
+
+Example: allow all marketplaces from an internal git server:
+
+```json  theme={null}
+{
+  "strictKnownMarketplaces": [
+    {
+      "source": "hostPattern",
+      "hostPattern": "^github\\.example\\.com$"
+    }
+  ]
 }
 ```
 
@@ -797,6 +808,7 @@ Claude Code supports the following environment variables to control its behavior
 | `CLAUDE_CODE_TMPDIR`                          | Override the temp directory used for internal temp files. Claude Code appends `/claude/` to this path. Default: `/tmp` on Unix/macOS, `os.tmpdir()` on Windows                                                                                                                                                                                                                                                                                                                                                                         |
 | `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`    | Equivalent of setting `DISABLE_AUTOUPDATER`, `DISABLE_BUG_COMMAND`, `DISABLE_ERROR_REPORTING`, and `DISABLE_TELEMETRY`                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `CLAUDE_CODE_DISABLE_TERMINAL_TITLE`          | Set to `1` to disable automatic terminal title updates based on conversation context                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `CLAUDE_CODE_ENABLE_TASKS`                    | Set to `false` to temporarily revert to the previous TODO list instead of the task tracking system. Default: `true`. See [Task list](/en/interactive-mode#task-list)                                                                                                                                                                                                                                                                                                                                                                   |
 | `CLAUDE_CODE_ENABLE_TELEMETRY`                | Set to `1` to enable OpenTelemetry data collection for metrics and logging. Required before configuring OTel exporters. See [Monitoring](/en/monitoring-usage)                                                                                                                                                                                                                                                                                                                                                                         |
 | `CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS`     | Override the default token limit for file reads. Useful when you need to read larger files in full                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | `CLAUDE_CODE_HIDE_ACCOUNT_INFO`               | Set to `1` to hide your email address and organization name from the Claude Code UI. Useful when streaming or recording                                                                                                                                                                                                                                                                                                                                                                                                                |
