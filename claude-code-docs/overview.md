@@ -10,6 +10,7 @@
 
 Prerequisites:
 
+* Meet the [system requirements](/en/setup#system-requirements)
 * A [Claude subscription](https://claude.com/pricing) (Pro, Max, Teams, or Enterprise) or [Claude Console](https://console.anthropic.com/) account
 
 **Install Claude Code:**
@@ -130,7 +131,7 @@ Claude Code works across your development environment: in your terminal, in your
     Learn more about Claude Code on claude.com
   </Card>
 
-  <Card title="Build with the Agent SDK" icon="code-branch" href="https://docs.claude.com/en/docs/agent-sdk/overview">
+  <Card title="Build with the Agent SDK" icon="code-branch" href="https://platform.claude.com/docs/en/agent-sdk/overview">
     Create custom AI agents with the Claude Agent SDK
   </Card>
 
