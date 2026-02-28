@@ -274,16 +274,17 @@ In addition to the [common fields](#common-fields), command hooks accept these f
 
 In addition to the [common fields](#common-fields), HTTP hooks accept these fields:
 
-| Field     | Required | Description                                                                                                                             |
-| :-------- | :------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `url`     | yes      | URL to send the POST request to                                                                                                         |
-| `headers` | no       | Additional HTTP headers as key-value pairs. Values support environment variable interpolation using `$VAR_NAME` or `${VAR_NAME}` syntax |
+| Field            | Required | Description                                                                                                                                                                                      |
+| :--------------- | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`            | yes      | URL to send the POST request to                                                                                                                                                                  |
+| `headers`        | no       | Additional HTTP headers as key-value pairs. Values support environment variable interpolation using `$VAR_NAME` or `${VAR_NAME}` syntax. Only variables listed in `allowedEnvVars` are resolved  |
+| `allowedEnvVars` | no       | List of environment variable names that may be interpolated into header values. References to unlisted variables are replaced with empty strings. Required for any env var interpolation to work |
 
 Claude Code sends the hook's [JSON input](#hook-input-and-output) as the POST request body with `Content-Type: application/json`. The response body uses the same [JSON output format](#json-output) as command hooks.
 
 Error handling differs from command hooks: non-2xx responses, connection failures, and timeouts all produce non-blocking errors that allow execution to continue. To block a tool call or deny a permission, return a 2xx response with a JSON body containing `decision: "block"` or a `hookSpecificOutput` with `permissionDecision: "deny"`.
 
-This example sends a `PreToolUse` event to a local validation service:
+This example sends `PreToolUse` events to a local validation service, authenticating with a token from the `MY_TOKEN` environment variable:
 
 ```json  theme={null}
 {
@@ -298,7 +299,8 @@ This example sends a `PreToolUse` event to a local validation service:
             "timeout": 30,
             "headers": {
               "Authorization": "Bearer $MY_TOKEN"
-            }
+            },
+            "allowedEnvVars": ["MY_TOKEN"]
           }
         ]
       }
@@ -766,7 +768,7 @@ To block a prompt, return a JSON object with `decision` set to `"block"`:
 
 ### PreToolUse
 
-Runs after Claude creates tool parameters and before processing the tool call. Matches on tool name: `Bash`, `Edit`, `Write`, `Read`, `Glob`, `Grep`, `Task`, `WebFetch`, `WebSearch`, and any [MCP tool names](#match-mcp-tools).
+Runs after Claude creates tool parameters and before processing the tool call. Matches on tool name: `Bash`, `Edit`, `Write`, `Read`, `Glob`, `Grep`, `Agent`, `WebFetch`, `WebSearch`, and any [MCP tool names](#match-mcp-tools).
 
 Use [PreToolUse decision control](#pretooluse-decision-control) to allow, deny, or ask for permission to use the tool.
 
@@ -856,7 +858,7 @@ Searches the web.
 | `allowed_domains` | array  | `["docs.example.com"]`         | Optional: only include results from these domains |
 | `blocked_domains` | array  | `["spam.example.com"]`         | Optional: exclude results from these domains      |
 
-##### Task
+##### Agent
 
 Spawns a [subagent](/en/sub-agents).
 
@@ -1111,7 +1113,7 @@ Notification hooks cannot block or modify notifications. In addition to the [JSO
 
 ### SubagentStart
 
-Runs when a Claude Code subagent is spawned via the Task tool. Supports matchers to filter by agent type name (built-in agents like `Bash`, `Explore`, `Plan`, or custom agent names from `.claude/agents/`).
+Runs when a Claude Code subagent is spawned via the Agent tool. Supports matchers to filter by agent type name (built-in agents like `Bash`, `Explore`, `Plan`, or custom agent names from `.claude/agents/`).
 
 #### SubagentStart input
 
@@ -1765,10 +1767,10 @@ Async hooks have several constraints compared to synchronous hooks:
 
 ### Disclaimer
 
-Hooks run with your system user's full permissions.
+Command hooks run with your system user's full permissions.
 
 <Warning>
-  Hooks execute shell commands with your full user permissions. They can modify, delete, or access any files your user account can access. Review and test all hook commands before adding them to your configuration.
+  Command hooks execute shell commands with your full user permissions. They can modify, delete, or access any files your user account can access. Review and test all hook commands before adding them to your configuration.
 </Warning>
 
 ### Security best practices
