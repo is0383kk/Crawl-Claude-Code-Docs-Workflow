@@ -18,7 +18,7 @@ Hooks fire at specific points during a Claude Code session. When an event fires 
 
 <div style={{maxWidth: "500px", margin: "0 auto"}}>
   <Frame>
-    <img src="https://mintcdn.com/claude-code/JWoaQLhotXStH4d2/images/hooks-lifecycle.svg?fit=max&auto=format&n=JWoaQLhotXStH4d2&q=85&s=9310bd002ef90ca32ac668455f5580a0" alt="Hook lifecycle diagram showing the sequence of hooks from SessionStart through the agentic loop to SessionEnd, with WorktreeCreate, WorktreeRemove, and InstructionsLoaded as standalone async events" width="520" height="1020" data-path="images/hooks-lifecycle.svg" />
+    <img src="https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/images/hooks-lifecycle.svg?fit=max&auto=format&n=c5r9_6tjPMzFdDDT&q=85&s=996ed41d03e106ab6bc9a8fdd4ebcf26" alt="Hook lifecycle diagram showing the sequence of hooks from SessionStart through the agentic loop to SessionEnd, with WorktreeCreate, WorktreeRemove, and InstructionsLoaded as standalone async events" width="520" height="1020" data-path="images/hooks-lifecycle.svg" />
   </Frame>
 </div>
 
@@ -90,7 +90,7 @@ fi
 Now suppose Claude Code decides to run `Bash "rm -rf /tmp/build"`. Here's what happens:
 
 <Frame>
-  <img src="https://mintcdn.com/claude-code/TBPmHzr19mDCuhZi/images/hook-resolution.svg?fit=max&auto=format&n=TBPmHzr19mDCuhZi&q=85&s=5bb890134390ecd0581477cf41ef730b" alt="Hook resolution flow: PreToolUse event fires, matcher checks for Bash match, hook handler runs, result returns to Claude Code" width="780" height="290" data-path="images/hook-resolution.svg" />
+  <img src="https://mintcdn.com/claude-code/c5r9_6tjPMzFdDDT/images/hook-resolution.svg?fit=max&auto=format&n=c5r9_6tjPMzFdDDT&q=85&s=ad667ee6d86ab2276aa48a4e73e220df" alt="Hook resolution flow: PreToolUse event fires, matcher checks for Bash match, hook handler runs, result returns to Claude Code" width="780" height="290" data-path="images/hook-resolution.svg" />
 </Frame>
 
 <Steps>
@@ -924,6 +924,8 @@ Spawns a [subagent](/en/sub-agents).
 | `permissionDecisionReason` | For `"allow"` and `"ask"`, shown to the user but not Claude. For `"deny"`, shown to Claude                                                       |
 | `updatedInput`             | Modifies the tool's input parameters before execution. Combine with `"allow"` to auto-approve, or `"ask"` to show the modified input to the user |
 | `additionalContext`        | String added to Claude's context before the tool executes                                                                                        |
+
+When a hook returns `"ask"`, the permission prompt displayed to the user includes a label identifying where the hook came from: for example, `[User]`, `[Project]`, `[Plugin]`, or `[Local]`. This helps users understand which configuration source is requesting confirmation.
 
 ```json  theme={null}
 {
@@ -1765,6 +1767,8 @@ The `timeout` field sets the maximum time in seconds for the background process.
 When an async hook fires, Claude Code starts the hook process and immediately continues without waiting for it to finish. The hook receives the same JSON input via stdin as a synchronous hook.
 
 After the background process exits, if the hook produced a JSON response with a `systemMessage` or `additionalContext` field, that content is delivered to Claude as context on the next conversation turn.
+
+Async hook completion notifications are suppressed by default. To see them, enable verbose mode with `Ctrl+O` or start Claude Code with `--verbose`.
 
 ### Example: run tests after file changes
 

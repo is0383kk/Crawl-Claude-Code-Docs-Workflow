@@ -6,6 +6,10 @@
 
 > Use /loop and the cron scheduling tools to run prompts repeatedly, poll for status, or set one-time reminders within a Claude Code session.
 
+<Note>
+  Scheduled tasks require Claude Code v2.1.72 or later. Check your version with `claude --version`.
+</Note>
+
 Scheduled tasks let Claude re-run a prompt automatically on an interval. Use them to poll a deployment, babysit a PR, check back on a long-running build, or remind yourself to do something later in the session.
 
 Tasks are session-scoped: they live in the current Claude Code process and are gone when you exit. For durable scheduling that survives restarts and runs without an active terminal session, see [Desktop scheduled tasks](/en/desktop#schedule-recurring-tasks) or [GitHub Actions](/en/github-actions).
@@ -116,7 +120,7 @@ When both day-of-month and day-of-week are constrained, a date matches if either
 
 ## Disable scheduled tasks
 
-Set `CLAUDE_CODE_DISABLE_CRON=1` in your environment to disable the scheduler entirely. The cron tools and `/loop` become unavailable, and any already-scheduled tasks stop firing. See [Environment variables](/en/settings#environment-variables) for the full list of disable flags.
+Set `CLAUDE_CODE_DISABLE_CRON=1` in your environment to disable the scheduler entirely. The cron tools and `/loop` become unavailable, and any already-scheduled tasks stop firing. See [Environment variables](/en/env-vars) for the full list of disable flags.
 
 ## Limitations
 
