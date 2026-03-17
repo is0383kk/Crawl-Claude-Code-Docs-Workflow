@@ -431,7 +431,7 @@ To temporarily disable all hooks without removing them, set `"disableAllHooks": 
 
 The `disableAllHooks` setting respects the managed settings hierarchy. If an administrator has configured hooks through managed policy settings, `disableAllHooks` set in user, project, or local settings cannot disable those managed hooks. Only `disableAllHooks` set at the managed settings level can disable managed hooks.
 
-Direct edits to hooks in settings files don't take effect immediately. Claude Code captures a snapshot of hooks at startup and uses it throughout the session. This prevents malicious or accidental hook modifications from taking effect mid-session without your review. If hooks are modified externally, Claude Code warns you and requires review in the `/hooks` menu before changes apply.
+Direct edits to hooks in settings files are normally picked up automatically by the file watcher.
 
 ## Hook input and output
 
@@ -737,14 +737,14 @@ InstructionsLoaded does not support matchers and fires on every load occurrence.
 
 In addition to the [common input fields](#common-input-fields), InstructionsLoaded hooks receive these fields:
 
-| Field               | Description                                                                                               |
-| :------------------ | :-------------------------------------------------------------------------------------------------------- |
-| `file_path`         | Absolute path to the instruction file that was loaded                                                     |
-| `memory_type`       | Scope of the file: `"User"`, `"Project"`, `"Local"`, or `"Managed"`                                       |
-| `load_reason`       | Why the file was loaded: `"session_start"`, `"nested_traversal"`, `"path_glob_match"`, or `"include"`     |
-| `globs`             | Path glob patterns from the file's `paths:` frontmatter, if any. Present only for `path_glob_match` loads |
-| `trigger_file_path` | Path to the file whose access triggered this load, for lazy loads                                         |
-| `parent_file_path`  | Path to the parent instruction file that included this one, for `include` loads                           |
+| Field               | Description                                                                                                                                                                                                   |
+| :------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `file_path`         | Absolute path to the instruction file that was loaded                                                                                                                                                         |
+| `memory_type`       | Scope of the file: `"User"`, `"Project"`, `"Local"`, or `"Managed"`                                                                                                                                           |
+| `load_reason`       | Why the file was loaded: `"session_start"`, `"nested_traversal"`, `"path_glob_match"`, `"include"`, or `"compact"`. The `"compact"` value fires when instruction files are re-loaded after a compaction event |
+| `globs`             | Path glob patterns from the file's `paths:` frontmatter, if any. Present only for `path_glob_match` loads                                                                                                     |
+| `trigger_file_path` | Path to the file whose access triggered this load, for lazy loads                                                                                                                                             |
+| `parent_file_path`  | Path to the parent instruction file that included this one, for `include` loads                                                                                                                               |
 
 ```json  theme={null}
 {
@@ -926,12 +926,12 @@ Spawns a [subagent](/en/sub-agents).
 
 `PreToolUse` hooks can control whether a tool call proceeds. Unlike other hooks that use a top-level `decision` field, PreToolUse returns its decision inside a `hookSpecificOutput` object. This gives it richer control: three outcomes (allow, deny, or ask) plus the ability to modify tool input before execution.
 
-| Field                      | Description                                                                                                                                      |
-| :------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `permissionDecision`       | `"allow"` bypasses the permission system, `"deny"` prevents the tool call, `"ask"` prompts the user to confirm                                   |
-| `permissionDecisionReason` | For `"allow"` and `"ask"`, shown to the user but not Claude. For `"deny"`, shown to Claude                                                       |
-| `updatedInput`             | Modifies the tool's input parameters before execution. Combine with `"allow"` to auto-approve, or `"ask"` to show the modified input to the user |
-| `additionalContext`        | String added to Claude's context before the tool executes                                                                                        |
+| Field                      | Description                                                                                                                                                                                                     |
+| :------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `permissionDecision`       | `"allow"` skips the permission prompt. `"deny"` prevents the tool call. `"ask"` prompts the user to confirm. [Deny and ask rules](/en/permissions#manage-permissions) still apply when a hook returns `"allow"` |
+| `permissionDecisionReason` | For `"allow"` and `"ask"`, shown to the user but not Claude. For `"deny"`, shown to Claude                                                                                                                      |
+| `updatedInput`             | Modifies the tool's input parameters before execution. Combine with `"allow"` to auto-approve, or `"ask"` to show the modified input to the user                                                                |
+| `additionalContext`        | String added to Claude's context before the tool executes                                                                                                                                                       |
 
 When a hook returns `"ask"`, the permission prompt displayed to the user includes a label identifying where the hook came from: for example, `[User]`, `[Project]`, `[Plugin]`, or `[Local]`. This helps users understand which configuration source is requesting confirmation.
 

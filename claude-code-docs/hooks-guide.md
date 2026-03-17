@@ -429,9 +429,11 @@ For example, a `PreToolUse` hook can deny a tool call and tell Claude why, or es
 
 Claude Code reads `permissionDecision` and cancels the tool call, then feeds `permissionDecisionReason` back to Claude as feedback. These three options are specific to `PreToolUse`:
 
-* `"allow"`: proceed without showing a permission prompt
+* `"allow"`: skip the interactive permission prompt. Deny and ask rules, including enterprise managed deny lists, still apply
 * `"deny"`: cancel the tool call and send the reason to Claude
 * `"ask"`: show the permission prompt to the user as normal
+
+Returning `"allow"` skips the interactive prompt but does not override [permission rules](/en/permissions#manage-permissions). If a deny rule matches the tool call, the call is blocked even when your hook returns `"allow"`. If an ask rule matches, the user is still prompted. This means deny rules from any settings scope, including [managed settings](/en/settings#settings-files), always take precedence over hook approvals.
 
 Other events use different decision patterns. For example, `PostToolUse` and `Stop` hooks use a top-level `decision: "block"` field, while `PermissionRequest` uses `hookSpecificOutput.decision.behavior`. See the [summary table](/en/hooks#decision-control) in the reference for a full breakdown by event.
 
@@ -561,7 +563,7 @@ Where you add a hook determines its scope:
 
 Run [`/hooks`](/en/hooks#the-hooks-menu) in Claude Code to browse all configured hooks grouped by event. To disable all hooks at once, set `"disableAllHooks": true` in your settings file.
 
-If you edit settings files directly while Claude Code is running, hook changes won't take effect until you review them in the `/hooks` menu or restart your session. This prevents unexpected hook modifications from taking effect mid-session.
+If you edit settings files directly while Claude Code is running, the file watcher normally picks up hook changes automatically.
 
 ## Prompt-based hooks
 
@@ -694,7 +696,7 @@ You see a message like "PreToolUse hook error: ..." in the transcript.
 
 You edited a settings file but the hooks don't appear in the menu.
 
-* Restart your session or open `/hooks` to reload. Manual file edits require a reload before they take effect.
+* File edits are normally picked up automatically. If they haven't appeared after a few seconds, the file watcher may have missed the change: restart your session to force a reload.
 * Verify your JSON is valid (trailing commas and comments are not allowed)
 * Confirm the settings file is in the correct location: `.claude/settings.json` for project hooks, `~/.claude/settings.json` for global hooks
 
