@@ -151,17 +151,17 @@ nano ~/.openclaw/openclaw.json
 
 Add your channels:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "whatsapp": {
-      "dmPolicy": "allowlist",
-      "allowFrom": ["+15551234567"]
+  channels: {
+    whatsapp: {
+      dmPolicy: "allowlist",
+      allowFrom: ["+15551234567"],
     },
-    "telegram": {
-      "botToken": "YOUR_BOT_TOKEN"
-    }
-  }
+    telegram: {
+      botToken: "YOUR_BOT_TOKEN",
+    },
+  },
 }
 ```
 
@@ -205,15 +205,15 @@ Inside the VM:
 
 Add to your OpenClaw config:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "bluebubbles": {
-      "serverUrl": "http://localhost:1234",
-      "password": "your-api-password",
-      "webhookPath": "/bluebubbles-webhook"
-    }
-  }
+  channels: {
+    bluebubbles: {
+      serverUrl: "http://localhost:1234",
+      password: "your-api-password",
+      webhookPath: "/bluebubbles-webhook",
+    },
+  },
 }
 ```
 

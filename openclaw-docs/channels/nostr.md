@@ -58,13 +58,13 @@ nak key generate
 
 2. Add to config:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "nostr": {
-      "privateKey": "${NOSTR_PRIVATE_KEY}"
-    }
-  }
+  channels: {
+    nostr: {
+      privateKey: "${NOSTR_PRIVATE_KEY}",
+    },
+  },
 }
 ```
 
@@ -94,23 +94,23 @@ Profile data is published as a NIP-01 `kind:0` event. You can manage it from the
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "nostr": {
-      "privateKey": "${NOSTR_PRIVATE_KEY}",
-      "profile": {
-        "name": "openclaw",
-        "displayName": "OpenClaw",
-        "about": "Personal assistant DM bot",
-        "picture": "https://example.com/avatar.png",
-        "banner": "https://example.com/banner.png",
-        "website": "https://example.com",
-        "nip05": "openclaw@example.com",
-        "lud16": "openclaw@example.com"
-      }
-    }
-  }
+  channels: {
+    nostr: {
+      privateKey: "${NOSTR_PRIVATE_KEY}",
+      profile: {
+        name: "openclaw",
+        displayName: "OpenClaw",
+        about: "Personal assistant DM bot",
+        picture: "https://example.com/avatar.png",
+        banner: "https://example.com/banner.png",
+        website: "https://example.com",
+        nip05: "openclaw@example.com",
+        lud16: "openclaw@example.com",
+      },
+    },
+  },
 }
 ```
 
@@ -130,15 +130,15 @@ Notes:
 
 ### Allowlist example
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "nostr": {
-      "privateKey": "${NOSTR_PRIVATE_KEY}",
-      "dmPolicy": "allowlist",
-      "allowFrom": ["npub1abc...", "npub1xyz..."]
-    }
-  }
+  channels: {
+    nostr: {
+      privateKey: "${NOSTR_PRIVATE_KEY}",
+      dmPolicy: "allowlist",
+      allowFrom: ["npub1abc...", "npub1xyz..."],
+    },
+  },
 }
 ```
 
@@ -153,14 +153,14 @@ Accepted formats:
 
 Defaults: `relay.damus.io` and `nos.lol`.
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "nostr": {
-      "privateKey": "${NOSTR_PRIVATE_KEY}",
-      "relays": ["wss://relay.damus.io", "wss://relay.primal.net", "wss://nostr.wine"]
-    }
-  }
+  channels: {
+    nostr: {
+      privateKey: "${NOSTR_PRIVATE_KEY}",
+      relays: ["wss://relay.damus.io", "wss://relay.primal.net", "wss://nostr.wine"],
+    },
+  },
 }
 ```
 
@@ -189,14 +189,14 @@ Tips:
 docker run -p 7777:7777 ghcr.io/hoytech/strfry
 ```
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "channels": {
-    "nostr": {
-      "privateKey": "${NOSTR_PRIVATE_KEY}",
-      "relays": ["ws://localhost:7777"]
-    }
-  }
+  channels: {
+    nostr: {
+      privateKey: "${NOSTR_PRIVATE_KEY}",
+      relays: ["ws://localhost:7777"],
+    },
+  },
 }
 ```
 

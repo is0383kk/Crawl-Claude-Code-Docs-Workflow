@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Deploy on Northflank
+# Northflank
 
 Deploy OpenClaw on Northflank with a one-click template and finish setup in your browser.
 This is the easiest “no terminal on the server” path: Northflank runs the Gateway for you,
@@ -36,23 +36,20 @@ and you configure everything via the `/setup` web wizard.
 
 If Telegram DMs are set to pairing, web setup can approve the pairing code.
 
-## Getting chat tokens
+## Connect a channel
 
-### Telegram bot token
+Paste your Telegram or Discord token into the `/setup` wizard. For setup
+instructions, see the channel docs:
 
-1. Message `@BotFather` in Telegram
-2. Run `/newbot`
-3. Copy the token (looks like `123456789:AA...`)
-4. Paste it into `/setup`
+* [Telegram](/channels/telegram) (fastest — just a bot token)
+* [Discord](/channels/discord)
+* [All channels](/channels)
 
-### Discord bot token
+## Next steps
 
-1. Go to [https://discord.com/developers/applications](https://discord.com/developers/applications)
-2. **New Application** → choose a name
-3. **Bot** → **Add Bot**
-4. **Enable MESSAGE CONTENT INTENT** under Bot → Privileged Gateway Intents (required or the bot will crash on startup)
-5. Copy the **Bot Token** and paste into `/setup`
-6. Invite the bot to your server (OAuth2 URL Generator; scopes: `bot`, `applications.commands`)
+* Set up messaging channels: [Channels](/channels)
+* Configure the Gateway: [Gateway configuration](/gateway/configuration)
+* Keep OpenClaw up to date: [Updating](/install/updating)
 
 
 Built with [Mintlify](https://mintlify.com).
