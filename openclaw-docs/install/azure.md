@@ -23,139 +23,141 @@ You’ll need:
 * An Azure subscription with permission to create compute and network resources
 * Azure CLI installed (see [Azure CLI install steps](https://learn.microsoft.com/cli/azure/install-azure-cli) if needed)
 
-## 1) Sign in to Azure CLI
+<Steps>
+  <Step title="Sign in to Azure CLI">
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az login # Sign in and select your Azure subscription
+    az extension add -n ssh # Extension required for Azure Bastion SSH management
+    ```
+  </Step>
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az login # Sign in and select your Azure subscription
-az extension add -n ssh # Extension required for Azure Bastion SSH management
-```
+  <Step title="Register required resource providers (one-time)">
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az provider register --namespace Microsoft.Compute
+    az provider register --namespace Microsoft.Network
+    ```
 
-## 2) Register required resource providers (one-time)
+    Verify Azure resource provider registration. Wait until both show `Registered`.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az provider register --namespace Microsoft.Compute
-az provider register --namespace Microsoft.Network
-```
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az provider show --namespace Microsoft.Compute --query registrationState -o tsv
+    az provider show --namespace Microsoft.Network --query registrationState -o tsv
+    ```
+  </Step>
 
-Verify Azure resource provider registration. Wait until both show `Registered`.
+  <Step title="Set deployment variables">
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    RG="rg-openclaw"
+    LOCATION="westus2"
+    TEMPLATE_URI="https://raw.githubusercontent.com/openclaw/openclaw/main/infra/azure/templates/azuredeploy.json"
+    PARAMS_URI="https://raw.githubusercontent.com/openclaw/openclaw/main/infra/azure/templates/azuredeploy.parameters.json"
+    ```
+  </Step>
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az provider show --namespace Microsoft.Compute --query registrationState -o tsv
-az provider show --namespace Microsoft.Network --query registrationState -o tsv
-```
+  <Step title="Select SSH key">
+    Use your existing public key if you have one:
 
-## 3) Set deployment variables
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    SSH_PUB_KEY="$(cat ~/.ssh/id_ed25519.pub)"
+    ```
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-RG="rg-openclaw"
-LOCATION="westus2"
-TEMPLATE_URI="https://raw.githubusercontent.com/openclaw/openclaw/main/infra/azure/templates/azuredeploy.json"
-PARAMS_URI="https://raw.githubusercontent.com/openclaw/openclaw/main/infra/azure/templates/azuredeploy.parameters.json"
-```
+    If you don’t have an SSH key yet, run the following:
 
-## 4) Select SSH key
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519 -C "you@example.com"
+    SSH_PUB_KEY="$(cat ~/.ssh/id_ed25519.pub)"
+    ```
+  </Step>
 
-Use your existing public key if you have one:
+  <Step title="Select VM size and OS disk size">
+    Set VM and disk sizing variables:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-SSH_PUB_KEY="$(cat ~/.ssh/id_ed25519.pub)"
-```
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    VM_SIZE="Standard_B2as_v2"
+    OS_DISK_SIZE_GB=64
+    ```
 
-If you don’t have an SSH key yet, run the following:
+    Choose a VM size and OS disk size that are available in your Azure subscription/region and matches your workload:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-ssh-keygen -t ed25519 -a 100 -f ~/.ssh/id_ed25519 -C "you@example.com"
-SSH_PUB_KEY="$(cat ~/.ssh/id_ed25519.pub)"
-```
+    * Start smaller for light usage and scale up later
+    * Use more vCPU/RAM/OS disk size for heavier automation, more channels, or larger model/tool workloads
+    * If a VM size is unavailable in your region or subscription quota, pick the closest available SKU
 
-## 5) Select VM size and OS disk size
+    List VM sizes available in your target region:
 
-Set VM and disk sizing variables:
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az vm list-skus --location "${LOCATION}" --resource-type virtualMachines -o table
+    ```
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-VM_SIZE="Standard_B2as_v2"
-OS_DISK_SIZE_GB=64
-```
+    Check your current VM vCPU and OS disk size usage/quota:
 
-Choose a VM size and OS disk size that are available in your Azure subscription/region and matches your workload:
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az vm list-usage --location "${LOCATION}" -o table
+    ```
+  </Step>
 
-* Start smaller for light usage and scale up later
-* Use more vCPU/RAM/OS disk size for heavier automation, more channels, or larger model/tool workloads
-* If a VM size is unavailable in your region or subscription quota, pick the closest available SKU
+  <Step title="Create the resource group">
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az group create -n "${RG}" -l "${LOCATION}"
+    ```
+  </Step>
 
-List VM sizes available in your target region:
+  <Step title="Deploy resources">
+    This command applies your selected SSH key, VM size, and OS disk size.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az vm list-skus --location "${LOCATION}" --resource-type virtualMachines -o table
-```
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    az deployment group create \
+      -g "${RG}" \
+      --template-uri "${TEMPLATE_URI}" \
+      --parameters "${PARAMS_URI}" \
+      --parameters location="${LOCATION}" \
+      --parameters vmSize="${VM_SIZE}" \
+      --parameters osDiskSizeGb="${OS_DISK_SIZE_GB}" \
+      --parameters sshPublicKey="${SSH_PUB_KEY}"
+    ```
+  </Step>
 
-Check your current VM vCPU and OS disk size usage/quota:
+  <Step title="SSH into the VM through Azure Bastion">
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    RG="rg-openclaw"
+    VM_NAME="vm-openclaw"
+    BASTION_NAME="bas-openclaw"
+    ADMIN_USERNAME="openclaw"
+    VM_ID="$(az vm show -g "${RG}" -n "${VM_NAME}" --query id -o tsv)"
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az vm list-usage --location "${LOCATION}" -o table
-```
+    az network bastion ssh \
+      --name "${BASTION_NAME}" \
+      --resource-group "${RG}" \
+      --target-resource-id "${VM_ID}" \
+      --auth-type ssh-key \
+      --username "${ADMIN_USERNAME}" \
+      --ssh-key ~/.ssh/id_ed25519
+    ```
+  </Step>
 
-## 6) Create the resource group
+  <Step title="Install OpenClaw (in the VM shell)">
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    curl -fsSL https://openclaw.ai/install.sh -o /tmp/openclaw-install.sh
+    bash /tmp/openclaw-install.sh
+    rm -f /tmp/openclaw-install.sh
+    openclaw --version
+    ```
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az group create -n "${RG}" -l "${LOCATION}"
-```
+    The installer script handles Node detection/installation and runs onboarding by default.
+  </Step>
 
-## 7) Deploy resources
+  <Step title="Verify the Gateway">
+    After onboarding completes:
 
-This command applies your selected SSH key, VM size, and OS disk size.
+    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw gateway status
+    ```
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-az deployment group create \
-  -g "${RG}" \
-  --template-uri "${TEMPLATE_URI}" \
-  --parameters "${PARAMS_URI}" \
-  --parameters location="${LOCATION}" \
-  --parameters vmSize="${VM_SIZE}" \
-  --parameters osDiskSizeGb="${OS_DISK_SIZE_GB}" \
-  --parameters sshPublicKey="${SSH_PUB_KEY}"
-```
+    Most enterprise Azure teams already have GitHub Copilot licenses. If that is your case, we recommend choosing the GitHub Copilot provider in the OpenClaw onboarding wizard. See [GitHub Copilot provider](/providers/github-copilot).
 
-## 8) SSH into the VM through Azure Bastion
-
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-RG="rg-openclaw"
-VM_NAME="vm-openclaw"
-BASTION_NAME="bas-openclaw"
-ADMIN_USERNAME="openclaw"
-VM_ID="$(az vm show -g "${RG}" -n "${VM_NAME}" --query id -o tsv)"
-
-az network bastion ssh \
-  --name "${BASTION_NAME}" \
-  --resource-group "${RG}" \
-  --target-resource-id "${VM_ID}" \
-  --auth-type ssh-key \
-  --username "${ADMIN_USERNAME}" \
-  --ssh-key ~/.ssh/id_ed25519
-```
-
-## 9) Install OpenClaw (in the VM shell)
-
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-curl -fsSL https://openclaw.ai/install.sh -o /tmp/openclaw-install.sh
-bash /tmp/openclaw-install.sh
-rm -f /tmp/openclaw-install.sh
-openclaw --version
-```
-
-The installer script handles Node detection/installation and runs onboarding by default.
-
-## 10) Verify the Gateway
-
-After onboarding completes:
-
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw gateway status
-```
-
-Most enterprise Azure teams already have GitHub Copilot licenses. If that is your case, we recommend choosing the GitHub Copilot provider in the OpenClaw onboarding wizard. See [GitHub Copilot provider](/providers/github-copilot).
-
-The included ARM template uses Ubuntu image `version: "latest"` for convenience. If you need reproducible builds, pin a specific image version in `infra/azure/templates/azuredeploy.json` (you can list versions with `az vm image list --publisher Canonical --offer ubuntu-24_04-lts --sku server --all -o table`).
+    The included ARM template uses Ubuntu image `version: "latest"` for convenience. If you need reproducible builds, pin a specific image version in `infra/azure/templates/azuredeploy.json` (you can list versions with `az vm image list --publisher Canonical --offer ubuntu-24_04-lts --sku server --all -o table`).
+  </Step>
+</Steps>
 
 ## Next steps
 

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Deploy on Render
+# Render
 
 Deploy OpenClaw on Render using Infrastructure as Code. The included `render.yaml` Blueprint defines your entire stack declaratively, service, disk, environment variables, so you can deploy with a single click and version your infrastructure alongside your code.
 
@@ -159,6 +159,12 @@ Render expects a 200 response from `/health` within 30 seconds. If builds succee
 
 * Build logs for errors
 * Whether the container runs locally with `docker build && docker run`
+
+## Next steps
+
+* Set up messaging channels: [Channels](/channels)
+* Configure the Gateway: [Gateway configuration](/gateway/configuration)
+* Keep OpenClaw up to date: [Updating](/install/updating)
 
 
 Built with [Mintlify](https://mintlify.com).

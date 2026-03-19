@@ -11,8 +11,6 @@
   For onboarding details, see [Onboarding (CLI)](/start/wizard).
 </Note>
 
-Last updated: 2026-01-01
-
 ## TL;DR
 
 * **Tailoring lives outside the repo:** `~/.openclaw/workspace` (workspace) + `~/.openclaw/openclaw.json` (config).
@@ -21,7 +19,7 @@ Last updated: 2026-01-01
 
 ## Prereqs (from source)
 
-* Node `>=22`
+* Node 24 recommended (Node 22 LTS, currently `22.16+`, still supported)
 * `pnpm`
 * Docker (optional; only for containerized setup/e2e — see [Docker](/install/docker))
 

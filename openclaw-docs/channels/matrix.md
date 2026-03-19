@@ -202,6 +202,8 @@ Bootstrap cross-signing and verification state:
 openclaw matrix verify bootstrap
 ```
 
+Multi-account support: use `channels.matrix.accounts` with per-account credentials and optional `name`. See [Configuration reference](/gateway/configuration-reference#multi-account-all-channels) for the shared pattern.
+
 Verbose bootstrap diagnostics:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}

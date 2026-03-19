@@ -1044,7 +1044,7 @@ node -e "import('./path/to/handler.ts').then(console.log)"
 * [CLI Reference: hooks](/cli/hooks)
 * [Bundled Hooks README](https://github.com/openclaw/openclaw/tree/main/src/hooks/bundled)
 * [Webhook Hooks](/automation/webhook)
-* [Configuration](/gateway/configuration#hooks)
+* [Configuration](/gateway/configuration-reference#hooks)
 
 
 Built with [Mintlify](https://mintlify.com).
