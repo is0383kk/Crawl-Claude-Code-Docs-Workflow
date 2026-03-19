@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Claude Code 公式ドキュメント (https://code.claude.com/docs/en/) を巡回し、
-対応する .md を取得してリポジトリの docs/ 配下に保存します。
-- 例: https://code.claude.com/docs/en/sub-agents  -> docs/en/sub-agents.md
-- 例: https://code.claude.com/docs/en/            -> docs/en/index.md
+複数の公式ドキュメントサイトを巡回し、対応する .md を取得してリポジトリ配下に保存します。
+- https://code.claude.com/docs/en/ -> claude-code-docs/
+- https://docs.openclaw.ai/        -> openclaw-docs/
+各ページは URL 末尾に .md を付けることでマークダウンとして取得できます。
 """
 
 import hashlib
@@ -12,16 +12,13 @@ import logging
 import pathlib
 import re
 import time
+from dataclasses import dataclass
 from typing import Optional
 from urllib.parse import urldefrag, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
 
-BASE = "https://code.claude.com"
-START_PATH = "/docs/en/"
-START_URL = urljoin(BASE, START_PATH)
-OUTPUT_ROOT = pathlib.Path("claude-code-docs")
 TIMEOUT = 120
 SLEEP_SEC = 0.5
 HEADERS = {
@@ -30,40 +27,61 @@ HEADERS = {
 }
 
 
-# 収集対象: /docs/en/ 以下（クエリ・フラグメントは除外）
-def is_target_path(url: str) -> bool:
+@dataclass
+class CrawlTarget:
+    base: str
+    start_path: str
+    output_root: pathlib.Path
+
+
+TARGETS = [
+    CrawlTarget(
+        base="https://code.claude.com",
+        start_path="/docs/en/",
+        output_root=pathlib.Path("claude-code-docs"),
+    ),
+    CrawlTarget(
+        base="https://docs.openclaw.ai",
+        start_path="/",
+        output_root=pathlib.Path("openclaw-docs"),
+    ),
+]
+
+
+def is_target_path(url: str, target: CrawlTarget) -> bool:
     try:
         p = urlparse(url)
-        if p.netloc and p.netloc != urlparse(BASE).netloc:
+        if p.netloc and p.netloc != urlparse(target.base).netloc:
             return False
         path = p.path or ""
-        return path.startswith("/docs/en/")
+        return path.startswith(target.start_path)
     except Exception:
         return False
 
 
-# 出力ファイルパス: /docs/en/foo -> docs/en/foo.md
-def to_output_path(path: str) -> Optional[pathlib.Path]:
+def to_output_path(path: str, target: CrawlTarget) -> Optional[pathlib.Path]:
     path = path.rstrip("/")
+    start_stripped = target.start_path.rstrip("/")
 
     # ルートは保存しない
-    if path in ("/docs/en", "/docs/en/"):
+    if not path or path == start_stripped:
         return None
 
     # 末尾 .md を除去（念のため）
     path = re.sub(r"\.md$", "", path)
 
-    # /docs/en/ のプレフィックスを落として相対パス化
-    if path.startswith("/docs/en/"):
-        rel = path[len("/docs/en/") :]
-    elif path.startswith("/docs/"):
-        # 念のためのフォールバック（将来他言語を取りたい場合など）
-        rel = path[len("/docs/") :]
+    # start_path プレフィックスを落として相対パス化
+    if path.startswith(target.start_path):
+        rel = path[len(target.start_path):]
+    elif path.startswith(start_stripped):
+        rel = path[len(start_stripped):].lstrip("/")
     else:
-        # ここに来るのは通常想定外
         rel = path.lstrip("/")
 
-    return OUTPUT_ROOT / f"{rel}.md"
+    if not rel:
+        return None
+
+    return target.output_root / f"{rel}.md"
 
 
 def ensure_parent_dir(p: pathlib.Path):
@@ -75,7 +93,6 @@ def write_if_changed(filepath: pathlib.Path, content: bytes) -> bool:
     new_hash = hashlib.sha256(content).hexdigest().encode()
     if filepath.exists():
         old = filepath.read_bytes()
-        # 既存ファイルのハッシュをコメント行として最終行に入れていない前提で比較
         if hashlib.sha256(old).hexdigest().encode() == new_hash:
             return False
     filepath.write_bytes(content)
@@ -92,10 +109,11 @@ def normalize_href(href: str, base: str) -> str:
     return urljoin(base, href)
 
 
-def collect_paths() -> set[str]:
-    """/docs/en/ 以下のHTMLを辿って内部リンクのパス集合を作る。"""
+def collect_paths(target: CrawlTarget) -> set[str]:
+    """start_path 以下の HTML を辿って内部リンクのパス集合を作る。"""
+    start_url = urljoin(target.base, target.start_path)
     seen = set()
-    queue = [START_URL]
+    queue = [start_url]
 
     while queue:
         url = queue.pop(0)
@@ -112,7 +130,7 @@ def collect_paths() -> set[str]:
             soup = BeautifulSoup(r.text, "html.parser")
             for a in soup.select("a[href]"):
                 href = normalize_href(str(a["href"]), url)
-                if not is_target_path(href):
+                if not is_target_path(href, target):
                     continue
                 p = urlparse(href)
                 # HTMLページ（.md 直リンクは巡回対象に含めない）
@@ -126,55 +144,37 @@ def collect_paths() -> set[str]:
             continue
 
     # 収集したURLからパスのみ抽出
-    paths = set(urlparse(u).path for u in seen if is_target_path(u))
+    paths = set(urlparse(u).path for u in seen if is_target_path(u, target))
     return paths
 
 
-def fetch_markdown_for_path(path: str) -> tuple[int, bytes | None]:
-    if path.rstrip("/") in ("/docs/en", "/docs/en/"):
-        md_url = urljoin(BASE, "/docs/en.md")  # 一応試す（多くは404）
-        r = fetch(md_url)
-        if r.status_code == 200 and "text/markdown" in r.headers.get(
-            "Content-Type", ""
-        ):
-            return r.status_code, r.content
-        # ルートは通常、個別 .md 化されていない想定。代替としてHTML→簡易Headerを付けて保存
-        r = fetch(START_URL)
-        if r.status_code == 200:
-            fallback = f"# Claude Code ドキュメント\n\n元URL: {START_URL}\n".encode(
-                "utf-8"
-            )
-            return 200, fallback
-        return r.status_code, None
-
-    # 通常は「末尾に .md を付ける」
-    md_url = urljoin(BASE, path.rstrip("/") + ".md")
+def fetch_markdown_for_path(path: str, target: CrawlTarget) -> tuple[int, bytes | None]:
+    # 末尾に .md を付けて取得
+    md_url = urljoin(target.base, path.rstrip("/") + ".md")
     r = fetch(md_url)
     if r.status_code == 200 and "text/markdown" in r.headers.get("Content-Type", ""):
         return r.status_code, r.content
     return r.status_code, None
 
 
-def main():
-    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
-    OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
-
-    logging.info("Collecting paths under /docs/en/ ...")
-    paths = sorted(collect_paths())
+def crawl_target(target: CrawlTarget) -> tuple[int, int, int]:
+    start_url = urljoin(target.base, target.start_path)
+    logging.info(f"Collecting paths under {start_url} ...")
+    paths = sorted(collect_paths(target))
     logging.info(f"Found {len(paths)} html paths.")
 
-    changed = 0
-    skipped = 0
-    failed = 0
+    target.output_root.mkdir(parents=True, exist_ok=True)
+
+    changed = skipped = failed = 0
 
     for path in paths:
-        outpath = to_output_path(path)
+        outpath = to_output_path(path, target)
         if outpath is None:
             logging.info(f"Skip root path (no file): {path}")
             continue
 
         try:
-            status, content = fetch_markdown_for_path(path)
+            status, content = fetch_markdown_for_path(path, target)
             if status == 200 and content:
                 if write_if_changed(outpath, content):
                     changed += 1
@@ -190,7 +190,23 @@ def main():
             logging.warning(f"Error on {path}: {e}")
         time.sleep(SLEEP_SEC)
 
-    logging.info(f"Done. changed={changed}, unchanged={skipped}, failed={failed}")
+    return changed, skipped, failed
+
+
+def main():
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+    total_changed = total_skipped = total_failed = 0
+
+    for target in TARGETS:
+        logging.info(f"=== Crawling: {target.base}{target.start_path} -> {target.output_root} ===")
+        c, s, f = crawl_target(target)
+        total_changed += c
+        total_skipped += s
+        total_failed += f
+        logging.info(f"  changed={c}, unchanged={s}, failed={f}")
+
+    logging.info(f"All done. changed={total_changed}, unchanged={total_skipped}, failed={total_failed}")
 
 
 if __name__ == "__main__":
