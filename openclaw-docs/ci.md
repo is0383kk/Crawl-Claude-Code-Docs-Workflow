@@ -4,8 +4,6 @@
 
 # CI Pipeline
 
-> How the OpenClaw CI pipeline works
-
 # CI Pipeline
 
 The CI runs on every push to `main` and every pull request. It uses smart scoping to skip expensive jobs when only unrelated areas changed.

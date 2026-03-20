@@ -16,9 +16,9 @@ Status: text + DM attachments are supported; channel/group file sending requires
 
 Microsoft Teams ships as a plugin and is not bundled with the core install.
 
-**Breaking change (2026.1.15):** MS Teams moved out of core. If you use it, you must install the plugin.
+**Breaking change (2026.1.15):** Microsoft Teams moved out of core. If you use it, you must install the plugin.
 
-Explainable: keeps core installs lighter and lets MS Teams dependencies update independently.
+Explainable: keeps core installs lighter and lets Microsoft Teams dependencies update independently.
 
 Install via CLI (npm registry):
 

@@ -4,8 +4,6 @@
 
 # Diffs
 
-> Use the optional Diffs plugin to render before and after text or unified patches as a gateway-hosted diff view, a file (PNG or PDF), or both.
-
 # Diffs
 
 `diffs` is an optional plugin tool with short built-in system guidance and a companion skill that turns change content into a read-only diff artifact for agents.

@@ -18,5 +18,12 @@ If you’re looking for conceptual questions (not “something broke”):
 
 * [FAQ (concepts)](/help/faq)
 
+## Environment and debugging
+
+* **Environment variables:** [Where OpenClaw loads env vars and precedence](/help/environment)
+* **Debugging:** [Watch mode, raw streams, and dev profile](/help/debugging)
+* **Testing:** [Test suites, live tests, and Docker runners](/help/testing)
+* **Scripts:** [Repository helper scripts](/help/scripts)
+
 
 Built with [Mintlify](https://mintlify.com).

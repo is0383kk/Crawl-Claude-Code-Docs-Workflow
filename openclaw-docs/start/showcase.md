@@ -4,8 +4,6 @@
 
 # Showcase
 
-> Real-world OpenClaw projects from the community
-
 # Showcase
 
 Real projects from the community. See what people are building with OpenClaw.

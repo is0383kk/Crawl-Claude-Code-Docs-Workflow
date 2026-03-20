@@ -4,8 +4,6 @@
 
 # Lobster
 
-> Typed workflow runtime for OpenClaw — composable pipelines with approval gates.
-
 # Lobster
 
 Lobster is a workflow shell that lets OpenClaw run multi-step tool sequences as a single, deterministic operation with explicit approval checkpoints.

@@ -4,8 +4,6 @@
 
 # Tool-loop detection
 
-> Configure optional guardrails for preventing repetitive or stalled tool-call loops
-
 # Tool-loop detection
 
 OpenClaw can keep agents from getting stuck in repeated tool-call patterns.
