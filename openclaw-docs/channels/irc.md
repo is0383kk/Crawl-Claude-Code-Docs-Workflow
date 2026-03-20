@@ -4,8 +4,6 @@
 
 # IRC
 
-> Connect OpenClaw to IRC channels and direct messages.
-
 # IRC
 
 Use IRC when you want OpenClaw in classic channels (`#room`) and direct messages.

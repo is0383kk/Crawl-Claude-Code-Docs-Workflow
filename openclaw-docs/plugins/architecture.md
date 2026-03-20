@@ -2,12 +2,17 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Plugin Architecture
+# Plugin Internals
 
-# Plugin Architecture
+# Plugin Internals
 
-This page covers the internal architecture of the OpenClaw plugin system. For
-user-facing setup, discovery, and configuration, see [Plugins](/tools/plugin).
+<Info>
+  This page is for **plugin developers and contributors**. If you just want to
+  install and use plugins, see [Plugins](/tools/plugin). If you want to build
+  a plugin, see [Building Plugins](/plugins/building-plugins).
+</Info>
+
+This page covers the internal architecture of the OpenClaw plugin system.
 
 ## Public capability model
 
@@ -970,6 +975,9 @@ Compatibility note:
   helper is only needed by a bundled extension, keep it behind the extension's
   local `api.js` or `runtime-api.js` seam instead of promoting it into
   `openclaw/plugin-sdk/<extension>`.
+* Channel-branded bundled bars such as `feishu`, `googlechat`, `irc`, `line`,
+  `nostr`, `twitch`, and `zalo` stay private unless they are explicitly added
+  back to the public contract.
 * Capability-specific subpaths such as `image-generation`,
   `media-understanding`, and `speech` exist because bundled/native plugins use
   them today. Their presence does not by itself mean every exported helper is a
