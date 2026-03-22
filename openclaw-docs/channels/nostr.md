@@ -128,6 +128,12 @@ Notes:
 * **open**: public inbound DMs (requires `allowFrom: ["*"]`).
 * **disabled**: ignore inbound DMs.
 
+Enforcement notes:
+
+* Sender policy is checked before signature verification and NIP-04 decryption.
+* Pairing replies are sent without processing the original DM body.
+* Inbound DMs are rate-limited and oversized payloads are dropped before decrypt.
+
 ### Allowlist example
 
 ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
@@ -232,6 +238,7 @@ docker run -p 7777:7777 ghcr.io/hoytech/strfry
 * Never commit private keys.
 * Use environment variables for keys.
 * Consider `allowlist` for production bots.
+* Pairing and allowlist policy is enforced before decrypt, so unknown senders cannot force full crypto work.
 
 ## Limitations (MVP)
 

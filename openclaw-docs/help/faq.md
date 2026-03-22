@@ -942,18 +942,16 @@ Quick answers plus deeper troubleshooting for real-world setups (local dev, VPS,
   </Accordion>
 
   <Accordion title="How do I install skills on Linux?">
-    Use **ClawHub** (CLI) or drop skills into your workspace. The macOS Skills UI isn't available on Linux.
+    Use native `openclaw skills` commands or drop skills into your workspace. The macOS Skills UI isn't available on Linux.
     Browse skills at [https://clawhub.com](https://clawhub.com).
 
-    Install the ClawHub CLI (pick one package manager):
-
     ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-    npm i -g clawhub
+    openclaw skills search "calendar"
+    openclaw skills install <skill-slug>
+    openclaw skills update --all
     ```
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-    pnpm add -g clawhub
-    ```
+    Install the separate `clawhub` CLI only if you want to publish or sync your own skills.
   </Accordion>
 
   <Accordion title="Can OpenClaw run tasks on a schedule or continuously in the background?">
@@ -1023,11 +1021,11 @@ Quick answers plus deeper troubleshooting for real-world setups (local dev, VPS,
     Install skills:
 
     ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-    clawhub install <skill-slug>
-    clawhub update --all
+    openclaw skills install <skill-slug>
+    openclaw skills update --all
     ```
 
-    ClawHub installs into `./skills` under your current directory (or falls back to your configured OpenClaw workspace); OpenClaw treats that as `<workspace>/skills` on the next session. For shared skills across agents, place them in `~/.openclaw/skills/<name>/SKILL.md`. Some skills expect binaries installed via Homebrew; on Linux that means Linuxbrew (see the Homebrew Linux FAQ entry above). See [Skills](/tools/skills) and [ClawHub](/tools/clawhub).
+    Native installs land in the active workspace `skills/` directory. For shared skills across agents, place them in `~/.openclaw/skills/<name>/SKILL.md`. Some skills expect binaries installed via Homebrew; on Linux that means Linuxbrew (see the Homebrew Linux FAQ entry above). See [Skills](/tools/skills) and [ClawHub](/tools/clawhub).
   </Accordion>
 
   <Accordion title="How do I use my existing signed-in Chrome with OpenClaw?">
