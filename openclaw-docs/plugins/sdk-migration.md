@@ -106,28 +106,29 @@ is a small, self-contained module with a clear purpose and documented contract.
 ## Import path reference
 
 <Accordion title="Full import path table">
-  | Import path                         | Purpose                              | Key exports                                     |
-  | ----------------------------------- | ------------------------------------ | ----------------------------------------------- |
-  | `plugin-sdk/core`                   | Plugin entry definitions, base types | `defineChannelPluginEntry`, `definePluginEntry` |
-  | `plugin-sdk/channel-setup`          | Setup wizard adapters                | `createOptionalChannelSetupSurface`             |
-  | `plugin-sdk/channel-pairing`        | DM pairing primitives                | `createChannelPairingController`                |
-  | `plugin-sdk/channel-reply-pipeline` | Reply prefix + typing wiring         | `createChannelReplyPipeline`                    |
-  | `plugin-sdk/channel-config-helpers` | Config adapter factories             | `createHybridChannelConfigAdapter`              |
-  | `plugin-sdk/channel-config-schema`  | Config schema builders               | Channel config schema types                     |
-  | `plugin-sdk/channel-policy`         | Group/DM policy resolution           | `resolveChannelGroupRequireMention`             |
-  | `plugin-sdk/channel-lifecycle`      | Account status tracking              | `createAccountStatusSink`                       |
-  | `plugin-sdk/channel-runtime`        | Runtime wiring helpers               | Channel runtime utilities                       |
-  | `plugin-sdk/channel-send-result`    | Send result types                    | Reply result types                              |
-  | `plugin-sdk/runtime-store`          | Persistent plugin storage            | `createPluginRuntimeStore`                      |
-  | `plugin-sdk/allow-from`             | Allowlist formatting                 | `formatAllowFromLowercase`                      |
-  | `plugin-sdk/allowlist-resolution`   | Allowlist input mapping              | `mapAllowlistResolutionInputs`                  |
-  | `plugin-sdk/command-auth`           | Command gating                       | `resolveControlCommandGate`                     |
-  | `plugin-sdk/secret-input`           | Secret input parsing                 | Secret input helpers                            |
-  | `plugin-sdk/webhook-ingress`        | Webhook request helpers              | Webhook target utilities                        |
-  | `plugin-sdk/reply-payload`          | Message reply types                  | Reply payload types                             |
-  | `plugin-sdk/provider-onboard`       | Provider onboarding patches          | Onboarding config helpers                       |
-  | `plugin-sdk/keyed-async-queue`      | Ordered async queue                  | `KeyedAsyncQueue`                               |
-  | `plugin-sdk/testing`                | Test utilities                       | Test helpers and mocks                          |
+  | Import path                         | Purpose                                                 | Key exports                                           |
+  | ----------------------------------- | ------------------------------------------------------- | ----------------------------------------------------- |
+  | `plugin-sdk/plugin-entry`           | Canonical plugin entry helper                           | `definePluginEntry`                                   |
+  | `plugin-sdk/core`                   | Channel entry definitions, channel builders, base types | `defineChannelPluginEntry`, `createChatChannelPlugin` |
+  | `plugin-sdk/channel-setup`          | Setup wizard adapters                                   | `createOptionalChannelSetupSurface`                   |
+  | `plugin-sdk/channel-pairing`        | DM pairing primitives                                   | `createChannelPairingController`                      |
+  | `plugin-sdk/channel-reply-pipeline` | Reply prefix + typing wiring                            | `createChannelReplyPipeline`                          |
+  | `plugin-sdk/channel-config-helpers` | Config adapter factories                                | `createHybridChannelConfigAdapter`                    |
+  | `plugin-sdk/channel-config-schema`  | Config schema builders                                  | Channel config schema types                           |
+  | `plugin-sdk/channel-policy`         | Group/DM policy resolution                              | `resolveChannelGroupRequireMention`                   |
+  | `plugin-sdk/channel-lifecycle`      | Account status tracking                                 | `createAccountStatusSink`                             |
+  | `plugin-sdk/channel-runtime`        | Runtime wiring helpers                                  | Channel runtime utilities                             |
+  | `plugin-sdk/channel-send-result`    | Send result types                                       | Reply result types                                    |
+  | `plugin-sdk/runtime-store`          | Persistent plugin storage                               | `createPluginRuntimeStore`                            |
+  | `plugin-sdk/allow-from`             | Allowlist formatting                                    | `formatAllowFromLowercase`                            |
+  | `plugin-sdk/allowlist-resolution`   | Allowlist input mapping                                 | `mapAllowlistResolutionInputs`                        |
+  | `plugin-sdk/command-auth`           | Command gating                                          | `resolveControlCommandGate`                           |
+  | `plugin-sdk/secret-input`           | Secret input parsing                                    | Secret input helpers                                  |
+  | `plugin-sdk/webhook-ingress`        | Webhook request helpers                                 | Webhook target utilities                              |
+  | `plugin-sdk/reply-payload`          | Message reply types                                     | Reply payload types                                   |
+  | `plugin-sdk/provider-onboard`       | Provider onboarding patches                             | Onboarding config helpers                             |
+  | `plugin-sdk/keyed-async-queue`      | Ordered async queue                                     | `KeyedAsyncQueue`                                     |
+  | `plugin-sdk/testing`                | Test utilities                                          | Test helpers and mocks                                |
 </Accordion>
 
 Use the narrowest import that matches the job. If you cannot find an export,
@@ -156,9 +157,12 @@ This is a temporary escape hatch, not a permanent solution.
 
 ## Related
 
-* [Building Plugins](/plugins/building-plugins)
-* [Plugin Internals](/plugins/architecture)
-* [Plugin Manifest](/plugins/manifest)
+* [Getting Started](/plugins/building-plugins) — build your first plugin
+* [SDK Overview](/plugins/sdk-overview) — full subpath import reference
+* [Channel Plugins](/plugins/sdk-channel-plugins) — building channel plugins
+* [Provider Plugins](/plugins/sdk-provider-plugins) — building provider plugins
+* [Plugin Internals](/plugins/architecture) — architecture deep dive
+* [Plugin Manifest](/plugins/manifest) — manifest schema reference
 
 
 Built with [Mintlify](https://mintlify.com).

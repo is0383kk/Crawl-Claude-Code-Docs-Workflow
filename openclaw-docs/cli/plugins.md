@@ -6,7 +6,7 @@
 
 # `openclaw plugins`
 
-Manage Gateway plugins/extensions and compatible bundles.
+Manage Gateway plugins/extensions, hook packs, and compatible bundles.
 
 Related:
 
@@ -46,11 +46,16 @@ capabilities.
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install <path-or-spec>
 openclaw plugins install <npm-spec> --pin
+openclaw plugins install clawhub:<package>
 openclaw plugins install <plugin>@<marketplace>
 openclaw plugins install <plugin> --marketplace <marketplace>
 ```
 
 Security note: treat plugin installs like running code. Prefer pinned versions.
+
+`plugins install` is also the install surface for hook packs that expose
+`openclaw.hooks` in `package.json`. Use `openclaw hooks` for filtered hook
+visibility and per-hook enablement, not package installation.
 
 Npm specs are **registry-only** (package name + optional **exact version** or
 **dist-tag**). Git/URL/file specs and semver ranges are rejected. Dependency
@@ -68,6 +73,25 @@ name, use an explicit scoped spec (for example `@scope/diffs`).
 Supported archives: `.zip`, `.tgz`, `.tar.gz`, `.tar`.
 
 Claude marketplace installs are also supported.
+
+ClawHub installs use an explicit `clawhub:<package>` locator:
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw plugins install clawhub:openclaw-codex-app-server
+openclaw plugins install clawhub:openclaw-codex-app-server@1.2.3
+```
+
+OpenClaw now also prefers ClawHub for bare npm-safe plugin specs. It only falls
+back to npm if ClawHub does not have that package or version:
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw plugins install openclaw-codex-app-server
+```
+
+OpenClaw downloads the package archive from ClawHub, checks the advertised
+plugin API / minimum gateway compatibility, then installs it through the normal
+archive path. Recorded installs keep their ClawHub source metadata for later
+updates.
 
 Use `plugin@marketplace` shorthand when the marketplace name exists in Claude's
 local registry cache at `~/.claude/plugins/known_marketplaces.json`:
@@ -142,8 +166,8 @@ openclaw plugins update <id-or-npm-spec> --dry-run
 openclaw plugins update @openclaw/voice-call@beta
 ```
 
-Updates apply to tracked installs in `plugins.installs`, currently npm and
-marketplace installs.
+Updates apply to tracked installs in `plugins.installs` and tracked hook-pack
+installs in `hooks.internal.installs`.
 
 When you pass a plugin id, OpenClaw reuses the recorded install spec for that
 plugin. That means previously stored dist-tags such as `@beta` and exact pinned
