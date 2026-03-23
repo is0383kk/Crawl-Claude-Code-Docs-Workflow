@@ -133,7 +133,11 @@ than basic-only scraping.
 2. Firecrawl (if configured)
 3. Basic HTML cleanup (last fallback)
 
-See [Web tools](/tools/web) for the full web tool setup.
+## Related
+
+* [Web Search overview](/tools/web) -- all providers and auto-detection
+* [Web Fetch](/tools/web-fetch) -- web\_fetch tool with Firecrawl fallback
+* [Tavily](/tools/tavily) -- search + extract tools
 
 
 Built with [Mintlify](https://mintlify.com).

@@ -39,8 +39,6 @@ export default definePluginEntry({
 });
 ```
 
-### Options
-
 | Field          | Type                                                             | Required | Default             |
 | -------------- | ---------------------------------------------------------------- | -------- | ------------------- |
 | `id`           | `string`                                                         | Yes      | —                   |
@@ -76,8 +74,6 @@ export default defineChannelPluginEntry({
   },
 });
 ```
-
-### Options
 
 | Field          | Type                                                             | Required | Default             |
 | -------------- | ---------------------------------------------------------------- | -------- | ------------------- |
