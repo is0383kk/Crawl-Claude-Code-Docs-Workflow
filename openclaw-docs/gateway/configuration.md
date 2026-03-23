@@ -245,7 +245,7 @@ When validation fails:
 
     Build the image first: `scripts/sandbox-setup.sh`
 
-    See [Sandboxing](/gateway/sandboxing) for the full guide and [full reference](/gateway/configuration-reference#agents-defaults-sandbox) for all options.
+    See [Sandboxing](/gateway/sandboxing) for the full guide and [full reference](/gateway/configuration-reference#agentsdefaultssandbox) for all options.
   </Accordion>
 
   <Accordion title="Enable relay-backed push for official iOS builds">

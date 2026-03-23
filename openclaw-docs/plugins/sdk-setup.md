@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Plugin SDK Setup
+# Plugin Setup and Config
 
 # Plugin Setup and Config
 
@@ -273,6 +273,17 @@ The `ChannelSetupWizard` type supports `credentials`, `textInputs`,
 See bundled plugins (e.g. `extensions/discord/src/channel.setup.ts`) for
 full examples.
 
+For DM allowlist prompts that only need the standard
+`note -> prompt -> parse -> merge -> patch` flow, prefer the shared setup
+helpers from `openclaw/plugin-sdk/setup`: `createPromptParsedAllowFromForAccount(...)`,
+`createTopLevelChannelParsedAllowFromPrompt(...)`, and
+`createNestedChannelParsedAllowFromPrompt(...)`.
+
+For channel setup status blocks that only vary by labels, scores, and optional
+extra lines, prefer `createStandardChannelSetupStatus(...)` from
+`openclaw/plugin-sdk/setup` instead of hand-rolling the same `status` object in
+each plugin.
+
 For optional setup surfaces that should only appear in certain contexts, use
 `createOptionalChannelSetupSurface` from `openclaw/plugin-sdk/channel-setup`:
 
@@ -290,11 +301,18 @@ const setupSurface = createOptionalChannelSetupSurface({
 
 ## Publishing and installing
 
-**External plugins:**
+**External plugins:** publish to [ClawHub](/tools/clawhub) or npm, then install:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-npm publish
 openclaw plugins install @myorg/openclaw-my-plugin
+```
+
+OpenClaw tries ClawHub first and falls back to npm automatically. You can also
+force a specific source:
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw plugins install clawhub:@myorg/openclaw-my-plugin   # ClawHub only
+openclaw plugins install npm:@myorg/openclaw-my-plugin       # npm only
 ```
 
 **In-repo plugins:** place under `extensions/` and they are automatically
@@ -304,13 +322,13 @@ discovered during build.
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins search <query>
-openclaw plugins install <npm-spec>
+openclaw plugins install <package-name>
 ```
 
 <Info>
-  `openclaw plugins install` runs `npm install --ignore-scripts` (no lifecycle
-  scripts). Keep plugin dependency trees pure JS/TS and avoid packages that
-  require `postinstall` builds.
+  For npm-sourced installs, `openclaw plugins install` runs
+  `npm install --ignore-scripts` (no lifecycle scripts). Keep plugin dependency
+  trees pure JS/TS and avoid packages that require `postinstall` builds.
 </Info>
 
 ## Related

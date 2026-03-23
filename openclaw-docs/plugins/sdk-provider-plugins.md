@@ -142,6 +142,50 @@ API key auth, and dynamic model resolution.
     That is a working provider. Users can now
     `openclaw onboard --acme-ai-api-key <key>` and select
     `acme-ai/acme-large` as their model.
+
+    For bundled providers that only register one text provider with API-key
+    auth plus a single catalog-backed runtime, prefer the narrower
+    `defineSingleProviderPluginEntry(...)` helper:
+
+    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
+
+    export default defineSingleProviderPluginEntry({
+      id: "acme-ai",
+      name: "Acme AI",
+      description: "Acme AI model provider",
+      provider: {
+        label: "Acme AI",
+        docsPath: "/providers/acme-ai",
+        auth: [
+          {
+            methodId: "api-key",
+            label: "Acme AI API key",
+            hint: "API key from your Acme AI dashboard",
+            optionKey: "acmeAiApiKey",
+            flagName: "--acme-ai-api-key",
+            envVar: "ACME_AI_API_KEY",
+            promptMessage: "Enter your Acme AI API key",
+            defaultModel: "acme-ai/acme-large",
+          },
+        ],
+        catalog: {
+          buildProvider: () => ({
+            api: "openai-completions",
+            baseUrl: "https://api.acme-ai.com/v1",
+            models: [{ id: "acme-large", name: "Acme Large" }],
+          }),
+        },
+      },
+    });
+    ```
+
+    If your auth flow also needs to patch `models.providers.*`, aliases, and
+    the agent default model during onboarding, use the preset helpers from
+    `openclaw/plugin-sdk/provider-onboard`. The narrowest helpers are
+    `createDefaultModelPresetAppliers(...)`,
+    `createDefaultModelsPresetAppliers(...)`, and
+    `createModelCatalogPresetAppliers(...)`.
   </Step>
 
   <Step title="Add dynamic model resolution">
@@ -225,32 +269,33 @@ API key auth, and dynamic model resolution.
       </Tab>
     </Tabs>
 
-    <Accordion title="All 21 available hooks">
+    <Accordion title="All available provider hooks">
       OpenClaw calls hooks in this order. Most providers only use 2-3:
 
-      | #  | Hook                          | When to use                           |
-      | -- | ----------------------------- | ------------------------------------- |
-      | 1  | `catalog`                     | Model catalog or base URL defaults    |
-      | 2  | `resolveDynamicModel`         | Accept arbitrary upstream model IDs   |
-      | 3  | `prepareDynamicModel`         | Async metadata fetch before resolving |
-      | 4  | `normalizeResolvedModel`      | Transport rewrites before the runner  |
-      | 5  | `capabilities`                | Transcript/tooling metadata           |
-      | 6  | `prepareExtraParams`          | Default request params                |
-      | 7  | `wrapStreamFn`                | Custom headers/body wrappers          |
-      | 8  | `formatApiKey`                | Custom runtime token shape            |
-      | 9  | `refreshOAuth`                | Custom OAuth refresh                  |
-      | 10 | `buildAuthDoctorHint`         | Auth repair guidance                  |
-      | 11 | `isCacheTtlEligible`          | Prompt cache TTL gating               |
-      | 12 | `buildMissingAuthMessage`     | Custom missing-auth hint              |
-      | 13 | `suppressBuiltInModel`        | Hide stale upstream rows              |
-      | 14 | `augmentModelCatalog`         | Synthetic forward-compat rows         |
-      | 15 | `isBinaryThinking`            | Binary thinking on/off                |
-      | 16 | `supportsXHighThinking`       | `xhigh` reasoning support             |
-      | 17 | `resolveDefaultThinkingLevel` | Default `/think` policy               |
-      | 18 | `isModernModelRef`            | Live/smoke model matching             |
-      | 19 | `prepareRuntimeAuth`          | Token exchange before inference       |
-      | 20 | `resolveUsageAuth`            | Custom usage credential parsing       |
-      | 21 | `fetchUsageSnapshot`          | Custom usage endpoint                 |
+      | #  | Hook                          | When to use                                      |
+      | -- | ----------------------------- | ------------------------------------------------ |
+      | 1  | `catalog`                     | Model catalog or base URL defaults               |
+      | 2  | `resolveDynamicModel`         | Accept arbitrary upstream model IDs              |
+      | 3  | `prepareDynamicModel`         | Async metadata fetch before resolving            |
+      | 4  | `normalizeResolvedModel`      | Transport rewrites before the runner             |
+      | 5  | `capabilities`                | Transcript/tooling metadata (data, not callable) |
+      | 6  | `prepareExtraParams`          | Default request params                           |
+      | 7  | `wrapStreamFn`                | Custom headers/body wrappers                     |
+      | 8  | `formatApiKey`                | Custom runtime token shape                       |
+      | 9  | `refreshOAuth`                | Custom OAuth refresh                             |
+      | 10 | `buildAuthDoctorHint`         | Auth repair guidance                             |
+      | 11 | `isCacheTtlEligible`          | Prompt cache TTL gating                          |
+      | 12 | `buildMissingAuthMessage`     | Custom missing-auth hint                         |
+      | 13 | `suppressBuiltInModel`        | Hide stale upstream rows                         |
+      | 14 | `augmentModelCatalog`         | Synthetic forward-compat rows                    |
+      | 15 | `isBinaryThinking`            | Binary thinking on/off                           |
+      | 16 | `supportsXHighThinking`       | `xhigh` reasoning support                        |
+      | 17 | `resolveDefaultThinkingLevel` | Default `/think` policy                          |
+      | 18 | `isModernModelRef`            | Live/smoke model matching                        |
+      | 19 | `prepareRuntimeAuth`          | Token exchange before inference                  |
+      | 20 | `resolveUsageAuth`            | Custom usage credential parsing                  |
+      | 21 | `fetchUsageSnapshot`          | Custom usage endpoint                            |
+      | 22 | `onModelSelected`             | Post-selection callback (e.g. telemetry)         |
 
       For detailed descriptions and real-world examples, see
       [Internals: Provider Runtime Hooks](/plugins/architecture#provider-runtime-hooks).
