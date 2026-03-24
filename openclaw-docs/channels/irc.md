@@ -72,7 +72,7 @@ If you see logs like:
 
 Example (allow anyone in `#tuirc-dev` to talk to the bot):
 
-```json55  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -93,7 +93,7 @@ That means you may see logs like `drop channel … (missing-mention)` unless the
 
 To make the bot reply in an IRC channel **without needing a mention**, disable mention gating for that channel:
 
-```json55  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -111,7 +111,7 @@ To make the bot reply in an IRC channel **without needing a mention**, disable m
 
 Or to allow **all** IRC channels (no per-channel allowlist) and still reply without mentions:
 
-```json55  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -131,7 +131,7 @@ To reduce risk, restrict tools for that channel.
 
 ### Same tools for everyone in the channel
 
-```json55  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -152,7 +152,7 @@ To reduce risk, restrict tools for that channel.
 
 Use `toolsBySender` to apply a stricter policy to `"*"` and a looser one to your nick:
 
-```json55  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
