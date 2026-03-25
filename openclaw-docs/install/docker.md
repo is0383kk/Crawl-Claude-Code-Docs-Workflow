@@ -51,6 +51,10 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
     * prompt for provider API keys
     * generate a gateway token and write it to `.env`
     * start the gateway via Docker Compose
+
+    During setup, pre-start onboarding and config writes run through
+    `openclaw-gateway` directly. `openclaw-cli` is for commands you run after
+    the gateway container already exists.
   </Step>
 
   <Step title="Open the Control UI">
@@ -88,7 +92,15 @@ If you prefer to run each step yourself instead of using the setup script:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 docker build -t openclaw:local -f Dockerfile .
-docker compose run --rm openclaw-cli onboard
+docker compose run --rm --no-deps --entrypoint node openclaw-gateway \
+  dist/index.js onboard --mode local --no-install-daemon
+docker compose run --rm --no-deps --entrypoint node openclaw-gateway \
+  dist/index.js config set gateway.mode local
+docker compose run --rm --no-deps --entrypoint node openclaw-gateway \
+  dist/index.js config set gateway.bind lan
+docker compose run --rm --no-deps --entrypoint node openclaw-gateway \
+  dist/index.js config set gateway.controlUi.allowedOrigins \
+  '["http://localhost:18789","http://127.0.0.1:18789"]' --strict-json
 docker compose up -d openclaw-gateway
 ```
 
@@ -96,6 +108,13 @@ docker compose up -d openclaw-gateway
   Run `docker compose` from the repo root. If you enabled `OPENCLAW_EXTRA_MOUNTS`
   or `OPENCLAW_HOME_VOLUME`, the setup script writes `docker-compose.extra.yml`;
   include it with `-f docker-compose.yml -f docker-compose.extra.yml`.
+</Note>
+
+<Note>
+  Because `openclaw-cli` shares `openclaw-gateway`'s network namespace, it is a
+  post-start tool. Before `docker compose up -d openclaw-gateway`, run onboarding
+  and setup-time config writes through `openclaw-gateway` with
+  `--no-deps --entrypoint node`.
 </Note>
 
 ### Environment variables
