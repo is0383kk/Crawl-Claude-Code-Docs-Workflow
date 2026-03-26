@@ -6,7 +6,7 @@
 
 # `openclaw config`
 
-Config helpers for non-interactive edits in `openclaw.json`: get/set/unset/validate
+Config helpers for non-interactive edits in `openclaw.json`: get/set/unset/file/schema/validate
 values by path and print the active config file. Run without a subcommand to
 open the configure wizard (same as `openclaw configure`).
 
@@ -14,6 +14,7 @@ open the configure wizard (same as `openclaw configure`).
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config file
+openclaw config schema
 openclaw config get browser.executablePath
 openclaw config set browser.executablePath "/usr/bin/google-chrome"
 openclaw config set agents.defaults.heartbeat.every "2h"
@@ -26,7 +27,21 @@ openclaw config validate
 openclaw config validate --json
 ```
 
-## Paths
+### `config schema`
+
+Print the generated JSON schema for `openclaw.json` to stdout as plain text.
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw config schema
+```
+
+Pipe it into a file when you want to inspect or validate it with other tools:
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw config schema > openclaw.schema.json
+```
+
+### Paths
 
 Paths use dot or bracket notation:
 
