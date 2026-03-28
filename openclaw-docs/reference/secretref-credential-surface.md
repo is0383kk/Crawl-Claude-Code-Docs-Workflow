@@ -78,7 +78,9 @@ Scope intent:
 * `channels.msteams.appPassword`
 * `channels.mattermost.botToken`
 * `channels.mattermost.accounts.*.botToken`
+* `channels.matrix.accessToken`
 * `channels.matrix.password`
+* `channels.matrix.accounts.*.accessToken`
 * `channels.matrix.accounts.*.password`
 * `channels.nextcloud-talk.botSecret`
 * `channels.nextcloud-talk.apiPassword`
@@ -118,8 +120,6 @@ Out-of-scope credentials include:
 [//]: # "secretref-unsupported-list-start"
 
 * `commands.ownerDisplaySecret`
-* `channels.matrix.accessToken`
-* `channels.matrix.accounts.*.accessToken`
 * `hooks.token`
 * `hooks.gmail.pushToken`
 * `hooks.mappings[].sessionKey`
