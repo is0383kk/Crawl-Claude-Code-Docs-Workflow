@@ -23,7 +23,7 @@ openclaw plugins install @openclaw/mattermost
 Local checkout (when running from a git repo):
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw plugins install ./extensions/mattermost
+openclaw plugins install ./path/to/local/mattermost-plugin
 ```
 
 If you choose Mattermost during setup and a git checkout is detected,

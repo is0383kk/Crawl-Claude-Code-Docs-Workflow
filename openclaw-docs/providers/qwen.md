@@ -16,7 +16,7 @@
 ## Recommended: Model Studio (Alibaba Cloud Coding Plan)
 
 Use [Model Studio](/providers/modelstudio) for officially supported access to
-Qwen models (Qwen 3.5 Plus, GLM-4.7, Kimi K2.5, MiniMax M2.5, and more).
+Qwen models (Qwen 3.5 Plus, GLM-4.7, Kimi K2.5, and more).
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Global endpoint

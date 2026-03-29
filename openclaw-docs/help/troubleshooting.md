@@ -274,6 +274,7 @@ flowchart TD
 
     Common log signatures:
 
+    * `unknown command "browser"` or `unknown command 'browser'` → `plugins.allow` is set and does not include `browser`.
     * `Failed to start Chrome CDP on port` → local browser launch failed.
     * `browser.executablePath not found` → configured binary path is wrong.
     * `No Chrome tabs found for profile="user"` → the Chrome MCP attach profile has no open local Chrome tabs.
@@ -282,6 +283,7 @@ flowchart TD
     Deep pages:
 
     * [/gateway/troubleshooting#browser-tool-fails](/gateway/troubleshooting#browser-tool-fails)
+    * [/tools/browser#missing-browser-command-or-tool](/tools/browser#missing-browser-command-or-tool)
     * [/tools/browser-linux-troubleshooting](/tools/browser-linux-troubleshooting)
     * [/tools/browser-wsl2-windows-remote-cdp-troubleshooting](/tools/browser-wsl2-windows-remote-cdp-troubleshooting)
   </Accordion>

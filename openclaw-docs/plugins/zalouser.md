@@ -35,8 +35,9 @@ Restart the Gateway afterwards.
 ### Option B: install from a local folder (dev)
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw plugins install ./extensions/zalouser
-cd ./extensions/zalouser && pnpm install
+PLUGIN_SRC=./path/to/local/zalouser-plugin
+openclaw plugins install "$PLUGIN_SRC"
+cd "$PLUGIN_SRC" && pnpm install
 ```
 
 Restart the Gateway afterwards.

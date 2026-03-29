@@ -109,10 +109,10 @@ and provider plugins have dedicated guides linked above.
 
     OpenClaw checks ClawHub first, then falls back to npm.
 
-    **In-repo plugins:** place under `extensions/` — automatically discovered.
+    **In-repo plugins:** place under the bundled plugin workspace tree — automatically discovered.
 
     ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-    pnpm test -- extensions/my-plugin/
+    pnpm test -- <bundled-plugin-root>/my-plugin/
     ```
   </Step>
 </Steps>
@@ -142,8 +142,11 @@ Hook guard semantics to keep in mind:
 
 * `before_tool_call`: `{ block: true }` is terminal and stops lower-priority handlers.
 * `before_tool_call`: `{ block: false }` is treated as no decision.
+* `before_tool_call`: `{ requireApproval: true }` pauses agent execution and prompts the user for approval via the exec approval overlay, Telegram buttons, Discord interactions, or the `/approve` command on any channel.
 * `message_sending`: `{ cancel: true }` is terminal and stops lower-priority handlers.
 * `message_sending`: `{ cancel: false }` is treated as no decision.
+
+The `/approve` command handles both exec and plugin approvals with automatic fallback. Plugin approval forwarding can be configured independently via `approvals.plugin` in config.
 
 See [SDK Overview hook decision semantics](/plugins/sdk-overview#hook-decision-semantics) for details.
 
@@ -215,7 +218,7 @@ internal imports — never import your own plugin through its SDK path.
 <Check>Entry point uses `defineChannelPluginEntry` or `definePluginEntry`</Check>
 <Check>All imports use focused `plugin-sdk/<subpath>` paths</Check>
 <Check>Internal imports use local modules, not SDK self-imports</Check>
-<Check>Tests pass (`pnpm test -- extensions/my-plugin/`)</Check>
+<Check>Tests pass (`pnpm test -- <bundled-plugin-root>/my-plugin/`)</Check>
 <Check>`pnpm check` passes (in-repo plugins)</Check>
 
 ## Beta Release Testing

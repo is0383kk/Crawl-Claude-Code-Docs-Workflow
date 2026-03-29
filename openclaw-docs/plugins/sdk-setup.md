@@ -270,7 +270,7 @@ const setupWizard: ChannelSetupWizard = {
 
 The `ChannelSetupWizard` type supports `credentials`, `textInputs`,
 `dmPolicy`, `allowFrom`, `groupAccess`, `prepare`, `finalize`, and more.
-See bundled plugins (e.g. `extensions/discord/src/channel.setup.ts`) for
+See bundled plugin packages (for example the Discord plugin `src/channel.setup.ts`) for
 full examples.
 
 For DM allowlist prompts that only need the standard
@@ -315,7 +315,7 @@ openclaw plugins install clawhub:@myorg/openclaw-my-plugin   # ClawHub only
 openclaw plugins install npm:@myorg/openclaw-my-plugin       # npm only
 ```
 
-**In-repo plugins:** place under `extensions/` and they are automatically
+**In-repo plugins:** place under the bundled plugin workspace tree and they are automatically
 discovered during build.
 
 **Users can browse and install:**
