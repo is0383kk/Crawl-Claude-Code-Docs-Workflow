@@ -33,7 +33,7 @@ openclaw plugins install @openclaw/nostr
 Use a local checkout (dev workflows):
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw plugins install --link <path-to-openclaw>/extensions/nostr
+openclaw plugins install --link <path-to-local-nostr-plugin>
 ```
 
 Restart the Gateway after installing or enabling plugins.
