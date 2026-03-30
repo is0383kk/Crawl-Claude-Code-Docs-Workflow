@@ -274,5 +274,13 @@ Provider options:
 * Rich text: Markdown formatting (bold, italic, code, headers, lists) is converted to Tlon's native format.
 * Images: URLs are uploaded to Tlon storage and embedded as image blocks.
 
+## Related
+
+* [Channels Overview](/channels) — all supported channels
+* [Pairing](/channels/pairing) — DM authentication and pairing flow
+* [Groups](/channels/groups) — group chat behavior and mention gating
+* [Channel Routing](/channels/channel-routing) — session routing for messages
+* [Security](/gateway/security) — access model and hardening
+
 
 Built with [Mintlify](https://mintlify.com).

@@ -139,5 +139,13 @@ but duplicate exact paths are still rejected fail-closed. Prefer explicit per-ac
 * Keep `dangerouslyAllowNameMatching` off unless you explicitly need legacy username-based reply delivery.
 * Keep `dangerouslyAllowInheritedWebhookPath` off unless you explicitly accept shared-path routing risk in a multi-account setup.
 
+## Related
+
+* [Channels Overview](/channels) — all supported channels
+* [Pairing](/channels/pairing) — DM authentication and pairing flow
+* [Groups](/channels/groups) — group chat behavior and mention gating
+* [Channel Routing](/channels/channel-routing) — session routing for messages
+* [Security](/gateway/security) — access model and hardening
+
 
 Built with [Mintlify](https://mintlify.com).

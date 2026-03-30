@@ -54,6 +54,8 @@ OpenClaw ships three installer scripts, served from `openclaw.ai`.
 
 ***
 
+<a id="installsh" />
+
 ## install.sh
 
 <Tip>
@@ -170,6 +172,8 @@ The script exits with code `2` for invalid method selection or invalid `--instal
 
 ***
 
+<a id="install-clish" />
+
 ## install-cli.sh
 
 <Info>
@@ -248,6 +252,8 @@ The script exits with code `2` for invalid method selection or invalid `--instal
 </AccordionGroup>
 
 ***
+
+<a id="installps1" />
 
 ## install.ps1
 

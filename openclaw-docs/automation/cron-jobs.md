@@ -11,6 +11,11 @@
 Cron is the Gateway’s built-in scheduler. It persists jobs, wakes the agent at
 the right time, and can optionally deliver output back to a chat.
 
+All cron executions create [background task](/automation/tasks) records. The key difference is visibility:
+
+* `sessionTarget: "main"` creates a task with `silent` notify policy — it schedules a system event for the main session and heartbeat flow but does not generate notifications.
+* `sessionTarget: "isolated"` or `sessionTarget: "session:..."` creates a visible task that shows up in `openclaw tasks` with delivery notifications.
+
 If you want *“run this every morning”* or *“poke the agent in 20 minutes”*,
 cron is the mechanism.
 
@@ -154,6 +159,8 @@ They must use `payload.kind = "systemEvent"`.
 This is the best fit when you want the normal heartbeat prompt + main-session context.
 See [Heartbeat](/gateway/heartbeat).
 
+Main-session cron jobs create [background task](/automation/tasks) records with `silent` notify policy (no notifications by default). They appear in `openclaw tasks list` but do not generate delivery messages.
+
 #### Isolated jobs (dedicated cron sessions)
 
 Isolated jobs run a dedicated agent turn in session `cron:<jobId>` or a custom session.
@@ -174,6 +181,8 @@ Key behaviors:
 
 Use isolated jobs for noisy, frequent, or "background chores" that shouldn't spam
 your main chat history.
+
+These detached runs create [background task](/automation/tasks) records visible in `openclaw tasks` and subject to task audit and maintenance.
 
 ### Payload shapes (what runs)
 
@@ -724,6 +733,14 @@ openclaw system event --mode now --text "Next heartbeat: check battery."
 * If the announce flow returns `false` (e.g. requester session is busy), the gateway retries up to 3 times with tracking via `announceRetryCount`.
 * Announces older than 5 minutes past `endedAt` are force-expired to prevent stale entries from looping indefinitely.
 * If you see repeated announce deliveries in logs, check the subagent registry for entries with high `announceRetryCount` values.
+
+## Related
+
+* [Automation Overview](/automation) — all automation mechanisms at a glance
+* [Cron vs Heartbeat](/automation/cron-vs-heartbeat) — when to use each
+* [Background Tasks](/automation/tasks) — task ledger for cron executions
+* [Heartbeat](/gateway/heartbeat) — periodic main-session turns
+* [Troubleshooting](/automation/troubleshooting) — debugging automation issues
 
 
 Built with [Mintlify](https://mintlify.com).

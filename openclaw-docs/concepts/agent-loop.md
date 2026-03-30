@@ -86,6 +86,7 @@ These run inside the agent loop or gateway pipeline:
 * **`agent_end`**: inspect the final message list and run metadata after completion.
 * **`before_compaction` / `after_compaction`**: observe or annotate compaction cycles.
 * **`before_tool_call` / `after_tool_call`**: intercept tool params/results.
+* **`before_install`**: inspect built-in scan findings and optionally block skill or plugin installs.
 * **`tool_result_persist`**: synchronously transform tool results before they are written to the session transcript.
 * **`message_received` / `message_sending` / `message_sent`**: inbound + outbound message hooks.
 * **`session_start` / `session_end`**: session lifecycle boundaries.
@@ -95,6 +96,8 @@ Hook decision rules for outbound/tool guards:
 
 * `before_tool_call`: `{ block: true }` is terminal and stops lower-priority handlers.
 * `before_tool_call`: `{ block: false }` is a no-op and does not clear a prior block.
+* `before_install`: `{ block: true }` is terminal and stops lower-priority handlers.
+* `before_install`: `{ block: false }` is a no-op and does not clear a prior block.
 * `message_sending`: `{ cancel: true }` is terminal and stops lower-priority handlers.
 * `message_sending`: `{ cancel: false }` is a no-op and does not clear a prior cancel.
 
@@ -152,6 +155,14 @@ See [Plugin hooks](/plugins/architecture#provider-runtime-hooks) for the hook AP
 * AbortSignal (cancel)
 * Gateway disconnect or RPC timeout
 * `agent.wait` timeout (wait-only, does not stop agent)
+
+## Related
+
+* [Tools](/tools) — available agent tools
+* [Hooks](/automation/hooks) — event-driven scripts triggered by agent lifecycle events
+* [Compaction](/concepts/compaction) — how long conversations are summarized
+* [Exec Approvals](/tools/exec-approvals) — approval gates for shell commands
+* [Thinking](/tools/thinking) — thinking/reasoning level configuration
 
 
 Built with [Mintlify](https://mintlify.com).
