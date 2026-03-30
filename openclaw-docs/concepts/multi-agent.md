@@ -542,5 +542,13 @@ For group targeting, use `agents.list[].groupChat.mentionPatterns` so @mentions 
 
 See [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) for detailed examples.
 
+## Related
+
+* [Channel Routing](/channels/channel-routing) — how messages route to agents
+* [Sub-Agents](/tools/subagents) — spawning background agent runs
+* [ACP Agents](/tools/acp-agents) — running external coding harnesses
+* [Presence](/concepts/presence) — agent presence and availability
+* [Session](/concepts/session) — session isolation and routing
+
 
 Built with [Mintlify](https://mintlify.com).

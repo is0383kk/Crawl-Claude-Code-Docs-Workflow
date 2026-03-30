@@ -780,5 +780,13 @@ Bots have limited support in private channels:
 * [Teams bot file handling](https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/bots-filesv4) (channel/group requires Graph)
 * [Proactive messaging](https://learn.microsoft.com/en-us/microsoftteams/platform/bots/how-to/conversations/send-proactive-messages)
 
+## Related
+
+* [Channels Overview](/channels) — all supported channels
+* [Pairing](/channels/pairing) — DM authentication and pairing flow
+* [Groups](/channels/groups) — group chat behavior and mention gating
+* [Channel Routing](/channels/channel-routing) — session routing for messages
+* [Security](/gateway/security) — access model and hardening
+
 
 Built with [Mintlify](https://mintlify.com).

@@ -59,6 +59,7 @@ Use this page for day-1 startup and day-2 operations of the Gateway service.
 <Note>
   Gateway config reload watches the active config file path (resolved from profile/state defaults, or `OPENCLAW_CONFIG_PATH` when set).
   Default mode is `gateway.reload.mode="hybrid"`.
+  After the first successful load, the running process serves the active in-memory config snapshot; successful reload swaps that snapshot atomically.
 </Note>
 
 ## Runtime model

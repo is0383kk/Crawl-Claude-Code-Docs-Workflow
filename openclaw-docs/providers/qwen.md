@@ -15,7 +15,7 @@
 
 ## Recommended: Model Studio (Alibaba Cloud Coding Plan)
 
-Use [Model Studio](/providers/modelstudio) for officially supported access to
+Use [Model Studio](/providers/qwen_modelstudio) for officially supported access to
 Qwen models (Qwen 3.5 Plus, GLM-4.7, Kimi K2.5, and more).
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
@@ -26,7 +26,7 @@ openclaw onboard --auth-choice modelstudio-api-key
 openclaw onboard --auth-choice modelstudio-api-key-cn
 ```
 
-See [Model Studio](/providers/modelstudio) for full setup details.
+See [Model Studio](/providers/qwen_modelstudio) for full setup details.
 
 
 Built with [Mintlify](https://mintlify.com).

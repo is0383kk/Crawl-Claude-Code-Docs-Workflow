@@ -394,6 +394,8 @@ In addition to allowing the group itself, **all messages** in that group are gat
 
 ***
 
+<a id="get-groupuser-ids" />
+
 ## Get group/user IDs
 
 ### Group IDs (chat\_id)
@@ -747,6 +749,14 @@ Feishu currently exposes these runtime actions:
 * `channel-info`
 * `channel-list`
 * `react` and `reactions` when reactions are enabled in config
+
+## Related
+
+* [Channels Overview](/channels) — all supported channels
+* [Pairing](/channels/pairing) — DM authentication and pairing flow
+* [Groups](/channels/groups) — group chat behavior and mention gating
+* [Channel Routing](/channels/channel-routing) — session routing for messages
+* [Security](/gateway/security) — access model and hardening
 
 
 Built with [Mintlify](https://mintlify.com).
