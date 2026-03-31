@@ -167,5 +167,10 @@ No output after sending a message:
 * No agents in picker: check `openclaw agents list` and your routing config.
 * Empty session picker: you might be in global scope or have no sessions yet.
 
+## Related
+
+* [Control UI](/web/control-ui) — web-based control interface
+* [CLI Reference](/cli) — full CLI command reference
+
 
 Built with [Mintlify](https://mintlify.com).

@@ -275,5 +275,11 @@ See [Configuration reference](/gateway/configuration) for the full `plugins.*` s
   package-manager allowlist requirements (for example, pnpm `allow-build-scripts`
   * `pnpm rebuild <package>`).
 
+## Related
+
+* [Building Plugins](/plugins/building-plugins) — getting started with plugins
+* [Plugin Architecture](/plugins/architecture) — internal architecture
+* [SDK Overview](/plugins/sdk-overview) — Plugin SDK reference
+
 
 Built with [Mintlify](https://mintlify.com).
