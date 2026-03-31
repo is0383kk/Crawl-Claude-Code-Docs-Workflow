@@ -152,5 +152,10 @@ Page-filtered fallback model:
 }
 ```
 
+## Related
+
+* [Tools Overview](/tools) — all available agent tools
+* [Configuration Reference](/gateway/configuration-reference#agent-defaults) — pdfMaxBytesMb and pdfMaxPages config
+
 
 Built with [Mintlify](https://mintlify.com).

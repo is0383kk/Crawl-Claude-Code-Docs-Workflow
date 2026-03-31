@@ -9,7 +9,7 @@
 Real projects from the community. See what people are building with OpenClaw.
 
 <Info>
-  **Want to be featured?** Share your project in [#showcase on Discord](https://discord.gg/clawd) or [tag @openclaw on X](https://x.com/openclaw).
+  **Want to be featured?** Share your project in [#self-promotion on Discord](https://discord.gg/clawd) or [tag @openclaw on X](https://x.com/openclaw).
 </Info>
 
 ## 🎥 OpenClaw in Action
@@ -368,7 +368,7 @@ Have something to share? We'd love to feature it!
 
 <Steps>
   <Step title="Share It">
-    Post in [#showcase on Discord](https://discord.gg/clawd) or [tweet @openclaw](https://x.com/openclaw)
+    Post in [#self-promotion on Discord](https://discord.gg/clawd) or [tweet @openclaw](https://x.com/openclaw)
   </Step>
 
   <Step title="Include Details">

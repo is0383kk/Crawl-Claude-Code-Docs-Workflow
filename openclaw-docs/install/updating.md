@@ -123,5 +123,11 @@ To return to latest: `git checkout main && git pull`.
 * Check: [Troubleshooting](/gateway/troubleshooting)
 * Ask in Discord: [https://discord.gg/clawd](https://discord.gg/clawd)
 
+## Related
+
+* [Install Overview](/install) — all installation methods
+* [Doctor](/gateway/doctor) — health checks after updates
+* [Migrating](/install/migrating) — major version migration guides
+
 
 Built with [Mintlify](https://mintlify.com).

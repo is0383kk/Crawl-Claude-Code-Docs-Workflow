@@ -32,5 +32,9 @@ openclaw skills check
 workspace `skills/` directory. `list`/`info`/`check` still inspect the local
 skills visible to the current workspace and config.
 
+This CLI `install` command downloads skill folders from ClawHub. Gateway-backed
+skill dependency installs triggered from onboarding or Skills settings use the
+separate `skills.install` request path instead.
+
 
 Built with [Mintlify](https://mintlify.com).

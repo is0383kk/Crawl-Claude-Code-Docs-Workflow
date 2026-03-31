@@ -589,5 +589,12 @@ openclaw models list
 
 See also: [/gateway/configuration](/gateway/configuration) for full configuration examples.
 
+## Related
+
+* [Models](/concepts/models) — model configuration and aliases
+* [Model Failover](/concepts/model-failover) — fallback chains and retry behavior
+* [Configuration Reference](/gateway/configuration-reference#agent-defaults) — model config keys
+* [Providers](/providers) — per-provider setup guides
+
 
 Built with [Mintlify](https://mintlify.com).

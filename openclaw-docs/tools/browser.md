@@ -814,5 +814,11 @@ How it maps:
 
 This keeps the agent deterministic and avoids brittle selectors.
 
+## Related
+
+* [Tools Overview](/tools) — all available agent tools
+* [Sandboxing](/gateway/sandboxing) — browser control in sandboxed environments
+* [Security](/gateway/security) — browser control risks and hardening
+
 
 Built with [Mintlify](https://mintlify.com).

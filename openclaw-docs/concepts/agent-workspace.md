@@ -233,5 +233,12 @@ Suggested `.gitignore` starter:
 * If `agents.defaults.sandbox` is enabled, non-main sessions can use per-session sandbox
   workspaces under `agents.defaults.sandbox.workspaceRoot`.
 
+## Related
+
+* [Standing Orders](/automation/standing-orders) — persistent instructions in workspace files
+* [Heartbeat](/gateway/heartbeat) — HEARTBEAT.md workspace file
+* [Session](/concepts/session) — session storage paths
+* [Sandboxing](/gateway/sandboxing) — workspace access in sandboxed environments
+
 
 Built with [Mintlify](https://mintlify.com).
