@@ -56,6 +56,26 @@ capable model for better summaries:
 }
 ```
 
+## Compaction start notice
+
+By default, compaction runs silently. To show a brief notice when compaction
+starts, enable `notifyUser`:
+
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+{
+  agents: {
+    defaults: {
+      compaction: {
+        notifyUser: true,
+      },
+    },
+  },
+}
+```
+
+When enabled, the user sees a short message (for example, "Compacting
+context...") at the start of each compaction run.
+
 ## Compaction vs pruning
 
 |                  | Compaction                    | Pruning                          |

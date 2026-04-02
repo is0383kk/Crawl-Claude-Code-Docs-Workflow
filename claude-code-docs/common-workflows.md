@@ -541,7 +541,7 @@ Extended thinking controls how much internal reasoning Claude performs before re
 On Opus 4.6 and Sonnet 4.6, [adaptive reasoning](/en/model-config#adjust-effort-level) controls thinking depth, so `MAX_THINKING_TOKENS` only applies when set to `0` to disable thinking, or when `CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1` reverts these models to the fixed budget. See [environment variables](/en/env-vars).
 
 <Warning>
-  You're charged for all thinking tokens used, even though Claude 4 models show summarized thinking
+  You're charged for all thinking tokens used even when thinking summaries are redacted. In interactive mode, thinking appears as a collapsed stub by default. Set `showThinkingSummaries: true` in `settings.json` to show full summaries.
 </Warning>
 
 ***
@@ -556,7 +556,7 @@ When starting Claude Code, you can resume a previous session:
 
 From inside an active session, use `/resume` to switch to a different conversation.
 
-Sessions are stored per project directory. The `/resume` picker shows sessions from the same git repository, including worktrees.
+Sessions are stored per project directory. The `/resume` picker shows interactive sessions from the same git repository, including worktrees. Sessions created by `claude -p` or SDK invocations do not appear in the picker, but you can still resume one by passing its session ID directly to `claude --resume <session-id>`.
 
 ### Name your sessions
 
@@ -690,6 +690,8 @@ When you exit a worktree session, Claude handles cleanup based on whether you ma
 
 * **No changes**: the worktree and its branch are removed automatically
 * **Changes or commits exist**: Claude prompts you to keep or remove the worktree. Keeping preserves the directory and branch so you can return later. Removing deletes the worktree directory and its branch, discarding all uncommitted changes and commits
+
+Subagent worktrees orphaned by a crash or an interrupted parallel run are removed automatically at startup once they are older than your [`cleanupPeriodDays`](/en/settings#available-settings) setting, provided they have no modifications to tracked files and no unpushed commits. Untracked files (new files never staged with `git add`) are not checked and do not prevent removal. Worktrees you create with `--worktree` are never removed by this sweep.
 
 To clean up worktrees outside of a Claude session, use [manual worktree management](#manage-worktrees-manually).
 
@@ -879,7 +881,7 @@ cat build-error.txt | claude -p 'concisely explain the root cause of this build 
 
   * Use pipes to integrate Claude into existing shell scripts
   * Combine with other Unix tools for powerful workflows
-  * Consider using --output-format for structured output
+  * Consider using `--output-format` for structured output
 </Tip>
 
 ### Control output format
@@ -972,7 +974,7 @@ what are the limitations of Claude Code?
 ```
 
 <Note>
-  Claude provides documentation-based answers to these questions. For executable examples and hands-on demonstrations, refer to the specific workflow sections above.
+  Claude provides documentation-based answers to these questions. For hands-on demonstrations, run `/powerup` for interactive lessons with animated demos, or refer to the specific workflow sections above.
 </Note>
 
 <Tip>
