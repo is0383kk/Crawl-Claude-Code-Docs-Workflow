@@ -12,7 +12,7 @@ You can use Claude Code even if you've never used a terminal before. This guide 
 * [Windows](#windows)
 
 <Note>
-  Don't want to use the terminal? The Claude Code desktop app lets you skip the terminal entirely. Download it for [macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code\&utm_medium=docs) or [Windows](https://claude.ai/api/desktop/win32/x64/exe/latest/redirect?utm_source=claude_code\&utm_medium=docs), then see the [Desktop quickstart](/en/desktop-quickstart) to get started.
+  Don't want to use the terminal? The Claude Code desktop app lets you skip the terminal entirely. Download it for [macOS](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect?utm_source=claude_code\&utm_medium=docs) or [Windows](https://claude.com/download?utm_source=claude_code\&utm_medium=docs), then see the [Desktop quickstart](/en/desktop-quickstart) to get started.
 </Note>
 
 ## macOS and Linux
@@ -53,7 +53,7 @@ Follow these three steps to install and start Claude Code from a macOS or Linux 
 
     * You can't click on things in the terminal. Use the arrow keys to move around.
     * Press `Esc` to interrupt Claude if it's running.
-    * Type `exit` or press `Ctrl + C` to leave Claude Code.
+    * Type `exit` or press `Ctrl + D` to leave Claude Code.
     * Type `/help` to see available commands.
   </Step>
 </Steps>
@@ -128,7 +128,7 @@ Follow these four steps to install Git, set up PowerShell, and start Claude Code
 
     * You can't click on things in the terminal. Use the arrow keys to move around.
     * Press `Esc` to interrupt Claude if it's running.
-    * Type `exit` or press `Ctrl + C` to leave Claude Code.
+    * Type `exit` or press `Ctrl + D` to leave Claude Code.
     * Type `/help` to see available commands.
   </Step>
 </Steps>

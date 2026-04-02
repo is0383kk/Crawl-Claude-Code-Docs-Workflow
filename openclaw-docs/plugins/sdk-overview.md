@@ -84,21 +84,21 @@ subpaths is in `scripts/lib/plugin-sdk-entrypoints.json`.
   </Accordion>
 
   <Accordion title="Runtime and storage subpaths">
-    | Subpath                         | Key exports                                     |
-    | ------------------------------- | ----------------------------------------------- |
-    | `plugin-sdk/runtime-store`      | `createPluginRuntimeStore`                      |
-    | `plugin-sdk/config-runtime`     | Config load/write helpers                       |
-    | `plugin-sdk/approval-runtime`   | Exec and plugin approval helpers                |
-    | `plugin-sdk/infra-runtime`      | System event/heartbeat helpers                  |
-    | `plugin-sdk/collection-runtime` | Small bounded cache helpers                     |
-    | `plugin-sdk/diagnostic-runtime` | Diagnostic flag and event helpers               |
-    | `plugin-sdk/error-runtime`      | Error graph and formatting helpers              |
-    | `plugin-sdk/fetch-runtime`      | Wrapped fetch, proxy, and pinned lookup helpers |
-    | `plugin-sdk/host-runtime`       | Hostname and SCP host normalization helpers     |
-    | `plugin-sdk/retry-runtime`      | Retry config and retry runner helpers           |
-    | `plugin-sdk/agent-runtime`      | Agent dir/identity/workspace helpers            |
-    | `plugin-sdk/directory-runtime`  | Config-backed directory query/dedup             |
-    | `plugin-sdk/keyed-async-queue`  | `KeyedAsyncQueue`                               |
+    | Subpath                         | Key exports                                                                                                      |
+    | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+    | `plugin-sdk/runtime-store`      | `createPluginRuntimeStore`                                                                                       |
+    | `plugin-sdk/config-runtime`     | Config load/write helpers                                                                                        |
+    | `plugin-sdk/approval-runtime`   | Exec/plugin approval helpers, approval-capability builders, auth/profile helpers, native routing/runtime helpers |
+    | `plugin-sdk/infra-runtime`      | System event/heartbeat helpers                                                                                   |
+    | `plugin-sdk/collection-runtime` | Small bounded cache helpers                                                                                      |
+    | `plugin-sdk/diagnostic-runtime` | Diagnostic flag and event helpers                                                                                |
+    | `plugin-sdk/error-runtime`      | Error graph and formatting helpers                                                                               |
+    | `plugin-sdk/fetch-runtime`      | Wrapped fetch, proxy, and pinned lookup helpers                                                                  |
+    | `plugin-sdk/host-runtime`       | Hostname and SCP host normalization helpers                                                                      |
+    | `plugin-sdk/retry-runtime`      | Retry config and retry runner helpers                                                                            |
+    | `plugin-sdk/agent-runtime`      | Agent dir/identity/workspace helpers                                                                             |
+    | `plugin-sdk/directory-runtime`  | Config-backed directory query/dedup                                                                              |
+    | `plugin-sdk/keyed-async-queue`  | `KeyedAsyncQueue`                                                                                                |
   </Accordion>
 
   <Accordion title="Capability and testing subpaths">

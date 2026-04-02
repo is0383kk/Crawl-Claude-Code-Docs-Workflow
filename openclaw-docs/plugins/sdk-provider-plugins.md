@@ -284,30 +284,33 @@ API key auth, and dynamic model resolution.
     <Accordion title="All available provider hooks">
       OpenClaw calls hooks in this order. Most providers only use 2-3:
 
-      | #  | Hook                          | When to use                                      |
-      | -- | ----------------------------- | ------------------------------------------------ |
-      | 1  | `catalog`                     | Model catalog or base URL defaults               |
-      | 2  | `resolveDynamicModel`         | Accept arbitrary upstream model IDs              |
-      | 3  | `prepareDynamicModel`         | Async metadata fetch before resolving            |
-      | 4  | `normalizeResolvedModel`      | Transport rewrites before the runner             |
-      | 5  | `capabilities`                | Transcript/tooling metadata (data, not callable) |
-      | 6  | `prepareExtraParams`          | Default request params                           |
-      | 7  | `wrapStreamFn`                | Custom headers/body wrappers                     |
-      | 8  | `formatApiKey`                | Custom runtime token shape                       |
-      | 9  | `refreshOAuth`                | Custom OAuth refresh                             |
-      | 10 | `buildAuthDoctorHint`         | Auth repair guidance                             |
-      | 11 | `isCacheTtlEligible`          | Prompt cache TTL gating                          |
-      | 12 | `buildMissingAuthMessage`     | Custom missing-auth hint                         |
-      | 13 | `suppressBuiltInModel`        | Hide stale upstream rows                         |
-      | 14 | `augmentModelCatalog`         | Synthetic forward-compat rows                    |
-      | 15 | `isBinaryThinking`            | Binary thinking on/off                           |
-      | 16 | `supportsXHighThinking`       | `xhigh` reasoning support                        |
-      | 17 | `resolveDefaultThinkingLevel` | Default `/think` policy                          |
-      | 18 | `isModernModelRef`            | Live/smoke model matching                        |
-      | 19 | `prepareRuntimeAuth`          | Token exchange before inference                  |
-      | 20 | `resolveUsageAuth`            | Custom usage credential parsing                  |
-      | 21 | `fetchUsageSnapshot`          | Custom usage endpoint                            |
-      | 22 | `onModelSelected`             | Post-selection callback (e.g. telemetry)         |
+      | #  | Hook                          | When to use                                              |
+      | -- | ----------------------------- | -------------------------------------------------------- |
+      | 1  | `catalog`                     | Model catalog or base URL defaults                       |
+      | 2  | `resolveDynamicModel`         | Accept arbitrary upstream model IDs                      |
+      | 3  | `prepareDynamicModel`         | Async metadata fetch before resolving                    |
+      | 4  | `normalizeResolvedModel`      | Transport rewrites before the runner                     |
+      | 5  | `capabilities`                | Transcript/tooling metadata (data, not callable)         |
+      | 6  | `prepareExtraParams`          | Default request params                                   |
+      | 7  | `wrapStreamFn`                | Custom headers/body wrappers                             |
+      | 8  | `formatApiKey`                | Custom runtime token shape                               |
+      | 9  | `refreshOAuth`                | Custom OAuth refresh                                     |
+      | 10 | `buildAuthDoctorHint`         | Auth repair guidance                                     |
+      | 11 | `isCacheTtlEligible`          | Prompt cache TTL gating                                  |
+      | 12 | `buildMissingAuthMessage`     | Custom missing-auth hint                                 |
+      | 13 | `suppressBuiltInModel`        | Hide stale upstream rows                                 |
+      | 14 | `augmentModelCatalog`         | Synthetic forward-compat rows                            |
+      | 15 | `isBinaryThinking`            | Binary thinking on/off                                   |
+      | 16 | `supportsXHighThinking`       | `xhigh` reasoning support                                |
+      | 17 | `resolveDefaultThinkingLevel` | Default `/think` policy                                  |
+      | 18 | `isModernModelRef`            | Live/smoke model matching                                |
+      | 19 | `prepareRuntimeAuth`          | Token exchange before inference                          |
+      | 20 | `resolveUsageAuth`            | Custom usage credential parsing                          |
+      | 21 | `fetchUsageSnapshot`          | Custom usage endpoint                                    |
+      | 22 | `onModelSelected`             | Post-selection callback (e.g. telemetry)                 |
+      | 23 | `buildReplayPolicy`           | Custom transcript policy (e.g. thinking-block stripping) |
+      | 24 | `sanitizeReplayHistory`       | Provider-specific replay rewrites after generic cleanup  |
+      | 25 | `validateReplayTurns`         | Strict replay-turn validation before the embedded runner |
 
       For detailed descriptions and real-world examples, see
       [Internals: Provider Runtime Hooks](/plugins/architecture#provider-runtime-hooks).
