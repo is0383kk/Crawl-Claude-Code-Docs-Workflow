@@ -35,6 +35,28 @@ requireMention? yes -> mentioned? no -> store for context only
 otherwise -> reply
 ```
 
+## Context visibility and allowlists
+
+Two different controls are involved in group safety:
+
+* **Trigger authorization**: who can trigger the agent (`groupPolicy`, `groups`, `groupAllowFrom`, channel-specific allowlists).
+* **Context visibility**: what supplemental context is injected into the model (reply text, quotes, thread history, forwarded metadata).
+
+By default, OpenClaw prioritizes normal chat behavior and keeps context mostly as received. This means allowlists primarily decide who can trigger actions, not a universal redaction boundary for every quoted or historical snippet.
+
+Current behavior is channel-specific:
+
+* Some channels already apply sender-based filtering for supplemental context in specific paths (for example Slack thread seeding, Matrix reply/thread lookups).
+* Other channels still pass quote/reply/forward context through as received.
+
+Hardening direction (planned):
+
+* `contextVisibility: "all"` (default) keeps current as-received behavior.
+* `contextVisibility: "allowlist"` filters supplemental context to allowlisted senders.
+* `contextVisibility: "allowlist_quote"` is `allowlist` plus one explicit quote/reply exception.
+
+Until this hardening model is implemented consistently across channels, expect differences by surface.
+
 <img src="https://mintcdn.com/clawdhub/dpADRo8IUoiDztzJ/images/groups-flow.svg?fit=max&auto=format&n=dpADRo8IUoiDztzJ&q=85&s=eeb387df91a967fbbe8bf8f80ae41dd7" alt="Group message flow" width="960" height="260" data-path="images/groups-flow.svg" />
 
 If you want...
@@ -296,6 +318,9 @@ Notes:
 ## Group allowlists
 
 When `channels.whatsapp.groups`, `channels.telegram.groups`, or `channels.imessage.groups` is configured, the keys act as a group allowlist. Use `"*"` to allow all groups while still setting default mention behavior.
+
+Common confusion: DM pairing approval is not the same as group authorization.
+For channels that support DM pairing, the pairing store unlocks DMs only. Group commands still require explicit group sender authorization from config allowlists such as `groupAllowFrom` or the documented config fallback for that channel.
 
 Common intents (copy/paste):
 
