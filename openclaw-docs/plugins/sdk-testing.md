@@ -248,7 +248,7 @@ pnpm test:coverage
 If local runs cause memory pressure:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-OPENCLAW_TEST_PROFILE=low OPENCLAW_TEST_SERIAL_GATEWAY=1 pnpm test
+OPENCLAW_VITEST_MAX_WORKERS=1 pnpm test
 ```
 
 ## Related

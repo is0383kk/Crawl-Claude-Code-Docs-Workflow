@@ -57,6 +57,7 @@ openclaw gateway --port 18789
 
 ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
+  gateway: { mode: "local" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
 }
 ```

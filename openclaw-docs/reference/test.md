@@ -14,15 +14,15 @@
 
 * `pnpm test:coverage:changed`: Runs unit coverage only for files changed since `origin/main`.
 
-* `pnpm test:changed`: runs the wrapper with `--changed origin/main`. The base Vitest config treats the wrapper manifests/config files as `forceRerunTriggers` so scheduler changes still rerun broadly when needed.
+* `pnpm test:changed`: runs the native Vitest projects config with `--changed origin/main`. The base config treats the projects/config files as `forceRerunTriggers` so wiring changes still rerun broadly when needed.
 
-* `pnpm test`: runs the full wrapper. It keeps only a small behavioral override manifest in git, then uses a checked-in timing snapshot to peel the heaviest measured unit files into dedicated lanes.
+* `pnpm test`: runs the native Vitest projects config (`unit` + `boundary`) via a tiny passthrough wrapper so `pnpm test -- <filter>` keeps working.
 
-* Unit files default to `threads` in the wrapper; keep fork-only exceptions documented in `test/fixtures/test-parallel.behavior.json`.
+* Unit, channel, and extension configs default to `pool: "forks"`.
 
-* `pnpm test:channels` now defaults to `threads` via `vitest.channels.config.ts`; the March 22, 2026 direct full-suite control run passed clean without channel-specific fork exceptions.
+* `pnpm test:channels` runs `vitest.channels.config.ts`.
 
-* `pnpm test:extensions` runs through the wrapper and keeps documented extension fork-only exceptions in `test/fixtures/test-parallel.behavior.json`; the shared extension lane still defaults to `threads`.
+* `pnpm test:extensions` runs `vitest.extensions.config.ts`.
 
 * `pnpm test:extensions`: runs extension/plugin suites.
 
@@ -33,8 +33,6 @@
 * `pnpm test:perf:profile:main`: writes a CPU profile for the Vitest main thread (`.artifacts/vitest-main-profile`).
 
 * `pnpm test:perf:profile:runner`: writes CPU + heap profiles for the unit runner (`.artifacts/vitest-runner-profile`).
-
-* `pnpm test:perf:update-timings`: refreshes the checked-in slow-file timing snapshot used by `scripts/test-parallel.mjs`.
 
 * Gateway integration: opt-in via `OPENCLAW_TEST_INCLUDE_GATEWAY=1 pnpm test` or `pnpm test:gateway`.
 
@@ -55,9 +53,9 @@ For local PR land/gate checks, run:
 * `pnpm test`
 * `pnpm check:docs`
 
-If `pnpm test` flakes on a loaded host, rerun once before treating it as a regression, then isolate with `pnpm vitest run <path/to/test>`. For memory-constrained hosts, use:
+If `pnpm test` flakes on a loaded host, rerun once before treating it as a regression, then isolate with `pnpm test -- <path/to/test>`. For memory-constrained hosts, use:
 
-* `OPENCLAW_TEST_PROFILE=low OPENCLAW_TEST_SERIAL_GATEWAY=1 pnpm test`
+* `OPENCLAW_VITEST_MAX_WORKERS=1 pnpm test`
 * `OPENCLAW_VITEST_FS_MODULE_CACHE_PATH=/tmp/openclaw-vitest-cache pnpm test:changed`
 
 ## Model latency bench (local keys)
