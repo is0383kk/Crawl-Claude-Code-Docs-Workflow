@@ -16,9 +16,9 @@
 
 * `pnpm test:changed`: runs the native Vitest projects config with `--changed origin/main`. The base config treats the projects/config files as `forceRerunTriggers` so wiring changes still rerun broadly when needed.
 
-* `pnpm test`: runs the native Vitest projects config (`unit` + `boundary`) via a tiny passthrough wrapper so `pnpm test -- <filter>` keeps working.
+* `pnpm test`: runs the native Vitest root projects config directly. File filters work natively across the configured projects.
 
-* Unit, channel, and extension configs default to `pool: "forks"`.
+* Base Vitest config now defaults to `pool: "threads"` and `isolate: false`, with the shared non-isolated runner enabled across the repo configs.
 
 * `pnpm test:channels` runs `vitest.channels.config.ts`.
 
@@ -26,7 +26,7 @@
 
 * `pnpm test:extensions`: runs extension/plugin suites.
 
-* `pnpm test:perf:imports`: enables Vitest import-duration + import-breakdown reporting for the wrapper.
+* `pnpm test:perf:imports`: enables Vitest import-duration + import-breakdown reporting for the native root projects run.
 
 * `pnpm test:perf:imports:changed`: same import profiling, but only for files changed since `origin/main`.
 
@@ -36,7 +36,7 @@
 
 * Gateway integration: opt-in via `OPENCLAW_TEST_INCLUDE_GATEWAY=1 pnpm test` or `pnpm test:gateway`.
 
-* `pnpm test:e2e`: Runs gateway end-to-end smoke tests (multi-instance WS/HTTP/node pairing). Defaults to `forks` + adaptive workers in `vitest.e2e.config.ts`; tune with `OPENCLAW_E2E_WORKERS=<n>` and set `OPENCLAW_E2E_VERBOSE=1` for verbose logs.
+* `pnpm test:e2e`: Runs gateway end-to-end smoke tests (multi-instance WS/HTTP/node pairing). Defaults to `threads` + `isolate: false` with adaptive workers in `vitest.e2e.config.ts`; tune with `OPENCLAW_E2E_WORKERS=<n>` and set `OPENCLAW_E2E_VERBOSE=1` for verbose logs.
 
 * `pnpm test:live`: Runs provider live tests (minimax/zai). Requires API keys and `LIVE=1` (or provider-specific `*_LIVE_TEST=1`) to unskip.
 
@@ -53,7 +53,7 @@ For local PR land/gate checks, run:
 * `pnpm test`
 * `pnpm check:docs`
 
-If `pnpm test` flakes on a loaded host, rerun once before treating it as a regression, then isolate with `pnpm test -- <path/to/test>`. For memory-constrained hosts, use:
+If `pnpm test` flakes on a loaded host, rerun once before treating it as a regression, then isolate with `pnpm test <path/to/test>`. For memory-constrained hosts, use:
 
 * `OPENCLAW_VITEST_MAX_WORKERS=1 pnpm test`
 * `OPENCLAW_VITEST_FS_MODULE_CACHE_PATH=/tmp/openclaw-vitest-cache pnpm test:changed`
