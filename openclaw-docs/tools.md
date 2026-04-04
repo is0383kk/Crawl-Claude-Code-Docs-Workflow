@@ -63,6 +63,12 @@ These tools ship with OpenClaw and are available without installing any plugins:
 
 For image work, use `image` for analysis and `image_generate` for generation or editing. If you target `openai/*`, `google/*`, `fal/*`, or another non-default image provider, configure that provider's auth/API key first.
 
+`session_status` is the lightweight status/readback tool in the sessions group.
+It answers `/status`-style questions about the current session and can
+optionally set a per-session model override; `model=default` clears that
+override. Like `/status`, it can backfill sparse token/cache counters and the
+active runtime model label from the latest transcript usage entry.
+
 ### Plugin-provided tools
 
 Plugins can register additional tools. Some examples:
@@ -116,6 +122,13 @@ Use `group:*` shorthands in allow/deny lists:
 | `group:messaging`  | message                                                                                                         |
 | `group:nodes`      | nodes                                                                                                           |
 | `group:openclaw`   | All built-in OpenClaw tools (excludes plugin tools)                                                             |
+
+`sessions_history` returns a bounded, safety-filtered recall view. It strips
+thinking tags, `<relevant-memories>` scaffolding, plain-text tool-call XML
+payloads, downgraded tool-call scaffolding, leaked model control tokens, and
+malformed MiniMax tool-call XML from assistant text, then applies
+redaction/truncation and possible oversized-row placeholders instead of acting
+as a raw transcript dump.
 
 ### Provider-specific restrictions
 

@@ -43,8 +43,14 @@ open until it completes.
 ### Optional flags
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw models auth login-github-copilot --profile-id github-copilot:work
 openclaw models auth login-github-copilot --yes
+```
+
+To also apply the provider's recommended default model in one step, use the
+generic auth command instead:
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw models auth login --provider github-copilot --method device --set-default
 ```
 
 ## Set a default model

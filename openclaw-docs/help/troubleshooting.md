@@ -29,7 +29,9 @@ Good output in one line:
 * `openclaw gateway probe` → expected gateway target is reachable (`Reachable: yes`). `RPC: limited - missing scope: operator.read` is degraded diagnostics, not a connect failure.
 * `openclaw gateway status` → `Runtime: running` and `RPC probe: ok`.
 * `openclaw doctor` → no blocking config/service errors.
-* `openclaw channels status --probe` → channels report `connected` or `ready`.
+* `openclaw channels status --probe` → reachable gateway returns live per-account
+  transport state plus probe/audit results such as `works` or `audit ok`; if the
+  gateway is unreachable, the command falls back to config-only summaries.
 * `openclaw logs --follow` → steady activity, no repeating fatal errors.
 
 ## Anthropic long context 429
@@ -99,7 +101,7 @@ flowchart TD
 
     * `Runtime: running`
     * `RPC probe: ok`
-    * Your channel shows connected/ready in `channels status --probe`
+    * Your channel shows transport connected and, where supported, `works` or `audit ok` in `channels status --probe`
     * Sender appears approved (or DM policy is open/allowlist)
 
     Common log signatures:
@@ -133,7 +135,18 @@ flowchart TD
     Common log signatures:
 
     * `device identity required` → HTTP/non-secure context cannot complete device auth.
+    * `origin not allowed` → browser `Origin` is not allowed for the Control UI
+      gateway target.
     * `AUTH_TOKEN_MISMATCH` with retry hints (`canRetryWithDeviceToken=true`) → one trusted device-token retry may occur automatically.
+    * That cached-token retry reuses the cached scope set stored with the paired
+      device token. Explicit `deviceToken` / explicit `scopes` callers keep
+      their requested scope set instead.
+    * On the async Tailscale Serve Control UI path, failed attempts for the same
+      `{scope, ip}` are serialized before the limiter records the failure, so a
+      second concurrent bad retry can already show `retry later`.
+    * `too many failed authentication attempts (retry later)` from a localhost
+      browser origin → repeated failures from that same `Origin` are temporarily
+      locked out; another localhost origin uses a separate bucket.
     * repeated `unauthorized` after that retry → wrong token/password, auth mode mismatch, or stale paired device token.
     * `gateway connect failed:` → UI is targeting the wrong URL/port or unreachable gateway.
 
@@ -162,7 +175,7 @@ flowchart TD
     Common log signatures:
 
     * `Gateway start blocked: set gateway.mode=local` or `existing config is missing gateway.mode` → gateway mode is remote, or the config file is missing the local-mode stamp and should be repaired.
-    * `refusing to bind gateway ... without auth` → non-loopback bind without token/password.
+    * `refusing to bind gateway ... without auth` → non-loopback bind without a valid gateway auth path (token/password, or trusted-proxy where configured).
     * `another gateway instance is already listening` or `EADDRINUSE` → port already taken.
 
     Deep pages:
@@ -322,8 +335,12 @@ flowchart TD
     * `unknown command "browser"` or `unknown command 'browser'` → `plugins.allow` is set and does not include `browser`.
     * `Failed to start Chrome CDP on port` → local browser launch failed.
     * `browser.executablePath not found` → configured binary path is wrong.
+    * `browser.cdpUrl must be http(s) or ws(s)` → the configured CDP URL uses an unsupported scheme.
+    * `browser.cdpUrl has invalid port` → the configured CDP URL has a bad or out-of-range port.
     * `No Chrome tabs found for profile="user"` → the Chrome MCP attach profile has no open local Chrome tabs.
-    * `Browser attachOnly is enabled ... not reachable` → attach-only profile has no live CDP target.
+    * `Remote CDP for profile "<name>" is not reachable` → the configured remote CDP endpoint is not reachable from this host.
+    * `Browser attachOnly is enabled ... not reachable` or `Browser attachOnly is enabled and CDP websocket ... is not reachable` → attach-only profile has no live CDP target.
+    * stale viewport / dark-mode / locale / offline overrides on attach-only or remote CDP profiles → run `openclaw browser stop --browser-profile <name>` to close the active control session and release emulation state without restarting the gateway.
 
     Deep pages:
 

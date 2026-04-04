@@ -136,6 +136,9 @@ Notes:
 
 * `user` is host-only. For Linux servers, containers, or remote hosts, prefer CDP profiles.
 * Local `openclaw` profiles auto-assign `cdpPort`/`cdpUrl`; only set those for remote CDP.
+* Remote CDP profiles accept `http://`, `https://`, `ws://`, and `wss://`.
+  Use HTTP(S) for `/json/version` discovery, or WS(S) when your browser
+  service gives you a direct DevTools socket URL.
 
 
 Built with [Mintlify](https://mintlify.com).

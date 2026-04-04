@@ -24,7 +24,7 @@ Healthy baseline:
 
 * `Runtime: running`
 * `RPC probe: ok`
-* Channel probe shows connected/ready
+* Channel probe shows transport connected and, where supported, `works` or `audit ok`
 
 ## WhatsApp
 
