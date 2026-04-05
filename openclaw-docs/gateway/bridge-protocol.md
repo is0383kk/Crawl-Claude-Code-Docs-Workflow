@@ -10,7 +10,7 @@
   The TCP bridge has been **removed**. Current OpenClaw builds do not ship the bridge listener and `bridge.*` config keys are no longer in the schema. This page is kept for historical reference only. Use the [Gateway Protocol](/gateway/protocol) for all node/operator clients.
 </Warning>
 
-## Why we have both
+## Why it existed
 
 * **Security boundary**: the bridge exposes a small allowlist instead of the
   full gateway API surface.
@@ -24,7 +24,8 @@
 
 * TCP, one JSON object per line (JSONL).
 * Optional TLS (when `bridge.tls.enabled` is true).
-* Legacy default listener port was `18790` (current builds do not start a TCP bridge).
+* Historical default listener port was `18790` (current builds do not start a
+  TCP bridge).
 
 When TLS is enabled, discovery TXT records include `bridgeTls=1` plus
 `bridgeTlsSha256` as a non-secret hint. Note that Bonjour/mDNS TXT records are
@@ -38,7 +39,8 @@ authoritative pin without explicit user intent or other out-of-band verification
 3. Client sends `pair-request`.
 4. Gateway waits for approval, then sends `pair-ok` and `hello-ok`.
 
-`hello-ok` returns `serverName` and may include `canvasHostUrl`.
+Historically, `hello-ok` returned `serverName` and could include
+`canvasHostUrl`.
 
 ## Frames
 
@@ -69,18 +71,19 @@ Payload fields (all optional unless noted):
 * `exitCode`, `timedOut`, `success`, `output`: completion details (finished only).
 * `reason`: denial reason (denied only).
 
-## Tailnet usage
+## Historical tailnet usage
 
 * Bind the bridge to a tailnet IP: `bridge.bind: "tailnet"` in
-  `~/.openclaw/openclaw.json`.
+  `~/.openclaw/openclaw.json` (historical only; `bridge.*` is no longer valid).
 * Clients connect via MagicDNS name or tailnet IP.
 * Bonjour does **not** cross networks; use manual host/port or wide-area DNS‑SD
   when needed.
 
 ## Versioning
 
-Bridge is currently **implicit v1** (no min/max negotiation). Backward‑compat
-is expected; add a bridge protocol version field before any breaking changes.
+The bridge was **implicit v1** (no min/max negotiation). This section is
+historical reference only; current node/operator clients use the WebSocket
+[Gateway Protocol](/gateway/protocol).
 
 
 Built with [Mintlify](https://mintlify.com).

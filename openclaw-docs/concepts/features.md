@@ -22,7 +22,7 @@
   </Card>
 
   <Card title="Media" icon="image">
-    Images, audio, and documents in and out.
+    Images, audio, video, documents, and image/video generation.
   </Card>
 
   <Card title="Apps and UI" icon="monitor">
@@ -61,6 +61,7 @@
 **Media:**
 
 * Images, audio, video, and documents in and out
+* Shared image generation and video generation capability surfaces
 * Voice note transcription
 * Text-to-speech with multiple providers
 

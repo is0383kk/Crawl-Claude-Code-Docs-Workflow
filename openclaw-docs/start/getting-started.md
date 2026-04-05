@@ -83,6 +83,37 @@ and a working chat session.
   </Step>
 </Steps>
 
+<Accordion title="Advanced: mount a custom Control UI build">
+  If you maintain a localized or customized dashboard build, point
+  `gateway.controlUi.root` to a directory that contains your built static
+  assets and `index.html`.
+
+  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  mkdir -p "$HOME/.openclaw/control-ui-custom"
+  # Copy your built static files into that directory.
+  ```
+
+  Then set:
+
+  ```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  {
+    "gateway": {
+      "controlUi": {
+        "enabled": true,
+        "root": "$HOME/.openclaw/control-ui-custom"
+      }
+    }
+  }
+  ```
+
+  Restart the gateway and reopen the dashboard:
+
+  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  openclaw gateway restart
+  openclaw dashboard
+  ```
+</Accordion>
+
 ## What to do next
 
 <Columns>
