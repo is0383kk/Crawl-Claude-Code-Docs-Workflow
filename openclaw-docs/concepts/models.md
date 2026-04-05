@@ -27,7 +27,7 @@ Related:
   falls back to `agents.defaults.imageModel`, then the resolved session/default
   model.
 * `agents.defaults.imageGenerationModel` is used by the shared image-generation capability. If omitted, `image_generate` can still infer an auth-backed provider default. It tries the current default provider first, then the remaining registered image-generation providers in provider-id order. If you set a specific provider/model, also configure that provider's auth/API key.
-* `agents.defaults.videoGenerationModel` is used by the shared video-generation capability. If omitted, video-generation providers can still use their own default model selection; if you set a specific provider/model, configure that provider's auth/API key too.
+* `agents.defaults.videoGenerationModel` is used by the shared video-generation capability. If omitted, `video_generate` can still infer an auth-backed provider default. It tries the current default provider first, then the remaining registered video-generation providers in provider-id order. If you set a specific provider/model, also configure that provider's auth/API key.
 * Per-agent defaults can override `agents.defaults.model` via `agents.list[].model` plus bindings (see [/concepts/multi-agent](/concepts/multi-agent)).
 
 ## Quick model policy
@@ -174,10 +174,15 @@ provider has no credentials, `models status` prints a **Missing auth** section.
 JSON includes `auth.oauth` (warn window + profiles) and `auth.providers`
 (effective auth per provider).
 Use `--check` for automation (exit `1` when missing/expired, `2` when expiring).
+Use `--probe` for live auth checks; probe rows can come from auth profiles, env
+credentials, or `models.json`.
+If explicit `auth.order.<provider>` omits a stored profile, probe reports
+`excluded_by_auth_order` instead of trying it. If auth exists but no probeable
+model can be resolved for that provider, probe reports `status: no_model`.
 
 Auth choice is provider/account dependent. For always-on gateway hosts, API
-keys are usually the most predictable; Claude CLI reuse and existing legacy
-Anthropic token profiles are also supported.
+keys are usually the most predictable; Claude CLI reuse and existing Anthropic
+OAuth/token profiles are also supported.
 
 Example (Claude CLI):
 
@@ -244,6 +249,7 @@ This applies whenever OpenClaw regenerates `models.json`, including command-driv
 * [Model Providers](/concepts/model-providers) — provider routing and auth
 * [Model Failover](/concepts/model-failover) — fallback chains
 * [Image Generation](/tools/image-generation) — image model configuration
+* [Video Generation](/tools/video-generation) — video model configuration
 * [Configuration Reference](/gateway/configuration-reference#agent-defaults) — model config keys
 
 
