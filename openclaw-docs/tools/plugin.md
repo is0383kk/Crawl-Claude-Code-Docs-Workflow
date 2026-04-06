@@ -313,6 +313,7 @@ Common registration methods:
 | `registerRealtimeVoiceProvider`         | Duplex realtime voice       |
 | `registerMediaUnderstandingProvider`    | Image/audio analysis        |
 | `registerImageGenerationProvider`       | Image generation            |
+| `registerMusicGenerationProvider`       | Music generation            |
 | `registerVideoGenerationProvider`       | Video generation            |
 | `registerWebFetchProvider`              | Web fetch / scrape provider |
 | `registerWebSearchProvider`             | Web search                  |
