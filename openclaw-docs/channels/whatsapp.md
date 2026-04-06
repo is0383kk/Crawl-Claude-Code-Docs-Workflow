@@ -135,6 +135,7 @@ openclaw plugins install @openclaw/whatsapp
 * Status and broadcast chats are ignored (`@status`, `@broadcast`).
 * Direct chats use DM session rules (`session.dmScope`; default `main` collapses DMs to the agent main session).
 * Group sessions are isolated (`agent:<agentId>:whatsapp:group:<jid>`).
+* WhatsApp Web transport honors standard proxy environment variables on the gateway host (`HTTPS_PROXY`, `HTTP_PROXY`, `NO_PROXY` / lowercase variants). Prefer host-level proxy config over channel-specific WhatsApp proxy settings.
 
 ## Access control and activation
 

@@ -67,5 +67,31 @@ OpenClaw currently ships this bundled Together catalog:
 
 The onboarding preset sets `together/moonshotai/Kimi-K2.5` as the default model.
 
+## Video generation
+
+The bundled `together` plugin also registers video generation through the
+shared `video_generate` tool.
+
+* Default video model: `together/Wan-AI/Wan2.2-T2V-A14B`
+* Modes: text-to-video and single-image reference flows
+* Supports `aspectRatio` and `resolution`
+
+To use Together as the default video provider:
+
+```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+{
+  agents: {
+    defaults: {
+      videoGenerationModel: {
+        primary: "together/Wan-AI/Wan2.2-T2V-A14B",
+      },
+    },
+  },
+}
+```
+
+See [Video Generation](/tools/video-generation) for the shared tool
+parameters, provider selection, and failover behavior.
+
 
 Built with [Mintlify](https://mintlify.com).
