@@ -16,7 +16,7 @@
 
 * `pnpm test:changed`: expands changed git paths into scoped Vitest lanes when the diff only touches routable source/test files. Config/setup changes still fall back to the native root projects run so wiring edits rerun broadly when needed.
 
-* `pnpm test`: routes explicit file/directory targets through scoped Vitest lanes. Untargeted runs now execute eight sequential shard configs (`vitest.full-core-unit-src.config.ts`, `vitest.full-core-unit-security.config.ts`, `vitest.full-core-unit-support.config.ts`, `vitest.full-core-contracts.config.ts`, `vitest.full-core-runtime.config.ts`, `vitest.full-agentic.config.ts`, `vitest.full-auto-reply.config.ts`, `vitest.full-extensions.config.ts`) instead of one giant root-project process.
+* `pnpm test`: routes explicit file/directory targets through scoped Vitest lanes. Untargeted runs now execute eleven sequential shard configs (`vitest.full-core-unit-src.config.ts`, `vitest.full-core-unit-security.config.ts`, `vitest.full-core-unit-ui.config.ts`, `vitest.full-core-unit-support.config.ts`, `vitest.full-core-support-boundary.config.ts`, `vitest.full-core-contracts.config.ts`, `vitest.full-core-bundled.config.ts`, `vitest.full-core-runtime.config.ts`, `vitest.full-agentic.config.ts`, `vitest.full-auto-reply.config.ts`, `vitest.full-extensions.config.ts`) instead of one giant root-project process.
 
 * Selected `plugin-sdk` and `commands` test files now route through dedicated light lanes that keep only `test/setup.ts`, leaving runtime-heavy cases on their existing lanes.
 
