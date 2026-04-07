@@ -55,7 +55,7 @@ openclaw onboard --non-interactive \
 2. Pull a local model if you want local inference:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-ollama pull glm-4.7-flash
+ollama pull gemma4
 # or
 ollama pull gpt-oss:20b
 # or
@@ -76,12 +76,12 @@ openclaw onboard
 
 * `Local`: local models only
 * `Cloud + Local`: local models plus cloud models
-* Cloud models such as `kimi-k2.5:cloud`, `minimax-m2.5:cloud`, and `glm-5:cloud` do **not** require a local `ollama pull`
+* Cloud models such as `kimi-k2.5:cloud`, `minimax-m2.7:cloud`, and `glm-5.1:cloud` do **not** require a local `ollama pull`
 
 OpenClaw currently suggests:
 
-* local default: `glm-4.7-flash`
-* cloud defaults: `kimi-k2.5:cloud`, `minimax-m2.5:cloud`, `glm-5:cloud`
+* local default: `gemma4`
+* cloud defaults: `kimi-k2.5:cloud`, `minimax-m2.7:cloud`, `glm-5.1:cloud`
 
 5. If you prefer manual setup, enable Ollama for OpenClaw directly (any value works; Ollama doesn't require a real key):
 
@@ -97,7 +97,7 @@ openclaw config set models.providers.ollama.apiKey "ollama-local"
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models list
-openclaw models set ollama/glm-4.7-flash
+openclaw models set ollama/gemma4
 ```
 
 7. Or set the default in config:
@@ -106,7 +106,7 @@ openclaw models set ollama/glm-4.7-flash
 {
   agents: {
     defaults: {
-      model: { primary: "ollama/glm-4.7-flash" },
+      model: { primary: "ollama/gemma4" },
     },
   },
 }
@@ -227,7 +227,7 @@ Once configured, all your Ollama models are available:
 
 ## Cloud models
 
-Cloud models let you run cloud-hosted models (for example `kimi-k2.5:cloud`, `minimax-m2.5:cloud`, `glm-5:cloud`) alongside your local models.
+Cloud models let you run cloud-hosted models (for example `kimi-k2.5:cloud`, `minimax-m2.7:cloud`, `glm-5.1:cloud`) alongside your local models.
 
 To use cloud models, select **Cloud + Local** mode during setup. The wizard checks whether you are signed in and opens a browser sign-in flow when needed. If authentication cannot be verified, the wizard falls back to local model defaults.
 
@@ -353,7 +353,7 @@ To add models:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ollama list  # See what's installed
-ollama pull glm-4.7-flash
+ollama pull gemma4
 ollama pull gpt-oss:20b
 ollama pull llama3.3     # Or another model
 ```
