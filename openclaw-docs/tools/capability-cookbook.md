@@ -606,9 +606,10 @@ conversation, and it runs after core approval handling finishes.
 Provider plugins now have two layers:
 
 * manifest metadata: `providerAuthEnvVars` for cheap provider env-auth lookup
-  before runtime load, `channelEnvVars` for cheap channel env/setup lookup
-  before runtime load, plus `providerAuthChoices` for cheap onboarding/auth-choice
-  labels and CLI flag metadata before runtime load
+  before runtime load, `providerAuthAliases` for provider variants that share
+  auth, `channelEnvVars` for cheap channel env/setup lookup before runtime
+  load, plus `providerAuthChoices` for cheap onboarding/auth-choice labels and
+  CLI flag metadata before runtime load
 * config-time hooks: `catalog` / legacy `discovery` plus `applyConfigDefaults`
 * runtime hooks: `normalizeModelId`, `normalizeTransport`,
   `normalizeConfig`,
@@ -636,8 +637,10 @@ needing a whole custom inference transport.
 
 Use manifest `providerAuthEnvVars` when the provider has env-based credentials
 that generic auth/status/model-picker paths should see without loading plugin
-runtime. Use manifest `providerAuthChoices` when onboarding/auth-choice CLI
-surfaces should know the provider's choice id, group labels, and simple
+runtime. Use manifest `providerAuthAliases` when one provider id should reuse
+another provider id's env vars, auth profiles, config-backed auth, and API-key
+onboarding choice. Use manifest `providerAuthChoices` when onboarding/auth-choice
+CLI surfaces should know the provider's choice id, group labels, and simple
 one-flag auth wiring without loading provider runtime. Keep provider runtime
 `envVars` for operator-facing hints such as onboarding labels or OAuth
 client-id/client-secret setup vars.
@@ -1130,6 +1133,8 @@ authoring plugins:
   `openclaw/plugin-sdk/channel-config-schema`,
   `openclaw/plugin-sdk/telegram-command-config`,
   `openclaw/plugin-sdk/channel-policy`,
+  `openclaw/plugin-sdk/approval-gateway-runtime`,
+  `openclaw/plugin-sdk/approval-handler-adapter-runtime`,
   `openclaw/plugin-sdk/approval-handler-runtime`,
   `openclaw/plugin-sdk/approval-runtime`,
   `openclaw/plugin-sdk/config-runtime`,
