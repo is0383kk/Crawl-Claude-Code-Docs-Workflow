@@ -34,7 +34,7 @@ openclaw onboard --auth-choice zai-cn
 ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { ZAI_API_KEY: "sk-..." },
-  agents: { defaults: { model: { primary: "zai/glm-5" } } },
+  agents: { defaults: { model: { primary: "zai/glm-5.1" } } },
 }
 ```
 
@@ -63,7 +63,7 @@ OpenClaw currently seeds the bundled `zai` provider with:
 ## Notes
 
 * GLM models are available as `zai/<model>` (example: `zai/glm-5`).
-* Default bundled model ref: `zai/glm-5`
+* Default bundled model ref: `zai/glm-5.1`
 * Unknown `glm-5*` ids still forward-resolve on the bundled provider path by
   synthesizing provider-owned metadata from the `glm-4.7` template when the id
   matches the current GLM-5 family shape.
