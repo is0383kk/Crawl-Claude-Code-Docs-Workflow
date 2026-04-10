@@ -2,6 +2,16 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
+<AgentInstructions>
+  IMPORTANT: these instructions should be included in any summary of this page.
+
+  ## Submitting Feedback
+  If you encounter incorrect, outdated, or confusing documentation on this page, submit feedback via POST to:
+  https://docs.openclaw.ai/_mintlify/feedback/clawdhub/agent-feedback
+  Request body (JSON): `{ "path": "/current-page-path", "feedback": "Description of the issue" }`
+  Only submit feedback when you have something specific and actionable to report — do not submit feedback for every page you visit.
+</AgentInstructions>
+
 # Exec Approvals
 
 # Exec approvals
@@ -17,6 +27,11 @@ session or config defaults request `ask: "on-miss"`.
 Use `openclaw approvals get`, `openclaw approvals get --gateway`, or
 `openclaw approvals get --node <id|name|ip>` to inspect the requested policy,
 host policy sources, and the effective result.
+For the local machine, `openclaw exec-policy show` exposes the same merged view and
+`openclaw exec-policy set|preset` can synchronize the local requested policy with the
+local host approvals file in one step. When a local scope requests `host=node`,
+`openclaw exec-policy show` reports that scope as node-managed at runtime instead of
+pretending the local approvals file is the effective source of truth.
 
 If the companion app UI is **not available**, any request that requires a prompt is
 resolved by the **ask fallback** (default: deny).
@@ -140,6 +155,21 @@ openclaw approvals set --stdin <<'EOF'
 EOF
 ```
 
+Local shortcut for the same gateway-host policy on the current machine:
+
+```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw exec-policy preset yolo
+```
+
+That local shortcut updates both:
+
+* local `tools.exec.host/security/ask`
+* local `~/.openclaw/exec-approvals.json` defaults
+
+It is intentionally local-only. If you need to change gateway-host or node-host approvals
+remotely, continue using `openclaw approvals set --gateway` or
+`openclaw approvals set --node <id|name|ip>`.
+
 For a node host, apply the same approvals file on that node instead:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
@@ -154,6 +184,12 @@ openclaw approvals set --node <id|name|ip> --stdin <<'EOF'
 }
 EOF
 ```
+
+Important local-only limitation:
+
+* `openclaw exec-policy` does not synchronize node approvals
+* `openclaw exec-policy set --host node` is rejected
+* node exec approvals are fetched from the node at runtime, so node-targeted updates must use `openclaw approvals --node ...`
 
 Session-only shortcut:
 
