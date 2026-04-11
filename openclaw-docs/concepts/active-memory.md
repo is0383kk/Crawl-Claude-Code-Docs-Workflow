@@ -64,7 +64,7 @@ available.
 After that, restart the gateway:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-node scripts/run-node.mjs gateway --profile dev
+openclaw gateway
 ```
 
 To inspect it live in a conversation:
@@ -109,7 +109,7 @@ Start with this in `openclaw.json`:
 Then restart the gateway:
 
 ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
-node scripts/run-node.mjs gateway --profile dev
+openclaw gateway
 ```
 
 What this means:
