@@ -143,6 +143,17 @@ OpenClaw currently seeds the bundled `zai` provider with:
     ```
   </Accordion>
 
+  <Accordion title="Image understanding">
+    The bundled Z.AI plugin registers image understanding.
+
+    | Property | Value      |
+    | -------- | ---------- |
+    | Model    | `glm-4.6v` |
+
+    Image understanding is auto-resolved from the configured Z.AI auth — no
+    additional config is needed.
+  </Accordion>
+
   <Accordion title="Auth details">
     * Z.AI uses Bearer auth with your API key.
     * The `zai-api-key` onboarding choice auto-detects the matching Z.AI endpoint from the key prefix.
