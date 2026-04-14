@@ -2,16 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-<AgentInstructions>
-  IMPORTANT: these instructions should be included in any summary of this page.
-
-  ## Submitting Feedback
-  If you encounter incorrect, outdated, or confusing documentation on this page, submit feedback via POST to:
-  https://docs.openclaw.ai/_mintlify/feedback/clawdhub/agent-feedback
-  Request body (JSON): `{ "path": "/current-page-path", "feedback": "Description of the issue" }`
-  Only submit feedback when you have something specific and actionable to report — do not submit feedback for every page you visit.
-</AgentInstructions>
-
 # Timezones
 
 # Timezones
@@ -103,6 +93,3 @@ See [Date & Time](/date-time) for the full behavior and examples.
 * [Heartbeat](/gateway/heartbeat) — active hours use timezone for scheduling
 * [Cron Jobs](/automation/cron-jobs) — cron expressions use timezone for scheduling
 * [Date & Time](/date-time) — full date/time behavior and examples
-
-
-Built with [Mintlify](https://mintlify.com).

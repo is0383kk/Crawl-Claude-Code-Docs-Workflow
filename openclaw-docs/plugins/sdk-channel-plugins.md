@@ -2,16 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-<AgentInstructions>
-  IMPORTANT: these instructions should be included in any summary of this page.
-
-  ## Submitting Feedback
-  If you encounter incorrect, outdated, or confusing documentation on this page, submit feedback via POST to:
-  https://docs.openclaw.ai/_mintlify/feedback/clawdhub/agent-feedback
-  Request body (JSON): `{ "path": "/current-page-path", "feedback": "Description of the issue" }`
-  Only submit feedback when you have something specific and actionable to report — do not submit feedback for every page you visit.
-</AgentInstructions>
-
 # Building Channel Plugins
 
 # Building Channel Plugins
@@ -40,6 +30,16 @@ shared `message` tool in core. Your plugin owns:
 
 Core owns the shared message tool, prompt wiring, the outer session-key shape,
 generic `:thread:` bookkeeping, and dispatch.
+
+If your channel adds message-tool params that carry media sources, expose those
+param names through `describeMessageTool(...).mediaSourceParams`. Core uses
+that explicit list for sandbox path normalization and outbound media-access
+policy, so plugins do not need shared-core special cases for provider-specific
+avatar, attachment, or cover-image params.
+Prefer returning an action-keyed map such as
+`{ "set-profile": ["avatarUrl", "avatarPath"] }` so unrelated actions do not
+inherit another action's media args. A flat array still works for params that
+are intentionally shared across every exposed action.
 
 If your platform stores extra scope inside conversation ids, keep that parsing
 in the plugin with `messaging.resolveSessionConversation(...)`. That is the
@@ -616,6 +616,3 @@ should use `resolveInboundMentionDecision({ facts, policy })`.
 * [SDK Overview](/plugins/sdk-overview) — full subpath import reference
 * [SDK Testing](/plugins/sdk-testing) — test utilities and contract tests
 * [Plugin Manifest](/plugins/manifest) — full manifest schema
-
-
-Built with [Mintlify](https://mintlify.com).
