@@ -95,7 +95,7 @@ This gives MCP clients one place to:
 
 ## Usage
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Local Gateway
 openclaw mcp serve
 
@@ -243,7 +243,7 @@ standard polling tools.
 
 Example stdio client config:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "mcpServers": {
     "openclaw": {
@@ -301,7 +301,7 @@ Gateway session.
 
 OpenClaw ships a deterministic Docker smoke for this bridge:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm test:docker:mcp-channels
 ```
 
@@ -388,7 +388,7 @@ Notes:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw mcp list
 openclaw mcp show context7 --json
 openclaw mcp set context7 '{"command":"uvx","args":["context7-mcp"]}'
@@ -398,7 +398,7 @@ openclaw mcp unset context7
 
 Example config shape:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "mcp": {
     "servers": {
@@ -437,7 +437,7 @@ Connects to a remote MCP server over HTTP Server-Sent Events.
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "mcp": {
     "servers": {
@@ -468,7 +468,7 @@ status output.
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "mcp": {
     "servers": {

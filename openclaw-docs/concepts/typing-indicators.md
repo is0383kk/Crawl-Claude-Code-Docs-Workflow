@@ -36,7 +36,7 @@ Order of “how early it fires”:
 
 ## Configuration
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agent: {
     typingMode: "thinking",
@@ -47,7 +47,7 @@ Order of “how early it fires”:
 
 You can override mode or cadence per session:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   session: {
     typingMode: "message",

@@ -28,19 +28,19 @@ Choose your preferred auth method and follow the setup steps.
 
     <Steps>
       <Step title="Set the bearer token on the gateway host">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         export AWS_BEARER_TOKEN_BEDROCK="..."
         ```
 
         Optionally set a region (defaults to `us-east-1`):
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         export AWS_REGION="us-west-2"
         ```
       </Step>
 
       <Step title="Verify models are discovered">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list
         ```
 
@@ -57,14 +57,14 @@ Choose your preferred auth method and follow the setup steps.
       <Step title="Configure AWS credentials on the gateway host">
         Any AWS SDK-compatible auth source works:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         export AWS_PROFILE="default"
         export AWS_REGION="us-west-2"
         ```
       </Step>
 
       <Step title="Verify models are discovered">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list
         ```
 
@@ -104,7 +104,7 @@ region's `/v1/models` endpoint.
 
 If you prefer explicit config instead of auto-discovery:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   models: {
     providers: {

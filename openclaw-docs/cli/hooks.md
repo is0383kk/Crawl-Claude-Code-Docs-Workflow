@@ -17,7 +17,7 @@ Related:
 
 ## List All Hooks
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks list
 ```
 
@@ -43,7 +43,7 @@ Ready:
 
 **Example (verbose):**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks list --verbose
 ```
 
@@ -51,7 +51,7 @@ Shows missing requirements for ineligible hooks.
 
 **Example (JSON):**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks list --json
 ```
 
@@ -59,7 +59,7 @@ Returns structured JSON for programmatic use.
 
 ## Get Hook Information
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks info <name>
 ```
 
@@ -75,7 +75,7 @@ Show detailed information about a specific hook.
 
 **Example:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks info session-memory
 ```
 
@@ -99,7 +99,7 @@ Requirements:
 
 ## Check Hooks Eligibility
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks check
 ```
 
@@ -121,7 +121,7 @@ Not ready: 0
 
 ## Enable a Hook
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable <name>
 ```
 
@@ -135,7 +135,7 @@ Enable a specific hook by adding it to your config (`~/.openclaw/openclaw.json` 
 
 **Example:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable session-memory
 ```
 
@@ -160,7 +160,7 @@ the Gateway will load it.
 
 ## Disable a Hook
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks disable <name>
 ```
 
@@ -172,7 +172,7 @@ Disable a specific hook by updating your config.
 
 **Example:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks disable command-logger
 ```
 
@@ -193,7 +193,7 @@ openclaw hooks disable command-logger
 
 ## Install Hook Packs
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install <package>        # ClawHub first, then npm
 openclaw plugins install <package> --pin  # pin version
 openclaw plugins install <path>           # local path
@@ -227,7 +227,7 @@ prerelease tag such as `@beta`/`@rc` or an exact prerelease version.
 
 **Examples:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Local directory
 openclaw plugins install ./my-hook-pack
 
@@ -246,7 +246,7 @@ directory, not as workspace hooks.
 
 ## Update Hook Packs
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins update <id>
 openclaw plugins update --all
 ```
@@ -273,7 +273,7 @@ Saves session context to memory when you issue `/new` or `/reset`.
 
 **Enable:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable session-memory
 ```
 
@@ -287,7 +287,7 @@ Injects additional bootstrap files (for example monorepo-local `AGENTS.md` / `TO
 
 **Enable:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable bootstrap-extra-files
 ```
 
@@ -299,7 +299,7 @@ Logs all command events to a centralized audit file.
 
 **Enable:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable command-logger
 ```
 
@@ -307,7 +307,7 @@ openclaw hooks enable command-logger
 
 **View logs:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Recent commands
 tail -n 20 ~/.openclaw/logs/commands.log
 
@@ -328,7 +328,7 @@ Runs `BOOT.md` when the gateway starts (after channels start).
 
 **Enable**:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable boot-md
 ```
 

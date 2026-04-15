@@ -30,7 +30,7 @@ When enabled, the plugin prepends concise usage guidance into system-prompt spac
 
 ## Enable the plugin
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -46,7 +46,7 @@ When enabled, the plugin prepends concise usage guidance into system-prompt spac
 
 If you want to keep the `diffs` tool enabled but disable its built-in system-prompt guidance, set `plugins.entries.diffs.hooks.allowPromptInjection` to `false`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -78,7 +78,7 @@ If you want to disable both the guidance and the tool, disable the plugin instea
 
 Before and after:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "before": "# Hello\n\nOne",
   "after": "# Hello\n\nTwo",
@@ -89,7 +89,7 @@ Before and after:
 
 Patch:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "patch": "diff --git a/src/example.ts b/src/example.ts\n--- a/src/example.ts\n+++ b/src/example.ts\n@@ -1 +1 @@\n-const x = 1;\n+const x = 2;\n",
   "mode": "both"
@@ -196,7 +196,7 @@ Mode behavior summary:
 
 Set plugin-wide defaults in `~/.openclaw/openclaw.json`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -253,7 +253,7 @@ Persistent viewer URL config:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -276,7 +276,7 @@ Example:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

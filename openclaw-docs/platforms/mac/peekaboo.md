@@ -36,7 +36,7 @@ Peekaboo clients typically try hosts in this order:
 Use `peekaboo bridge status --verbose` to see which host is active and which
 socket path is in use. You can override with:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export PEEKABOO_BRIDGE_SOCKET=/path/to/bridge.sock
 ```
 

@@ -25,13 +25,13 @@ mode before submission and reports supported modes in `action=list`.
 
 1. Set an API key for any supported provider:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export GEMINI_API_KEY="your-key"
 ```
 
 2. Optionally pin a default model:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set agents.defaults.videoGenerationModel.primary "google/veo-3.1-fast-generate-preview"
 ```
 
@@ -65,7 +65,7 @@ Each `video_generate` request moves through four states:
 
 Check status from the CLI:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks list
 openclaw tasks show <taskId>
 openclaw tasks cancel <taskId>
@@ -232,7 +232,7 @@ Set `agents.defaults.mediaGenerationAutoProviderFallback: false` if you want
 video generation to use only the explicit `model`, `primary`, and `fallbacks`
 entries.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -270,7 +270,7 @@ The shared video-generation contract now lets providers declare mode-specific
 capabilities instead of only flat aggregate limits. New provider
 implementations should prefer explicit mode blocks:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 capabilities: {
   generate: {
     maxVideos: 1,
@@ -302,13 +302,13 @@ deterministically.
 
 Opt-in live coverage for the shared bundled providers:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_LIVE_TEST=1 pnpm test:live -- extensions/video-generation-providers.live.test.ts
 ```
 
 Repo wrapper:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm test:live:media video
 ```
 
@@ -323,7 +323,7 @@ release-safe smoke by default:
 
 FAL is opt-in because provider-side queue latency can dominate release time:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm test:live:media video --video-providers fal
 ```
 
@@ -342,7 +342,7 @@ Today the shared `videoToVideo` live lane covers:
 
 Set the default video generation model in your OpenClaw config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -357,7 +357,7 @@ Set the default video generation model in your OpenClaw config:
 
 Or via the CLI:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set agents.defaults.videoGenerationModel.primary "qwen/wan2.6-t2v"
 ```
 

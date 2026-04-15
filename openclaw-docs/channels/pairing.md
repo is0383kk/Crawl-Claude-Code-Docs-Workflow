@@ -28,7 +28,7 @@ Pairing codes:
 
 ### Approve a sender
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw pairing list telegram
 openclaw pairing approve telegram <CODE>
 ```
@@ -87,7 +87,7 @@ Treat the setup code like a password while it is valid.
 
 ### Approve a node device
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 openclaw devices approve <requestId>
 openclaw devices reject <requestId>

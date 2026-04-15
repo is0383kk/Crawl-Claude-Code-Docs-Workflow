@@ -174,7 +174,7 @@ API key auth, and dynamic model resolution.
     If the upstream provider uses different control tokens than OpenClaw, add a
     small bidirectional text transform instead of replacing the stream path:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     api.registerTextTransforms({
       input: [
         { from: /red basket/g, to: "blue basket" },
@@ -197,7 +197,7 @@ API key auth, and dynamic model resolution.
     auth plus a single catalog-backed runtime, prefer the narrower
     `defineSingleProviderPluginEntry(...)` helper:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
 
     export default defineSingleProviderPluginEntry({
@@ -250,7 +250,7 @@ API key auth, and dynamic model resolution.
     If your provider accepts arbitrary model IDs (like a proxy or router),
     add `resolveDynamicModel`:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     api.registerProvider({
       // ... id, label, auth, catalog from above
 
@@ -280,7 +280,7 @@ API key auth, and dynamic model resolution.
     Shared helper builders now cover the most common replay/tool-compat
     families, so plugins usually do not need to hand-wire each hook one by one:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     import { buildProviderReplayFamilyHooks } from "openclaw/plugin-sdk/provider-model-shared";
     import { buildProviderStreamFamilyHooks } from "openclaw/plugin-sdk/provider-stream";
     import { buildProviderToolCompatFamilyHooks } from "openclaw/plugin-sdk/provider-tools";
@@ -414,7 +414,7 @@ API key auth, and dynamic model resolution.
       <Tab title="Token exchange">
         For providers that need a token exchange before each inference call:
 
-        ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
         prepareRuntimeAuth: async (ctx) => {
           const exchanged = await exchangeToken(ctx.apiKey);
           return {
@@ -429,7 +429,7 @@ API key auth, and dynamic model resolution.
       <Tab title="Custom headers">
         For providers that need custom request headers or body modifications:
 
-        ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
         // wrapStreamFn returns a StreamFn derived from ctx.streamFn
         wrapStreamFn: (ctx) => {
           if (!ctx.streamFn) return undefined;
@@ -449,7 +449,7 @@ API key auth, and dynamic model resolution.
         For providers that need native request/session headers or metadata on
         generic HTTP or WebSocket transports:
 
-        ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
         resolveTransportTurnState: (ctx) => ({
           headers: {
             "x-request-id": ctx.turnId,
@@ -471,7 +471,7 @@ API key auth, and dynamic model resolution.
       <Tab title="Usage and billing">
         For providers that expose usage/billing data:
 
-        ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
         resolveUsageAuth: async (ctx) => {
           const auth = await ctx.resolveOAuthToken();
           return auth ? { token: auth.token } : null;
@@ -562,7 +562,7 @@ API key auth, and dynamic model resolution.
     voice, media understanding, image generation, video generation, web fetch,
     and web search alongside text inference:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     register(api) {
       api.registerProvider({ id: "acme-ai", /* ... */ });
 
@@ -723,7 +723,7 @@ API key auth, and dynamic model resolution.
 
 Provider plugins publish the same way as any other external code plugin:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 clawhub package publish your-org/your-plugin --dry-run
 clawhub package publish your-org/your-plugin
 ```

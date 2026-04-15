@@ -21,7 +21,7 @@ creating them.
 For provider plugins, tool plugins, hook plugins, and anything that is **not**
 a messaging channel.
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 
 export default definePluginEntry({
@@ -62,7 +62,7 @@ Wraps `definePluginEntry` with channel-specific wiring. Automatically calls
 `api.registerChannel({ plugin })`, exposes an optional root-help CLI metadata
 seam, and gates `registerFull` on registration mode.
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { defineChannelPluginEntry } from "openclaw/plugin-sdk/channel-core";
 
 export default defineChannelPluginEntry({
@@ -119,7 +119,7 @@ export default defineChannelPluginEntry({
 For the lightweight `setup-entry.ts` file. Returns just `{ plugin }` with no
 runtime or CLI wiring.
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { defineSetupPluginEntry } from "openclaw/plugin-sdk/channel-core";
 
 export default defineSetupPluginEntry(myChannelPlugin);
@@ -141,6 +141,31 @@ families:
 Keep heavy SDKs, CLI registration, and long-lived runtime services in the full
 entry.
 
+Bundled workspace channels that split setup and runtime surfaces can use
+`defineBundledChannelSetupEntry(...)` from
+`openclaw/plugin-sdk/channel-entry-contract` instead. That contract lets the
+setup entry keep setup-safe plugin/secrets exports while still exposing a
+runtime setter:
+
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
+import { defineBundledChannelSetupEntry } from "openclaw/plugin-sdk/channel-entry-contract";
+
+export default defineBundledChannelSetupEntry({
+  importMetaUrl: import.meta.url,
+  plugin: {
+    specifier: "./channel-plugin-api.js",
+    exportName: "myChannelPlugin",
+  },
+  runtime: {
+    specifier: "./runtime-api.js",
+    exportName: "setMyChannelRuntime",
+  },
+});
+```
+
+Use that bundled contract only when setup flows truly need a lightweight runtime
+setter before the full channel entry loads.
+
 ## Registration mode
 
 `api.registrationMode` tells your plugin how it was loaded:
@@ -155,7 +180,7 @@ entry.
 `defineChannelPluginEntry` handles this split automatically. If you use
 `definePluginEntry` directly for a channel, check mode yourself:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 register(api) {
   if (api.registrationMode === "cli-metadata" || api.registrationMode === "full") {
     api.registerCli(/* ... */);

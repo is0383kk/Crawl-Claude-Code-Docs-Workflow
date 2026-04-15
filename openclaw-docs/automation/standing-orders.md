@@ -45,7 +45,7 @@ The agent loads these instructions every session via the workspace bootstrap fil
 
 ## Anatomy of a Standing Order
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: Weekly Status Report
 
 **Authority:** Compile data, generate report, deliver to stakeholders
@@ -82,7 +82,7 @@ Agent: Reads standing orders → executes steps → reports results
 
 The cron job prompt should reference the standing order rather than duplicating it:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron add \
   --name daily-inbox-triage \
   --cron "0 8 * * 1-5" \
@@ -98,7 +98,7 @@ openclaw cron add \
 
 ### Example 1: Content & Social Media (Weekly Cycle)
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: Content & Social Media
 
 **Authority:** Draft content, schedule posts, compile engagement reports
@@ -121,7 +121,7 @@ openclaw cron add \
 
 ### Example 2: Finance Operations (Event-Triggered)
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: Financial Processing
 
 **Authority:** Process transaction data, generate reports, send summaries
@@ -147,7 +147,7 @@ openclaw cron add \
 
 ### Example 3: Monitoring & Alerts (Continuous)
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: System Monitoring
 
 **Authority:** Check system health, restart services, send alerts
@@ -179,7 +179,7 @@ Standing orders work best when combined with strict execution discipline. Every 
 2. **Verify** — Confirm the result is correct (file exists, message delivered, data parsed)
 3. **Report** — Tell the owner what was done and what was verified
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ### Execution Rules
 
 - Every task follows Execute-Verify-Report. No exceptions.
@@ -196,7 +196,7 @@ This pattern prevents the most common agent failure mode: acknowledging a task w
 
 For agents managing multiple concerns, organize standing orders as separate programs with clear boundaries:
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Standing Orders
 
 ## Program 1: [Domain A] (Weekly)

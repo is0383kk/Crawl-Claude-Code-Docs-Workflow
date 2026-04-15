@@ -33,7 +33,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
   </Step>
 
   <Step title="Connect and install">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     ssh root@YOUR_DROPLET_IP
 
     apt update && apt upgrade -y
@@ -49,7 +49,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
   </Step>
 
   <Step title="Run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --install-daemon
     ```
 
@@ -57,7 +57,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
   </Step>
 
   <Step title="Add swap (recommended for 1 GB Droplets)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     fallocate -l 2G /swapfile
     chmod 600 /swapfile
     mkswap /swapfile
@@ -67,7 +67,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
   </Step>
 
   <Step title="Verify the gateway">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw status
     systemctl --user status openclaw-gateway.service
     journalctl --user -u openclaw-gateway.service -f
@@ -79,7 +79,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
 
     **Option A: SSH tunnel (simplest)**
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     # From your local machine
     ssh -L 18789:localhost:18789 root@YOUR_DROPLET_IP
     ```
@@ -88,7 +88,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
 
     **Option B: Tailscale Serve**
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     curl -fsSL https://tailscale.com/install.sh | sh
     tailscale up
     openclaw config set gateway.tailscale.mode serve
@@ -99,7 +99,7 @@ Run a persistent OpenClaw Gateway on a DigitalOcean Droplet.
 
     **Option C: Tailnet bind (no Serve)**
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config set gateway.bind tailnet
     openclaw gateway restart
     ```

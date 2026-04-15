@@ -91,7 +91,7 @@ Authoritative advertised **discovery** inventory lives in
 
 Connect (first message):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "req",
   "id": "c1",
@@ -113,7 +113,7 @@ Connect (first message):
 
 Hello-ok response:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "res",
   "id": "c1",
@@ -136,17 +136,17 @@ Hello-ok response:
 
 Request + response:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "type": "req", "id": "r1", "method": "health" }
 ```
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "type": "res", "id": "r1", "ok": true, "payload": { "ok": true } }
 ```
 
 Event:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "type": "event", "event": "tick", "payload": { "ts": 1730000000 }, "seq": 12 }
 ```
 
@@ -154,7 +154,7 @@ Event:
 
 Smallest useful flow: connect + health.
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { WebSocket } from "ws";
 
 const ws = new WebSocket("ws://127.0.0.1:18789");
@@ -200,7 +200,7 @@ Example: add a new `system.echo` request that returns `{ ok: true, text }`.
 
 Add to `src/gateway/protocol/schema.ts`:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export const SystemEchoParamsSchema = Type.Object(
   { text: NonEmptyString },
   { additionalProperties: false },
@@ -214,12 +214,12 @@ export const SystemEchoResultSchema = Type.Object(
 
 Add both to `ProtocolSchemas` and export types:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
   SystemEchoParams: SystemEchoParamsSchema,
   SystemEchoResult: SystemEchoResultSchema,
 ```
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export type SystemEchoParams = Static<typeof SystemEchoParamsSchema>;
 export type SystemEchoResult = Static<typeof SystemEchoResultSchema>;
 ```
@@ -228,7 +228,7 @@ export type SystemEchoResult = Static<typeof SystemEchoResultSchema>;
 
 In `src/gateway/protocol/index.ts`, export an AJV validator:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export const validateSystemEchoParams = ajv.compile<SystemEchoParams>(SystemEchoParamsSchema);
 ```
 
@@ -236,7 +236,7 @@ export const validateSystemEchoParams = ajv.compile<SystemEchoParams>(SystemEcho
 
 Add a handler in `src/gateway/server-methods/system.ts`:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export const systemHandlers: GatewayRequestHandlers = {
   "system.echo": ({ params, respond }) => {
     const text = String(params.text ?? "");
@@ -255,7 +255,7 @@ advertising stay aligned.
 
 4. **Regenerate**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm protocol:check
 ```
 

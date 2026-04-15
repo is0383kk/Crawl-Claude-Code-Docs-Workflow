@@ -10,7 +10,7 @@ Most skills loader/install configuration lives under `skills` in
 `~/.openclaw/openclaw.json`. Agent-specific skill visibility lives under
 `agents.defaults.skills` and `agents.list[].skills`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   skills: {
     allowBundled: ["gemini", "peekaboo"],
@@ -56,7 +56,7 @@ Examples:
 Use agent config when you want the same machine/workspace skill roots, but a
 different visible skill set per agent.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

@@ -170,7 +170,7 @@ You are free to edit `HEARTBEAT.md` with a short checklist or reminders. Keep it
 
 **Track your checks** in `memory/heartbeat-state.json`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "lastChecks": {
     "email": 1703275200,

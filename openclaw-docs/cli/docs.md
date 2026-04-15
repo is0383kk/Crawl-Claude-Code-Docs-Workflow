@@ -14,7 +14,7 @@ Arguments:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw docs
 openclaw docs browser existing-session
 openclaw docs sandbox allowHostControl

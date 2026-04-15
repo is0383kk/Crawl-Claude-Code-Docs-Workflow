@@ -17,7 +17,7 @@ Related:
 
 ## Commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins list
 openclaw plugins list --enabled
 openclaw plugins list --verbose
@@ -51,7 +51,7 @@ capabilities.
 
 ### Install
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install <package>                      # ClawHub first, then npm
 openclaw plugins install clawhub:<package>              # ClawHub only
 openclaw plugins install <package> --force              # overwrite existing install
@@ -113,7 +113,7 @@ Claude marketplace installs are also supported.
 
 ClawHub installs use an explicit `clawhub:<package>` locator:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install clawhub:openclaw-codex-app-server
 openclaw plugins install clawhub:openclaw-codex-app-server@1.2.3
 ```
@@ -121,7 +121,7 @@ openclaw plugins install clawhub:openclaw-codex-app-server@1.2.3
 OpenClaw now also prefers ClawHub for bare npm-safe plugin specs. It only falls
 back to npm if ClawHub does not have that package or version:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install openclaw-codex-app-server
 ```
 
@@ -133,14 +133,14 @@ updates.
 Use `plugin@marketplace` shorthand when the marketplace name exists in Claude's
 local registry cache at `~/.claude/plugins/known_marketplaces.json`:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins marketplace list <marketplace-name>
 openclaw plugins install <plugin-name>@<marketplace-name>
 ```
 
 Use `--marketplace` when you want to pass the marketplace source explicitly:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install <plugin-name> --marketplace <marketplace-name>
 openclaw plugins install <plugin-name> --marketplace <owner/repo>
 openclaw plugins install <plugin-name> --marketplace https://github.com/<owner>/<repo>
@@ -177,7 +177,7 @@ shown in diagnostics/info but are not yet wired into runtime execution.
 
 ### List
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins list
 openclaw plugins list --enabled
 openclaw plugins list --verbose
@@ -191,7 +191,7 @@ diagnostics.
 
 Use `--link` to avoid copying a local directory (adds to `plugins.load.paths`):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install -l ./my-plugin
 ```
 
@@ -203,7 +203,7 @@ Use `--pin` on npm installs to save the resolved exact spec (`name@version`) in
 
 ### Uninstall
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins uninstall <id>
 openclaw plugins uninstall <id> --dry-run
 openclaw plugins uninstall <id> --keep-files
@@ -221,7 +221,7 @@ state-dir plugin root. Use
 
 ### Update
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins update <id-or-npm-spec>
 openclaw plugins update --all
 openclaw plugins update <id-or-npm-spec> --dry-run
@@ -253,7 +253,7 @@ updates.
 
 ### Inspect
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins inspect <id>
 openclaw plugins inspect <id> --json
 ```
@@ -282,7 +282,7 @@ compatibility notices, bundle capabilities, and hook summary columns.
 
 ### Doctor
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins doctor
 ```
 
@@ -292,7 +292,7 @@ detected.`
 
 ### Marketplace
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins marketplace list <source>
 openclaw plugins marketplace list <source> --json
 ```

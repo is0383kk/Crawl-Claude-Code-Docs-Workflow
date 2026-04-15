@@ -38,7 +38,7 @@
 
 Set retry policy per provider in `~/.openclaw/openclaw.json`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     telegram: {

@@ -51,7 +51,7 @@ Setup details:
 
 Quadlet-managed setup:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/podman/setup.sh --quadlet
 ```
 
@@ -67,7 +67,7 @@ Optional build/setup env vars:
 
 Container start:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/run-openclaw-podman.sh launch
 ```
 
@@ -75,7 +75,7 @@ The script starts the container as your current uid/gid with `--userns=keep-id` 
 
 Onboarding:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/run-openclaw-podman.sh launch setup
 ```
 
@@ -83,13 +83,13 @@ Then open `http://127.0.0.1:18789/` and use the token from `~/.openclaw/.env`.
 
 Host CLI default:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export OPENCLAW_CONTAINER=openclaw
 ```
 
 Then commands such as these will run inside that container automatically:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw dashboard --no-open
 openclaw gateway status --deep   # includes extra service scan
 openclaw doctor
@@ -121,7 +121,7 @@ See:
 
 If you ran `./scripts/podman/setup.sh --quadlet`, setup installs a Quadlet file at:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ~/.config/containers/systemd/openclaw.container
 ```
 
@@ -134,14 +134,14 @@ Useful commands:
 
 After editing the Quadlet file:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 systemctl --user daemon-reload
 systemctl --user restart openclaw.service
 ```
 
 For boot persistence on SSH/headless hosts, enable lingering for your current user:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 sudo loginctl enable-linger "$(whoami)"
 ```
 

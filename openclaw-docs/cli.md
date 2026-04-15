@@ -766,7 +766,7 @@ More detail: [/concepts/oauth](/concepts/oauth)
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels add --channel telegram --account alerts --name "Alerts Bot" --token $TELEGRAM_BOT_TOKEN
 openclaw channels add --channel discord --account work --name "Work Bot" --token $DISCORD_BOT_TOKEN
 openclaw channels remove --channel discord --account work --delete
@@ -1449,7 +1449,7 @@ Options:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw logs --follow
 openclaw logs --limit 200
 openclaw logs --plain

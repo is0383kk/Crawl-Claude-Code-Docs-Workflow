@@ -31,7 +31,7 @@ This is NOT a real browser - it's just a wrapper.
 
 Install the official Google Chrome `.deb` package, which is not sandboxed by snap:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt --fix-broken install -y  # if there are dependency errors
@@ -39,7 +39,7 @@ sudo apt --fix-broken install -y  # if there are dependency errors
 
 Then update your OpenClaw config (`~/.openclaw/openclaw.json`):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "browser": {
     "enabled": true,
@@ -56,7 +56,7 @@ If you must use snap Chromium, configure OpenClaw to attach to a manually-starte
 
 1. Update config:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "browser": {
     "enabled": true,
@@ -69,7 +69,7 @@ If you must use snap Chromium, configure OpenClaw to attach to a manually-starte
 
 2. Start Chromium manually:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 chromium-browser --headless --no-sandbox --disable-gpu \
   --remote-debugging-port=18800 \
   --user-data-dir=$HOME/.openclaw/browser/openclaw/user-data \
@@ -78,7 +78,7 @@ chromium-browser --headless --no-sandbox --disable-gpu \
 
 3. Optionally create a systemd user service to auto-start Chrome:
 
-```ini  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ini theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # ~/.config/systemd/user/openclaw-browser.service
 [Unit]
 Description=OpenClaw Browser (Chrome CDP)
@@ -99,13 +99,13 @@ Enable with: `systemctl --user enable --now openclaw-browser.service`
 
 Check status:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -s http://127.0.0.1:18791/ | jq '{running, pid, chosenBrowser}'
 ```
 
 Test browsing:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -s -X POST http://127.0.0.1:18791/start
 curl -s http://127.0.0.1:18791/tabs
 ```

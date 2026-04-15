@@ -20,7 +20,7 @@ handshake time.
 
 Gateway → Client (pre-connect challenge):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "event",
   "event": "connect.challenge",
@@ -30,7 +30,7 @@ Gateway → Client (pre-connect challenge):
 
 Client → Gateway:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "req",
   "id": "…",
@@ -65,7 +65,7 @@ Client → Gateway:
 
 Gateway → Client:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "res",
   "id": "…",
@@ -76,7 +76,7 @@ Gateway → Client:
 
 When a device token is issued, `hello-ok` also includes:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "auth": {
     "deviceToken": "…",
@@ -89,7 +89,7 @@ When a device token is issued, `hello-ok` also includes:
 During trusted bootstrap handoff, `hello-ok.auth` may also include additional
 bounded role entries in `deviceTokens`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "auth": {
     "deviceToken": "…",
@@ -115,7 +115,7 @@ roles still need scopes under their own role prefix.
 
 ### Node example
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "req",
   "id": "…",

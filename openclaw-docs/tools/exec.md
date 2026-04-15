@@ -74,7 +74,7 @@ Notes:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     exec: {
@@ -99,7 +99,7 @@ Example:
 
 Per-agent node binding (use the agent list index in config):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config get agents.list
 openclaw config set agents.list[0].tools.exec.node "node-id-or-name"
 ```
@@ -169,13 +169,13 @@ For full policy details and examples, see [Exec approvals](/tools/exec-approvals
 
 Foreground:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "tool": "exec", "command": "ls -la" }
 ```
 
 Background + poll:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {"tool":"exec","command":"npm run build","yieldMs":1000}
 {"tool":"process","action":"poll","sessionId":"<id>"}
 ```
@@ -185,7 +185,7 @@ is enabled, the command can wake the session when it emits output or fails.
 
 Send keys (tmux-style):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {"tool":"process","action":"send-keys","sessionId":"<id>","keys":["Enter"]}
 {"tool":"process","action":"send-keys","sessionId":"<id>","keys":["C-c"]}
 {"tool":"process","action":"send-keys","sessionId":"<id>","keys":["Up","Up","Enter"]}
@@ -193,13 +193,13 @@ Send keys (tmux-style):
 
 Submit (send CR only):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "tool": "process", "action": "submit", "sessionId": "<id>" }
 ```
 
 Paste (bracketed by default):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "tool": "process", "action": "paste", "sessionId": "<id>", "text": "line1\nline2\n" }
 ```
 
@@ -209,7 +209,7 @@ Paste (bracketed by default):
 It is enabled by default for OpenAI and OpenAI Codex models. Use config only
 when you want to disable it or restrict it to specific models:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     exec: {

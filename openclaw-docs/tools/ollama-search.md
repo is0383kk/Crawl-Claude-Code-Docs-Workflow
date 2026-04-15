@@ -26,7 +26,7 @@ default. It does require:
   <Step title="Sign in">
     Run:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     ollama signin
     ```
   </Step>
@@ -34,7 +34,7 @@ default. It does require:
   <Step title="Choose Ollama Web Search">
     Run:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
 
@@ -47,7 +47,7 @@ configured host.
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     web: {
@@ -61,7 +61,7 @@ configured host.
 
 Optional Ollama host override:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   models: {
     providers: {

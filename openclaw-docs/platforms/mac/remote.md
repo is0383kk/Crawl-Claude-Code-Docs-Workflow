@@ -76,7 +76,7 @@ Remote mode supports two transports:
 
 Pick sounds per notification from scripts with `openclaw` and `node.invoke`, e.g.:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes notify --node <id> --title "Ping" --body "Remote gateway ready" --sound Glass
 ```
 

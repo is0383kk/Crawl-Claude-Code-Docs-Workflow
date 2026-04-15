@@ -12,7 +12,7 @@ Use this page when a channel connects but behavior is wrong.
 
 Run these in order first:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw status
 openclaw gateway status
 openclaw logs --follow

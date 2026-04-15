@@ -134,25 +134,25 @@ Use this when Control UI or other clients keep failing with `AUTH_TOKEN_MISMATCH
 
 1. Confirm current gateway token source:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config get gateway.auth.token
 ```
 
 2. List paired devices and identify the affected device id:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 ```
 
 3. Rotate operator token for the affected device:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices rotate --device <deviceId> --role operator
 ```
 
 4. If rotation is not enough, remove stale pairing and approve again:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices remove <deviceId>
 openclaw devices list
 openclaw devices approve <requestId>

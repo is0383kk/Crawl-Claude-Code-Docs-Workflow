@@ -54,7 +54,7 @@ On pushes, the `checks` matrix adds the push-only `compat-node22` lane. On pull 
 
 ## Local Equivalents
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm check          # types + lint + format
 pnpm build:strict-smoke
 pnpm check:import-cycles

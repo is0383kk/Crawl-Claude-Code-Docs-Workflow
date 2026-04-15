@@ -47,7 +47,7 @@ providers, replace channel delivery, or silently switch models.
 
 **Import:** `openclaw/plugin-sdk/agent-harness`
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import type { AgentHarness } from "openclaw/plugin-sdk/agent-harness";
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 
@@ -161,7 +161,7 @@ an explicit `runtime: "pi"` or `OPENCLAW_AGENT_RUNTIME=pi`.
 
 For Codex-only embedded runs:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "defaults": {
@@ -179,7 +179,7 @@ If you want any registered plugin harness to claim matching models but never
 want OpenClaw to silently fall back to PI, keep `runtime: "auto"` and disable
 the fallback:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "defaults": {
@@ -194,7 +194,7 @@ the fallback:
 
 Per-agent overrides use the same shape:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "defaults": {
@@ -221,7 +221,7 @@ Per-agent overrides use the same shape:
 `OPENCLAW_AGENT_HARNESS_FALLBACK=none` to disable PI fallback from the
 environment.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_AGENT_RUNTIME=codex \
 OPENCLAW_AGENT_HARNESS_FALLBACK=none \
 openclaw gateway run

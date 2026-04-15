@@ -19,7 +19,7 @@ Before building the app, ensure you have the following installed:
 
 Install the project-wide dependencies:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm install
 ```
 
@@ -27,7 +27,7 @@ pnpm install
 
 To build the macOS app and package it into `dist/OpenClaw.app`, run:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/package-mac-app.sh
 ```
 
@@ -50,7 +50,7 @@ The macOS app expects a global `openclaw` CLI install to manage background tasks
 
 Alternatively, install it manually:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 npm install -g openclaw@<version>
 ```
 
@@ -70,7 +70,7 @@ The macOS app build expects the latest macOS SDK and Swift 6.2 toolchain.
 
 **Checks:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 xcodebuild -version
 xcrun swift --version
 ```
@@ -85,7 +85,7 @@ If the app crashes when you try to allow **Speech Recognition** or **Microphone*
 
 1. Reset the TCC permissions:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    tccutil reset All ai.openclaw.mac.debug
    ```
 
@@ -95,7 +95,7 @@ If the app crashes when you try to allow **Speech Recognition** or **Microphone*
 
 If the gateway status stays on "Starting...", check if a zombie process is holding the port:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway status
 openclaw gateway stop
 

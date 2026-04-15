@@ -61,7 +61,7 @@ Notes:
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw configure
 openclaw configure --section web
 openclaw configure --section model --section channels

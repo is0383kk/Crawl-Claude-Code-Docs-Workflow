@@ -44,19 +44,19 @@ Choose your provider and follow the setup steps.
       </Step>
 
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice moonshot-api-key
         ```
 
         Or for the China endpoint:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice moonshot-api-key-cn
         ```
       </Step>
 
       <Step title="Set a default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           agents: {
             defaults: {
@@ -68,7 +68,7 @@ Choose your provider and follow the setup steps.
       </Step>
 
       <Step title="Verify models are available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider moonshot
         ```
       </Step>
@@ -76,7 +76,7 @@ Choose your provider and follow the setup steps.
 
     ### Config example
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { MOONSHOT_API_KEY: "sk-..." },
       agents: {
@@ -155,13 +155,13 @@ Choose your provider and follow the setup steps.
 
     <Steps>
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice kimi-code-api-key
         ```
       </Step>
 
       <Step title="Set a default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           agents: {
             defaults: {
@@ -173,7 +173,7 @@ Choose your provider and follow the setup steps.
       </Step>
 
       <Step title="Verify the model is available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider kimi
         ```
       </Step>
@@ -181,7 +181,7 @@ Choose your provider and follow the setup steps.
 
     ### Config example
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { KIMI_API_KEY: "sk-..." },
       agents: {
@@ -204,7 +204,7 @@ search.
 
 <Steps>
   <Step title="Run interactive web search setup">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
 
@@ -224,7 +224,7 @@ search.
 
 Config lives under `plugins.entries.moonshot.config.webSearch`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -260,7 +260,7 @@ Config lives under `plugins.entries.moonshot.config.webSearch`:
 
     Configure it per model via `agents.defaults.models.<provider/model>.params`:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {

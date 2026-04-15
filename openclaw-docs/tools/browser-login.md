@@ -29,7 +29,7 @@ Two easy ways to access it:
 1. **Ask the agent to open the browser** and then log in yourself.
 2. **Open it via CLI**:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser start
 openclaw browser open https://x.com
 ```
@@ -47,7 +47,7 @@ Sandboxed browser sessions are **more likely** to trigger bot detection. For X/T
 
 If the agent is sandboxed, the browser tool defaults to the sandbox. To allow host control:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -64,7 +64,7 @@ If the agent is sandboxed, the browser tool defaults to the sandbox. To allow ho
 
 Then target the host browser:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser open https://x.com --browser-profile openclaw --target host
 ```
 

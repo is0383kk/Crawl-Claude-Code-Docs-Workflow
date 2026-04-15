@@ -21,7 +21,7 @@ No API key needed — just set DuckDuckGo as your provider:
 
 <Steps>
   <Step title="Configure">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     # Select "duckduckgo" as the provider
     ```
@@ -30,7 +30,7 @@ No API key needed — just set DuckDuckGo as your provider:
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     web: {
@@ -44,7 +44,7 @@ No API key needed — just set DuckDuckGo as your provider:
 
 Optional plugin-level settings for region and SafeSearch:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

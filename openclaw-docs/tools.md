@@ -111,7 +111,7 @@ Plugins can register additional tools. Some examples:
 Control which tools the agent can call via `tools.allow` / `tools.deny` in
 config. Deny always wins over allow.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     allow: ["group:fs", "browser", "web_search"],
@@ -166,7 +166,7 @@ as a raw transcript dump.
 Use `tools.byProvider` to restrict tools for specific providers without
 changing global defaults:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     profile: "coding",

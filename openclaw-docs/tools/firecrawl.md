@@ -22,7 +22,7 @@ which helps with JS-heavy sites or pages that block plain HTTP fetches.
 
 ## Configure Firecrawl search
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     web: {
@@ -57,7 +57,7 @@ Notes:
 
 ## Configure Firecrawl scrape + web\_fetch fallback
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

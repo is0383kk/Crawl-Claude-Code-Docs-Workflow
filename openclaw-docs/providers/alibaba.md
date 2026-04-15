@@ -18,13 +18,13 @@ Alibaba Model Studio / DashScope.
 
 <Steps>
   <Step title="Set an API key">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice qwen-standard-api-key
     ```
   </Step>
 
   <Step title="Set a default video model">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -38,7 +38,7 @@ Alibaba Model Studio / DashScope.
   </Step>
 
   <Step title="Verify the provider is available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider alibaba
     ```
   </Step>

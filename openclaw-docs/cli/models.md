@@ -15,7 +15,7 @@ Related:
 
 ## Common commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models status
 openclaw models list
 openclaw models set <model-or-alias>
@@ -88,14 +88,14 @@ Probe detail/reason-code cases to expect:
 
 ## Aliases + fallbacks
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models aliases list
 openclaw models fallbacks list
 ```
 
 ## Auth profiles
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models auth add
 openclaw models auth login --provider <id>
 openclaw models auth setup-token --provider <id>
@@ -111,7 +111,7 @@ provider you choose.
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models auth login --provider openai-codex --set-default
 ```
 

@@ -24,13 +24,13 @@ to Groq through its OpenAI-compatible API.
   </Step>
 
   <Step title="Set the API key">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export GROQ_API_KEY="gsk_..."
     ```
   </Step>
 
   <Step title="Set a default model">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -44,7 +44,7 @@ to Groq through its OpenAI-compatible API.
 
 ### Config file example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { GROQ_API_KEY: "gsk_..." },
   agents: {
@@ -80,7 +80,7 @@ media-understanding provider, OpenClaw uses Groq's `whisper-large-v3-turbo`
 model to transcribe voice messages through the shared `tools.media.audio`
 surface.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {

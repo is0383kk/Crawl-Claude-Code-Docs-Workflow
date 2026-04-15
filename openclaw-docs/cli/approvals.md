@@ -29,7 +29,7 @@ Use it when you want to:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw exec-policy show
 openclaw exec-policy show --json
 
@@ -57,7 +57,7 @@ or `openclaw approvals set --node <id|name|ip>`.
 
 ## Common commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals get
 openclaw approvals get --node <id|name|ip>
 openclaw approvals get --gateway
@@ -78,7 +78,7 @@ Precedence is intentional:
 
 ## Replace approvals from a file
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals set --file ./exec-approvals.json
 openclaw approvals set --stdin <<'EOF'
 { version: 1, defaults: { security: "full", ask: "off" } }
@@ -93,7 +93,7 @@ openclaw approvals set --gateway --file ./exec-approvals.json
 
 For a host that should never stop on exec approvals, set the host approvals defaults to `full` + `off`:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals set --stdin <<'EOF'
 {
   version: 1,
@@ -108,7 +108,7 @@ EOF
 
 Node variant:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals set --node <id|name|ip> --stdin <<'EOF'
 {
   version: 1,
@@ -123,7 +123,7 @@ EOF
 
 This changes the **host approvals file** only. To keep the requested OpenClaw policy aligned, also set:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set tools.exec.host gateway
 openclaw config set tools.exec.security full
 openclaw config set tools.exec.ask off
@@ -139,7 +139,7 @@ This matches the current host-default YOLO behavior. Tighten it if you want appr
 
 Local shortcut:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw exec-policy preset yolo
 ```
 
@@ -149,7 +149,7 @@ setup above, but only for the local machine.
 
 ## Allowlist helpers
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals allowlist add "~/Projects/**/bin/rg"
 openclaw approvals allowlist add --agent main --node <id|name|ip> "/usr/bin/uptime"
 openclaw approvals allowlist add --agent "*" "/usr/bin/uname"

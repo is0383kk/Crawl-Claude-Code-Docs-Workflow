@@ -18,7 +18,7 @@ Your agent has three memory-related files:
   decisions. Loaded at the start of every DM session.
 * **`memory/YYYY-MM-DD.md`** -- daily notes. Running context and observations.
   Today and yesterday's notes are loaded automatically.
-* **`DREAMS.md`** (experimental, optional) -- Dream Diary and dreaming sweep
+* **`DREAMS.md`** (optional) -- Dream Diary and dreaming sweep
   summaries for human review, including grounded historical backfill entries.
 
 These files live in the agent workspace (default `~/.openclaw/workspace`).
@@ -114,7 +114,7 @@ files. This is on by default -- you do not need to configure anything.
   will be saved automatically before the summary happens.
 </Tip>
 
-## Dreaming (experimental)
+## Dreaming
 
 Dreaming is an optional background consolidation pass for memory. It collects
 short-term signals, scores candidates, and promotes only qualified items into
@@ -131,7 +131,7 @@ It is designed to keep long-term memory high signal:
   for human review.
 
 For phase behavior, scoring signals, and Dream Diary details, see
-[Dreaming (experimental)](/concepts/dreaming).
+[Dreaming](/concepts/dreaming).
 
 ## Grounded backfill and live promotion
 
@@ -148,7 +148,7 @@ the system thinks is durable without manually editing `MEMORY.md`.
 
 When you use:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory rem-backfill --path ./memory --stage-short-term
 ```
 
@@ -163,14 +163,14 @@ means:
 If you decide the replay was not useful, you can remove the staged artifacts
 without touching ordinary diary entries or normal recall state:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory rem-backfill --rollback
 openclaw memory rem-backfill --rollback-short-term
 ```
 
 ## CLI
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory status          # Check index status and provider
 openclaw memory search "query"  # Search from the command line
 openclaw memory index --force   # Rebuild the index
@@ -184,7 +184,7 @@ openclaw memory index --force   # Rebuild the index
 * [Memory Wiki](/plugins/memory-wiki) -- compiled knowledge vault and wiki-native tools
 * [Memory Search](/concepts/memory-search) -- search pipeline, providers, and
   tuning
-* [Dreaming (experimental)](/concepts/dreaming) -- background promotion
+* [Dreaming](/concepts/dreaming) -- background promotion
   from short-term recall to long-term memory
 * [Memory configuration reference](/reference/memory-config) -- all config knobs
 * [Compaction](/concepts/compaction) -- how compaction interacts with memory

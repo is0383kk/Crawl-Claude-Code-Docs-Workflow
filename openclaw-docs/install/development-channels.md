@@ -23,7 +23,7 @@ installs.
 
 ## Switching channels
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw update --channel stable
 openclaw update --channel beta
 openclaw update --channel dev
@@ -50,7 +50,7 @@ gateway at the stable one.
 Use `--tag` to target a specific dist-tag, version, or package spec for a single
 update **without** changing your persisted channel:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Install a specific version
 openclaw update --tag 2026.4.1-beta.1
 
@@ -79,7 +79,7 @@ Notes:
 
 Preview what `openclaw update` would do without making changes:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw update --dry-run
 openclaw update --channel beta --dry-run
 openclaw update --tag 2026.4.1-beta.1 --dry-run
@@ -100,7 +100,7 @@ sources:
 
 ## Checking current status
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw update status
 ```
 

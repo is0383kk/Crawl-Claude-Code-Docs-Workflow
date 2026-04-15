@@ -34,7 +34,7 @@ No external `zca`/`openzca` CLI binary is required.
    * Scan the QR code with the Zalo mobile app.
 3. Enable the channel:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalouser: {
@@ -63,7 +63,7 @@ Channel id is `zalouser` to make it explicit this automates a **personal Zalo us
 
 Use the directory CLI to discover peers/groups and their IDs:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw directory self --channel zalouser
 openclaw directory peers list --channel zalouser --query "name"
 openclaw directory groups list --channel zalouser --query "work"
@@ -102,7 +102,7 @@ Approve via:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalouser: {
@@ -129,7 +129,7 @@ Example:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalouser: {
@@ -147,7 +147,7 @@ Example:
 
 Accounts map to `zalouser` profiles in OpenClaw state. Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalouser: {

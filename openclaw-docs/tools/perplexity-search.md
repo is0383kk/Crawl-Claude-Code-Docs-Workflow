@@ -31,7 +31,7 @@ Optional compatibility controls:
 
 ### Native Perplexity Search API
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -56,7 +56,7 @@ Optional compatibility controls:
 
 ### OpenRouter / Sonar compatibility
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -121,7 +121,7 @@ For the legacy Sonar/OpenRouter compatibility path:
 
 **Examples:**
 
-```javascript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```javascript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // Country and language-specific search
 await web_search({
   query: "renewable energy",

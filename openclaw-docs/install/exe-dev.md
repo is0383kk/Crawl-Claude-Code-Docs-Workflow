@@ -38,13 +38,13 @@ Set up OpenClaw (https://docs.openclaw.ai/install) on this VM. Use the non-inter
 
 From your device:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ssh exe.dev new
 ```
 
 Then connect:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ssh <vm-name>.exe.xyz
 ```
 
@@ -54,7 +54,7 @@ Tip: keep this VM **stateful**. OpenClaw stores `openclaw.json`, per-agent
 
 ## 2) Install prerequisites (on the VM)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 sudo apt-get update
 sudo apt-get install -y git curl jq ca-certificates openssl
 ```
@@ -63,7 +63,7 @@ sudo apt-get install -y git curl jq ca-certificates openssl
 
 Run the OpenClaw install script:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -fsSL https://openclaw.ai/install.sh | bash
 ```
 
@@ -121,7 +121,7 @@ with email auth.
 
 ## Updating
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 npm i -g openclaw@latest
 openclaw doctor
 openclaw gateway restart

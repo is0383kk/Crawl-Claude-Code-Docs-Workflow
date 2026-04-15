@@ -60,19 +60,19 @@ Once you have SSH access to a macOS VM, continue at step 6 below.
 
 ## 1) Install Lume
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/trycua/cua/main/libs/lume/scripts/install.sh)"
 ```
 
 If `~/.local/bin` isn't in your PATH:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.zshrc && source ~/.zshrc
 ```
 
 Verify:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 lume --version
 ```
 
@@ -82,7 +82,7 @@ Docs: [Lume Installation](https://cua.ai/docs/lume/guide/getting-started/install
 
 ## 2) Create the macOS VM
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 lume create openclaw --os macos --ipsw latest
 ```
 
@@ -110,7 +110,7 @@ After setup completes, enable SSH:
 
 ## 4) Get the VM IP address
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 lume get openclaw
 ```
 
@@ -120,7 +120,7 @@ Look for the IP address (usually `192.168.64.x`).
 
 ## 5) SSH into the VM
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ssh youruser@192.168.64.X
 ```
 
@@ -132,7 +132,7 @@ Replace `youruser` with the account you created, and the IP with your VM's IP.
 
 Inside the VM:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 npm install -g openclaw@latest
 openclaw onboard --install-daemon
 ```
@@ -145,13 +145,13 @@ Follow the onboarding prompts to set up your model provider (Anthropic, OpenAI, 
 
 Edit the config file:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 nano ~/.openclaw/openclaw.json
 ```
 
 Add your channels:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -167,7 +167,7 @@ Add your channels:
 
 Then login to WhatsApp (scan QR):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels login
 ```
 
@@ -177,7 +177,7 @@ openclaw channels login
 
 Stop the VM and restart without display:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 lume stop openclaw
 lume run openclaw --no-display
 ```
@@ -186,7 +186,7 @@ The VM runs in the background. OpenClaw's daemon keeps the gateway running.
 
 To check status:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ssh youruser@192.168.64.X "openclaw status"
 ```
 
@@ -205,7 +205,7 @@ Inside the VM:
 
 Add to your OpenClaw config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     bluebubbles: {
@@ -227,14 +227,14 @@ Full setup details: [BlueBubbles channel](/channels/bluebubbles)
 
 Before customizing further, snapshot your clean state:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 lume stop openclaw
 lume clone openclaw openclaw-golden
 ```
 
 Reset anytime:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 lume stop openclaw && lume delete openclaw
 lume clone openclaw-golden openclaw
 lume run openclaw --no-display

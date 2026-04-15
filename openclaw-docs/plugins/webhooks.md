@@ -24,7 +24,7 @@ that Gateway host, then restart the Gateway.
 
 Set config under `plugins.entries.webhooks.config`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -98,7 +98,7 @@ Send `POST` requests with:
 
 Example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -X POST https://gateway.example.com/plugins/webhooks/zapier \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer YOUR_SHARED_SECRET' \
@@ -129,7 +129,7 @@ Creates a managed TaskFlow for the route's bound session.
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "create_flow",
   "goal": "Review inbound queue",
@@ -149,7 +149,7 @@ Allowed runtimes are:
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "run_task",
   "flowId": "flow_123",
@@ -163,7 +163,7 @@ Example:
 
 Successful responses return:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "ok": true,
   "routeId": "zapier",
@@ -173,7 +173,7 @@ Successful responses return:
 
 Rejected requests return:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "ok": false,
   "routeId": "zapier",

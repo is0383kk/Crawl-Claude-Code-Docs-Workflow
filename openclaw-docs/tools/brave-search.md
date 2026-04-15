@@ -16,7 +16,7 @@ OpenClaw supports Brave Search API as a `web_search` provider.
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -66,7 +66,7 @@ Legacy `tools.web.search.apiKey` still loads through the compatibility shim, but
 
 **Examples:**
 
-```javascript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```javascript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // Country and language-specific search
 await web_search({
   query: "renewable energy",

@@ -18,7 +18,7 @@ This guide summarizes a sane workflow for working on the pi integration in OpenC
 
 Run the Pi-focused test set directly with Vitest:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm test \
   "src/agents/pi-*.test.ts" \
   "src/agents/pi-embedded-*.test.ts" \
@@ -30,7 +30,7 @@ pnpm test \
 
 To include the live provider exercise:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_LIVE_TEST=1 pnpm test src/agents/pi-embedded-runner-extraparams.live.test.ts
 ```
 

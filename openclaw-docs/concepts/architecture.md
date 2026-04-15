@@ -55,7 +55,7 @@ Protocol details:
 
 ## Connection lifecycle (single client)
 
-```mermaid  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```mermaid theme={"theme":{"light":"min-light","dark":"min-dark"}}
 sequenceDiagram
     participant Client
     participant Gateway
@@ -129,7 +129,7 @@ Details: [Gateway protocol](/gateway/protocol), [Pairing](/channels/pairing),
 
 * Alternative: SSH tunnel
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   ssh -N -L 18789:127.0.0.1:18789 user@host
   ```
 

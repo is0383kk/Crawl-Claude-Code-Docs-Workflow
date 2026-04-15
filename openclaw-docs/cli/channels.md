@@ -15,7 +15,7 @@ Related docs:
 
 ## Common commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels list
 openclaw channels status
 openclaw channels capabilities
@@ -39,7 +39,7 @@ instead of live probe output.
 
 ## Add / remove accounts
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels add --channel telegram --token <bot-token>
 openclaw channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY"
 openclaw channels remove --channel telegram --delete
@@ -79,7 +79,7 @@ If your config was already in a mixed state (named accounts present and top-leve
 
 ## Login / logout (interactive)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels login --channel whatsapp
 openclaw channels logout --channel whatsapp
 ```
@@ -100,7 +100,7 @@ Notes:
 
 Fetch provider capability hints (intents/scopes where available) plus static feature support:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels capabilities
 openclaw channels capabilities --channel discord --target channel:123
 ```
@@ -116,7 +116,7 @@ Notes:
 
 Resolve channel/user names to IDs using the provider directory:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels resolve --channel slack "#general" "@jane"
 openclaw channels resolve --channel discord "My Server/#support" "@someone"
 openclaw channels resolve --channel matrix "Project Room"

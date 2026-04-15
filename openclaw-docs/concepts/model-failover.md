@@ -155,7 +155,7 @@ Cooldowns use exponential backoff:
 
 State is stored in `auth-state.json` under `usageStats`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "usageStats": {
     "provider:profile": {
@@ -184,7 +184,7 @@ billing-disable path.
 
 State is stored in `auth-state.json`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "usageStats": {
     "provider:profile": {

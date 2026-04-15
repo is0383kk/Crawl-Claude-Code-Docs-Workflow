@@ -22,13 +22,13 @@ with a Z.AI API key.
 
     <Steps>
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice zai-api-key
         ```
       </Step>
 
       <Step title="Set a default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           env: { ZAI_API_KEY: "sk-..." },
           agents: { defaults: { model: { primary: "zai/glm-5.1" } } },
@@ -37,7 +37,7 @@ with a Z.AI API key.
       </Step>
 
       <Step title="Verify the model is available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider zai
         ```
       </Step>
@@ -49,7 +49,7 @@ with a Z.AI API key.
 
     <Steps>
       <Step title="Pick the right onboarding choice">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         # Coding Plan Global (recommended for Coding Plan users)
         openclaw onboard --auth-choice zai-coding-global
 
@@ -65,7 +65,7 @@ with a Z.AI API key.
       </Step>
 
       <Step title="Set a default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           env: { ZAI_API_KEY: "sk-..." },
           agents: { defaults: { model: { primary: "zai/glm-5.1" } } },
@@ -74,7 +74,7 @@ with a Z.AI API key.
       </Step>
 
       <Step title="Verify the model is available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider zai
         ```
       </Step>
@@ -118,7 +118,7 @@ OpenClaw currently seeds the bundled `zai` provider with:
   <Accordion title="Tool-call streaming">
     `tool_stream` is enabled by default for Z.AI tool-call streaming. To disable it:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {

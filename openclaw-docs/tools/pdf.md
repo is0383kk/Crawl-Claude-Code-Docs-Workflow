@@ -96,7 +96,7 @@ Fallback details:
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -140,7 +140,7 @@ Path fields:
 
 Single PDF:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "pdf": "/tmp/report.pdf",
   "prompt": "Summarize this report in 5 bullets"
@@ -149,7 +149,7 @@ Single PDF:
 
 Multiple PDFs:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "pdfs": ["/tmp/q1.pdf", "/tmp/q2.pdf"],
   "prompt": "Compare risks and timeline changes across both documents"
@@ -158,7 +158,7 @@ Multiple PDFs:
 
 Page-filtered fallback model:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "pdf": "https://example.com/report.pdf",
   "pages": "1-3,7",

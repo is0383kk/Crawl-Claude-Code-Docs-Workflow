@@ -21,7 +21,7 @@ Options:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw backup create
 openclaw uninstall
 openclaw uninstall --service --yes --non-interactive

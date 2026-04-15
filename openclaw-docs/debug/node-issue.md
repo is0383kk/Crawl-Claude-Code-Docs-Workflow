@@ -26,7 +26,7 @@ This began after switching dev scripts from Bun to `tsx` (commit `2871657e`, 202
 
 ## Repro (Node-only)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # in repo root
 node --version
 pnpm install
@@ -35,7 +35,7 @@ node --import tsx src/entry.ts status
 
 ## Minimal repro in repo
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 node --import tsx scripts/repro/tsx-name-repro.ts
 ```
 
@@ -62,7 +62,7 @@ node --import tsx scripts/repro/tsx-name-repro.ts
 
 * Use Node + tsc watch, then run compiled output:
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   pnpm exec tsc --watch --preserveWatchOutput
   node --watch openclaw.mjs status
   ```

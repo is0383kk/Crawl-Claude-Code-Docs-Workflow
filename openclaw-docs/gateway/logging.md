@@ -26,7 +26,7 @@ The file format is one JSON object per line.
 The Control UI Logs tab tails this file via the gateway (`logs.tail`).
 CLI can do the same:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw logs --follow
 ```
 
@@ -80,7 +80,7 @@ The gateway prints WebSocket protocol logs in two modes:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # optimized (only errors/slow)
 openclaw gateway
 

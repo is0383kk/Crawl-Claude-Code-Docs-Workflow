@@ -44,7 +44,7 @@ Compaction summarization preserves opaque identifiers by default (`identifierPol
 
 You can optionally specify a different model for compaction summarization via `agents.defaults.compaction.model`. This is useful when your primary model is a local or small model and you want compaction summaries produced by a more capable model. The override accepts any `provider/model-id` string:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "defaults": {
@@ -58,7 +58,7 @@ You can optionally specify a different model for compaction summarization via `a
 
 This also works with local models, for example a second Ollama model dedicated to summarization or a fine-tuned compaction specialist:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "defaults": {
@@ -78,7 +78,7 @@ Plugins can register a custom compaction provider via `registerCompactionProvide
 
 To use a registered provider, set the provider id in your config:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "defaults": {
@@ -118,7 +118,7 @@ the summary:
 By default, compaction uses your agent's primary model. You can use a more
 capable model for better summaries:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -135,7 +135,7 @@ capable model for better summaries:
 By default, compaction runs silently. To show a brief notice when compaction
 starts, enable `notifyUser`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

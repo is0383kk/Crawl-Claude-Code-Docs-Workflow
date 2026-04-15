@@ -12,7 +12,7 @@ Legacy alias for Gateway service management commands.
 
 ## Usage
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw daemon status
 openclaw daemon install
 openclaw daemon start

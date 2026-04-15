@@ -15,7 +15,7 @@ Related:
 
 ## Gmail
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw webhooks gmail setup --account you@example.com
 openclaw webhooks gmail run
 ```
@@ -51,7 +51,7 @@ Options:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw webhooks gmail setup --account you@example.com
 openclaw webhooks gmail setup --account you@example.com --project my-gcp-project --json
 openclaw webhooks gmail setup --account you@example.com --hook-url https://gateway.example.com/hooks/gmail
@@ -82,7 +82,7 @@ Options:
 
 Example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw webhooks gmail run --account you@example.com
 ```
 

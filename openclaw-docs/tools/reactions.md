@@ -11,7 +11,7 @@ tool with the `react` action. Reaction behavior varies by channel.
 
 ## How it works
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "react",
   "messageId": "msg-123",

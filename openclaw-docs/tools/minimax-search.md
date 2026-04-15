@@ -21,7 +21,7 @@ snippets, and related queries.
   <Step title="Store the key">
     Set `MINIMAX_CODE_PLAN_KEY` in the Gateway environment, or configure via:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
   </Step>
@@ -32,7 +32,7 @@ is still read as a compatibility fallback when it already points at a coding-pla
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

@@ -26,7 +26,7 @@ creates a device pairing request for `role: node`. Approve via the devices CLI (
 
 Quick CLI:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 openclaw devices approve <requestId>
 openclaw devices reject <requestId>
@@ -76,7 +76,7 @@ Approval note:
 
 On the node machine:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw node run --host <gateway-host> --port 18789 --display-name "Build Node"
 ```
 
@@ -88,7 +88,7 @@ node host at the local end of the tunnel.
 
 Example (node host -> gateway host):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Terminal A (keep running): forward local 18790 -> gateway 127.0.0.1:18789
 ssh -N -L 18790:127.0.0.1:18789 user@gateway-host
 
@@ -109,7 +109,7 @@ Notes:
 
 ### Start a node host (service)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw node install --host <gateway-host> --port 18789 --display-name "Build Node"
 openclaw node restart
 ```
@@ -118,7 +118,7 @@ openclaw node restart
 
 On the gateway host:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 openclaw devices approve <requestId>
 openclaw nodes status
@@ -136,7 +136,7 @@ Naming options:
 
 Exec approvals are **per node host**. Add allowlist entries from the gateway:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals allowlist add --node <id|name|ip> "/usr/bin/uname"
 openclaw approvals allowlist add --node <id|name|ip> "/usr/bin/sw_vers"
 ```
@@ -147,7 +147,7 @@ Approvals live on the node host at `~/.openclaw/exec-approvals.json`.
 
 Configure defaults (gateway config):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set tools.exec.host node
 openclaw config set tools.exec.security allowlist
 openclaw config set tools.exec.node "<id-or-name>"
@@ -174,7 +174,7 @@ Related:
 
 Low-level (raw RPC):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node <idOrNameOrIp> --command canvas.eval --params '{"javaScript":"location.href"}'
 ```
 
@@ -186,14 +186,14 @@ If the node is showing the Canvas (WebView), `canvas.snapshot` returns `{ format
 
 CLI helper (writes to a temp file and prints `MEDIA:<path>`):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes canvas snapshot --node <idOrNameOrIp> --format png
 openclaw nodes canvas snapshot --node <idOrNameOrIp> --format jpg --max-width 1200 --quality 0.9
 ```
 
 ### Canvas controls
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes canvas present --node <idOrNameOrIp> --target https://example.com
 openclaw nodes canvas hide --node <idOrNameOrIp>
 openclaw nodes canvas navigate https://example.com --node <idOrNameOrIp>
@@ -207,7 +207,7 @@ Notes:
 
 ### A2UI (Canvas)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes canvas a2ui push --node <idOrNameOrIp> --text "Hello"
 openclaw nodes canvas a2ui push --node <idOrNameOrIp> --jsonl ./payload.jsonl
 openclaw nodes canvas a2ui reset --node <idOrNameOrIp>
@@ -221,7 +221,7 @@ Notes:
 
 Photos (`jpg`):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes camera list --node <idOrNameOrIp>
 openclaw nodes camera snap --node <idOrNameOrIp>            # default: both facings (2 MEDIA lines)
 openclaw nodes camera snap --node <idOrNameOrIp> --facing front
@@ -229,7 +229,7 @@ openclaw nodes camera snap --node <idOrNameOrIp> --facing front
 
 Video clips (`mp4`):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes camera clip --node <idOrNameOrIp> --duration 10s
 openclaw nodes camera clip --node <idOrNameOrIp> --duration 3000 --no-audio
 ```
@@ -244,7 +244,7 @@ Notes:
 
 Supported nodes expose `screen.record` (mp4). Example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10
 openclaw nodes screen record --node <idOrNameOrIp> --duration 10s --fps 10 --no-audio
 ```
@@ -262,7 +262,7 @@ Nodes expose `location.get` when Location is enabled in settings.
 
 CLI helper:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes location get --node <idOrNameOrIp>
 openclaw nodes location get --node <idOrNameOrIp> --accuracy precise --max-age 15000 --location-timeout 10000
 ```
@@ -279,7 +279,7 @@ Android nodes can expose `sms.send` when the user grants **SMS** permission and 
 
 Low-level invoke:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node <idOrNameOrIp> --command sms.send --params '{"to":"+15555550123","message":"Hello from OpenClaw"}'
 ```
 
@@ -305,7 +305,7 @@ Available families:
 
 Example invokes:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node <idOrNameOrIp> --command device.status --params '{}'
 openclaw nodes invoke --node <idOrNameOrIp> --command notifications.list --params '{}'
 openclaw nodes invoke --node <idOrNameOrIp> --command photos.latest --params '{"limit":1}'
@@ -322,7 +322,7 @@ The headless node host exposes `system.run`, `system.which`, and `system.execApp
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes notify --node <idOrNameOrIp> --title "Ping" --body "Gateway ready"
 openclaw nodes invoke --node <idOrNameOrIp> --command system.which --params '{"name":"git"}'
 ```
@@ -354,20 +354,20 @@ This sets the default node for `exec host=node` (and can be overridden per agent
 
 Global default:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set tools.exec.node "node-id-or-name"
 ```
 
 Per-agent override:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config get agents.list
 openclaw config set agents.list[0].tools.exec.node "node-id-or-name"
 ```
 
 Unset to allow any node:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config unset tools.exec.node
 openclaw config unset agents.list[0].tools.exec.node
 ```
@@ -384,7 +384,7 @@ or for running a minimal node alongside a server.
 
 Start it:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw node run --host <gateway-host> --port 18789
 ```
 

@@ -26,7 +26,7 @@ Messages API.
   </Step>
 
   <Step title="Run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice synthetic-api-key
     ```
   </Step>
@@ -48,7 +48,7 @@ Messages API.
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { SYNTHETIC_API_KEY: "sk-..." },
   agents: {
@@ -125,7 +125,7 @@ All Synthetic models use cost `0` (input/output/cache).
   <Accordion title="Base URL override">
     If Synthetic changes its API endpoint, override the base URL in your config:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       models: {
         providers: {

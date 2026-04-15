@@ -17,7 +17,7 @@ Hooks can also be bundled inside plugins. `openclaw hooks list` shows both stand
 
 ## Quick start
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # List available hooks
 openclaw hooks list
 
@@ -63,7 +63,7 @@ my-hook/
 
 ### HOOK.md format
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ---
 name: my-hook
 description: "Short description of what this hook does"
@@ -90,7 +90,7 @@ Detailed documentation goes here.
 
 ### Handler implementation
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const handler = async (event) => {
   if (event.type !== "command" || event.action !== "new") {
     return;
@@ -141,7 +141,7 @@ Workspace hooks can add new hook names but cannot override bundled, managed, or 
 
 Hook packs are npm packages that export hooks via `openclaw.hooks` in `package.json`. Install with:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install <path-or-spec>
 ```
 
@@ -158,7 +158,7 @@ Npm specs are registry-only (package name + optional exact version or dist-tag).
 
 Enable any bundled hook:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks enable <hook-name>
 ```
 
@@ -172,7 +172,7 @@ Extracts the last 15 user/assistant messages, generates a descriptive filename s
 
 ### bootstrap-extra-files config
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "hooks": {
     "internal": {
@@ -209,7 +209,7 @@ For the complete plugin hook reference including `before_tool_call`, `before_age
 
 ## Configuration
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "hooks": {
     "internal": {
@@ -225,7 +225,7 @@ For the complete plugin hook reference including `before_tool_call`, `before_age
 
 Per-hook environment variables:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "hooks": {
     "internal": {
@@ -242,7 +242,7 @@ Per-hook environment variables:
 
 Extra hook directories:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "hooks": {
     "internal": {
@@ -260,7 +260,7 @@ Extra hook directories:
 
 ## CLI reference
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # List all hooks (add --eligible, --verbose, or --json)
 openclaw hooks list
 
@@ -286,7 +286,7 @@ openclaw hooks disable <hook-name>
 
 ### Hook not discovered
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Verify directory structure
 ls -la ~/.openclaw/hooks/my-hook/
 # Should show: HOOK.md, handler.ts
@@ -297,7 +297,7 @@ openclaw hooks list
 
 ### Hook not eligible
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw hooks info my-hook
 ```
 

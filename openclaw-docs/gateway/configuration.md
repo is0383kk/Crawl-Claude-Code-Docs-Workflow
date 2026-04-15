@@ -22,7 +22,7 @@ See the [full reference](/gateway/configuration-reference) for every available f
 
 ## Minimal config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // ~/.openclaw/openclaw.json
 {
   agents: { defaults: { workspace: "~/.openclaw/workspace" } },
@@ -34,14 +34,14 @@ See the [full reference](/gateway/configuration-reference) for every available f
 
 <Tabs>
   <Tab title="Interactive wizard">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard       # full onboarding flow
     openclaw configure     # config wizard
     ```
   </Tab>
 
   <Tab title="CLI (one-liners)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config get agents.defaults.workspace
     openclaw config set agents.defaults.heartbeat.every "2h"
     openclaw config unset plugins.entries.brave.config.webSearch.apiKey
@@ -115,7 +115,7 @@ When validation fails:
 
     All channels share the same DM policy pattern:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       channels: {
         telegram: {
@@ -132,7 +132,7 @@ When validation fails:
   <Accordion title="Choose and configure models">
     Set the primary model and optional fallbacks:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -172,7 +172,7 @@ When validation fails:
   <Accordion title="Set up group chat mention gating">
     Group messages default to **require mention**. Configure patterns per agent:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         list: [
@@ -201,7 +201,7 @@ When validation fails:
     Use `agents.defaults.skills` for a shared baseline, then override specific
     agents with `agents.list[].skills`:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -226,7 +226,7 @@ When validation fails:
   <Accordion title="Tune gateway channel health monitoring">
     Control how aggressively the gateway restarts channels that look stale:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       gateway: {
         channelHealthCheckMinutes: 5,
@@ -255,7 +255,7 @@ When validation fails:
   <Accordion title="Configure sessions and resets">
     Sessions control conversation continuity and isolation:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       session: {
         dmScope: "per-channel-peer",  // recommended for multi-user
@@ -282,7 +282,7 @@ When validation fails:
   <Accordion title="Enable sandboxing">
     Run agent sessions in isolated Docker containers:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -305,7 +305,7 @@ When validation fails:
 
     Set this in gateway config:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       gateway: {
         push: {
@@ -323,7 +323,7 @@ When validation fails:
 
     CLI equivalent:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config set gateway.push.apns.relay.baseUrl https://relay.example.com
     ```
 
@@ -357,7 +357,7 @@ When validation fails:
   </Accordion>
 
   <Accordion title="Set up heartbeat (periodic check-ins)">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -377,7 +377,7 @@ When validation fails:
   </Accordion>
 
   <Accordion title="Configure cron jobs">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       cron: {
         enabled: true,
@@ -399,7 +399,7 @@ When validation fails:
   <Accordion title="Set up webhooks (hooks)">
     Enable HTTP webhook endpoints on the Gateway:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       hooks: {
         enabled: true,
@@ -436,7 +436,7 @@ When validation fails:
   <Accordion title="Configure multi-agent routing">
     Run multiple isolated agents with separate workspaces and sessions:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         list: [
@@ -457,7 +457,7 @@ When validation fails:
   <Accordion title="Split config into multiple files ($include)">
     Use `$include` to organize large configs:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     // ~/.openclaw/openclaw.json
     {
       gateway: { port: 18789 },
@@ -490,7 +490,7 @@ The Gateway watches `~/.openclaw/openclaw.json` and applies changes automaticall
 | **`restart`**          | Restarts the Gateway on any config change, safe or not.                                 |
 | **`off`**              | Disables file watching. Changes take effect on the next manual restart.                 |
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     reload: { mode: "hybrid", debounceMs: 300 },
@@ -553,7 +553,7 @@ then `config.patch`.
 
     Restart requests are coalesced while one is already pending/in-flight, and a 30-second cooldown applies between restart cycles.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway call config.get --params '{}'  # capture payload.hash
     openclaw gateway call config.apply --params '{
       "raw": "{ agents: { defaults: { workspace: \"~/.openclaw/workspace\" } } }",
@@ -578,7 +578,7 @@ then `config.patch`.
 
     Restart behavior matches `config.apply`: coalesced pending restarts plus a 30-second cooldown between restart cycles.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway call config.patch --params '{
       "raw": "{ channels: { telegram: { groups: { \"*\": { requireMention: false } } } } }",
       "baseHash": "<hash>"
@@ -596,7 +596,7 @@ OpenClaw reads env vars from the parent process plus:
 
 Neither file overrides existing env vars. You can also set inline env vars in config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: {
     OPENROUTER_API_KEY: "sk-or-...",
@@ -608,7 +608,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 <Accordion title="Shell env import (optional)">
   If enabled and expected keys aren't set, OpenClaw runs your login shell and imports only the missing keys:
 
-  ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     env: {
       shellEnv: { enabled: true, timeoutMs: 15000 },
@@ -622,7 +622,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 <Accordion title="Env var substitution in config values">
   Reference env vars in any config string value with `${VAR_NAME}`:
 
-  ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     gateway: { auth: { token: "${OPENCLAW_GATEWAY_TOKEN}" } },
     models: { providers: { custom: { apiKey: "${CUSTOM_API_KEY}" } } },
@@ -641,7 +641,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 <Accordion title="Secret refs (env, file, exec)">
   For fields that support SecretRef objects, you can use:
 
-  ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     models: {
       providers: {

@@ -17,7 +17,7 @@ alternative engines that replace the active context-engine lifecycle.
 
 Check which engine is active:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw doctor
 # or inspect config directly:
 cat ~/.openclaw/openclaw.json | jq '.plugins.slots.contextEngine'
@@ -28,7 +28,7 @@ cat ~/.openclaw/openclaw.json | jq '.plugins.slots.contextEngine'
 Context engine plugins are installed like any other OpenClaw plugin. Install
 first, then select the engine in the slot:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Install from npm
 openclaw plugins install @martian-engineering/lossless-claw
 
@@ -38,7 +38,7 @@ openclaw plugins install -l ./my-context-engine
 
 Then enable the plugin and select it as the active engine in your config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // openclaw.json
 {
   plugins: {
@@ -111,7 +111,7 @@ engine is used automatically.
 
 A plugin can register a context engine using the plugin API:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { buildMemorySystemPromptAddition } from "openclaw/plugin-sdk/core";
 
 export default function register(api) {
@@ -149,7 +149,7 @@ export default function register(api) {
 
 Then enable it in config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     slots: {
@@ -224,7 +224,7 @@ engine slot.
 
 ## Configuration reference
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     slots: {

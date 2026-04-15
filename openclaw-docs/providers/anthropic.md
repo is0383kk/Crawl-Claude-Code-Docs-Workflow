@@ -44,7 +44,7 @@ Create your API key in the Anthropic Console.
 
 ### CLI setup
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard
 # choose: Anthropic API key
 
@@ -54,7 +54,7 @@ openclaw onboard --anthropic-api-key "$ANTHROPIC_API_KEY"
 
 ### Anthropic config snippet
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { ANTHROPIC_API_KEY: "sk-ant-..." },
   agents: { defaults: { model: { primary: "anthropic/claude-opus-4-6" } } },
@@ -78,7 +78,7 @@ OpenClaw's shared `/fast` toggle also supports direct public Anthropic traffic, 
 * `/fast off` maps to `service_tier: "standard_only"`
 * Config default:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -112,7 +112,7 @@ Use the `cacheRetention` parameter in your model config:
 | `short` | 5 minutes      | Default for API Key auth |
 | `long`  | 1 hour         | Extended cache           |
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -134,7 +134,7 @@ When using Anthropic API Key authentication, OpenClaw automatically applies `cac
 
 Use model-level params as your baseline, then override specific agents via `agents.list[].params`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -171,7 +171,7 @@ This lets one agent keep a long-lived cache while another agent on the same mode
 Anthropic's 1M context window is beta-gated. In OpenClaw, enable it per model
 with `params.context1m: true` for supported Opus/Sonnet models.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

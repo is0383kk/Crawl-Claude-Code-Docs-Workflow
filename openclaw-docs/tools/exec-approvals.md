@@ -65,7 +65,7 @@ Approvals live in a local JSON file on the execution host:
 
 Example schema:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "version": 1,
   "socket": {
@@ -123,7 +123,7 @@ or `deny`.
 
 Persistent gateway-host "never prompt" setup:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set tools.exec.host gateway
 openclaw config set tools.exec.security full
 openclaw config set tools.exec.ask off
@@ -132,7 +132,7 @@ openclaw gateway restart
 
 Then set the host approvals file to match:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals set --stdin <<'EOF'
 {
   version: 1,
@@ -147,7 +147,7 @@ EOF
 
 Local shortcut for the same gateway-host policy on the current machine:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw exec-policy preset yolo
 ```
 
@@ -162,7 +162,7 @@ remotely, continue using `openclaw approvals set --gateway` or
 
 For a node host, apply the same approvals file on that node instead:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw approvals set --node <id|name|ip> --stdin <<'EOF'
 {
   version: 1,
@@ -354,7 +354,7 @@ Configuration location:
 
 Custom profile example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     exec: {
@@ -460,7 +460,7 @@ them with `/approve`. This uses the normal outbound delivery pipeline.
 
 Config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   approvals: {
     exec: {
@@ -492,7 +492,7 @@ The `/approve` command handles both exec approvals and plugin approvals. If the 
 Plugin approval forwarding uses the same delivery pipeline as exec approvals but has its own
 independent config under `approvals.plugin`. Enabling or disabling one does not affect the other.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   approvals: {
     plugin: {

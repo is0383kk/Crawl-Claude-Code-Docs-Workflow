@@ -27,7 +27,7 @@ original channel.
    `MINIMAX_API_KEY`.
 2. Optionally set your preferred model:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -50,11 +50,11 @@ the tool result.
 
 Example prompts:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 Generate a cinematic piano track with soft strings and no vocals.
 ```
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 Generate an energetic chiptune loop about launching a rocket at sunrise.
 ```
 
@@ -70,7 +70,7 @@ the music-generation provider registry.
 
 Example:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /tool music_generate prompt="Warm ambient synth loop with soft tape texture"
 ```
 
@@ -96,19 +96,19 @@ and the shared live sweep.
 Use `action: "list"` to inspect available shared providers and models at
 runtime:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /tool music_generate action=list
 ```
 
 Use `action: "status"` to inspect the active session-backed music task:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /tool music_generate action=status
 ```
 
 Direct generation example:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /tool music_generate prompt="Dreamy lo-fi hip hop with vinyl texture and gentle rain" instrumental=true
 ```
 
@@ -156,7 +156,7 @@ Each `music_generate` request moves through four states:
 
 Check status from the CLI:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks list
 openclaw tasks show <taskId>
 openclaw tasks cancel <taskId>
@@ -168,7 +168,7 @@ Duplicate prevention: if a music task is already `queued` or `running` for the c
 
 ### Model selection
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -218,7 +218,7 @@ The shared music-generation contract now supports explicit mode declarations:
 
 New provider implementations should prefer explicit mode blocks:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 capabilities: {
   generate: {
     maxTracks: 1,
@@ -249,13 +249,13 @@ the shared `music_generate` tool can validate mode support deterministically.
 
 Opt-in live coverage for the shared bundled providers:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_LIVE_TEST=1 pnpm test:live -- extensions/music-generation-providers.live.test.ts
 ```
 
 Repo wrapper:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm test:live:media music
 ```
 
@@ -271,7 +271,7 @@ Today that means:
 
 Opt-in live coverage for the bundled ComfyUI music path:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_LIVE_TEST=1 COMFY_LIVE_TEST=1 pnpm test:live -- extensions/comfy/comfy.live.test.ts
 ```
 

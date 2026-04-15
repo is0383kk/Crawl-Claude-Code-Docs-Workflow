@@ -23,7 +23,7 @@ models are accessed via the `zai` provider and model IDs like `zai/glm-5`.
     | `zai-global`        | General API (global)                               |
     | `zai-cn`            | General API (China region)                         |
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     # Example: generic auto-detect
     openclaw onboard --auth-choice zai-api-key
 
@@ -33,13 +33,13 @@ models are accessed via the `zai` provider and model IDs like `zai/glm-5`.
   </Step>
 
   <Step title="Set GLM as the default model">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config set agents.defaults.model.primary "zai/glm-5.1"
     ```
   </Step>
 
   <Step title="Verify models are available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider zai
     ```
   </Step>
@@ -47,7 +47,7 @@ models are accessed via the `zai` provider and model IDs like `zai/glm-5`.
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { ZAI_API_KEY: "sk-..." },
   agents: { defaults: { model: { primary: "zai/glm-5.1" } } },

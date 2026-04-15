@@ -24,7 +24,7 @@ engine auto-detects it and enables vector search. No config needed.
 
 To set a provider explicitly:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

@@ -22,7 +22,7 @@ Directory lookups for channels that support it (contacts/peers, groups, and “m
 
 ## Using results with `message send`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw directory peers list --channel slack --query "U0"
 openclaw message send --channel slack --target user:U012ABCDEF --message "hello"
 ```
@@ -40,13 +40,13 @@ openclaw message send --channel slack --target user:U012ABCDEF --message "hello"
 
 ## Self ("me")
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw directory self --channel zalouser
 ```
 
 ## Peers (contacts/users)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw directory peers list --channel zalouser
 openclaw directory peers list --channel zalouser --query "name"
 openclaw directory peers list --channel zalouser --limit 50
@@ -54,7 +54,7 @@ openclaw directory peers list --channel zalouser --limit 50
 
 ## Groups
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw directory groups list --channel zalouser
 openclaw directory groups list --channel zalouser --query "work"
 openclaw directory groups members --channel zalouser --group-id <id>

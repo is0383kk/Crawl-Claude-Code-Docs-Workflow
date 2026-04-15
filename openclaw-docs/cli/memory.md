@@ -18,7 +18,7 @@ Related:
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory status
 openclaw memory status --deep
 openclaw memory status --fix
@@ -71,7 +71,7 @@ openclaw memory index --agent main --verbose
 
 Preview and apply short-term memory promotions.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory promote [--apply] [--limit <n>] [--include-promoted]
 ```
 
@@ -97,7 +97,7 @@ Full options:
 
 Explain a specific promotion candidate and its score breakdown.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory promote-explain <selector> [--agent <id>] [--include-promoted] [--json]
 ```
 
@@ -110,7 +110,7 @@ openclaw memory promote-explain <selector> [--agent <id>] [--include-promoted] [
 
 Preview REM reflections, candidate truths, and deep promotion output without writing anything.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory rem-harness [--agent <id>] [--include-promoted] [--json]
 ```
 
@@ -118,7 +118,7 @@ openclaw memory rem-harness [--agent <id>] [--include-promoted] [--json]
 * `--include-promoted`: include already promoted deep candidates.
 * `--json`: print JSON output.
 
-## Dreaming (experimental)
+## Dreaming
 
 Dreaming is the background memory consolidation system with three cooperative
 phases: **light** (sort/stage short-term material), **deep** (promote durable
@@ -141,7 +141,7 @@ Default scheduling:
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "entries": {

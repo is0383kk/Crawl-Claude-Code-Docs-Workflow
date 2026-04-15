@@ -15,7 +15,7 @@ Related:
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw doctor
 openclaw doctor --repair
 openclaw doctor --deep
@@ -52,7 +52,7 @@ Notes:
 
 If you previously ran `launchctl setenv OPENCLAW_GATEWAY_TOKEN ...` (or `...PASSWORD`), that value overrides your config file and can cause persistent “unauthorized” errors.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 launchctl getenv OPENCLAW_GATEWAY_TOKEN
 launchctl getenv OPENCLAW_GATEWAY_PASSWORD
 

@@ -24,7 +24,7 @@ The date uses the gateway host's local timezone.
 
 You can override this in `~/.openclaw/openclaw.json`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "logging": {
     "file": "/path/to/openclaw.log"
@@ -38,7 +38,7 @@ You can override this in `~/.openclaw/openclaw.json`:
 
 Use the CLI to tail the gateway log file via RPC:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw logs --follow
 ```
 
@@ -73,7 +73,7 @@ use this fallback.
 
 If the Gateway is unreachable, the CLI prints a short hint to run:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw doctor
 ```
 
@@ -86,7 +86,7 @@ See [/web/control-ui](/web/control-ui) for how to open it.
 
 To filter channel activity (WhatsApp/Telegram/etc), use:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels logs --channel whatsapp
 ```
 
@@ -118,7 +118,7 @@ Console formatting is controlled by `logging.consoleStyle`.
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway
 openclaw gateway --verbose --ws-log compact
 openclaw gateway --verbose --ws-log full
@@ -128,7 +128,7 @@ openclaw gateway --verbose --ws-log full
 
 All logging configuration lives under `logging` in `~/.openclaw/openclaw.json`.
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "logging": {
     "level": "info",
@@ -217,7 +217,7 @@ Queue + session:
 
 Use this if you want diagnostics events available to plugins or custom sinks:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "diagnostics": {
     "enabled": true
@@ -230,7 +230,7 @@ Use this if you want diagnostics events available to plugins or custom sinks:
 Use flags to turn on extra, targeted debug logs without raising `logging.level`.
 Flags are case-insensitive and support wildcards (e.g. `telegram.*` or `*`).
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "diagnostics": {
     "flags": ["telegram.http"]
@@ -255,7 +255,7 @@ Notes:
 Diagnostics can be exported via the `diagnostics-otel` plugin (OTLP/HTTP). This
 works with any OpenTelemetry collector/backend that accepts OTLP/HTTP.
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "allow": ["diagnostics-otel"],

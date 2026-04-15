@@ -56,26 +56,26 @@ Choose your provider surface and follow the setup steps.
       </Step>
 
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice stepfun-standard-api-key-intl
         ```
 
         Or for the China endpoint:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice stepfun-standard-api-key-cn
         ```
       </Step>
 
       <Step title="Non-interactive alternative">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice stepfun-standard-api-key-intl \
           --stepfun-api-key "$STEPFUN_API_KEY"
         ```
       </Step>
 
       <Step title="Verify models are available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider stepfun
         ```
       </Step>
@@ -98,26 +98,26 @@ Choose your provider surface and follow the setup steps.
       </Step>
 
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice stepfun-plan-api-key-intl
         ```
 
         Or for the China endpoint:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice stepfun-plan-api-key-cn
         ```
       </Step>
 
       <Step title="Non-interactive alternative">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice stepfun-plan-api-key-intl \
           --stepfun-api-key "$STEPFUN_API_KEY"
         ```
       </Step>
 
       <Step title="Verify models are available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider stepfun-plan
         ```
       </Step>
@@ -134,7 +134,7 @@ Choose your provider surface and follow the setup steps.
 
 <AccordionGroup>
   <Accordion title="Full config: Standard provider">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { STEPFUN_API_KEY: "your-key" },
       agents: { defaults: { model: { primary: "stepfun/step-3.5-flash" } } },
@@ -164,7 +164,7 @@ Choose your provider surface and follow the setup steps.
   </Accordion>
 
   <Accordion title="Full config: Step Plan provider">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { STEPFUN_API_KEY: "your-key" },
       agents: { defaults: { model: { primary: "stepfun-plan/step-3.5-flash" } } },

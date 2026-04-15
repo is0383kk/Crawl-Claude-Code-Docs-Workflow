@@ -20,7 +20,7 @@ Official site: [https://www.prose.md](https://www.prose.md)
 
 Bundled plugins are disabled by default. Enable OpenProse:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins enable open-prose
 ```
 
@@ -48,7 +48,7 @@ Common commands:
 
 ## Example: a simple `.prose` file
 
-```prose  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```prose theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Research + synthesis with two agents running in parallel.
 
 input topic: "What should we research?"

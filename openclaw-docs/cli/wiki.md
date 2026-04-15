@@ -28,7 +28,7 @@ Use `openclaw wiki` when you want a compiled knowledge vault with:
 
 ## Common commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw wiki status
 openclaw wiki doctor
 openclaw wiki init
@@ -136,7 +136,7 @@ Read a wiki page by id or relative path.
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw wiki get entity.alpha
 openclaw wiki get syntheses/alpha-summary.md --from 1 --lines 80
 ```

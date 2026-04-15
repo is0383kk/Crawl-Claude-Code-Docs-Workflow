@@ -37,7 +37,7 @@ For a high-level overview, see [Onboarding (CLI)](/start/wizard).
       * Sets `agents.defaults.model` to `openai/gpt-5.4` when model is unset, `openai/*`, or `openai-codex/*`.
     * **xAI (Grok) API key**: prompts for `XAI_API_KEY` and configures xAI as a model provider.
     * **OpenCode**: prompts for `OPENCODE_API_KEY` (or `OPENCODE_ZEN_API_KEY`, get it at [https://opencode.ai/auth](https://opencode.ai/auth)) and lets you pick the Zen or Go catalog.
-    * **Ollama**: prompts for the Ollama base URL, offers **Cloud + Local** or **Local** mode, discovers available models, and auto-pulls the selected local model when needed.
+    * **Ollama**: offers **Cloud + Local**, **Cloud only**, or **Local only** first. `Cloud only` prompts for `OLLAMA_API_KEY` and uses `https://ollama.com`; the host-backed modes prompt for the Ollama base URL, discover available models, and auto-pull the selected local model when needed; `Cloud + Local` also checks whether that Ollama host is signed in for cloud access.
     * More detail: [Ollama](/providers/ollama)
     * **API key**: stores the key for you.
     * **Vercel AI Gateway (multi-model proxy)**: prompts for `AI_GATEWAY_API_KEY`.
@@ -150,7 +150,7 @@ For a high-level overview, see [Onboarding (CLI)](/start/wizard).
 
 Use `--non-interactive` to automate or script onboarding:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice apiKey \
@@ -166,7 +166,7 @@ Add `--json` for a machine‑readable summary.
 
 Gateway token SecretRef in non-interactive mode:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export OPENCLAW_GATEWAY_TOKEN="your-token"
 openclaw onboard --non-interactive \
   --mode local \
@@ -186,7 +186,7 @@ Use this reference page for flag semantics and step ordering.
 
 ### Add agent (non-interactive)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents add work \
   --workspace ~/.openclaw/workspace-work \
   --model openai/gpt-5.4 \

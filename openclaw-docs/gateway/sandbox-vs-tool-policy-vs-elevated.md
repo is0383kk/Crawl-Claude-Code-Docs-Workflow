@@ -16,7 +16,7 @@ OpenClaw has three related (but different) controls:
 
 Use the inspector to see what OpenClaw is *actually* doing:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw sandbox explain
 openclaw sandbox explain --session agent:main:main
 openclaw sandbox explain --agent work
@@ -72,7 +72,7 @@ Rules of thumb:
 
 Tool policies (global, agent, sandbox) support `group:*` entries that expand to multiple tools:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     sandbox: {

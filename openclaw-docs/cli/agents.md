@@ -16,7 +16,7 @@ Related:
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents list
 openclaw agents list --bindings
 openclaw agents add work --workspace ~/.openclaw/workspace-work
@@ -40,7 +40,7 @@ If you also want different visible skills per agent, configure
 
 List bindings:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents bindings
 openclaw agents bindings --agent work
 openclaw agents bindings --json
@@ -48,7 +48,7 @@ openclaw agents bindings --json
 
 Add bindings:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents bind --agent work --bind telegram:ops --bind discord:guild-a
 ```
 
@@ -64,7 +64,7 @@ If you omit `--agent` for `bind` or `unbind`, OpenClaw targets the current defau
 
 Example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # initial channel-only binding
 openclaw agents bind --agent work --bind telegram
 
@@ -76,7 +76,7 @@ After the upgrade, routing for that binding is scoped to `telegram:ops`. If you 
 
 Remove bindings:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents unbind --agent work --bind telegram:ops
 openclaw agents unbind --agent work --all
 ```
@@ -188,19 +188,19 @@ Notes:
 
 Load from `IDENTITY.md`:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents set-identity --workspace ~/.openclaw/workspace --from-identity
 ```
 
 Override fields explicitly:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents set-identity --agent main --name "OpenClaw" --emoji "🦞" --avatar avatars/openclaw.png
 ```
 
 Config sample:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     list: [

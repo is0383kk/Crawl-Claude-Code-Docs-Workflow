@@ -24,19 +24,19 @@ OpenAI-compatible endpoint with API-key authentication.
   </Step>
 
   <Step title="Run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice xiaomi-api-key
     ```
 
     Or pass the key directly:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice xiaomi-api-key --xiaomi-api-key "$XIAOMI_API_KEY"
     ```
   </Step>
 
   <Step title="Verify the model is available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider xiaomi
     ```
   </Step>
@@ -56,7 +56,7 @@ OpenAI-compatible endpoint with API-key authentication.
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { XIAOMI_API_KEY: "your-key" },
   agents: { defaults: { model: { primary: "xiaomi/mimo-v2-flash" } } },

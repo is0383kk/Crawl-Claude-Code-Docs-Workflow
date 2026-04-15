@@ -19,7 +19,7 @@ This app is usually built from [`scripts/package-mac-app.sh`](https://github.com
 
 ## Usage
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # from repo root
 scripts/package-mac-app.sh               # auto-selects identity; errors if none found
 SIGN_IDENTITY="Developer ID Application: Your Name" scripts/package-mac-app.sh   # real cert

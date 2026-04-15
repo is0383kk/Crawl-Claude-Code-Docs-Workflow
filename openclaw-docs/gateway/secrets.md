@@ -79,13 +79,13 @@ If validation fails, onboarding shows the error and lets you retry.
 
 Use one object shape everywhere:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { source: "env" | "file" | "exec", provider: "default", id: "..." }
 ```
 
 ### `source: "env"`
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { source: "env", provider: "default", id: "OPENAI_API_KEY" }
 ```
 
@@ -96,7 +96,7 @@ Validation:
 
 ### `source: "file"`
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { source: "file", provider: "filemain", id: "/providers/openai/apiKey" }
 ```
 
@@ -108,7 +108,7 @@ Validation:
 
 ### `source: "exec"`
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { source: "exec", provider: "vault", id: "providers/openai/apiKey" }
 ```
 
@@ -122,7 +122,7 @@ Validation:
 
 Define providers under `secrets.providers`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   secrets: {
     providers: {
@@ -178,19 +178,19 @@ Define providers under `secrets.providers`:
 
 Request payload (stdin):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "protocolVersion": 1, "provider": "vault", "ids": ["providers/openai/apiKey"] }
 ```
 
 Response payload (stdout):
 
-```jsonc  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```jsonc theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "protocolVersion": 1, "values": { "providers/openai/apiKey": "<openai-api-key>" } } // pragma: allowlist secret
 ```
 
 Optional per-id errors:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "protocolVersion": 1,
   "values": {},
@@ -202,7 +202,7 @@ Optional per-id errors:
 
 ### 1Password CLI
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   secrets: {
     providers: {
@@ -231,7 +231,7 @@ Optional per-id errors:
 
 ### HashiCorp Vault CLI
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   secrets: {
     providers: {
@@ -260,7 +260,7 @@ Optional per-id errors:
 
 ### `sops`
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   secrets: {
     providers: {
@@ -291,7 +291,7 @@ Optional per-id errors:
 
 MCP server env vars configured via `plugins.entries.acpx.config.mcpServers` support SecretInput. This keeps API keys and tokens out of plaintext config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -324,7 +324,7 @@ Plaintext string values still work. Env-template refs like `${MCP_SERVER_API_KEY
 
 The core `ssh` sandbox backend also supports SecretRefs for SSH auth material:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -433,7 +433,7 @@ Other notes:
 
 Default operator flow:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets audit --check
 openclaw secrets configure
 openclaw secrets audit --check
@@ -490,7 +490,7 @@ Helpful modes:
 
 Apply a saved plan:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --allow-exec
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run

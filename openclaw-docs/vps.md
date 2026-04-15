@@ -63,7 +63,7 @@ Docs: [Nodes](/nodes), [Nodes CLI](/cli/nodes).
 
 If CLI commands feel slow on low-power VMs (or ARM hosts), enable Node's module compile cache:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 grep -q 'NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache' ~/.bashrc || cat >> ~/.bashrc <<'EOF'
 export NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache
 mkdir -p /var/tmp/openclaw-compile-cache
@@ -92,11 +92,11 @@ For VM hosts using `systemd`, consider:
 
 For the standard `openclaw onboard --install-daemon` path, edit the user unit:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 systemctl --user edit openclaw-gateway.service
 ```
 
-```ini  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ini theme={"theme":{"light":"min-light","dark":"min-dark"}}
 [Service]
 Environment=OPENCLAW_NO_RESPAWN=1
 Environment=NODE_COMPILE_CACHE=/var/tmp/openclaw-compile-cache

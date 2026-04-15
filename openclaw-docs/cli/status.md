@@ -8,7 +8,7 @@
 
 Diagnostics for channels + sessions.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw status
 openclaw status --all
 openclaw status --deep

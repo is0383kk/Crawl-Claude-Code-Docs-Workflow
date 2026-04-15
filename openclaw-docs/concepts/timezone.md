@@ -20,7 +20,7 @@ The timestamp in the envelope is **host-local by default**, with minutes precisi
 
 You can override this with:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -73,7 +73,7 @@ Raw provider fields are preserved.
 Set `agents.defaults.userTimezone` to tell the model the user's local time zone. If it is
 unset, OpenClaw resolves the **host timezone at runtime** (no config write).
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: { defaults: { userTimezone: "America/Chicago" } },
 }

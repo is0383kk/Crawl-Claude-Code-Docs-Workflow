@@ -49,7 +49,7 @@ Canvas is exposed via the **Gateway WebSocket**, so the agent can:
 
 CLI examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes canvas present --node <id>
 openclaw nodes canvas navigate --node <id> --url "/"
 openclaw nodes canvas eval --node <id> --js "document.title"
@@ -86,7 +86,7 @@ Canvas currently accepts **A2UI v0.8** server→client messages:
 
 CLI example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 cat > /tmp/a2ui-v0.8.jsonl <<'EOFA2'
 {"surfaceUpdate":{"surfaceId":"main","components":[{"id":"root","component":{"Column":{"children":{"explicitList":["title","content"]}}}},{"id":"title","component":{"Text":{"text":{"literalString":"Canvas (A2UI v0.8)"},"usageHint":"h1"}}},{"id":"content","component":{"Text":{"text":{"literalString":"If you can read this, A2UI push works."},"usageHint":"body"}}}]}}
 {"beginRendering":{"surfaceId":"main","root":"root"}}
@@ -97,7 +97,7 @@ openclaw nodes canvas a2ui push --jsonl /tmp/a2ui-v0.8.jsonl --node <id>
 
 Quick smoke:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes canvas a2ui push --node <id> --text "Hello from A2UI"
 ```
 
@@ -109,7 +109,7 @@ Canvas can trigger new agent runs via deep links:
 
 Example (in JS):
 
-```js  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```js theme={"theme":{"light":"min-light","dark":"min-dark"}}
 window.location.href = "openclaw://agent?message=Review%20this%20design";
 ```
 

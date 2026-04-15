@@ -93,7 +93,7 @@ If you map paths internally without absolute host parity, OpenClaw natively thro
 Use `backend: "ssh"` when you want OpenClaw to sandbox `exec`, file tools, and media reads on
 an arbitrary SSH-accessible machine.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -155,7 +155,7 @@ generic SSH backend, and adds OpenShell-specific lifecycle
 (`sandbox create/get/delete`, `sandbox ssh-config`) plus the optional `mirror`
 workspace mode.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -301,7 +301,7 @@ Global and per-agent binds are **merged** (not replaced). Under `scope: "shared"
 
 Example (read-only source + an extra data directory):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -343,7 +343,7 @@ Default Docker image: `openclaw-sandbox:bookworm-slim`
 
 Build it once:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 scripts/sandbox-setup.sh
 ```
 
@@ -355,7 +355,7 @@ root user).
 If you want a more functional sandbox image with common tooling (for example
 `curl`, `jq`, `nodejs`, `python3`, `git`), build:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 scripts/sandbox-common-setup.sh
 ```
 
@@ -364,7 +364,7 @@ Then set `agents.defaults.sandbox.docker.image` to
 
 Sandboxed browser image:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 scripts/sandbox-browser-setup.sh
 ```
 
@@ -461,7 +461,7 @@ See [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) for preceden
 
 ## Minimal enable example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

@@ -21,7 +21,7 @@ These directives are separate. `MEDIA:` and reply/voice tags remain delivery met
 
 Self-closing example:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 [embed ref="cv_123" title="Status" /]
 ```
 
@@ -38,7 +38,7 @@ Rules:
 
 The normalized/stored assistant content block is a structured `canvas` item:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "canvas",
   "preview": {

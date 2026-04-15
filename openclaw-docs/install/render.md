@@ -27,7 +27,7 @@ Once deployed, your service URL follows the pattern `https://<service-name>.onre
 Render Blueprints are YAML files that define your infrastructure. The `render.yaml` in this
 repository configures everything needed to run OpenClaw:
 
-```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 services:
   - type: web
     name: openclaw
@@ -124,7 +124,7 @@ For OpenClaw, vertical scaling is usually sufficient. Horizontal scaling require
 Export your state, config, auth profiles, and workspace at any time using the
 shell access in the Render Dashboard:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw backup create
 ```
 

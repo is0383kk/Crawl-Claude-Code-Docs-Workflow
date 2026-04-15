@@ -10,7 +10,7 @@ OpenClaw runs work in the background through tasks, scheduled jobs, event hooks,
 
 ## Quick decision guide
 
-```mermaid  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```mermaid theme={"theme":{"light":"min-light","dark":"min-dark"}}
 flowchart TD
     START([What do you need?]) --> Q1{Schedule work?}
     START --> Q2{Track detached work?}

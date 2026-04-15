@@ -92,7 +92,7 @@ Current bundled provider examples:
     `.cmd`/`.bat` wrappers now fail closed unless you explicitly pass
     `allowShellFallback: true`.
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     // Before
     const program = applyWindowsSpawnProgramPolicy({ candidate });
 
@@ -112,7 +112,7 @@ Current bundled provider examples:
   <Step title="Find deprecated imports">
     Search your plugin for imports from either deprecated surface:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     grep -r "plugin-sdk/compat" my-plugin/
     grep -r "openclaw/extension-api" my-plugin/
     ```
@@ -121,7 +121,7 @@ Current bundled provider examples:
   <Step title="Replace with focused imports">
     Each export from the old surface maps to a specific modern import path:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     // Before (deprecated backwards-compatibility layer)
     import {
       createChannelReplyPipeline,
@@ -138,7 +138,7 @@ Current bundled provider examples:
     For host-side helpers, use the injected plugin runtime instead of importing
     directly:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     // Before (deprecated extension-api bridge)
     import { runEmbeddedPiAgent } from "openclaw/extension-api";
     const result = await runEmbeddedPiAgent({ sessionId, prompt });
@@ -161,7 +161,7 @@ Current bundled provider examples:
   </Step>
 
   <Step title="Build and test">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     pnpm build
     pnpm test -- my-plugin/
     ```
@@ -377,7 +377,7 @@ before the next major release.
 
 Set these environment variables while you work on migrating:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_SUPPRESS_PLUGIN_SDK_COMPAT_WARNING=1 openclaw gateway run
 OPENCLAW_SUPPRESS_EXTENSION_API_WARNING=1 openclaw gateway run
 ```

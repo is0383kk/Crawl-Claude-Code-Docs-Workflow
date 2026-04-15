@@ -68,7 +68,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Minimal config (enable + provider)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -81,7 +81,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### OpenAI primary with ElevenLabs fallback
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -122,7 +122,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Microsoft primary (no API key)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -145,7 +145,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### MiniMax primary
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -169,7 +169,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Disable Microsoft speech
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -185,7 +185,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Custom limits + prefs path
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -200,7 +200,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Only reply with audio after an inbound voice message
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -212,7 +212,7 @@ Full schema is in [Gateway configuration](/gateway/configuration).
 
 ### Disable auto-summary for long replies
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -311,7 +311,7 @@ Available directive keys (when enabled):
 
 Disable all model overrides:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -325,7 +325,7 @@ Disable all model overrides:
 
 Optional allowlist (enable provider switching while keeping other knobs configurable):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {

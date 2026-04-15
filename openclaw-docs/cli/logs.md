@@ -37,7 +37,7 @@ When you pass `--url`, the CLI does not auto-apply config or environment credent
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw logs
 openclaw logs --follow
 openclaw logs --follow --interval 2000

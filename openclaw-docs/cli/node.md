@@ -36,7 +36,7 @@ create/delete routes are blocked through the proxy.
 
 Disable it on the node if needed:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   nodeHost: {
     browserProxy: {
@@ -48,7 +48,7 @@ Disable it on the node if needed:
 
 ## Run (foreground)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw node run --host <gateway-host> --port 18789
 ```
 
@@ -76,7 +76,7 @@ Options:
 
 Install a headless node host as a user service.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw node install --host <gateway-host> --port 18789
 ```
 
@@ -93,7 +93,7 @@ Options:
 
 Manage the service:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw node status
 openclaw node stop
 openclaw node restart
@@ -109,7 +109,7 @@ Service commands accept `--json` for machine-readable output.
 The first connection creates a pending device pairing request (`role: node`) on the Gateway.
 Approve it via:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 openclaw devices approve <requestId>
 ```

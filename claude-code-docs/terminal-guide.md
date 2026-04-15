@@ -31,7 +31,7 @@ Follow these three steps to install and start Claude Code from a macOS or Linux 
   <Step title="Install Claude Code">
     Copy this line, paste it into your terminal (`Cmd + V` on macOS, `Ctrl + Shift + V` on Linux), and press `Enter`:
 
-    ```bash  theme={null}
+    ```bash theme={null}
     curl -fsSL https://claude.ai/install.sh | bash
     ```
 
@@ -41,7 +41,7 @@ Follow these three steps to install and start Claude Code from a macOS or Linux 
   <Step title="Start Claude Code">
     Type `claude` and press `Enter`:
 
-    ```bash  theme={null}
+    ```bash theme={null}
     claude
     ```
 
@@ -98,7 +98,7 @@ Follow these four steps to install Git, set up PowerShell, and start Claude Code
   <Step title="Install Claude Code">
     Copy this line, paste it into PowerShell with `Ctrl + V` or right-click, and press `Enter`:
 
-    ```powershell  theme={null}
+    ```powershell theme={null}
     irm https://claude.ai/install.ps1 | iex
     ```
 
@@ -107,7 +107,7 @@ Follow these four steps to install Git, set up PowerShell, and start Claude Code
     <Note>
       If you're in CMD instead of PowerShell, use this command:
 
-      ```batch  theme={null}
+      ```batch theme={null}
       curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
       ```
     </Note>
@@ -116,7 +116,7 @@ Follow these four steps to install Git, set up PowerShell, and start Claude Code
   <Step title="Start Claude Code">
     Close PowerShell and open a new PowerShell window so it recognizes the newly installed `claude` command. Then type:
 
-    ```powershell  theme={null}
+    ```powershell theme={null}
     claude
     ```
 
@@ -143,7 +143,7 @@ Once you see the Claude Code welcome screen, you're ready to go. You don't need 
 
 Claude can create projects from a description:
 
-```text  theme={null}
+```text theme={null}
 make me a simple webpage that says hello world
 ```
 
@@ -153,7 +153,7 @@ Claude creates the files for you. Double-click the HTML file to open it in your 
 
 Claude can read and organize files you already have:
 
-```text  theme={null}
+```text theme={null}
 look at the screenshots on my Desktop and rename them based on what's in each image
 ```
 
@@ -161,7 +161,7 @@ look at the screenshots on my Desktop and rename them based on what's in each im
 
 Claude can explain things, help you learn, or plan out a project:
 
-```text  theme={null}
+```text theme={null}
 I want to build a personal budget tracker. What would I need?
 ```
 
@@ -197,7 +197,7 @@ If you run into problems installing on macOS or Linux, check these common issues
 
   If it still doesn't work, add the install directory to your PATH. Run the command for your shell:
 
-  ```bash  theme={null}
+  ```bash theme={null}
   # Zsh (macOS default)
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
   source ~/.zshrc
@@ -217,7 +217,7 @@ If you run into problems installing on macOS or Linux, check these common issues
 
   Otherwise, try running the command again. If it keeps happening, install with [Homebrew](https://brew.sh) instead:
 
-  ```bash  theme={null}
+  ```bash theme={null}
   brew install --cask claude-code
   ```
 </Accordion>
@@ -233,7 +233,7 @@ If you run into problems installing on Windows, check these common issues:
 
   Alternatively, use the CMD install command:
 
-  ```batch  theme={null}
+  ```batch theme={null}
   curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd
   ```
 </Accordion>
@@ -241,7 +241,7 @@ If you run into problems installing on Windows, check these common issues:
 <Accordion title="SSL/TLS error or 'Could not create SSL/TLS secure channel'">
   This usually happens on older Windows 10 systems. Run this line first, then retry the install:
 
-  ```powershell  theme={null}
+  ```powershell theme={null}
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
   irm https://claude.ai/install.ps1 | iex
   ```
@@ -252,11 +252,11 @@ If you run into problems installing on Windows, check these common issues:
 
   1. If you haven't installed Git yet, go back to the [first step in the Windows section](#windows).
   2. If Git is installed but Claude Code can't find it, tell it where to look:
-     ```powershell  theme={null}
+     ```powershell theme={null}
      $env:CLAUDE_CODE_GIT_BASH_PATH="C:\Program Files\Git\bin\bash.exe"
      ```
      Then run `claude` again. If your Git is installed somewhere else, find the path by running:
-     ```powershell  theme={null}
+     ```powershell theme={null}
      Get-Command git | Select-Object Source
      ```
      Look for the `Git\bin` folder in that path and use it instead.
@@ -269,7 +269,7 @@ If you run into problems installing on Windows, check these common issues:
 
   If restarting didn't help, run these commands to add Claude Code to your PATH:
 
-  ```powershell  theme={null}
+  ```powershell theme={null}
   $currentPath = [Environment]::GetEnvironmentVariable('PATH', 'User')
   [Environment]::SetEnvironmentVariable('PATH', "$currentPath;$env:USERPROFILE\.local\bin", 'User')
   ```

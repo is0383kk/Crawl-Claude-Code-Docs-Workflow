@@ -21,7 +21,7 @@ Things like:
 
 ## Examples
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ### Cameras
 
 - living-room → Main area, 180° wide angle

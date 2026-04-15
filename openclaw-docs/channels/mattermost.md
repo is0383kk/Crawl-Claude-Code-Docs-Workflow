@@ -20,13 +20,13 @@ install it manually:
 
 Install via CLI (npm registry):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @openclaw/mattermost
 ```
 
 Local checkout (when running from a git repo):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install ./path/to/local/mattermost-plugin
 ```
 
@@ -43,7 +43,7 @@ Details: [Plugins](/tools/plugin)
 
 Minimal config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -61,7 +61,7 @@ Minimal config:
 Native slash commands are opt-in. When enabled, OpenClaw registers `oc_*` slash commands via
 the Mattermost API and receives callback POSTs on the gateway HTTP server.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -117,7 +117,7 @@ Mattermost responds to DMs automatically. Channel behavior is controlled by `cha
 
 Config example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -146,7 +146,7 @@ main channel or start a thread under the triggering post.
 
 Config example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -182,7 +182,7 @@ Notes:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -221,7 +221,7 @@ retries transient direct-channel creation failures by default.
 Use `channels.mattermost.dmChannelRetry` to tune that behavior globally for the Mattermost plugin,
 or `channels.mattermost.accounts.<id>.dmChannelRetry` for one account.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -269,7 +269,7 @@ selection and can respond.
 
 Enable buttons by adding `inlineButtons` to the channel capabilities:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {
@@ -328,7 +328,7 @@ the extension when possible; if posting raw JSON, follow these rules:
 
 **Payload structure:**
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channel_id: "<channelId>",
   message: "Choose an option:",
@@ -384,7 +384,7 @@ that match the gateway's verification logic:
 
 Python example:
 
-```python  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```python theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import hmac, hashlib, json
 
 secret = hmac.new(
@@ -422,7 +422,7 @@ No configuration is needed — the adapter uses the bot token from the account c
 
 Mattermost supports multiple accounts under `channels.mattermost.accounts`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     mattermost: {

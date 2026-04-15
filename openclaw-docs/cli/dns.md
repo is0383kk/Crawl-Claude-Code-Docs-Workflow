@@ -15,7 +15,7 @@ Related:
 
 ## Setup
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw dns setup
 openclaw dns setup --domain openclaw.internal
 openclaw dns setup --apply

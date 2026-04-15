@@ -25,7 +25,7 @@ If you need tighter coupling to the UI, run the Gateway manually in a terminal.
 
 Common commands:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 launchctl kickstart -k gui/$UID/ai.openclaw.gateway
 launchctl bootout gui/$UID/ai.openclaw.gateway
 ```
@@ -42,7 +42,7 @@ signing keys. To prevent launchd from pointing at an unsigned relay binary, it:
 Signed runs of `scripts/restart-mac.sh` clear this override if the marker is
 present. To reset manually:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 rm ~/.openclaw/disable-launchagent
 ```
 

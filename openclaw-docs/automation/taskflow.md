@@ -50,7 +50,7 @@ Each flow persists its own state and tracks revisions so progress survives gatew
 
 ## CLI commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # List active and recent flows
 openclaw tasks flow list
 

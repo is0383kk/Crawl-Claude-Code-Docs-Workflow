@@ -77,7 +77,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 
     Connect as root:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     ssh root@YOUR_VPS_IP
     ```
 
@@ -86,7 +86,7 @@ For the generic Docker flow, see [Docker](/install/docker).
   </Step>
 
   <Step title="Install Docker (on the VPS)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     apt-get update
     apt-get install -y git curl ca-certificates
     curl -fsSL https://get.docker.com | sh
@@ -94,14 +94,14 @@ For the generic Docker flow, see [Docker](/install/docker).
 
     Verify:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     docker --version
     docker compose version
     ```
   </Step>
 
   <Step title="Clone the OpenClaw repository">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     git clone https://github.com/openclaw/openclaw.git
     cd openclaw
     ```
@@ -113,7 +113,7 @@ For the generic Docker flow, see [Docker](/install/docker).
     Docker containers are ephemeral.
     All long-lived state must live on the host.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     mkdir -p /root/.openclaw/workspace
 
     # Set ownership to the container user (uid 1000):
@@ -124,7 +124,7 @@ For the generic Docker flow, see [Docker](/install/docker).
   <Step title="Configure environment variables">
     Create `.env` in the repository root.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     OPENCLAW_IMAGE=openclaw:latest
     OPENCLAW_GATEWAY_TOKEN=change-me-now
     OPENCLAW_GATEWAY_BIND=lan
@@ -139,7 +139,7 @@ For the generic Docker flow, see [Docker](/install/docker).
 
     Generate strong secrets:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openssl rand -hex 32
     ```
 
@@ -153,7 +153,7 @@ For the generic Docker flow, see [Docker](/install/docker).
   <Step title="Docker Compose configuration">
     Create or update `docker-compose.yml`.
 
-    ```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
     services:
       openclaw-gateway:
         image: ${OPENCLAW_IMAGE}
@@ -206,7 +206,7 @@ For the generic Docker flow, see [Docker](/install/docker).
   <Step title="Hetzner-specific access">
     After the shared build and launch steps, tunnel from your laptop:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     ssh -N -L 18789:127.0.0.1:18789 root@YOUR_VPS_IP
     ```
 

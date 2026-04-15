@@ -17,7 +17,7 @@ Options:
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw health
 openclaw health --json
 openclaw health --timeout 2500

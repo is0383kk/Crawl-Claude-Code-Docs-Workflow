@@ -21,7 +21,7 @@ This envelope timestamp is **host-local by default**, regardless of the provider
 
 You can override this behavior:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -84,7 +84,7 @@ System: [2026-01-12 12:19:17 PST] Model switched.
 
 ### Configure user timezone + format
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

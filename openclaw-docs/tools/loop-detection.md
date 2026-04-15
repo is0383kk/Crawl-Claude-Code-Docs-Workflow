@@ -21,7 +21,7 @@ Enable it only where needed, because it can block legitimate repeated calls with
 
 Global defaults:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     loopDetection: {
@@ -42,7 +42,7 @@ Global defaults:
 
 Per-agent override (optional):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     list: [

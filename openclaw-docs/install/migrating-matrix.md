@@ -80,7 +80,7 @@ If your old installation had local-only encrypted history that was never backed 
 
 2. Run:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    openclaw doctor --fix
    ```
 
@@ -90,32 +90,32 @@ If your old installation had local-only encrypted history that was never backed 
 
 4. Check current verification and backup state:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    openclaw matrix verify status
    openclaw matrix verify backup status
    ```
 
 5. If OpenClaw tells you a recovery key is needed, run:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    openclaw matrix verify backup restore --recovery-key "<your-recovery-key>"
    ```
 
 6. If this device is still unverified, run:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    openclaw matrix verify device "<your-recovery-key>"
    ```
 
 7. If you are intentionally abandoning unrecoverable old history and want a fresh backup baseline for future messages, run:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    openclaw matrix verify backup reset --yes
    ```
 
 8. If no server-side key backup exists yet, create one for future recoveries:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    openclaw matrix verify bootstrap
    ```
 
@@ -321,7 +321,7 @@ new backup key can load correctly after restart.
 
 Run these checks in order:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw matrix verify status --verbose
 openclaw matrix verify backup status --verbose
 openclaw matrix verify backup restore --recovery-key "<your-recovery-key>" --verbose
@@ -333,7 +333,7 @@ If the backup restores successfully but some old rooms are still missing history
 
 If you accept losing unrecoverable old encrypted history and only want a clean backup baseline going forward, run these commands in order:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw matrix verify backup reset --yes
 openclaw matrix verify backup status --verbose
 openclaw matrix verify status

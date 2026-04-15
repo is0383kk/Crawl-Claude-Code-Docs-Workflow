@@ -8,7 +8,7 @@
 
 Flow commands are subcommands of `openclaw tasks`, not a standalone `flows` command.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks flow list [--json]
 openclaw tasks flow show <lookup>
 openclaw tasks flow cancel <lookup>

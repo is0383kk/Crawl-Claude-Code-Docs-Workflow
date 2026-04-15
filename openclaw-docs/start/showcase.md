@@ -18,11 +18,11 @@ Full setup walkthrough (28m) by VelvetShark.
 
 <div
   style={{
-  position: "relative",
-  paddingBottom: "56.25%",
-  height: 0,
-  overflow: "hidden",
-  borderRadius: 16,
+position: "relative",
+paddingBottom: "56.25%",
+height: 0,
+overflow: "hidden",
+borderRadius: 16,
 }}
 >
   <iframe src="https://www.youtube-nocookie.com/embed/SaWSPZoPX34" title="OpenClaw: The self-hosted AI that Siri should have been (Full setup)" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }} frameBorder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
@@ -32,11 +32,11 @@ Full setup walkthrough (28m) by VelvetShark.
 
 <div
   style={{
-  position: "relative",
-  paddingBottom: "56.25%",
-  height: 0,
-  overflow: "hidden",
-  borderRadius: 16,
+position: "relative",
+paddingBottom: "56.25%",
+height: 0,
+overflow: "hidden",
+borderRadius: 16,
 }}
 >
   <iframe src="https://www.youtube-nocookie.com/embed/mMSKQvlmFuQ" title="OpenClaw showcase video" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }} frameBorder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
@@ -46,11 +46,11 @@ Full setup walkthrough (28m) by VelvetShark.
 
 <div
   style={{
-  position: "relative",
-  paddingBottom: "56.25%",
-  height: 0,
-  overflow: "hidden",
-  borderRadius: 16,
+position: "relative",
+paddingBottom: "56.25%",
+height: 0,
+overflow: "hidden",
+borderRadius: 16,
 }}
 >
   <iframe src="https://www.youtube-nocookie.com/embed/5kkIJNUGFho" title="OpenClaw community showcase" style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }} frameBorder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />

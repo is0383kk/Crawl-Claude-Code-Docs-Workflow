@@ -18,13 +18,13 @@ OpenClaw ships a bundled `fal` provider for hosted image and video generation.
 
 <Steps>
   <Step title="Set the API key">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice fal-api-key
     ```
   </Step>
 
   <Step title="Set a default image model">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -57,7 +57,7 @@ The bundled `fal` image-generation provider defaults to
 
 To use fal as the default image provider:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -94,7 +94,7 @@ The bundled `fal` video-generation provider defaults to
   </Accordion>
 
   <Accordion title="Seedance 2.0 config example">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -108,7 +108,7 @@ The bundled `fal` video-generation provider defaults to
   </Accordion>
 
   <Accordion title="HeyGen video-agent config example">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {

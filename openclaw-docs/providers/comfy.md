@@ -45,7 +45,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       <Step title="Configure the provider">
         Set `mode: "local"` and point at your workflow file. Here is a minimal image example:
 
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           models: {
             providers: {
@@ -67,7 +67,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       <Step title="Set the default model">
         Point OpenClaw at the `comfy/workflow` model for the capability you configured:
 
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           agents: {
             defaults: {
@@ -81,7 +81,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       </Step>
 
       <Step title="Verify">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider comfy
         ```
       </Step>
@@ -99,7 +99,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       <Step title="Set the API key">
         Provide your key through one of these methods:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         # Environment variable (preferred)
         export COMFY_API_KEY="your-key"
 
@@ -118,7 +118,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       <Step title="Configure the provider">
         Set `mode: "cloud"` and point at your workflow file:
 
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           models: {
             providers: {
@@ -141,7 +141,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       </Step>
 
       <Step title="Set the default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           agents: {
             defaults: {
@@ -155,7 +155,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
       </Step>
 
       <Step title="Verify">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider comfy
         ```
       </Step>
@@ -167,7 +167,7 @@ Choose between running ComfyUI on your own machine or using Comfy Cloud.
 
 Comfy supports shared top-level connection settings plus per-capability workflow sections (`image`, `video`, `music`):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   models: {
     providers: {
@@ -230,7 +230,7 @@ The `image` and `video` sections also support:
   <Accordion title="Image workflows">
     Set the default image model to `comfy/workflow`:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -246,7 +246,7 @@ The `image` and `video` sections also support:
 
     To enable image editing with an uploaded reference image, add `inputImageNodeId` to your image config:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       models: {
         providers: {
@@ -268,7 +268,7 @@ The `image` and `video` sections also support:
   <Accordion title="Video workflows">
     Set the default video model to `comfy/workflow`:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -290,7 +290,7 @@ The `image` and `video` sections also support:
   <Accordion title="Music workflows">
     The bundled plugin registers a music-generation provider for workflow-defined audio or music outputs, surfaced through the shared `music_generate` tool:
 
-    ```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
     /tool music_generate prompt="Warm ambient synth loop with soft tape texture"
     ```
 
@@ -300,7 +300,7 @@ The `image` and `video` sections also support:
   <Accordion title="Backward compatibility">
     Existing top-level image config (without the nested `image` section) still works:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       models: {
         providers: {
@@ -324,7 +324,7 @@ The `image` and `video` sections also support:
   <Accordion title="Live tests">
     Opt-in live coverage exists for the bundled plugin:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     OPENCLAW_LIVE_TEST=1 COMFY_LIVE_TEST=1 pnpm test:live -- extensions/comfy/comfy.live.test.ts
     ```
 

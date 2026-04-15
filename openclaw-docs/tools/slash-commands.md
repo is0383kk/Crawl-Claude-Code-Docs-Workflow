@@ -25,7 +25,7 @@ They run immediately, are stripped before the model sees the message, and the re
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   commands: {
     native: "auto",
@@ -274,7 +274,7 @@ Notes:
 
 Examples:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /trace
 /trace on
 /trace off
@@ -314,7 +314,7 @@ Notes:
 
 Examples:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /mcp show
 /mcp show context7
 /mcp set context7={"command":"uvx","args":["context7-mcp"]}
@@ -332,7 +332,7 @@ Notes:
 
 Examples:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /plugins
 /plugins list
 /plugin show context7
@@ -374,7 +374,7 @@ task keeps going.
 
 Example:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /btw what are we doing right now?
 ```
 

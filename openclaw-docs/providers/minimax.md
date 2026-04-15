@@ -47,7 +47,7 @@ Choose your preferred auth method and follow the setup steps.
       <Tab title="International">
         <Steps>
           <Step title="Run onboarding">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw onboard --auth-choice minimax-global-oauth
             ```
 
@@ -55,7 +55,7 @@ Choose your preferred auth method and follow the setup steps.
           </Step>
 
           <Step title="Verify the model is available">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw models list --provider minimax-portal
             ```
           </Step>
@@ -65,7 +65,7 @@ Choose your preferred auth method and follow the setup steps.
       <Tab title="China">
         <Steps>
           <Step title="Run onboarding">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw onboard --auth-choice minimax-cn-oauth
             ```
 
@@ -73,7 +73,7 @@ Choose your preferred auth method and follow the setup steps.
           </Step>
 
           <Step title="Verify the model is available">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw models list --provider minimax-portal
             ```
           </Step>
@@ -97,7 +97,7 @@ Choose your preferred auth method and follow the setup steps.
       <Tab title="International">
         <Steps>
           <Step title="Run onboarding">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw onboard --auth-choice minimax-global-api
             ```
 
@@ -105,7 +105,7 @@ Choose your preferred auth method and follow the setup steps.
           </Step>
 
           <Step title="Verify the model is available">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw models list --provider minimax
             ```
           </Step>
@@ -115,7 +115,7 @@ Choose your preferred auth method and follow the setup steps.
       <Tab title="China">
         <Steps>
           <Step title="Run onboarding">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw onboard --auth-choice minimax-cn-api
             ```
 
@@ -123,7 +123,7 @@ Choose your preferred auth method and follow the setup steps.
           </Step>
 
           <Step title="Verify the model is available">
-            ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+            ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
             openclaw models list --provider minimax
             ```
           </Step>
@@ -133,7 +133,7 @@ Choose your preferred auth method and follow the setup steps.
 
     ### Config example
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { MINIMAX_API_KEY: "sk-..." },
       agents: { defaults: { model: { primary: "minimax/MiniMax-M2.7" } } },
@@ -186,7 +186,7 @@ Use the interactive config wizard to set MiniMax without editing JSON:
 
 <Steps>
   <Step title="Launch the wizard">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure
     ```
   </Step>
@@ -225,7 +225,7 @@ The MiniMax plugin registers the `image-01` model for the `image_generate` tool.
 
 To use MiniMax for image generation, set it as the image generation provider:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -266,7 +266,7 @@ The bundled `minimax` plugin also registers music generation through the shared
 
 To use MiniMax as the default music provider:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -293,7 +293,7 @@ The bundled `minimax` plugin also registers video generation through the shared
 
 To use MiniMax as the default video provider:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -368,7 +368,7 @@ Config lives under `plugins.entries.minimax.config.webSearch.*`.
   <Accordion title="Fallback example">
     **Best for:** keep your strongest latest-generation model as primary, fail over to MiniMax M2.7. Example below uses Opus as a concrete primary; swap to your preferred latest-gen primary model.
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { MINIMAX_API_KEY: "sk-..." },
       agents: {
@@ -433,7 +433,7 @@ Config lives under `plugins.entries.minimax.config.webSearch.*`.
 
     Then recheck with:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list
     ```
   </Accordion>
