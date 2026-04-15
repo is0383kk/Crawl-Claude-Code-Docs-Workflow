@@ -27,14 +27,14 @@ thread/conversation binding, and persistent external coding sessions, use
 You can use Codex CLI **without any config** (the bundled OpenAI plugin
 registers a default backend):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agent --message "hi" --model codex-cli/gpt-5.4
 ```
 
 If your gateway runs under launchd/systemd and PATH is minimal, add just the
 command path:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -59,7 +59,7 @@ explicitly references that backend in a model ref or under
 
 Add a CLI backend to your fallback list so it only runs when primary models fail:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -99,7 +99,7 @@ The provider id becomes the left side of your model ref:
 
 ### Example configuration
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -187,7 +187,7 @@ Serialization notes:
 
 If your CLI accepts image paths, set `imageArg`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 imageArg: "--image",
 imageMode: "repeat"
 ```
@@ -263,7 +263,7 @@ CLI backend defaults are now part of the plugin surface:
 Plugins that need tiny prompt/message compatibility shims can declare
 bidirectional text transforms without replacing a provider or CLI backend:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 api.registerTextTransforms({
   input: [
     { from: /red basket/g, to: "blue basket" },

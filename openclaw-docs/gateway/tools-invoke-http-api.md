@@ -64,7 +64,7 @@ Auth matrix:
 
 ## Request body
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "tool": "sessions_list",
   "action": "json",
@@ -117,7 +117,7 @@ Gateway HTTP also applies a hard deny list by default (even if session policy al
 
 You can customize this deny list via `gateway.tools`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     tools: {
@@ -147,7 +147,7 @@ To help group policies resolve context, you can optionally set:
 
 ## Example
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -sS http://127.0.0.1:18789/tools/invoke \
   -H 'Authorization: Bearer secret' \
   -H 'Content-Type: application/json' \

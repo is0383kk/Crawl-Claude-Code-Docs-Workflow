@@ -12,13 +12,13 @@ The fastest way to install. It detects your OS, installs Node if needed, install
 
 <Tabs>
   <Tab title="macOS / Linux / WSL2">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     curl -fsSL https://openclaw.ai/install.sh | bash
     ```
   </Tab>
 
   <Tab title="Windows (PowerShell)">
-    ```powershell  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```powershell theme={"theme":{"light":"min-light","dark":"min-dark"}}
     iwr -useb https://openclaw.ai/install.ps1 | iex
     ```
   </Tab>
@@ -28,13 +28,13 @@ To install without running onboarding:
 
 <Tabs>
   <Tab title="macOS / Linux / WSL2">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     curl -fsSL https://openclaw.ai/install.sh | bash -s -- --no-onboard
     ```
   </Tab>
 
   <Tab title="Windows (PowerShell)">
-    ```powershell  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```powershell theme={"theme":{"light":"min-light","dark":"min-dark"}}
     & ([scriptblock]::Create((iwr -useb https://openclaw.ai/install.ps1))) -NoOnboard
     ```
   </Tab>
@@ -55,7 +55,7 @@ For all flags and CI/automation options, see [Installer internals](/install/inst
 Use this when you want OpenClaw and Node kept under a local prefix such as
 `~/.openclaw`, without depending on a system-wide Node install:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -fsSL https://openclaw.ai/install-cli.sh | bash
 ```
 
@@ -68,14 +68,14 @@ If you already manage Node yourself:
 
 <Tabs>
   <Tab title="npm">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     npm install -g openclaw@latest
     openclaw onboard --install-daemon
     ```
   </Tab>
 
   <Tab title="pnpm">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     pnpm add -g openclaw@latest
     pnpm approve-builds -g
     openclaw onboard --install-daemon
@@ -87,7 +87,7 @@ If you already manage Node yourself:
   </Tab>
 
   <Tab title="bun">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     bun add -g openclaw@latest
     openclaw onboard --install-daemon
     ```
@@ -101,7 +101,7 @@ If you already manage Node yourself:
 <Accordion title="Troubleshooting: sharp build errors (npm)">
   If `sharp` fails due to a globally installed libvips:
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install -g openclaw@latest
   ```
 </Accordion>
@@ -110,7 +110,7 @@ If you already manage Node yourself:
 
 For contributors or anyone who wants to run from a local checkout:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git clone https://github.com/openclaw/openclaw.git
 cd openclaw
 pnpm install && pnpm ui:build && pnpm build
@@ -122,7 +122,7 @@ Or skip the link and use `pnpm openclaw ...` from inside the repo. See [Setup](/
 
 ### Install from GitHub main
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 npm install -g github:openclaw/openclaw#main
 ```
 
@@ -152,7 +152,7 @@ npm install -g github:openclaw/openclaw#main
 
 ## Verify the install
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw --version      # confirm the CLI is available
 openclaw doctor         # check for config issues
 openclaw gateway status # verify the Gateway is running
@@ -201,7 +201,7 @@ Deploy OpenClaw on a cloud server or VPS:
 
 If the install succeeded but `openclaw` is not found in your terminal:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 node -v           # Node installed?
 npm prefix -g     # Where are global packages?
 echo "$PATH"      # Is the global bin dir in PATH?
@@ -209,7 +209,7 @@ echo "$PATH"      # Is the global bin dir in PATH?
 
 If `$(npm prefix -g)/bin` is not in your `$PATH`, add it to your shell startup file (`~/.zshrc` or `~/.bashrc`):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export PATH="$(npm prefix -g)/bin:$PATH"
 ```
 

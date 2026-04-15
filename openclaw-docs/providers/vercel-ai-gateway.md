@@ -28,7 +28,7 @@ access hundreds of models through a single endpoint.
   <Step title="Set the API key">
     Run onboarding and choose the AI Gateway auth option:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice ai-gateway-api-key
     ```
   </Step>
@@ -36,7 +36,7 @@ access hundreds of models through a single endpoint.
   <Step title="Set a default model">
     Add the model to your OpenClaw config:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -48,7 +48,7 @@ access hundreds of models through a single endpoint.
   </Step>
 
   <Step title="Verify the model is available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider vercel-ai-gateway
     ```
   </Step>
@@ -58,7 +58,7 @@ access hundreds of models through a single endpoint.
 
 For scripted or CI setups, pass all values on the command line:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice ai-gateway-api-key \

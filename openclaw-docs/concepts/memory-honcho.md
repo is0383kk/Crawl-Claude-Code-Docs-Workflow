@@ -46,7 +46,7 @@ Honcho registers tools that the agent can use during conversation:
 
 Install the plugin and run setup:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @honcho-ai/openclaw-honcho
 openclaw honcho setup
 openclaw gateway --force
@@ -65,7 +65,7 @@ optionally migrates existing workspace memory files.
 
 Settings live under `plugins.entries["openclaw-honcho"].config`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -122,7 +122,7 @@ Honcho's cross-session memory.
 
 ## CLI commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw honcho setup                        # Configure API key and migrate files
 openclaw honcho status                       # Check connection status
 openclaw honcho ask <question>               # Query Honcho about the user

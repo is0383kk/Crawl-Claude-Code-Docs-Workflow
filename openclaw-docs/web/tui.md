@@ -10,13 +10,13 @@
 
 1. Start the Gateway.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway
 ```
 
 2. Open the TUI.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tui
 ```
 
@@ -24,7 +24,7 @@ openclaw tui
 
 Remote Gateway:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tui --url ws://<host>:<port> --token <gateway-token>
 ```
 

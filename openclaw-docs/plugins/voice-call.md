@@ -33,7 +33,7 @@ If you use a remote Gateway, install/configure the plugin on the **machine runni
 
 ### Option A: install from npm (recommended)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @openclaw/voice-call
 ```
 
@@ -41,7 +41,7 @@ Restart the Gateway afterwards.
 
 ### Option B: install from a local folder (dev, no copying)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 PLUGIN_SRC=./path/to/local/voice-call-plugin
 openclaw plugins install "$PLUGIN_SRC"
 cd "$PLUGIN_SRC" && pnpm install
@@ -53,7 +53,7 @@ Restart the Gateway afterwards.
 
 Set config under `plugins.entries.voice-call.config`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -169,7 +169,7 @@ OpenAI streaming transcription defaults:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -217,7 +217,7 @@ Recommended ranges:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -259,7 +259,7 @@ plus a per-IP in-flight cap before signature verification.
 
 Example with a stable public host:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -282,7 +282,7 @@ Voice Call uses the core `messages.tts` configuration for
 streaming speech on calls. You can override it under the plugin config with the
 **same shape** — it deep‑merges with `messages.tts`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tts: {
     provider: "elevenlabs",
@@ -308,7 +308,7 @@ Notes:
 
 Use core TTS only (no override):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     tts: {
@@ -323,7 +323,7 @@ Use core TTS only (no override):
 
 Override to ElevenLabs just for calls (keep core default elsewhere):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -348,7 +348,7 @@ Override to ElevenLabs just for calls (keep core default elsewhere):
 
 Override only the OpenAI model for calls (deep‑merge example):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -373,7 +373,7 @@ Override only the OpenAI model for calls (deep‑merge example):
 
 Inbound policy defaults to `disabled`. To enable inbound calls, set:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   inboundPolicy: "allowlist",
   allowFrom: ["+15550001234"],
@@ -424,7 +424,7 @@ When a Twilio media stream disconnects, Voice Call waits `2000ms` before auto-en
 
 ## CLI
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw voicecall call --to "+15555550123" --message "Hello from OpenClaw"
 openclaw voicecall start --to "+15555550123"   # alias for call
 openclaw voicecall continue --call-id <id> --message "Any questions?"

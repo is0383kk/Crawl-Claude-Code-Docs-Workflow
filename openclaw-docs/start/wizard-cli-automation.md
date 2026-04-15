@@ -14,7 +14,7 @@ Use `--non-interactive` to automate `openclaw onboard`.
 
 ## Baseline non-interactive example
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice apiKey \
@@ -37,7 +37,7 @@ Passing inline key flags without the matching env var now fails fast.
 
 Example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice openai-api-key \
@@ -49,7 +49,7 @@ openclaw onboard --non-interactive \
 
 <AccordionGroup>
   <Accordion title="Anthropic API key example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice apiKey \
@@ -60,7 +60,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Gemini example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice gemini-api-key \
@@ -71,7 +71,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Z.AI example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice zai-api-key \
@@ -82,7 +82,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Vercel AI Gateway example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice ai-gateway-api-key \
@@ -93,7 +93,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Cloudflare AI Gateway example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice cloudflare-ai-gateway-api-key \
@@ -106,7 +106,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Moonshot example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice moonshot-api-key \
@@ -117,7 +117,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Mistral example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice mistral-api-key \
@@ -128,7 +128,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Synthetic example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice synthetic-api-key \
@@ -139,7 +139,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="OpenCode example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice opencode-zen \
@@ -152,7 +152,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Ollama example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice ollama \
@@ -164,7 +164,7 @@ openclaw onboard --non-interactive \
   </Accordion>
 
   <Accordion title="Custom provider example">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice custom-api-key \
@@ -181,7 +181,7 @@ openclaw onboard --non-interactive \
 
     Ref-mode variant:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export CUSTOM_API_KEY="your-key"
     openclaw onboard --non-interactive \
       --mode local \
@@ -207,7 +207,7 @@ For production, prefer an Anthropic API key.
 Use `openclaw agents add <name>` to create a separate agent with its own workspace,
 sessions, and auth profiles. Running without `--workspace` launches the wizard.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents add work \
   --workspace ~/.openclaw/workspace-work \
   --model openai/gpt-5.4 \

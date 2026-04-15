@@ -8,7 +8,7 @@
 
 Open the Control UI using your current auth.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw dashboard
 openclaw dashboard --no-open
 ```

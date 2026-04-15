@@ -82,13 +82,13 @@ Work top to bottom. Do not skip ahead.
 
 Start Chrome on Windows with remote debugging enabled:
 
-```powershell  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```powershell theme={"theme":{"light":"min-light","dark":"min-dark"}}
 chrome.exe --remote-debugging-port=9222
 ```
 
 From Windows, verify Chrome itself first:
 
-```powershell  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```powershell theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl http://127.0.0.1:9222/json/version
 curl http://127.0.0.1:9222/json/list
 ```
@@ -99,7 +99,7 @@ If this fails on Windows, OpenClaw is not the problem yet.
 
 From WSL2, test the exact address you plan to use in `cdpUrl`:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl http://WINDOWS_HOST_OR_IP:9222/json/version
 curl http://WINDOWS_HOST_OR_IP:9222/json/list
 ```
@@ -121,7 +121,7 @@ Fix that before touching OpenClaw config.
 
 For raw remote CDP, point OpenClaw at the address that is reachable from WSL2:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   browser: {
     enabled: true,
@@ -166,7 +166,7 @@ Helpful page:
 
 From WSL2:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser open https://example.com --browser-profile remote
 openclaw browser tabs --browser-profile remote
 ```

@@ -18,14 +18,14 @@ open models for free. Authenticate with an API key from
   </Step>
 
   <Step title="Export the key and run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export NVIDIA_API_KEY="nvapi-..."
     openclaw onboard --auth-choice skip
     ```
   </Step>
 
   <Step title="Set an NVIDIA model">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models set nvidia/nvidia/nemotron-3-super-120b-a12b
     ```
   </Step>
@@ -38,7 +38,7 @@ open models for free. Authenticate with an API key from
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { NVIDIA_API_KEY: "nvapi-..." },
   models: {

@@ -29,7 +29,7 @@ Install OpenClaw declaratively with **[nix-openclaw](https://github.com/openclaw
   <Step title="Create a local flake">
     Use the agent-first template from the nix-openclaw repo:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     mkdir -p ~/code/openclaw-local
     # Copy templates/agent-first/flake.nix from the nix-openclaw repo
     ```
@@ -40,7 +40,7 @@ Install OpenClaw declaratively with **[nix-openclaw](https://github.com/openclaw
   </Step>
 
   <Step title="Fill in template placeholders and switch">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     home-manager switch
     ```
   </Step>
@@ -58,13 +58,13 @@ When `OPENCLAW_NIX_MODE=1` is set (automatic with nix-openclaw), OpenClaw enters
 
 You can also set it manually:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export OPENCLAW_NIX_MODE=1
 ```
 
 On macOS, the GUI app does not automatically inherit shell environment variables. Enable Nix mode via defaults instead:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 defaults write ai.openclaw.mac openclaw.nixMode -bool true
 ```
 

@@ -40,7 +40,7 @@ Note: Binary detection is best-effort across macOS/Linux/Windows; ensure the CLI
 
 ### Provider + CLI fallback (OpenAI + Whisper CLI)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -64,7 +64,7 @@ Note: Binary detection is best-effort across macOS/Linux/Windows; ensure the CLI
 
 ### Provider-only with scope gating
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -83,7 +83,7 @@ Note: Binary detection is best-effort across macOS/Linux/Windows; ensure the CLI
 
 ### Provider-only (Deepgram)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -98,7 +98,7 @@ Note: Binary detection is best-effort across macOS/Linux/Windows; ensure the CLI
 
 ### Provider-only (Mistral Voxtral)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -113,7 +113,7 @@ Note: Binary detection is best-effort across macOS/Linux/Windows; ensure the CLI
 
 ### Echo transcript to chat (opt-in)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {

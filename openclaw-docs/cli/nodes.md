@@ -20,7 +20,7 @@ Common options:
 
 ## Common commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes list
 openclaw nodes list --connected
 openclaw nodes list --last-connected 24h
@@ -48,7 +48,7 @@ Approval note:
 
 ## Invoke
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node <id|name|ip> --command <command> --params <json>
 ```
 

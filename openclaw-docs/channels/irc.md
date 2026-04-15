@@ -14,7 +14,7 @@ IRC ships as an extension plugin, but it is configured in the main config under 
 1. Enable IRC config in `~/.openclaw/openclaw.json`.
 2. Set at least:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -33,7 +33,7 @@ Prefer a private IRC server for bot coordination. If you intentionally use a pub
 
 3. Start/restart gateway:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway run
 ```
 
@@ -74,7 +74,7 @@ If you see logs like:
 
 Example (allow anyone in `#tuirc-dev` to talk to the bot):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -95,7 +95,7 @@ That means you may see logs like `drop channel … (missing-mention)` unless the
 
 To make the bot reply in an IRC channel **without needing a mention**, disable mention gating for that channel:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -113,7 +113,7 @@ To make the bot reply in an IRC channel **without needing a mention**, disable m
 
 Or to allow **all** IRC channels (no per-channel allowlist) and still reply without mentions:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -133,7 +133,7 @@ To reduce risk, restrict tools for that channel.
 
 ### Same tools for everyone in the channel
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -154,7 +154,7 @@ To reduce risk, restrict tools for that channel.
 
 Use `toolsBySender` to apply a stricter policy to `"*"` and a looser one to your nick:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -189,7 +189,7 @@ For more on group access vs mention-gating (and how they interact), see: [/chann
 
 To identify with NickServ after connect:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {
@@ -205,7 +205,7 @@ To identify with NickServ after connect:
 
 Optional one-time registration on connect:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     irc: {

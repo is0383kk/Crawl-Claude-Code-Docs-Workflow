@@ -10,7 +10,7 @@ Use this page when a node is visible in status but node tools fail.
 
 ## Command ladder
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw status
 openclaw gateway status
 openclaw logs --follow
@@ -20,7 +20,7 @@ openclaw channels status --probe
 
 Then run node specific checks:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes status
 openclaw nodes describe --node <idOrNameOrIp>
 openclaw approvals get --node <idOrNameOrIp>
@@ -38,7 +38,7 @@ Healthy signals:
 
 Quick check and fix:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes describe --node <idOrNameOrIp>
 openclaw nodes canvas snapshot --node <idOrNameOrIp>
 openclaw logs --follow
@@ -65,7 +65,7 @@ These are different gates:
 
 Quick checks:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 openclaw nodes status
 openclaw approvals get --node <idOrNameOrIp>
@@ -98,7 +98,7 @@ run as an approval mismatch instead of trusting the edited payload.
 
 ## Fast recovery loop
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes status
 openclaw nodes describe --node <idOrNameOrIp>
 openclaw approvals get --node <idOrNameOrIp>

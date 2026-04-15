@@ -20,7 +20,7 @@
 
 <Steps>
   <Step title="Set up Fireworks auth through onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice fireworks-api-key
     ```
 
@@ -28,7 +28,7 @@
   </Step>
 
   <Step title="Verify the model is available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider fireworks
     ```
   </Step>
@@ -38,7 +38,7 @@
 
 For scripted or CI setups, pass all values on the command line:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice fireworks-api-key \
@@ -61,7 +61,7 @@ openclaw onboard --non-interactive \
 
 OpenClaw accepts dynamic Fireworks model ids too. Use the exact model or router id shown by Fireworks and prefix it with `fireworks/`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

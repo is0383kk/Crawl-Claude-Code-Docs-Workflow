@@ -42,7 +42,7 @@ The tool accepts a single `input` string that wraps one or more file operations:
 
 ## Example
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "tool": "apply_patch",
   "input": "*** Begin Patch\n*** Update File: src/index.ts\n@@\n-const foo = 1\n+const foo = 2\n*** End Patch"

@@ -60,7 +60,7 @@ If you set explicit values, OpenClaw does not override them.
 
 Pruning is off by default for non-Anthropic providers. To enable:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

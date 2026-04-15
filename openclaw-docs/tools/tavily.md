@@ -24,7 +24,7 @@ from URLs (including JavaScript-rendered pages).
 
 ## Configure Tavily search
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

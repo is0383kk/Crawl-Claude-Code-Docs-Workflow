@@ -16,19 +16,19 @@ Bun is an optional local runtime for running TypeScript directly (`bun run ...`,
 
 <Steps>
   <Step title="Install dependencies">
-    ```sh  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```sh theme={"theme":{"light":"min-light","dark":"min-dark"}}
     bun install
     ```
 
     `bun.lock` / `bun.lockb` are gitignored, so there is no repo churn. To skip lockfile writes entirely:
 
-    ```sh  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```sh theme={"theme":{"light":"min-light","dark":"min-dark"}}
     bun install --no-save
     ```
   </Step>
 
   <Step title="Build and test">
-    ```sh  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```sh theme={"theme":{"light":"min-light","dark":"min-dark"}}
     bun run build
     bun run vitest run
     ```
@@ -44,7 +44,7 @@ Bun blocks dependency lifecycle scripts unless explicitly trusted. For this repo
 
 If you hit a runtime issue that requires these scripts, trust them explicitly:
 
-```sh  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```sh theme={"theme":{"light":"min-light","dark":"min-dark"}}
 bun pm trust @whiskeysockets/baileys protobufjs
 ```
 

@@ -31,7 +31,7 @@ grants, and prompts can disappear entirely until the stale entries are cleared.
 
 Example resets (replace bundle ID as needed):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 sudo tccutil reset Accessibility ai.openclaw.mac
 sudo tccutil reset ScreenCapture ai.openclaw.mac
 sudo tccutil reset AppleEvents

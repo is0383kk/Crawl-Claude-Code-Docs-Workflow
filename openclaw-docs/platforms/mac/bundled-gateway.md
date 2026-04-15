@@ -15,7 +15,7 @@ running (or attaches to an existing local Gateway if one is already running).
 
 Node 24 is the default runtime on the Mac. Node 22 LTS, currently `22.14+`, still works for compatibility. Then install `openclaw` globally:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 npm install -g openclaw@<version>
 ```
 
@@ -57,7 +57,7 @@ incompatible, update the global CLI to match the app version.
 
 ## Smoke check
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw --version
 
 OPENCLAW_SKIP_CHANNELS=1 \
@@ -67,6 +67,6 @@ openclaw gateway --port 18999 --bind loopback
 
 Then:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway call health --url ws://127.0.0.1:18999 --timeout 3000
 ```

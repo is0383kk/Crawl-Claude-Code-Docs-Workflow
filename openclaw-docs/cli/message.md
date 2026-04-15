@@ -218,7 +218,7 @@ See [Discord components](/channels/discord#interactive-components) for the full 
 
 Send a shared interactive payload:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw message send --channel googlechat --target spaces/AAA... \
   --message "Choose:" \
   --interactive '{"text":"Choose a path","blocks":[{"type":"actions","buttons":[{"label":"Approve"},{"label":"Decline"}]}]}'
@@ -284,7 +284,7 @@ openclaw message send --channel telegram --target @mychat --message "Choose:" \
 
 Send a Teams Adaptive Card:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw message send --channel msteams \
   --target conversation:19:abc@thread.tacv2 \
   --card '{"type":"AdaptiveCard","version":"1.5","body":[{"type":"TextBlock","text":"Status update"}]}'
@@ -292,7 +292,7 @@ openclaw message send --channel msteams \
 
 Send a Telegram image as a document to avoid compression:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw message send --channel telegram --target @mychat \
   --media ./diagram.png --force-document
 ```

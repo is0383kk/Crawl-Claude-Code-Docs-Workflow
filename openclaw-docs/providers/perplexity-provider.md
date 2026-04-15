@@ -26,13 +26,13 @@ Search API or Perplexity Sonar via OpenRouter.
   <Step title="Set the API key">
     Run the interactive web-search configuration flow:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
 
     Or set the key directly:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config set plugins.entries.perplexity.config.webSearch.apiKey "pplx-xxxxxxxxxxxx"
     ```
   </Step>

@@ -17,7 +17,7 @@ The `image_generate` tool lets the agent create and edit images using your confi
 1. Set an API key for at least one provider (for example `OPENAI_API_KEY` or `GEMINI_API_KEY`).
 2. Optionally set your preferred model:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -73,7 +73,7 @@ Tool results report the applied settings. When OpenClaw remaps geometry during p
 
 ### Model selection
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

@@ -205,7 +205,7 @@ Preferred flow:
 2. Pass those facts into `resolveInboundMentionDecision({ facts, policy })`.
 3. Use `decision.effectiveWasMentioned`, `decision.shouldBypassMention`, and `decision.shouldSkip` in your inbound gate.
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import {
   implicitMentionKindWhen,
   matchesMentionWithExplicit,
@@ -486,6 +486,11 @@ should use `resolveInboundMentionDecision({ facts, policy })`.
     OpenClaw loads this instead of the full entry when the channel is disabled
     or unconfigured. It avoids pulling in heavy runtime code during setup flows.
     See [Setup and Config](/plugins/sdk-setup#setup-entry) for details.
+
+    Bundled workspace channels that split setup-safe exports into sidecar
+    modules can use `defineBundledChannelSetupEntry(...)` from
+    `openclaw/plugin-sdk/channel-entry-contract` when they also need an
+    explicit setup-time runtime setter.
   </Step>
 
   <Step title="Handle inbound messages">
@@ -493,7 +498,7 @@ should use `resolveInboundMentionDecision({ facts, policy })`.
     OpenClaw. The typical pattern is a webhook that verifies the request and
     dispatches it through your channel's inbound handler:
 
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     registerFull(api) {
       api.registerHttpRoute({
         path: "/acme-chat/webhook",
@@ -558,7 +563,7 @@ should use `resolveInboundMentionDecision({ facts, policy })`.
     });
     ```
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     pnpm test -- <bundled-plugin-root>/acme-chat/
     ```
 

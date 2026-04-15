@@ -22,7 +22,7 @@ your plugin provides:
 
 **Channel plugin:**
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "name": "@myorg/openclaw-my-channel",
   "version": "1.0.0",
@@ -104,7 +104,7 @@ surfaces before runtime loads.
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "openclaw": {
     "channel": {
@@ -166,7 +166,7 @@ still fails closed and tells the operator to run `openclaw doctor --fix`.
 
 Channel plugins can opt into deferred loading with:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "openclaw": {
     "extensions": ["./index.ts"],
@@ -199,7 +199,7 @@ to `operator.admin`.
 Every native plugin must ship an `openclaw.plugin.json` in the package root.
 OpenClaw uses this to validate config without executing plugin code.
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "id": "my-plugin",
   "name": "My Plugin",
@@ -219,7 +219,7 @@ OpenClaw uses this to validate config without executing plugin code.
 
 For channel plugins, add `kind` and `channels`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "id": "my-channel",
   "kind": "channel",
@@ -234,7 +234,7 @@ For channel plugins, add `kind` and `channels`:
 
 Even plugins with no config must ship a schema. An empty schema is valid:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "id": "my-plugin",
   "configSchema": {
@@ -250,7 +250,7 @@ See [Plugin Manifest](/plugins/manifest) for the full schema reference.
 
 For plugin packages, use the package-specific ClawHub command:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 clawhub package publish your-org/your-plugin --dry-run
 clawhub package publish your-org/your-plugin
 ```
@@ -264,7 +264,7 @@ The `setup-entry.ts` file is a lightweight alternative to `index.ts` that
 OpenClaw loads when it only needs setup surfaces (onboarding, config repair,
 disabled channel inspection).
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // setup-entry.ts
 import { defineSetupPluginEntry } from "openclaw/plugin-sdk/channel-core";
 import { myChannelPlugin } from "./src/channel.js";
@@ -274,6 +274,12 @@ export default defineSetupPluginEntry(myChannelPlugin);
 
 This avoids loading heavy runtime code (crypto libraries, CLI registrations,
 background services) during setup flows.
+
+Bundled workspace channels that keep setup-safe exports in sidecar modules can
+use `defineBundledChannelSetupEntry(...)` from
+`openclaw/plugin-sdk/channel-entry-contract` instead of
+`defineSetupPluginEntry(...)`. That bundled contract also supports an optional
+`runtime` export so setup-time runtime wiring can stay lightweight and explicit.
 
 **When OpenClaw uses `setupEntry` instead of the full entry:**
 
@@ -344,7 +350,7 @@ such as `Ops`, promotion preserves that account instead of creating a new
 Plugin config is validated against the JSON Schema in your manifest. Users
 configure plugins via:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -362,7 +368,7 @@ Your plugin receives this config as `api.pluginConfig` during registration.
 
 For channel-specific config, use the channel config section instead:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     "my-channel": {
@@ -378,7 +384,7 @@ For channel-specific config, use the channel config section instead:
 Use `buildChannelConfigSchema` from `openclaw/plugin-sdk/core` to convert a
 Zod schema into the `ChannelConfigSchema` wrapper that OpenClaw validates:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { z } from "zod";
 import { buildChannelConfigSchema } from "openclaw/plugin-sdk/core";
 
@@ -397,7 +403,7 @@ const configSchema = buildChannelConfigSchema(accountSchema);
 Channel plugins can provide interactive setup wizards for `openclaw onboard`.
 The wizard is a `ChannelSetupWizard` object on the `ChannelPlugin`:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import type { ChannelSetupWizard } from "openclaw/plugin-sdk/channel-setup";
 
 const setupWizard: ChannelSetupWizard = {
@@ -447,7 +453,7 @@ each plugin.
 For optional setup surfaces that should only appear in certain contexts, use
 `createOptionalChannelSetupSurface` from `openclaw/plugin-sdk/channel-setup`:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { createOptionalChannelSetupSurface } from "openclaw/plugin-sdk/channel-setup";
 
 const setupSurface = createOptionalChannelSetupSurface({
@@ -486,21 +492,21 @@ copying the same binary/status glue into every channel:
 
 **External plugins:** publish to [ClawHub](/tools/clawhub) or npm, then install:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @myorg/openclaw-my-plugin
 ```
 
 OpenClaw tries ClawHub first and falls back to npm automatically. You can also
 force ClawHub explicitly:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install clawhub:@myorg/openclaw-my-plugin   # ClawHub only
 ```
 
 There is no matching `npm:` override. Use the normal npm package spec when you
 want the npm path after ClawHub fallback:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @myorg/openclaw-my-plugin
 ```
 
@@ -509,7 +515,7 @@ discovered during build.
 
 **Users can install:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install <package-name>
 ```
 

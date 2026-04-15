@@ -45,7 +45,7 @@ If you skip it, you can enable or change `x_search` later in config.
   <Step title="Store the key">
     Set `XAI_API_KEY` in the Gateway environment, or configure via:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
   </Step>
@@ -53,7 +53,7 @@ If you skip it, you can enable or change `x_search` later in config.
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

@@ -28,7 +28,7 @@ Unified logging redacts most payloads unless a subsystem opts into `privacy -off
 
 * Write the plist to a temp file first, then install it atomically as root:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 cat <<'EOF' >/tmp/ai.openclaw.plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

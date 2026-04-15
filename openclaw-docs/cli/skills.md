@@ -16,7 +16,7 @@ Related:
 
 ## Commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw skills search "calendar"
 openclaw skills search --limit 20 --json
 openclaw skills install <slug>

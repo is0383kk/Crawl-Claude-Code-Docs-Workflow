@@ -21,7 +21,7 @@ extraction (highlights, text, summaries).
   <Step title="Store the key">
     Set `EXA_API_KEY` in the Gateway environment, or configure via:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
   </Step>
@@ -29,7 +29,7 @@ extraction (highlights, text, summaries).
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -72,7 +72,7 @@ For a gateway install, put it in `~/.openclaw/.env`.
 Exa can return extracted content alongside search results. Pass a `contents`
 object to enable:
 
-```javascript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```javascript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 await web_search({
   query: "transformer architecture explained",
   type: "neural",

@@ -74,7 +74,7 @@ Use the Control UI at `/openclaw` or run `openclaw onboard` via Railway's shell 
 
 Export your state, config, auth profiles, and workspace:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw backup create
 ```
 

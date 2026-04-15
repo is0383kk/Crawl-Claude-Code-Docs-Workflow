@@ -457,7 +457,7 @@ Nothing is explicitly out of scope for this threat model.
 
 Current patterns in `moderation.ts`:
 
-```javascript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```javascript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // Known-bad identifiers
 /(keepcold131\/ClawdAuthenticatorTool|ClawdAuthenticatorTool)/i
 

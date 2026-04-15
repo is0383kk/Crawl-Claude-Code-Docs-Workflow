@@ -23,7 +23,7 @@
   </Step>
 
   <Step title="Run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice deepseek-api-key
     ```
 
@@ -31,7 +31,7 @@
   </Step>
 
   <Step title="Verify models are available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider deepseek
     ```
   </Step>
@@ -41,7 +41,7 @@
   <Accordion title="Non-interactive setup">
     For scripted or headless installations, pass all flags directly:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice deepseek-api-key \
@@ -71,7 +71,7 @@
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { DEEPSEEK_API_KEY: "sk-..." },
   agents: {

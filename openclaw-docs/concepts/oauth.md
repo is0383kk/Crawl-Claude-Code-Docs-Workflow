@@ -26,7 +26,7 @@ For Anthropic in production, API key auth is the safer recommended path.
 OpenClaw also supports **provider plugins** that ship their own OAuth or API‑key
 flows. Run them via:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models auth login --provider <id>
 ```
 
@@ -139,7 +139,7 @@ Two patterns:
 
 If you want “personal” and “work” to never interact, use isolated agents (separate sessions + credentials + workspace):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents add work
 openclaw agents add personal
 ```

@@ -310,7 +310,7 @@ contracts for models, speech, realtime transcription, realtime voice, media
 understanding, image generation, video generation, web fetch, and web search,
 a vendor can own all of its surfaces in one place:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import type { OpenClawPluginDefinition } from "openclaw/plugin-sdk/plugin-entry";
 import {
   describeImageWithModel,
@@ -601,7 +601,7 @@ Plugins that bind a conversation can react when an approval is resolved.
 Use `api.onConversationBindingResolved(...)` to receive a callback after a bind
 request is approved or denied:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export default {
   id: "my-plugin",
   register(api) {
@@ -745,7 +745,7 @@ that still runs on OpenClaw's normal inference loop.
 
 ### Provider example
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 api.registerProvider({
   id: "example-proxy",
   label: "Example Proxy",
@@ -913,7 +913,7 @@ api.registerProvider({
 
 Plugins can access selected core helpers via `api.runtime`. For TTS:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const clip = await api.runtime.tts.textToSpeech({
   text: "Hello from OpenClaw",
   cfg: api.config,
@@ -941,7 +941,7 @@ Notes:
 
 Plugins can also register speech providers via `api.registerSpeechProvider(...)`.
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 api.registerSpeechProvider({
   id: "acme-speech",
   label: "Acme Speech",
@@ -969,7 +969,7 @@ Notes:
 For image/audio/video understanding, plugins register one typed
 media-understanding provider instead of a generic key/value bag:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 api.registerMediaUnderstandingProvider({
   id: "google",
   capabilities: ["image", "audio", "video"],
@@ -992,7 +992,7 @@ Notes:
 
 For media-understanding runtime helpers, plugins can call:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const image = await api.runtime.mediaUnderstanding.describeImageFile({
   filePath: "/tmp/inbound-photo.jpg",
   cfg: api.config,
@@ -1008,7 +1008,7 @@ const video = await api.runtime.mediaUnderstanding.describeVideoFile({
 For audio transcription, plugins can use either the media-understanding runtime
 or the older STT alias:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const { text } = await api.runtime.mediaUnderstanding.transcribeAudioFile({
   filePath: "/tmp/inbound-audio.ogg",
   cfg: api.config,
@@ -1027,7 +1027,7 @@ Notes:
 
 Plugins can also launch background subagent runs through `api.runtime.subagent`:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const result = await api.runtime.subagent.run({
   sessionKey: "agent:main:subagent:search-helper",
   message: "Expand this query into focused follow-up searches.",
@@ -1048,7 +1048,7 @@ Notes:
 For web search, plugins can consume the shared runtime helper instead of
 reaching into the agent tool wiring:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const providers = api.runtime.webSearch.listProviders({
   config: api.config,
 });
@@ -1073,7 +1073,7 @@ Notes:
 
 ### `api.runtime.imageGeneration`
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 const result = await api.runtime.imageGeneration.generate({
   config: api.config,
   args: { prompt: "A friendly lobster mascot", size: "1024x1024" },
@@ -1091,7 +1091,7 @@ const providers = api.runtime.imageGeneration.listProviders({
 
 Plugins can expose HTTP endpoints with `api.registerHttpRoute(...)`.
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 api.registerHttpRoute({
   path: "/acme/webhook",
   auth: "plugin",
@@ -1371,7 +1371,7 @@ path" instead of crashing or misreporting the account as not configured.
 
 A plugin directory may include a `package.json` with `openclaw.extensions`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "name": "my-pack",
   "openclaw": {
@@ -1444,7 +1444,7 @@ to `operator.admin`, even if a plugin requests a narrower scope.
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "name": "@scope/my-channel",
   "openclaw": {
@@ -1464,7 +1464,7 @@ install hints via `openclaw.install`. This keeps the core catalog data-free.
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "name": "@openclaw/nextcloud-talk",
   "openclaw": {
@@ -1524,7 +1524,7 @@ and compaction. Register them from your plugin with
 Use this when your plugin needs to replace or extend the default context
 pipeline rather than just add memory search or hooks.
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { buildMemorySystemPromptAddition } from "openclaw/plugin-sdk/core";
 
 export default function (api) {
@@ -1553,7 +1553,7 @@ export default function (api) {
 If your engine does **not** own the compaction algorithm, keep `compact()`
 implemented and delegate it explicitly:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import {
   buildMemorySystemPromptAddition,
   delegateCompactionToRuntime,
@@ -1633,7 +1633,7 @@ not fully integrated yet.
 
 Minimal pattern:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // core contract
 export type VideoGenerationProviderPlugin = {
   id: string;
@@ -1659,7 +1659,7 @@ const clip = await api.runtime.videoGeneration.generate({
 
 Contract test pattern:
 
-```ts  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```ts theme={"theme":{"light":"min-light","dark":"min-dark"}}
 expect(findVideoGenerationProviderIdsForPlugin("openai")).toEqual(["openai"]);
 ```
 

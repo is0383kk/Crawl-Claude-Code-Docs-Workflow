@@ -28,7 +28,7 @@ Troubleshooting: [Scheduled Tasks](/automation/cron-jobs#troubleshooting)
 
 Example config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -90,7 +90,7 @@ and logged; a message that is only `HEARTBEAT_OK` is dropped.
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -127,7 +127,7 @@ run heartbeats. The per-agent block merges on top of `agents.defaults.heartbeat`
 
 Example: two agents, only the second agent runs heartbeats.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -157,7 +157,7 @@ Example: two agents, only the second agent runs heartbeats.
 
 Restrict heartbeats to business hours in a specific timezone:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -191,7 +191,7 @@ That is treated as a zero-width window, so heartbeats are always skipped.
 
 Use `accountId` to target a specific account on multi-account channels like Telegram:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     list: [
@@ -269,7 +269,7 @@ Use `accountId` to target a specific account on multi-account channels like Tele
 By default, `HEARTBEAT_OK` acknowledgments are suppressed while alert content is
 delivered. You can adjust this per channel or per account:
 
-```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 channels:
   defaults:
     heartbeat:
@@ -298,7 +298,7 @@ If **all three** are false, OpenClaw skips the heartbeat run entirely (no model 
 
 ### Per-channel vs per-account examples
 
-```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 channels:
   defaults:
     heartbeat:
@@ -346,7 +346,7 @@ Keep it tiny (short checklist or reminders) to avoid prompt bloat.
 
 Example `HEARTBEAT.md`:
 
-```md  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```md theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Heartbeat checklist
 
 - Quick scan: anything urgent in inboxes?
@@ -361,7 +361,7 @@ checks inside heartbeat itself.
 
 Example:
 
-```md  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```md theme={"theme":{"light":"min-light","dark":"min-dark"}}
 tasks:
 
 - name: inbox-triage
@@ -409,7 +409,7 @@ Safety note: don’t put secrets (API keys, phone numbers, private tokens) into
 
 You can enqueue a system event and trigger an immediate heartbeat with:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw system event --text "Check for urgent follow-ups" --mode now
 ```
 

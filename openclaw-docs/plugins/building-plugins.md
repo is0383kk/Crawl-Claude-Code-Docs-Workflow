@@ -90,7 +90,7 @@ and provider plugins have dedicated guides linked above.
   </Step>
 
   <Step title="Write the entry point">
-    ```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
     // index.ts
     import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
     import { Type } from "@sinclair/typebox";
@@ -120,7 +120,7 @@ and provider plugins have dedicated guides linked above.
   <Step title="Test and publish">
     **External plugins:** validate and publish with ClawHub, then install:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     clawhub package publish your-org/your-plugin --dry-run
     clawhub package publish your-org/your-plugin
     openclaw plugins install clawhub:@myorg/openclaw-my-plugin
@@ -131,7 +131,7 @@ and provider plugins have dedicated guides linked above.
 
     **In-repo plugins:** place under the bundled plugin workspace tree — automatically discovered.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     pnpm test -- <bundled-plugin-root>/my-plugin/
     ```
   </Step>
@@ -191,7 +191,7 @@ See [SDK Overview hook decision semantics](/plugins/sdk-overview#hook-decision-s
 Tools are typed functions the LLM can call. They can be required (always
 available) or optional (user opt-in):
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 register(api) {
   // Required tool — always available
   api.registerTool({
@@ -220,7 +220,7 @@ register(api) {
 
 Users enable optional tools in config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: { allow: ["workflow_tool"] },
 }
@@ -234,7 +234,7 @@ Users enable optional tools in config:
 
 Always import from focused `openclaw/plugin-sdk/<subpath>` paths:
 
-```typescript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
 import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
 

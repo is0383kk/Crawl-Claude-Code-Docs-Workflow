@@ -18,7 +18,7 @@ Diagnostics flags let you enable targeted debug logs without turning on verbose 
 
 ## Enable via config
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "diagnostics": {
     "flags": ["telegram.http"]
@@ -28,7 +28,7 @@ Diagnostics flags let you enable targeted debug logs without turning on verbose 
 
 Multiple flags:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "diagnostics": {
     "flags": ["telegram.http", "gateway.*"]
@@ -40,13 +40,13 @@ Restart the gateway after changing flags.
 
 ## Env override (one-off)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_DIAGNOSTICS=telegram.http,telegram.payload
 ```
 
 Disable all flags:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_DIAGNOSTICS=0
 ```
 
@@ -64,19 +64,19 @@ If you set `logging.file`, use that path instead. Logs are JSONL (one JSON objec
 
 Pick the latest log file:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ls -t /tmp/openclaw/openclaw-*.log | head -n 1
 ```
 
 Filter for Telegram HTTP diagnostics:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 rg "telegram http error" /tmp/openclaw/openclaw-*.log
 ```
 
 Or tail while reproducing:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 tail -f /tmp/openclaw/openclaw-$(date +%F).log | rg "telegram http error"
 ```
 

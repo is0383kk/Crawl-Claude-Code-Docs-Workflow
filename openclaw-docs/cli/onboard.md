@@ -18,7 +18,7 @@ Interactive onboarding for local or remote Gateway setup.
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard
 openclaw onboard --flow quickstart
 openclaw onboard --flow manual
@@ -30,7 +30,7 @@ For plaintext private-network `ws://` targets (trusted networks only), set
 
 Non-interactive custom provider:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --auth-choice custom-api-key \
   --custom-base-url "https://llm.example.com/v1" \
@@ -44,7 +44,7 @@ openclaw onboard --non-interactive \
 
 LM Studio also supports a provider-specific key flag in non-interactive mode:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --auth-choice lmstudio \
   --custom-base-url "http://localhost:1234/v1" \
@@ -55,7 +55,7 @@ openclaw onboard --non-interactive \
 
 Non-interactive Ollama:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --auth-choice ollama \
   --custom-base-url "http://ollama-host:11434" \
@@ -67,7 +67,7 @@ openclaw onboard --non-interactive \
 
 Store provider keys as refs instead of plaintext:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --auth-choice openai-api-key \
   --secret-input-mode ref \
@@ -97,7 +97,7 @@ Gateway token options in non-interactive mode:
 
 Example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export OPENCLAW_GATEWAY_TOKEN="your-token"
 openclaw onboard --non-interactive \
   --mode local \
@@ -128,7 +128,7 @@ Non-interactive Z.AI endpoint choices:
 Note: `--auth-choice zai-api-key` now auto-detects the best Z.AI endpoint for your key (prefers the general API with `zai/glm-5.1`).
 If you specifically want the GLM Coding Plan endpoints, pick `zai-coding-global` or `zai-coding-cn`.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Promptless endpoint selection
 openclaw onboard --non-interactive \
   --auth-choice zai-coding-global \
@@ -142,7 +142,7 @@ openclaw onboard --non-interactive \
 
 Non-interactive Mistral example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --auth-choice mistral-api-key \
   --mistral-api-key "$MISTRAL_API_KEY"
@@ -171,7 +171,7 @@ Flow notes:
 
 ## Common follow-up commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw configure
 openclaw agents add <name>
 ```

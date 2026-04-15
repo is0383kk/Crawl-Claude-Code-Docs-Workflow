@@ -38,7 +38,7 @@ Regardless of which path you choose, onboarding sets up:
 
 Run in any terminal:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard
 ```
 

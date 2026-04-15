@@ -25,25 +25,25 @@ as one OpenCode setup.
 
     <Steps>
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice opencode-zen
         ```
 
         Or pass the key directly:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --opencode-zen-api-key "$OPENCODE_API_KEY"
         ```
       </Step>
 
       <Step title="Set a Zen model as the default">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw config set agents.defaults.model.primary "opencode/claude-opus-4-6"
         ```
       </Step>
 
       <Step title="Verify models are available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider opencode
         ```
       </Step>
@@ -55,25 +55,25 @@ as one OpenCode setup.
 
     <Steps>
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice opencode-go
         ```
 
         Or pass the key directly:
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --opencode-go-api-key "$OPENCODE_API_KEY"
         ```
       </Step>
 
       <Step title="Set a Go model as the default">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw config set agents.defaults.model.primary "opencode-go/kimi-k2.5"
         ```
       </Step>
 
       <Step title="Verify models are available">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw models list --provider opencode-go
         ```
       </Step>
@@ -83,7 +83,7 @@ as one OpenCode setup.
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { OPENCODE_API_KEY: "sk-..." },
   agents: { defaults: { model: { primary: "opencode/claude-opus-4-6" } } },

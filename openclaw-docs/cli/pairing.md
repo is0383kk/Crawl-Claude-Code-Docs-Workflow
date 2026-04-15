@@ -14,7 +14,7 @@ Related:
 
 ## Commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw pairing list telegram
 openclaw pairing list --channel telegram --account work
 openclaw pairing list telegram --json

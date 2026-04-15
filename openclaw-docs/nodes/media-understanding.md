@@ -48,7 +48,7 @@ If understanding fails or is disabled, **the reply flow continues** with the ori
   * `scope` (optional gating by channel/chatType/session key)
 * `tools.media.concurrency`: max concurrent capability runs (default **2**).
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -75,7 +75,7 @@ If understanding fails or is disabled, **the reply flow continues** with the ori
 
 Each `models[]` entry can be **provider** or **CLI**:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   type: "provider", // default if omitted
   provider: "openai",
@@ -90,7 +90,7 @@ Each `models[]` entry can be **provider** or **CLI**:
 }
 ```
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   type: "cli",
   command: "gemini",
@@ -162,7 +162,7 @@ working option**:
 
 To disable auto-detection, set:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -264,7 +264,7 @@ File-attachment extraction behavior:
 
 ### 1) Shared models list + overrides
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -301,7 +301,7 @@ File-attachment extraction behavior:
 
 ### 2) Audio + Video only (image off)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -341,7 +341,7 @@ File-attachment extraction behavior:
 
 ### 3) Optional image understanding
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {
@@ -372,7 +372,7 @@ File-attachment extraction behavior:
 
 ### 4) Multi-modal single entry (explicit capabilities)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     media: {

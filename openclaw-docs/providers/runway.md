@@ -18,13 +18,13 @@ OpenClaw ships a bundled `runway` provider for hosted video generation.
 
 <Steps>
   <Step title="Set the API key">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice runway-api-key
     ```
   </Step>
 
   <Step title="Set Runway as the default video provider">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config set agents.defaults.videoGenerationModel.primary "runway/gen4.5"
     ```
   </Step>
@@ -53,7 +53,7 @@ OpenClaw ships a bundled `runway` provider for hosted video generation.
 
 ## Configuration
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

@@ -29,7 +29,7 @@ When you copy the **state directory** (`~/.openclaw/` by default) and your **wor
   <Step title="Stop the gateway and back up">
     On the **old** machine, stop the gateway so files are not changing mid-copy, then archive:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway stop
     cd ~
     tar -czf openclaw-state.tgz .openclaw
@@ -46,7 +46,7 @@ When you copy the **state directory** (`~/.openclaw/` by default) and your **wor
   <Step title="Copy state directory and workspace">
     Transfer the archive via `scp`, `rsync -a`, or an external drive, then extract:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     cd ~
     tar -xzf openclaw-state.tgz
     ```
@@ -57,7 +57,7 @@ When you copy the **state directory** (`~/.openclaw/` by default) and your **wor
   <Step title="Run doctor and verify">
     On the new machine, run [Doctor](/gateway/doctor) to apply config migrations and repair services:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw doctor
     openclaw gateway restart
     openclaw status

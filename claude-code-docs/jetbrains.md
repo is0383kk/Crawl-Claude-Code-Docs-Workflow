@@ -49,11 +49,11 @@ Run `claude` from your IDE's integrated terminal, and all integration features w
 
 Use the `/ide` command in any external terminal to connect Claude Code to your JetBrains IDE and activate all features:
 
-```bash  theme={null}
+```bash theme={null}
 claude
 ```
 
-```text  theme={null}
+```text theme={null}
 /ide
 ```
 
@@ -67,7 +67,7 @@ Configure IDE integration through Claude Code's settings:
 
 1. Run `claude`
 2. Enter the `/config` command
-3. Set the diff tool to `auto` for automatic IDE detection
+3. Set the diff tool to `auto` to show diffs in the IDE, or `terminal` to keep them in the terminal
 
 ### Plugin Settings
 

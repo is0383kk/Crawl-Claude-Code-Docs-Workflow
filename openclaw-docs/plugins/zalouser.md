@@ -26,7 +26,7 @@ No external `zca`/`openzca` CLI binary is required.
 
 ### Option A: install from npm
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @openclaw/zalouser
 ```
 
@@ -34,7 +34,7 @@ Restart the Gateway afterwards.
 
 ### Option B: install from a local folder (dev)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 PLUGIN_SRC=./path/to/local/zalouser-plugin
 openclaw plugins install "$PLUGIN_SRC"
 cd "$PLUGIN_SRC" && pnpm install
@@ -46,7 +46,7 @@ Restart the Gateway afterwards.
 
 Channel config lives under `channels.zalouser` (not `plugins.entries.*`):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalouser: {
@@ -59,7 +59,7 @@ Channel config lives under `channels.zalouser` (not `plugins.entries.*`):
 
 ## CLI
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels login --channel zalouser
 openclaw channels logout --channel zalouser
 openclaw channels status --probe

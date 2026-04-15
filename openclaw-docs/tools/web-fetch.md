@@ -17,7 +17,7 @@ For JS-heavy sites or login-protected pages, use the
 `web_fetch` is **enabled by default** -- no configuration needed. The agent can
 call it immediately:
 
-```javascript  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```javascript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 await web_fetch({ url: "https://example.com/article" });
 ```
 
@@ -54,7 +54,7 @@ await web_fetch({ url: "https://example.com/article" });
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     web: {
@@ -80,7 +80,7 @@ await web_fetch({ url: "https://example.com/article" });
 If Readability extraction fails, `web_fetch` can fall back to
 [Firecrawl](/tools/firecrawl) for bot-circumvention and better extraction:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     web: {
@@ -142,7 +142,7 @@ Current runtime behavior:
 
 If you use tool profiles or allowlists, add `web_fetch` or `group:web`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     allow: ["web_fetch"],

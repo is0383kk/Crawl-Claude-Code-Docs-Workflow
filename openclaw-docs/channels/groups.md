@@ -92,7 +92,7 @@ This gives you one agent “brain” (shared workspace + memory), but two execut
 
 Example (DMs on host, groups sandboxed + messaging-only tools):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -117,7 +117,7 @@ Example (DMs on host, groups sandboxed + messaging-only tools):
 
 Want “groups can only see folder X” instead of “no host access”? Keep `workspaceAccess: "none"` and mount only allowlisted paths into the sandbox:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -152,7 +152,7 @@ Related:
 
 Control how group/room messages are handled per channel:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -231,7 +231,7 @@ supports reply metadata. Quoting a bot message can also count as an implicit
 mention on channels that expose quote metadata. Current built-in cases include
 Telegram, WhatsApp, Slack, Discord, Microsoft Teams, and ZaloUser.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -295,7 +295,7 @@ Resolution order (most specific wins):
 
 Example (Telegram):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     telegram: {
@@ -329,7 +329,7 @@ Common intents (copy/paste):
 
 1. Disable all group replies
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: { whatsapp: { groupPolicy: "disabled" } },
 }
@@ -337,7 +337,7 @@ Common intents (copy/paste):
 
 2. Allow only specific groups (WhatsApp)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -352,7 +352,7 @@ Common intents (copy/paste):
 
 3. Allow all groups but require mention (explicit)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -364,7 +364,7 @@ Common intents (copy/paste):
 
 4. Only the owner can trigger in groups (WhatsApp)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {

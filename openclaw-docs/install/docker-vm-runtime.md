@@ -32,7 +32,7 @@ If you add new skills later that depend on additional binaries, you must:
 
 **Example Dockerfile**
 
-```dockerfile  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```dockerfile theme={"theme":{"light":"min-light","dark":"min-dark"}}
 FROM node:24-bookworm
 
 RUN apt-get update && apt-get install -y socat && rm -rf /var/lib/apt/lists/*
@@ -75,7 +75,7 @@ CMD ["node","dist/index.js"]
 
 ## Build and launch
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 docker compose build
 docker compose up -d openclaw-gateway
 ```
@@ -85,7 +85,7 @@ Use a larger machine class before retrying.
 
 Verify binaries:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 docker compose exec openclaw-gateway which gog
 docker compose exec openclaw-gateway which goplaces
 docker compose exec openclaw-gateway which wacli
@@ -101,7 +101,7 @@ Expected output:
 
 Verify Gateway:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 docker compose logs -f openclaw-gateway
 ```
 
@@ -133,7 +133,7 @@ All long-lived state must survive restarts, rebuilds, and reboots.
 
 To update OpenClaw on the VM:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git pull
 docker compose build
 docker compose up -d

@@ -26,7 +26,7 @@ To keep builds deterministic, the JSON files are pinned to specific upstream com
 2. Update the commit hashes in `apps/macos/Sources/OpenClaw/Resources/DeviceModels/NOTICE.md`.
 3. Re-download the JSON files, pinned to those commits:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 IOS_COMMIT="<commit sha for ios-device-identifiers.json>"
 MAC_COMMIT="<commit sha for mac-device-identifiers.json>"
 
@@ -40,6 +40,6 @@ curl -fsSL "https://raw.githubusercontent.com/kyle-seongwoo-jun/apple-device-ide
 4. Ensure `apps/macos/Sources/OpenClaw/Resources/DeviceModels/LICENSE.apple-device-identifiers.txt` still matches upstream (replace it if the upstream license changes).
 5. Verify the macOS app builds cleanly (no warnings):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 swift build --package-path apps/macos
 ```

@@ -22,13 +22,13 @@ packaged builds do not need a separate install.
 If you are on an older build or a custom install that excludes LINE, install it
 manually:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @openclaw/line
 ```
 
 Local checkout (when running from a git repo):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install ./path/to/local/line-plugin
 ```
 
@@ -58,7 +58,7 @@ Security note:
 
 Minimal config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     line: {
@@ -78,7 +78,7 @@ Env vars (default account only):
 
 Token/secret files:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     line: {
@@ -93,7 +93,7 @@ Token/secret files:
 
 Multiple accounts:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     line: {
@@ -114,7 +114,7 @@ Multiple accounts:
 Direct messages default to pairing. Unknown senders get a pairing code and their
 messages are ignored until approved.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw pairing list line
 openclaw pairing approve line <CODE>
 ```
@@ -148,7 +148,7 @@ LINE IDs are case-sensitive. Valid IDs look like:
 Use `channelData.line` to send quick replies, locations, Flex cards, or template
 messages.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   text: "Here you go",
   channelData: {

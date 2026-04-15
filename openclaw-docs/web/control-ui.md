@@ -44,7 +44,7 @@ unauthorized access.
 
 **To approve the device:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # List pending requests
 openclaw devices list
 
@@ -150,7 +150,7 @@ shortcode. The iframe sandbox policy is controlled by
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     controlUi: {
@@ -174,7 +174,7 @@ intentionally want `[embed url="https://..."]` to load third-party pages, set
 
 Keep the Gateway on loopback and let Tailscale Serve proxy it with HTTPS:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway --tailscale serve
 ```
 
@@ -199,7 +199,7 @@ code may run on that host, require token/password auth.
 
 ### Bind to tailnet + token
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway --bind tailnet --token "$(openssl rand -hex 32)"
 ```
 
@@ -229,7 +229,7 @@ Documented exceptions:
 
 **Insecure-auth toggle behavior:**
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     controlUi: { allowInsecureAuth: true },
@@ -248,7 +248,7 @@ Documented exceptions:
 
 **Break-glass only:**
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     controlUi: { dangerouslyDisableDeviceAuth: true },
@@ -275,19 +275,19 @@ See [Tailscale](/gateway/tailscale) for HTTPS setup guidance.
 
 The Gateway serves static files from `dist/control-ui`. Build them with:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm ui:build # auto-installs UI deps on first run
 ```
 
 Optional absolute base (when you want fixed asset URLs):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_CONTROL_UI_BASE_PATH=/openclaw/ pnpm ui:build
 ```
 
 For local development (separate dev server):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm ui:dev # auto-installs UI deps on first run
 ```
 
@@ -302,13 +302,13 @@ locally but the Gateway runs elsewhere.
 1. Start the UI dev server: `pnpm ui:dev`
 2. Open a URL like:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 http://localhost:5173/?gatewayUrl=ws://<gateway-host>:18789
 ```
 
 Optional one-time auth (if needed):
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 http://localhost:5173/?gatewayUrl=wss://<gateway-host>:18789#token=<gateway-token>
 ```
 
@@ -331,7 +331,7 @@ Notes:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     controlUi: {

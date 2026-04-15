@@ -10,7 +10,7 @@ Generate shell completion scripts and optionally install them into your shell pr
 
 ## Usage
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw completion
 openclaw completion --shell zsh
 openclaw completion --install

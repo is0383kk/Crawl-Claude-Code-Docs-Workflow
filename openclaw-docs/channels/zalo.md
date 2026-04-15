@@ -33,7 +33,7 @@ manually:
 
 Minimal config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalo: {
@@ -74,7 +74,7 @@ This page reflects current OpenClaw behavior for **Zalo Bot Creator / Marketplac
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     zalo: {

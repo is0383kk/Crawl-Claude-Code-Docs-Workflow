@@ -24,7 +24,7 @@ If the config file is missing entirely, step 4 is skipped; shell import still ru
 
 Two equivalent ways to set inline env vars (both are non-overriding):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: {
     OPENROUTER_API_KEY: "sk-or-...",
@@ -39,7 +39,7 @@ Two equivalent ways to set inline env vars (both are non-overriding):
 
 `env.shellEnv` runs your login shell and imports only **missing** expected keys:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: {
     shellEnv: {
@@ -77,7 +77,7 @@ to apply context-specific rules.
 
 You can reference env vars directly in config string values using `${VAR_NAME}` syntax:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   models: {
     providers: {
@@ -122,7 +122,7 @@ When set, `OPENCLAW_HOME` replaces the system home directory (`$HOME` / `os.home
 
 **Example** (macOS LaunchDaemon):
 
-```xml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```xml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 <key>EnvironmentVariables</key>
 <dict>
   <key>OPENCLAW_HOME</key>
@@ -147,7 +147,7 @@ On Linux, OpenClaw automatically detects nvm and applies the fix in the actual s
 
 Export the variable before starting OpenClaw:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt
 openclaw gateway run
 ```

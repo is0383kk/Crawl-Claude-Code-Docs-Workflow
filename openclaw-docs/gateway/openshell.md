@@ -26,7 +26,7 @@ and an optional `mirror` workspace mode.
 
 1. Enable the plugin and set the sandbox backend:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -57,7 +57,7 @@ and an optional `mirror` workspace mode.
 
 3. Verify:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw sandbox list
 openclaw sandbox explain
 ```
@@ -150,7 +150,7 @@ Sandbox-level settings (`mode`, `scope`, `workspaceAccess`) are configured under
 
 ### Minimal remote setup
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -176,7 +176,7 @@ Sandbox-level settings (`mode`, `scope`, `workspaceAccess`) are configured under
 
 ### Mirror mode with GPU
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -207,7 +207,7 @@ Sandbox-level settings (`mode`, `scope`, `workspaceAccess`) are configured under
 
 ### Per-agent OpenShell with custom gateway
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -246,7 +246,7 @@ Sandbox-level settings (`mode`, `scope`, `workspaceAccess`) are configured under
 
 OpenShell sandboxes are managed through the normal sandbox CLI:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # List all sandbox runtimes (Docker + OpenShell)
 openclaw sandbox list
 
@@ -273,7 +273,7 @@ Recreate after changing any of these:
 * `plugins.entries.openshell.config.mode`
 * `plugins.entries.openshell.config.policy`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw sandbox recreate --all
 ```
 

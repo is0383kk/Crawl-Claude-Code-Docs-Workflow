@@ -24,13 +24,13 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
 
 <Steps>
   <Step title="Run interactive onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice vydra-api-key
     ```
 
     Or set the env var directly:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export VYDRA_API_KEY="vydra_live_..."
     ```
   </Step>
@@ -50,7 +50,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
 
     Set it as the default image provider:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -77,7 +77,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
 
     Set Vydra as the default video provider:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -104,7 +104,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
   <Accordion title="Video live tests">
     Provider-specific live coverage:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     OPENCLAW_LIVE_TEST=1 \
     OPENCLAW_LIVE_VYDRA_VIDEO=1 \
     pnpm test:live -- extensions/vydra/vydra.live.test.ts
@@ -117,7 +117,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
 
     Override the remote image fixture when needed:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export OPENCLAW_LIVE_VYDRA_KLING_IMAGE_URL="https://example.com/reference.png"
     ```
   </Accordion>
@@ -125,7 +125,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
   <Accordion title="Speech synthesis">
     Set Vydra as the speech provider:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       messages: {
         tts: {

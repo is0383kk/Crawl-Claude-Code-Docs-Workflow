@@ -41,7 +41,7 @@ and uses the most recent message for reply threading/IDs.
 
 Config (global default + per-channel overrides):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     inbound: {

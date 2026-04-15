@@ -14,7 +14,7 @@ Primary doc:
 
 ## Common commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw voicecall status --call-id <id>
 openclaw voicecall call --to "+15555550123" --message "Hello" --mode notify
 openclaw voicecall continue --call-id <id> --message "Any questions?"
@@ -23,7 +23,7 @@ openclaw voicecall end --call-id <id>
 
 ## Exposing webhooks (Tailscale)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw voicecall expose --mode serve
 openclaw voicecall expose --mode funnel
 openclaw voicecall expose --mode off

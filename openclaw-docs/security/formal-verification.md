@@ -40,7 +40,7 @@ Today, results are reproduced by cloning the models repo locally and running TLC
 
 Getting started:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git clone https://github.com/vignesh07/openclaw-formal-models
 cd openclaw-formal-models
 

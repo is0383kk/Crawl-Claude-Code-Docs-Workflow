@@ -19,7 +19,7 @@ Status: production-ready via WhatsApp Web (Baileys). Gateway owns linked session
 
 Manual install stays available:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @openclaw/whatsapp
 ```
 
@@ -41,7 +41,7 @@ openclaw plugins install @openclaw/whatsapp
 
 <Steps>
   <Step title="Configure WhatsApp access policy">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       channels: {
         whatsapp: {
@@ -56,25 +56,25 @@ openclaw plugins install @openclaw/whatsapp
   </Step>
 
   <Step title="Link WhatsApp (QR)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw channels login --channel whatsapp
     ```
 
     For a specific account:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw channels login --channel whatsapp --account work
     ```
   </Step>
 
   <Step title="Start the gateway">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway
     ```
   </Step>
 
   <Step title="Approve first pairing request (if using pairing mode)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw pairing list whatsapp
     openclaw pairing approve whatsapp <CODE>
     ```
@@ -99,7 +99,7 @@ openclaw plugins install @openclaw/whatsapp
 
     Minimal policy pattern:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       channels: {
         whatsapp: {
@@ -218,7 +218,7 @@ When the linked self number is also present in `allowFrom`, WhatsApp self-chat s
 
     If a quoted reply exists, context is appended in this form:
 
-    ```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
     [Replying to <sender> id:<stanzaId>]
     <quoted body or media placeholder>
     [/Replying]
@@ -258,7 +258,7 @@ When the linked self number is also present in `allowFrom`, WhatsApp self-chat s
 
     Disable globally:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       channels: {
         whatsapp: {
@@ -270,7 +270,7 @@ When the linked self number is also present in `allowFrom`, WhatsApp self-chat s
 
     Per-account override:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       channels: {
         whatsapp: {
@@ -329,7 +329,7 @@ Default: `"minimal"`.
 
 Per-account overrides use `channels.whatsapp.accounts.<id>.reactionLevel`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -344,7 +344,7 @@ Per-account overrides use `channels.whatsapp.accounts.<id>.reactionLevel`.
 WhatsApp supports immediate ack reactions on inbound receipt via `channels.whatsapp.ackReaction`.
 Ack reactions are gated by `reactionLevel` — they are suppressed when `reactionLevel` is `"off"`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {
@@ -403,7 +403,7 @@ Behavior notes:
 
     Fix:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw channels login --channel whatsapp
     openclaw channels status
     ```
@@ -414,7 +414,7 @@ Behavior notes:
 
     Fix:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw doctor
     openclaw logs --follow
     ```

@@ -18,13 +18,13 @@ install it manually:
 
 Install via CLI (npm registry):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install @openclaw/nextcloud-talk
 ```
 
 Local checkout (when running from a git repo):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install ./path/to/local/nextcloud-talk-plugin
 ```
 
@@ -38,7 +38,7 @@ Details: [Plugins](/tools/plugin)
 
 2. On your Nextcloud server, create a bot:
 
-   ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
    ./occ talk:bot:install "OpenClaw" "<shared-secret>" "<webhook-url>" --feature reaction
    ```
 
@@ -52,7 +52,7 @@ Details: [Plugins](/tools/plugin)
 
 Minimal config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     "nextcloud-talk": {
@@ -86,7 +86,7 @@ Minimal config:
 * Default: `channels.nextcloud-talk.groupPolicy = "allowlist"` (mention-gated).
 * Allowlist rooms with `channels.nextcloud-talk.rooms`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     "nextcloud-talk": {

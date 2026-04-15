@@ -37,13 +37,13 @@ stay consistent across channels.
 
 Input Markdown:
 
-```markdown  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 Hello **world** — see [docs](https://docs.openclaw.ai).
 ```
 
 IR (schematic):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "text": "Hello world — see docs.",
   "styles": [{ "start": 6, "end": 11, "style": "bold" }],
@@ -69,7 +69,7 @@ Markdown tables are not consistently supported across chat clients. Use
 
 Config keys:
 
-```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 channels:
   discord:
     markdown:

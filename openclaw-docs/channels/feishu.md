@@ -18,7 +18,7 @@ Feishu/Lark is an all-in-one collaboration platform where teams chat, share docu
 
 <Steps>
   <Step title="Run the channel setup wizard">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw channels login --channel feishu
     ```
 
@@ -26,7 +26,7 @@ Feishu/Lark is an all-in-one collaboration platform where teams chat, share docu
   </Step>
 
   <Step title="After setup completes, restart the gateway to apply the changes">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway restart
     ```
   </Step>
@@ -47,7 +47,7 @@ Configure `dmPolicy` to control who can DM the bot:
 
 **Approve a pairing request:**
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw pairing list feishu
 openclaw pairing approve feishu <CODE>
 ```
@@ -76,7 +76,7 @@ Default: `allowlist`
 
 ### Allow all groups, no @mention required
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -88,7 +88,7 @@ Default: `allowlist`
 
 ### Allow all groups, still require @mention
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -101,7 +101,7 @@ Default: `allowlist`
 
 ### Allow specific groups only
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -115,7 +115,7 @@ Default: `allowlist`
 
 ### Restrict senders within a group
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -146,13 +146,13 @@ Open the group in Feishu/Lark, click the menu icon in the top-right corner, and 
 
 Start the gateway, send a DM to the bot, then check the logs:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw logs --follow
 ```
 
 Look for `open_id` in the log output. You can also check pending pairing requests:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw pairing list feishu
 ```
 
@@ -200,7 +200,7 @@ openclaw pairing list feishu
 
 ### Multiple accounts
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -234,7 +234,7 @@ openclaw pairing list feishu
 
 Feishu/Lark supports streaming replies via interactive cards. When enabled, the bot updates the card in real time as it generates text.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -254,7 +254,7 @@ Reduce the number of Feishu/Lark API calls with two optional flags:
 * `typingIndicator` (default `true`): set `false` to skip typing reaction calls
 * `resolveSenderNames` (default `true`): set `false` to skip sender profile lookups
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     feishu: {
@@ -271,7 +271,7 @@ Feishu/Lark supports ACP for DMs and group thread messages. Feishu/Lark ACP is t
 
 #### Persistent ACP binding
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     list: [
@@ -317,7 +317,7 @@ Feishu/Lark supports ACP for DMs and group thread messages. Feishu/Lark ACP is t
 
 In a Feishu/Lark DM or thread:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /acp spawn codex --thread here
 ```
 
@@ -327,7 +327,7 @@ In a Feishu/Lark DM or thread:
 
 Use `bindings` to route Feishu/Lark DMs or groups to different agents.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     list: [

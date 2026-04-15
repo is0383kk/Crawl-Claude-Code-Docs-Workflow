@@ -102,7 +102,7 @@ Roles: `system`, `developer`, `user`, `assistant`.
 
 Send tool results back to the model:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "function_call_output",
   "call_id": "call_123",
@@ -125,7 +125,7 @@ You then send a follow-up request with `function_call_output` to continue the tu
 
 Supports base64 or URL sources:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "input_image",
   "source": { "type": "url", "url": "https://example.com/image.png" }
@@ -139,7 +139,7 @@ Max size (current): 10MB.
 
 Supports base64 or URL sources:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "type": "input_file",
   "source": {
@@ -191,7 +191,7 @@ URL fetch defaults:
 
 Defaults can be tuned under `gateway.http.endpoints.responses`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     http: {
@@ -298,7 +298,7 @@ and `prompt_tokens` / `completion_tokens`.
 
 Errors use a JSON object like:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "error": { "message": "...", "type": "invalid_request_error" } }
 ```
 
@@ -312,7 +312,7 @@ Common cases:
 
 Non-streaming:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -sS http://127.0.0.1:18789/v1/responses \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \
@@ -325,7 +325,7 @@ curl -sS http://127.0.0.1:18789/v1/responses \
 
 Streaming:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 curl -N http://127.0.0.1:18789/v1/responses \
   -H 'Authorization: Bearer YOUR_TOKEN' \
   -H 'Content-Type: application/json' \

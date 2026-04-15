@@ -45,7 +45,7 @@ Called via `node.invoke`.
 
 Params (suggested):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "timeoutMs": 10000,
   "maxAgeMs": 15000,
@@ -55,7 +55,7 @@ Params (suggested):
 
 Response payload:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "lat": 48.20849,
   "lon": 16.37208,

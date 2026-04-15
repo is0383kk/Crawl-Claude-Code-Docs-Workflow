@@ -41,7 +41,7 @@ Related:
 
 If you don’t want to hand-edit config, run onboarding:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard
 ```
 
@@ -83,7 +83,7 @@ like it “didn’t respond.” The fix is to either:
 
 Example allowlist config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agent: {
     model: { primary: "anthropic/claude-sonnet-4-6" },
@@ -131,7 +131,7 @@ Full command behavior/config: [Slash commands](/tools/slash-commands).
 
 ## CLI commands
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models list
 openclaw models status
 openclaw models set <provider/model>
@@ -188,7 +188,7 @@ OAuth/token profiles are also supported.
 
 Example (Claude CLI):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 claude auth login
 openclaw models status
 ```

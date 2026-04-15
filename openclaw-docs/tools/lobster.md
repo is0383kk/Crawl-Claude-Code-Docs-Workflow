@@ -41,13 +41,13 @@ If the pipeline pauses for approval, the tool returns a `resumeToken` so you can
 
 Build tiny commands that speak JSON, then chain them into a single Lobster call. (Example command names below — swap in your own.)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 inbox list --json
 inbox categorize --json
 inbox apply --json
 ```
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "run",
   "pipeline": "exec --json --shell 'inbox list --json' | exec --stdin json --shell 'inbox categorize --json' | exec --stdin json --shell 'inbox apply --json' | approve --preview-from-stdin --limit 5 --prompt 'Apply changes?'",
@@ -57,7 +57,7 @@ inbox apply --json
 
 If the pipeline requests approval, resume with the token:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "resume",
   "token": "<resumeToken>",
@@ -69,7 +69,7 @@ AI triggers the workflow; Lobster executes the steps. Approval gates keep side e
 
 Example: map input items into tool calls:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 gog.gmail.search --query 'newer_than:1d' \
   | openclaw.invoke --tool message --action send --each --item-key message --args-json '{"provider":"telegram","to":"..."}'
 ```
@@ -82,7 +82,7 @@ deterministic while still letting you classify/summarize/draft with a model.
 
 Enable the tool:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "entries": {
@@ -102,7 +102,7 @@ Enable the tool:
 
 Use it in a pipeline:
 
-```lobster  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```lobster theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw.invoke --tool llm-task --action json --args-json '{
   "prompt": "Given the input email, return intent and draft.",
   "thinking": "low",
@@ -125,7 +125,7 @@ See [LLM Task](/tools/llm-task) for details and configuration options.
 
 Lobster can run YAML/JSON workflow files with `name`, `args`, `steps`, `env`, `condition`, and `approval` fields. In OpenClaw tool calls, set `pipeline` to the file path.
 
-```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 name: inbox-triage
 args:
   tag:
@@ -163,7 +163,7 @@ Lobster is an **optional** plugin tool (not enabled by default).
 
 Recommended (additive, safe):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "tools": {
     "alsoAllow": ["lobster"]
@@ -173,7 +173,7 @@ Recommended (additive, safe):
 
 Or per-agent:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "list": [
@@ -211,7 +211,7 @@ User: "Check my email and draft replies"
 
 With Lobster:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "run",
   "pipeline": "email.triage --limit 20",
@@ -221,7 +221,7 @@ With Lobster:
 
 Returns a JSON envelope (truncated):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "ok": true,
   "status": "needs_approval",
@@ -237,7 +237,7 @@ Returns a JSON envelope (truncated):
 
 User approves → resume:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "resume",
   "token": "<resumeToken>",
@@ -253,7 +253,7 @@ One workflow. Deterministic. Safe.
 
 Run a pipeline in tool mode.
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "run",
   "pipeline": "gog.gmail.search --query 'newer_than:1d' | email.triage",
@@ -265,7 +265,7 @@ Run a pipeline in tool mode.
 
 Run a workflow file with args:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "run",
   "pipeline": "/path/to/inbox-triage.lobster",
@@ -277,7 +277,7 @@ Run a workflow file with args:
 
 Continue a halted workflow after approval.
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "action": "resume",
   "token": "<resumeToken>",

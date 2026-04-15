@@ -2,9 +2,9 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Dreaming (experimental)
+# Dreaming
 
-# Dreaming (experimental)
+# Dreaming
 
 Dreaming is the background memory consolidation system in `memory-core`.
 It helps OpenClaw move strong short-term signals into durable memory while
@@ -77,6 +77,9 @@ After each phase has enough material, `memory-core` runs a best-effort backgroun
 subagent turn (using the default runtime model) and appends a short diary entry.
 
 This diary is for human reading in the Dreams UI, not a promotion source.
+Dreaming-generated diary/report artifacts are excluded from short-term
+promotion. Only grounded memory snippets are eligible to promote into
+`MEMORY.md`.
 
 There is also a grounded historical backfill lane for review and recovery work:
 
@@ -123,7 +126,7 @@ Default cadence behavior:
 
 Enable dreaming:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "entries": {
@@ -141,7 +144,7 @@ Enable dreaming:
 
 Enable dreaming with a custom sweep cadence:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "entries": {
@@ -172,7 +175,7 @@ Enable dreaming with a custom sweep cadence:
 
 Use CLI promotion for preview or manual apply:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory promote
 openclaw memory promote --apply
 openclaw memory promote --limit 5
@@ -184,7 +187,7 @@ with CLI flags.
 
 Explain why a specific candidate would or would not promote:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory promote-explain "router vlan"
 openclaw memory promote-explain "router vlan" --json
 ```
@@ -192,7 +195,7 @@ openclaw memory promote-explain "router vlan" --json
 Preview REM reflections, candidate truths, and deep promotion output without
 writing anything:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw memory rem-harness
 openclaw memory rem-harness --json
 ```
@@ -209,7 +212,7 @@ All settings live under `plugins.entries.memory-core.config.dreaming`.
 Phase policy, thresholds, and storage behavior are internal implementation
 details (not user-facing config).
 
-See [Memory configuration reference](/reference/memory-config#dreaming-experimental)
+See [Memory configuration reference](/reference/memory-config#dreaming)
 for the full key list.
 
 ## Dreams UI

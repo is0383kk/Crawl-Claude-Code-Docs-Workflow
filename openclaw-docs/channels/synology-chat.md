@@ -20,7 +20,7 @@ install it manually:
 
 Install from a local checkout:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw plugins install ./path/to/local/synology-chat-plugin
 ```
 
@@ -57,7 +57,7 @@ Webhook auth details:
 
 Minimal config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     "synology-chat": {
@@ -105,7 +105,7 @@ Use numeric Synology Chat user IDs as targets.
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw message send --channel synology-chat --target 123456 --text "Hello from OpenClaw"
 openclaw message send --channel synology-chat --target synology-chat:123456 --text "Hello again"
 ```
@@ -124,7 +124,7 @@ If you intentionally need legacy inheritance for a named account, set
 `dangerouslyAllowInheritedWebhookPath: true` on that account or at `channels.synology-chat`,
 but duplicate exact paths are still rejected fail-closed. Prefer explicit per-account paths.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     "synology-chat": {

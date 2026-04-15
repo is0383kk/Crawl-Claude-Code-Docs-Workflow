@@ -26,7 +26,7 @@ Availability: internal preview. The iOS app is not publicly distributed yet.
 
 1. Start the Gateway:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway --port 18789
 ```
 
@@ -34,7 +34,7 @@ openclaw gateway --port 18789
 
 3. Approve the pairing request on the gateway host:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw devices list
 openclaw devices approve <requestId>
 ```
@@ -45,7 +45,7 @@ Run `openclaw devices list` again before approval.
 
 4. Verify connection:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes status
 openclaw gateway call node.list --params "{}"
 ```
@@ -57,7 +57,7 @@ token to the gateway.
 
 Gateway-side requirement:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     push: {
@@ -152,7 +152,7 @@ Why this design was created:
 Local/manual builds remain on direct APNs. If you are testing those builds without the relay, the
 gateway still needs direct APNs credentials:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export OPENCLAW_APNS_TEAM_ID="TEAMID"
 export OPENCLAW_APNS_KEY_ID="KEYID"
 export OPENCLAW_APNS_PRIVATE_KEY_P8="$(cat /path/to/AuthKey_KEYID.p8)"
@@ -164,7 +164,7 @@ direct APNs delivery for local iOS builds.
 
 Recommended gateway-host storage:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 mkdir -p ~/.openclaw/credentials/apns
 chmod 700 ~/.openclaw/credentials/apns
 mv /path/to/AuthKey_KEYID.p8 ~/.openclaw/credentials/apns/AuthKey_KEYID.p8
@@ -196,7 +196,7 @@ In Settings, enable **Manual Host** and enter the gateway host + port (default `
 
 The iOS node renders a WKWebView canvas. Use `node.invoke` to drive it:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node "iOS Node" --command canvas.navigate --params '{"url":"http://<gateway-host>:18789/__openclaw__/canvas/"}'
 ```
 
@@ -209,11 +209,11 @@ Notes:
 
 ### Canvas eval / snapshot
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node "iOS Node" --command canvas.eval --params '{"javaScript":"(() => { const {ctx} = window.__openclaw; ctx.clearRect(0,0,innerWidth,innerHeight); ctx.lineWidth=6; ctx.strokeStyle=\"#ff2d55\"; ctx.beginPath(); ctx.moveTo(40,40); ctx.lineTo(innerWidth-40, innerHeight-40); ctx.stroke(); return \"ok\"; })()"}'
 ```
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes invoke --node "iOS Node" --command canvas.snapshot --params '{"maxWidth":900,"format":"jpeg"}'
 ```
 

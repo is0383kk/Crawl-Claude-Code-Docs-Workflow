@@ -25,7 +25,7 @@ Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics,
   <Step title="Set the provider API key and Gateway details">
     Run onboarding and choose the Cloudflare AI Gateway auth option:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice cloudflare-ai-gateway-api-key
     ```
 
@@ -35,7 +35,7 @@ Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics,
   <Step title="Set a default model">
     Add the model to your OpenClaw config:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -47,7 +47,7 @@ Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics,
   </Step>
 
   <Step title="Verify the model is available">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw models list --provider cloudflare-ai-gateway
     ```
   </Step>
@@ -57,7 +57,7 @@ Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics,
 
 For scripted or CI setups, pass all values on the command line:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice cloudflare-ai-gateway-api-key \
@@ -72,7 +72,7 @@ openclaw onboard --non-interactive \
   <Accordion title="Authenticated gateways">
     If you enabled Gateway authentication in Cloudflare, add the `cf-aig-authorization` header. This is **in addition to** your provider API key.
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       models: {
         providers: {

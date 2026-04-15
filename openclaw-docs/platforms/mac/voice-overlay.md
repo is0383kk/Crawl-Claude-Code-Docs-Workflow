@@ -43,7 +43,7 @@ Audience: macOS app contributors. Goal: keep the voice overlay predictable when 
 
 * Stream logs while reproducing a sticky overlay:
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   sudo log stream --predicate 'subsystem == "ai.openclaw" AND category CONTAINS "voicewake"' --level info --style compact
   ```
 

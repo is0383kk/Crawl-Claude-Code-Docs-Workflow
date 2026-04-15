@@ -30,7 +30,7 @@ iOS/Android nodes browse both `local.` and your configured wide‑area domain.
 
 ### Gateway config (recommended)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: { bind: "tailnet" }, // tailnet-only (recommended)
   discovery: { wideArea: { enabled: true } }, // enables wide-area DNS-SD publishing
@@ -39,7 +39,7 @@ iOS/Android nodes browse both `local.` and your configured wide‑area domain.
 
 ### One-time DNS server setup (gateway host)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw dns setup --apply
 ```
 
@@ -50,7 +50,7 @@ This installs CoreDNS and configures it to:
 
 Validate from a tailnet‑connected machine:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 dns-sd -B _openclaw-gw._tcp openclaw.internal.
 dig @<TAILNET_IPV4> -p 53 _openclaw-gw._tcp.openclaw.internal PTR +short
 ```
@@ -113,13 +113,13 @@ Useful built‑in tools:
 
 * Browse instances:
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   dns-sd -B _openclaw-gw._tcp local.
   ```
 
 * Resolve one instance (replace `<instance>`):
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   dns-sd -L "<instance>" _openclaw-gw._tcp local.
   ```
 

@@ -41,7 +41,7 @@ If a file is missing, OpenClaw injects a single “missing file” marker line (
 
 To disable bootstrap file creation entirely (for pre-seeded workspaces), set:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { agent: { skipBootstrap: true } }
 ```
 

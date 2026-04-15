@@ -86,7 +86,7 @@ In `mode: "warn"`, OpenClaw reports potential evictions but does not mutate the 
 
 Run maintenance on demand:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw sessions cleanup --dry-run
 openclaw sessions cleanup --enforce
 ```
@@ -248,7 +248,7 @@ These are Pi runtime semantics (OpenClaw consumes the events, but Pi decides whe
 
 Pi’s compaction settings live in Pi settings:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   compaction: {
     enabled: true,

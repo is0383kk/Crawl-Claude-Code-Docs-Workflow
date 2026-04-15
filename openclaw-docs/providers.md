@@ -16,7 +16,7 @@ Looking for chat channel docs (WhatsApp/Telegram/Discord/Slack/Mattermost (plugi
 1. Authenticate with the provider (usually via `openclaw onboard`).
 2. Set the default model:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: { defaults: { model: { primary: "anthropic/claude-opus-4-6" } } },
 }

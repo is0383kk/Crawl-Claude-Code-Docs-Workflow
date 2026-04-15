@@ -20,7 +20,7 @@ OpenClaw is a single container with some config files. The interesting customiza
 
 ## Quick start
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Replace with your provider: ANTHROPIC, GEMINI, OPENAI, or OPENROUTER
 export <PROVIDER>_API_KEY="..."
 ./scripts/k8s/deploy.sh
@@ -32,7 +32,7 @@ open http://localhost:18789
 Retrieve the configured shared secret for the Control UI. This deploy script
 creates token auth by default:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 kubectl get secret openclaw-secrets -n openclaw -o jsonpath='{.data.OPENCLAW_GATEWAY_TOKEN}' | base64 -d
 ```
 
@@ -42,7 +42,7 @@ For local debugging, `./scripts/k8s/deploy.sh --show-token` prints the token aft
 
 If you don't have a cluster, create one locally with [Kind](https://kind.sigs.k8s.io/):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/k8s/create-kind.sh           # auto-detects docker or podman
 ./scripts/k8s/create-kind.sh --delete  # tear down
 ```
@@ -55,7 +55,7 @@ Then deploy as usual with `./scripts/k8s/deploy.sh`.
 
 **Option A** — API key in environment (one step):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Replace with your provider: ANTHROPIC, GEMINI, OPENAI, or OPENROUTER
 export <PROVIDER>_API_KEY="..."
 ./scripts/k8s/deploy.sh
@@ -65,7 +65,7 @@ The script creates a Kubernetes Secret with the API key and an auto-generated ga
 
 **Option B** — create the secret separately:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export <PROVIDER>_API_KEY="..."
 ./scripts/k8s/deploy.sh --create-secret
 ./scripts/k8s/deploy.sh
@@ -75,7 +75,7 @@ Use `--show-token` with either command if you want the token printed to stdout f
 
 ### 2) Access the gateway
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 kubectl port-forward svc/openclaw 18789:18789 -n openclaw
 open http://localhost:18789
 ```
@@ -97,7 +97,7 @@ Namespace: openclaw (configurable via OPENCLAW_NAMESPACE)
 
 Edit the `AGENTS.md` in `scripts/k8s/manifests/configmap.yaml` and redeploy:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/k8s/deploy.sh
 ```
 
@@ -109,7 +109,7 @@ Edit `openclaw.json` in `scripts/k8s/manifests/configmap.yaml`. See [Gateway con
 
 Re-run with additional keys exported:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export ANTHROPIC_API_KEY="..."
 export OPENAI_API_KEY="..."
 ./scripts/k8s/deploy.sh --create-secret
@@ -120,7 +120,7 @@ Existing provider keys stay in the Secret unless you overwrite them.
 
 Or patch the Secret directly:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 kubectl patch secret openclaw-secrets -n openclaw \
   -p '{"stringData":{"<PROVIDER>_API_KEY":"..."}}'
 kubectl rollout restart deployment/openclaw -n openclaw
@@ -128,7 +128,7 @@ kubectl rollout restart deployment/openclaw -n openclaw
 
 ### Custom namespace
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_NAMESPACE=my-namespace ./scripts/k8s/deploy.sh
 ```
 
@@ -136,7 +136,7 @@ OPENCLAW_NAMESPACE=my-namespace ./scripts/k8s/deploy.sh
 
 Edit the `image` field in `scripts/k8s/manifests/deployment.yaml`:
 
-```yaml  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```yaml theme={"theme":{"light":"min-light","dark":"min-dark"}}
 image: ghcr.io/openclaw/openclaw:latest # or pin to a specific version from https://github.com/openclaw/openclaw/releases
 ```
 
@@ -152,7 +152,7 @@ If you want to expose the gateway through an Ingress or load balancer:
 
 ## Re-deploy
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/k8s/deploy.sh
 ```
 
@@ -160,7 +160,7 @@ This applies all manifests and restarts the pod to pick up any config or secret 
 
 ## Teardown
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ./scripts/k8s/deploy.sh --delete
 ```
 

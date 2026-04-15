@@ -27,19 +27,19 @@ and you do not define an explicit `models.providers.sglang` entry.
   <Step title="Set an API key">
     Any value works if no auth is configured on your server:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export SGLANG_API_KEY="sglang-local"
     ```
   </Step>
 
   <Step title="Run onboarding or set a model directly">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard
     ```
 
     Or configure the model manually:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -73,7 +73,7 @@ Use explicit config when:
 * You want to pin `contextWindow`/`maxTokens` values.
 * Your server requires a real API key (or you want to control headers).
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   models: {
     providers: {
@@ -118,7 +118,7 @@ Use explicit config when:
 
     Verify the server is running and responding:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     curl http://127.0.0.1:30000/v1/models
     ```
 

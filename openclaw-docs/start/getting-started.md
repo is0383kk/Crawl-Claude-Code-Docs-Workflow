@@ -28,7 +28,7 @@ and a working chat session.
   <Step title="Install OpenClaw">
     <Tabs>
       <Tab title="macOS / Linux">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         curl -fsSL https://openclaw.ai/install.sh | bash
         ```
 
@@ -36,7 +36,7 @@ and a working chat session.
       </Tab>
 
       <Tab title="Windows (PowerShell)">
-        ```powershell  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```powershell theme={"theme":{"light":"min-light","dark":"min-dark"}}
         iwr -useb https://openclaw.ai/install.ps1 | iex
         ```
       </Tab>
@@ -48,7 +48,7 @@ and a working chat session.
   </Step>
 
   <Step title="Run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --install-daemon
     ```
 
@@ -59,7 +59,7 @@ and a working chat session.
   </Step>
 
   <Step title="Verify the Gateway is running">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway status
     ```
 
@@ -67,7 +67,7 @@ and a working chat session.
   </Step>
 
   <Step title="Open the dashboard">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw dashboard
     ```
 
@@ -88,14 +88,14 @@ and a working chat session.
   `gateway.controlUi.root` to a directory that contains your built static
   assets and `index.html`.
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   mkdir -p "$HOME/.openclaw/control-ui-custom"
   # Copy your built static files into that directory.
   ```
 
   Then set:
 
-  ```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     "gateway": {
       "controlUi": {
@@ -108,7 +108,7 @@ and a working chat session.
 
   Restart the gateway and reopen the dashboard:
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   openclaw gateway restart
   openclaw dashboard
   ```

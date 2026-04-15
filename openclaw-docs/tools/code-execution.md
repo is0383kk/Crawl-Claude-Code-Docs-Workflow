@@ -32,7 +32,7 @@ You need an xAI API key. Any of these work:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -58,15 +58,15 @@ Example:
 
 Ask naturally and make the analysis intent explicit:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 Use code_execution to calculate the 7-day moving average for these numbers: ...
 ```
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 Use x_search to find posts mentioning OpenClaw this week, then use code_execution to count them by day.
 ```
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 Use web_search to gather the latest AI benchmark numbers, then use code_execution to compare percent changes.
 ```
 

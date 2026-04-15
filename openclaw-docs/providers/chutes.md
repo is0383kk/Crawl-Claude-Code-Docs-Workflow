@@ -23,7 +23,7 @@ auth for the bundled `chutes` provider.
   <Tab title="OAuth">
     <Steps>
       <Step title="Run the OAuth onboarding flow">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice chutes
         ```
 
@@ -48,7 +48,7 @@ auth for the bundled `chutes` provider.
       </Step>
 
       <Step title="Run the API key onboarding flow">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice chutes-api-key
         ```
       </Step>
@@ -101,7 +101,7 @@ The bundled fallback catalog includes current Chutes refs:
 
 ## Config example
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

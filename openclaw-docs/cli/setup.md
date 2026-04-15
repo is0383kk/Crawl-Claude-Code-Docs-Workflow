@@ -15,7 +15,7 @@ Related:
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw setup
 openclaw setup --workspace ~/.openclaw/workspace
 openclaw setup --wizard
@@ -33,7 +33,7 @@ openclaw setup --non-interactive --mode remote --remote-url wss://gateway-host:1
 
 To run onboarding via setup:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw setup --wizard
 ```
 

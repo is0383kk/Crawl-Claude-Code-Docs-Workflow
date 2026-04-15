@@ -14,7 +14,7 @@ If you want the lowest-friction local setup, start with [LM Studio](/providers/l
 
 Best current local stack. Load a large model in LM Studio (for example, a full-size Qwen, DeepSeek, or Llama build), enable the local server (default `http://127.0.0.1:1234`), and use Responses API to keep reasoning separate from final text.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -62,7 +62,7 @@ Keep hosted models configured even when running local; use `models.mode: "merge"
 
 ### Hybrid config: hosted primary, local fallback
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {
@@ -114,7 +114,7 @@ Swap the primary and fallback order; keep the same providers block and `models.m
 
 vLLM, LiteLLM, OAI-proxy, or custom gateways work if they expose an OpenAI-style `/v1` endpoint. Replace the provider block above with your endpoint and model ID:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   models: {
     mode: "merge",
@@ -162,8 +162,10 @@ Compatibility notes for stricter OpenAI-compatible backends:
   agent-runtime prompt shape, especially when tool schemas are included. If the
   backend works for tiny direct `/v1/chat/completions` calls but fails on normal
   OpenClaw agent turns, first try
-  `agents.defaults.localModelMode: "lean"` to drop heavyweight default tools
-  like `browser`, `cron`, and `message`; if that still fails, try
+  `agents.defaults.experimental.localModelLean: true` to drop heavyweight
+  default tools like `browser`, `cron`, and `message`; this is an experimental
+  flag, not a stable default-mode setting. See
+  [Experimental Features](/concepts/experimental-features). If that still fails, try
   `models.providers.<provider>.models[].compat.supportsTools: false`.
 * If the backend still fails only on larger OpenClaw runs, the remaining issue
   is usually upstream model/server capacity or a backend bug, not OpenClaw's

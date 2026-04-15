@@ -29,7 +29,7 @@ agent automation and verification.
 
 ## Quick start
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser --browser-profile openclaw status
 openclaw browser --browser-profile openclaw start
 openclaw browser --browser-profile openclaw open https://example.com
@@ -48,7 +48,7 @@ The default `browser` tool is now a bundled plugin that ships enabled by
 default. That means you can disable or replace it without removing the rest of
 OpenClaw's plugin system:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -88,7 +88,7 @@ restrictive `plugins.allow` list that does not include `browser`.
 
 Example broken config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     allow: ["telegram"],
@@ -98,7 +98,7 @@ Example broken config:
 
 Fix it by adding `browser` to the plugin allowlist:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     allow: ["telegram", "browser"],
@@ -138,7 +138,7 @@ Set `browser.defaultProfile: "openclaw"` if you want managed mode by default.
 
 Browser settings live in `~/.openclaw/openclaw.json`.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   browser: {
     enabled: true, // default: true
@@ -208,11 +208,11 @@ auto-detection:
 
 CLI example:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw config set browser.executablePath "/usr/bin/google-chrome"
 ```
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // macOS
 {
   browser: {
@@ -285,7 +285,7 @@ from Browserless' connection docs.
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   browser: {
     enabled: true,
@@ -329,7 +329,7 @@ the standard HTTP-based CDP discovery (`/json/version`). OpenClaw supports both:
 headless browsers with built-in CAPTCHA solving, stealth mode, and residential
 proxies.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   browser: {
     enabled: true,
@@ -423,7 +423,7 @@ Default behavior:
 
 Use `userDataDir` for Brave, Edge, Chromium, or a non-default Chrome profile:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   browser: {
     profiles: {
@@ -452,7 +452,7 @@ Common inspect pages:
 
 Live attach smoke test:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser --browser-profile user start
 openclaw browser --browser-profile user status
 openclaw browser --browser-profile user tabs
@@ -578,7 +578,7 @@ Notes:
 `POST /act` uses a structured error response for route-level validation and
 policy failures:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "error": "<message>", "code": "ACT_*" }
 ```
 
@@ -628,7 +628,7 @@ OpenClaw with browser support.
 If your Gateway runs in Docker, avoid `npx playwright` (npm override conflicts).
 Use the bundled CLI instead:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 docker compose run --rm openclaw-cli \
   node /app/node_modules/playwright-core/cli.js install chromium
 ```
@@ -795,7 +795,7 @@ You can wait on more than just time/text:
 
 These can be combined:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser wait "#main" \
   --url "**/dash" \
   --load networkidle \
@@ -824,7 +824,7 @@ When an action fails (e.g. “not visible”, “strict mode violation”, “co
 
 Examples:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser status --json
 openclaw browser snapshot --interactive --json
 openclaw browser requests --filter api --json
@@ -861,7 +861,7 @@ These are useful for “make the site behave like X” workflows:
 
 Strict-mode example (block private/internal destinations by default):
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   browser: {
     ssrfPolicy: {
@@ -898,7 +898,7 @@ Common examples:
 
 Use this minimal sequence to separate the two:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser --browser-profile openclaw start
 openclaw browser --browser-profile openclaw tabs
 openclaw browser --browser-profile openclaw open https://example.com

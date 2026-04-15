@@ -24,7 +24,7 @@ See [Gateway configuration](/gateway/configuration) → `hooks` for auth + paylo
 The Control UI is **enabled by default** when assets are present (`dist/control-ui`).
 You can control it via config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     controlUi: { enabled: true, basePath: "/openclaw" }, // basePath optional
@@ -38,7 +38,7 @@ You can control it via config:
 
 Keep the Gateway on loopback and let Tailscale Serve proxy it:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     bind: "loopback",
@@ -49,7 +49,7 @@ Keep the Gateway on loopback and let Tailscale Serve proxy it:
 
 Then start the gateway:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway
 ```
 
@@ -59,7 +59,7 @@ Open:
 
 ### Tailnet bind + token
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     bind: "tailnet",
@@ -72,7 +72,7 @@ Open:
 Then start the gateway (this non-loopback example uses shared-secret token
 auth):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway
 ```
 
@@ -82,7 +82,7 @@ Open:
 
 ### Public internet (Funnel)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     bind: "loopback",
@@ -119,6 +119,6 @@ Open:
 
 The Gateway serves static files from `dist/control-ui`. Build them with:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm ui:build # auto-installs UI deps on first run
 ```

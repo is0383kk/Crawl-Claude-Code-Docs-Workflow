@@ -30,7 +30,7 @@ a separate `openclaw plugins install` step.
 
 4. Add the channel:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels add --channel qqbot --token "AppID:AppSecret"
 ```
 
@@ -38,7 +38,7 @@ openclaw channels add --channel qqbot --token "AppID:AppSecret"
 
 Interactive setup paths:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels add
 openclaw configure --section channels
 ```
@@ -47,7 +47,7 @@ openclaw configure --section channels
 
 Minimal config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     qqbot: {
@@ -66,7 +66,7 @@ Default-account env vars:
 
 File-backed AppSecret:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     qqbot: {
@@ -89,7 +89,7 @@ Notes:
 
 Run multiple QQ bots under a single OpenClaw instance:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     qqbot: {
@@ -113,7 +113,7 @@ token cache (isolated by `appId`).
 
 Add a second bot via CLI:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels add --channel qqbot --account bot2 --token "222222222:secret-of-bot-2"
 ```
 
@@ -126,7 +126,7 @@ STT and TTS support two-level configuration with priority fallback:
 | STT     | `channels.qqbot.stt` | `tools.media.audio.models[0]` |
 | TTS     | `channels.qqbot.tts` | `messages.tts`                |
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     qqbot: {

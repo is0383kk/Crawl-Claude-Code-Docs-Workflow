@@ -26,7 +26,7 @@ inside a sandbox workspace under `~/.openclaw/sandboxes`, not your host workspac
   `~/.openclaw/workspace-<profile>`.
 * Override in `~/.openclaw/openclaw.json`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agent: {
     workspace: "~/.openclaw/workspace",
@@ -42,7 +42,7 @@ aliases that resolve outside the source workspace are ignored.
 If you already manage the workspace files yourself, you can disable bootstrap
 file creation:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { agent: { skipBootstrap: true } }
 ```
 
@@ -149,7 +149,7 @@ workspace lives).
 If git is installed, brand-new workspaces are initialized automatically. If this
 workspace is not already a repo, run:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 cd ~/.openclaw/workspace
 git init
 git add AGENTS.md SOUL.md TOOLS.md IDENTITY.md USER.md HEARTBEAT.md memory/
@@ -165,7 +165,7 @@ Option A: GitHub web UI
 3. Copy the HTTPS remote URL.
 4. Add the remote and push:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git branch -M main
 git remote add origin <https-url>
 git push -u origin main
@@ -173,7 +173,7 @@ git push -u origin main
 
 Option B: GitHub CLI (`gh`)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 gh auth login
 gh repo create openclaw-workspace --private --source . --remote origin --push
 ```
@@ -185,7 +185,7 @@ Option C: GitLab web UI
 3. Copy the HTTPS remote URL.
 4. Add the remote and push:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git branch -M main
 git remote add origin <https-url>
 git push -u origin main
@@ -193,7 +193,7 @@ git push -u origin main
 
 ### 3) Ongoing updates
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git status
 git add .
 git commit -m "Update memory"
@@ -213,7 +213,7 @@ secret elsewhere (password manager, environment variables, or `~/.openclaw/`).
 
 Suggested `.gitignore` starter:
 
-```gitignore  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```gitignore theme={"theme":{"light":"min-light","dark":"min-dark"}}
 .DS_Store
 .env
 **/*.key

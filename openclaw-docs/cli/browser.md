@@ -23,7 +23,7 @@ Related:
 
 ## Quick start (local)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser profiles
 openclaw browser --browser-profile openclaw start
 openclaw browser --browser-profile openclaw open https://example.com
@@ -36,7 +36,7 @@ If `start` fails with `not reachable after start`, troubleshoot CDP readiness fi
 
 Minimal sequence:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser --browser-profile openclaw start
 openclaw browser --browser-profile openclaw tabs
 openclaw browser --browser-profile openclaw open https://example.com
@@ -46,7 +46,7 @@ Detailed guidance: [Browser troubleshooting](/tools/browser#cdp-startup-failure-
 
 ## Lifecycle
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser status
 openclaw browser start
 openclaw browser stop
@@ -69,7 +69,7 @@ If `openclaw browser` is an unknown command, check `plugins.allow` in
 When `plugins.allow` is present, the bundled browser plugin must be listed
 explicitly:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     allow: ["telegram", "browser"],
@@ -90,7 +90,7 @@ Profiles are named browser routing configs. In practice:
 * `user`: controls your existing signed-in Chrome session via Chrome DevTools MCP.
 * custom CDP profiles: point at a local or remote CDP endpoint.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser profiles
 openclaw browser create-profile --name work --color "#FF5A36"
 openclaw browser create-profile --name chrome-live --driver existing-session
@@ -100,13 +100,13 @@ openclaw browser delete-profile --name work
 
 Use a specific profile:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser --browser-profile work tabs
 ```
 
 ## Tabs
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser tabs
 openclaw browser tab new
 openclaw browser tab select 2
@@ -120,13 +120,13 @@ openclaw browser close <targetId>
 
 Snapshot:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser snapshot
 ```
 
 Screenshot:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser screenshot
 openclaw browser screenshot --full-page
 openclaw browser screenshot --ref e12
@@ -141,7 +141,7 @@ Notes:
 
 Navigate/click/type (ref-based UI automation):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser navigate https://example.com
 openclaw browser click <ref>
 openclaw browser type <ref> "hello"
@@ -157,7 +157,7 @@ openclaw browser evaluate --fn '(el) => el.textContent' --ref <ref>
 
 File + dialog helpers:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser upload /tmp/openclaw/uploads/file.pdf --ref <ref>
 openclaw browser waitfordownload
 openclaw browser download <ref> report.pdf
@@ -168,7 +168,7 @@ openclaw browser dialog --accept
 
 Viewport + emulation:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser resize 1280 720
 openclaw browser set viewport 1280 720
 openclaw browser set offline on
@@ -183,7 +183,7 @@ openclaw browser set credentials myuser mypass
 
 Cookies + storage:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser cookies
 openclaw browser cookies set session abc123 --url https://example.com
 openclaw browser cookies clear
@@ -194,7 +194,7 @@ openclaw browser storage session clear
 
 ## Debugging
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser console --level error
 openclaw browser pdf
 openclaw browser responsebody "**/api"
@@ -209,7 +209,7 @@ openclaw browser trace stop --out trace.zip
 
 Use the built-in `user` profile, or create your own `existing-session` profile:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw browser --browser-profile user tabs
 openclaw browser create-profile --name chrome-live --driver existing-session
 openclaw browser create-profile --name brave-live --driver existing-session --user-data-dir "~/Library/Application Support/BraveSoftware/Brave-Browser"

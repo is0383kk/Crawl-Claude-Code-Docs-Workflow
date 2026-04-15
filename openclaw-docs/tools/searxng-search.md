@@ -20,7 +20,7 @@ Advantages:
 
 <Steps>
   <Step title="Run a SearXNG instance">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     docker run -d -p 8888:8080 searxng/searxng
     ```
 
@@ -29,14 +29,14 @@ Advantages:
   </Step>
 
   <Step title="Configure">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     # Select "searxng" as the provider
     ```
 
     Or set the env var and let auto-detection find it:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     export SEARXNG_BASE_URL="http://localhost:8888"
     ```
   </Step>
@@ -44,7 +44,7 @@ Advantages:
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   tools: {
     web: {
@@ -58,7 +58,7 @@ Advantages:
 
 Plugin-level settings for the SearXNG instance:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -88,7 +88,7 @@ Transport rules:
 
 Set `SEARXNG_BASE_URL` as an alternative to config:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 export SEARXNG_BASE_URL="http://localhost:8888"
 ```
 

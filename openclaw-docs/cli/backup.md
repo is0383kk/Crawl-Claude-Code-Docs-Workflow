@@ -8,7 +8,7 @@
 
 Create a local backup archive for OpenClaw state, config, auth profiles, channel/provider credentials, sessions, and optionally workspaces.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw backup create
 openclaw backup create --output ~/Backups
 openclaw backup create --dry-run --json
@@ -57,7 +57,7 @@ The archive payload stores file contents from those source trees, and the embedd
 
 If you still want a partial backup in that situation, rerun:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw backup create --no-include-workspace
 ```
 

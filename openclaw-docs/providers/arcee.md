@@ -27,13 +27,13 @@ Arcee AI models can be accessed directly via the Arcee platform or through [Open
       </Step>
 
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice arceeai-api-key
         ```
       </Step>
 
       <Step title="Set a default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           agents: {
             defaults: {
@@ -53,13 +53,13 @@ Arcee AI models can be accessed directly via the Arcee platform or through [Open
       </Step>
 
       <Step title="Run onboarding">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice arceeai-openrouter
         ```
       </Step>
 
       <Step title="Set a default model">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           agents: {
             defaults: {
@@ -79,7 +79,7 @@ Arcee AI models can be accessed directly via the Arcee platform or through [Open
 
 <Tabs>
   <Tab title="Direct (Arcee platform)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice arceeai-api-key \
@@ -88,7 +88,7 @@ Arcee AI models can be accessed directly via the Arcee platform or through [Open
   </Tab>
 
   <Tab title="Via OpenRouter">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --non-interactive \
       --mode local \
       --auth-choice arceeai-openrouter \

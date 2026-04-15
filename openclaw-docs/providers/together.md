@@ -25,13 +25,13 @@ models including Llama, DeepSeek, Kimi, and more through a unified API.
   </Step>
 
   <Step title="Run onboarding">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard --auth-choice together-api-key
     ```
   </Step>
 
   <Step title="Set a default model">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -45,7 +45,7 @@ models including Llama, DeepSeek, Kimi, and more through a unified API.
 
 ### Non-interactive example
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw onboard --non-interactive \
   --mode local \
   --auth-choice together-api-key \
@@ -85,7 +85,7 @@ shared `video_generate` tool.
 
 To use Together as the default video provider:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     defaults: {

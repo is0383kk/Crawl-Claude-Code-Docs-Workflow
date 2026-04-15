@@ -31,7 +31,7 @@ Start conservative:
 
 You want this:
 
-```mermaid  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```mermaid theme={"theme":{"light":"min-light","dark":"min-dark"}}
 flowchart TB
     A["<b>Your Phone (personal)<br></b><br>Your WhatsApp<br>+1-555-YOU"] -- message --> B["<b>Second Phone (assistant)<br></b><br>Assistant WA<br>+1-555-ASSIST"]
     B -- linked via QR --> C["<b>Your Mac (openclaw)<br></b><br>AI agent"]
@@ -43,19 +43,19 @@ If you link your personal WhatsApp to OpenClaw, every message to you becomes “
 
 1. Pair WhatsApp Web (shows QR; scan with the assistant phone):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels login
 ```
 
 2. Start the Gateway (leave it running):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw gateway --port 18789
 ```
 
 3. Put a minimal config in `~/.openclaw/openclaw.json`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: { mode: "local" },
   channels: { whatsapp: { allowFrom: ["+15555550123"] } },
@@ -74,7 +74,7 @@ By default, OpenClaw uses `~/.openclaw/workspace` as the agent workspace, and wi
 
 Tip: treat this folder like OpenClaw’s “memory” and make it a git repo (ideally private) so your `AGENTS.md` + memory files are backed up. If git is installed, brand-new workspaces are auto-initialized.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw setup
 ```
 
@@ -83,7 +83,7 @@ Memory workflow: [Memory](/concepts/memory)
 
 Optional: choose a different workspace with `agents.defaults.workspace` (supports `~`).
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agent: {
     workspace: "~/.openclaw/workspace",
@@ -93,7 +93,7 @@ Optional: choose a different workspace with `agents.defaults.workspace` (support
 
 If you already ship your own workspace files from a repo, you can disable bootstrap file creation entirely:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agent: {
     skipBootstrap: true,
@@ -111,7 +111,7 @@ OpenClaw defaults to a good assistant setup, but you’ll usually want to tune:
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   logging: { level: "info" },
   agent: {
@@ -166,7 +166,7 @@ Set `agents.defaults.heartbeat.every: "0m"` to disable.
 * By default, heartbeat delivery to DM-style `user:<id>` targets is allowed. Set `agents.defaults.heartbeat.directPolicy: "block"` to suppress direct-target delivery while keeping heartbeat runs active.
 * Heartbeats run full agent turns — shorter intervals burn more tokens.
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agent: {
     heartbeat: { every: "30m" },
@@ -201,7 +201,7 @@ That means generated images/files outside the workspace can now send when your f
 
 ## Operations checklist
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw status          # local status (creds, sessions, queued events)
 openclaw status --all    # full diagnosis (read-only, pasteable)
 openclaw status --deep   # asks the gateway for a live health probe with channel probes when supported

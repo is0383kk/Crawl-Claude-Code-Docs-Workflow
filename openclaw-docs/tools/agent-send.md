@@ -14,7 +14,7 @@ programmatic delivery.
 
 <Steps>
   <Step title="Run a simple agent turn">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw agent --message "What is the weather today?"
     ```
 
@@ -22,7 +22,7 @@ programmatic delivery.
   </Step>
 
   <Step title="Target a specific agent or session">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     # Target a specific agent
     openclaw agent --agent ops --message "Summarize logs"
 
@@ -35,7 +35,7 @@ programmatic delivery.
   </Step>
 
   <Step title="Deliver the reply to a channel">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     # Deliver to WhatsApp (default channel)
     openclaw agent --to +15555550123 --message "Report ready" --deliver
 
@@ -77,7 +77,7 @@ programmatic delivery.
 
 ## Examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Simple turn with JSON output
 openclaw agent --to +15555550123 --message "Trace logs" --verbose on --json
 

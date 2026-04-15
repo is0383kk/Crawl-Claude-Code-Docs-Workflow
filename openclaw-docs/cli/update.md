@@ -13,7 +13,7 @@ updates happen via the package-manager flow in [Updating](/install/updating).
 
 ## Usage
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw update
 openclaw update status
 openclaw update wizard
@@ -44,7 +44,7 @@ Note: downgrades require confirmation because older versions can break configura
 
 Show the active update channel + git tag/branch/SHA (for source checkouts), plus update availability.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw update status
 openclaw update status --json
 openclaw update status --timeout 10

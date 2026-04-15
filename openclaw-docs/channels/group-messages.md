@@ -24,7 +24,7 @@ Note: `agents.list[].groupChat.mentionPatterns` is now used by Telegram/Discord/
 
 Add a `groupChat` block to `~/.openclaw/openclaw.json` so display-name pings work even when WhatsApp strips the visual `@` in the text body:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     whatsapp: {

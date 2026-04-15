@@ -33,7 +33,7 @@ Pending requests expire automatically after **5 minutes**.
 
 ## CLI workflow (headless friendly)
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw nodes pending
 openclaw nodes approve <requestId>
 openclaw nodes reject <requestId>

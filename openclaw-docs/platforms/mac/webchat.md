@@ -20,7 +20,7 @@ agent (with a session switcher for other sessions).
 
 * Auto‑open for testing:
 
-  ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
   dist/OpenClaw.app/Contents/MacOS/OpenClaw --webchat
   ```
 

@@ -36,7 +36,7 @@ Send `/elevated` with no argument to see the current level.
   <Step title="Check availability">
     Elevated must be enabled in config and the sender must be on the allowlist:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       tools: {
         elevated: {

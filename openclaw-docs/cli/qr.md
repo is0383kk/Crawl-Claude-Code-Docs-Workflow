@@ -10,7 +10,7 @@ Generate a mobile pairing QR and setup code from your current Gateway configurat
 
 ## Usage
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw qr
 openclaw qr --setup-code-only
 openclaw qr --json

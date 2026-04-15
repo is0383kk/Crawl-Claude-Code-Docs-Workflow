@@ -8,7 +8,7 @@
 
 List stored conversation sessions.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw sessions
 openclaw sessions --agent work
 openclaw sessions --all-agents
@@ -35,7 +35,7 @@ JSON examples:
 
 `openclaw sessions --all-agents --json`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "path": null,
   "stores": [
@@ -56,7 +56,7 @@ JSON examples:
 
 Run maintenance now (instead of waiting for the next write cycle):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw sessions cleanup --dry-run
 openclaw sessions cleanup --agent work --dry-run
 openclaw sessions cleanup --all-agents --dry-run
@@ -88,7 +88,7 @@ openclaw sessions cleanup --json
 
 `openclaw sessions cleanup --all-agents --dry-run --json`:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "allAgents": true,
   "mode": "warn",

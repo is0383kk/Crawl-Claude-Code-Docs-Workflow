@@ -37,7 +37,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
       </Step>
 
       <Step title="Configure OpenClaw">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           channels: {
             slack: {
@@ -52,14 +52,14 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
 
         Env fallback (default account only):
 
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         SLACK_APP_TOKEN=xapp-...
         SLACK_BOT_TOKEN=xoxb-...
         ```
       </Step>
 
       <Step title="Start gateway">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw gateway
         ```
       </Step>
@@ -78,7 +78,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
       </Step>
 
       <Step title="Configure OpenClaw">
-        ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
           channels: {
             slack: {
@@ -100,7 +100,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
       </Step>
 
       <Step title="Start gateway">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw gateway
         ```
       </Step>
@@ -112,7 +112,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
 
 <Tabs>
   <Tab title="Socket Mode (default)">
-    ```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       "display_information": {
         "name": "OpenClaw",
@@ -187,7 +187,7 @@ Status: production-ready for DMs + channels via Slack app integrations. Default 
   </Tab>
 
   <Tab title="HTTP Request URLs">
-    ```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       "display_information": {
         "name": "OpenClaw",
@@ -283,7 +283,7 @@ Surface different features that extend the above defaults.
 
     <Tabs>
       <Tab title="Socket Mode (default)">
-        ```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
             "slash_commands": [
               {
                 "command": "/new",
@@ -398,7 +398,7 @@ Surface different features that extend the above defaults.
       </Tab>
 
       <Tab title="HTTP Request URLs">
-        ```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
             "slash_commands": [
               {
                 "command": "/new",
@@ -723,7 +723,7 @@ Notes:
 
 Use draft preview instead of Slack native text streaming:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     slack: {
@@ -791,7 +791,7 @@ Slash commands appear in Slack as either a single configured command or multiple
 * `sessionPrefix: "slack:slash"`
 * `ephemeral: true`
 
-```txt  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```txt theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /openclaw /help
 ```
 
@@ -799,7 +799,7 @@ Native commands require [additional manifest settings](#additional-manifest-sett
 
 * Native command auto-mode is **off** for Slack so `commands.native: "auto"` does not enable Slack native commands.
 
-```txt  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```txt theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /help
 ```
 
@@ -810,7 +810,7 @@ Native argument menus use an adaptive rendering strategy that shows a confirmati
 * more than 100 options: external select with async option filtering when interactivity options handlers are available
 * exceeded Slack limits: encoded option values fall back to buttons
 
-```txt  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```txt theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /think
 ```
 
@@ -822,7 +822,7 @@ Slack can render agent-authored interactive reply controls, but this feature is 
 
 Enable it globally:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     slack: {
@@ -836,7 +836,7 @@ Enable it globally:
 
 Or enable it for one Slack account only:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     slack: {
@@ -891,7 +891,7 @@ Set `enabled: true` to force native approvals on when approvers resolve.
 
 Default behavior with no explicit Slack exec approval config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   commands: {
     ownerAllowFrom: ["slack:U12345678"],
@@ -902,7 +902,7 @@ Default behavior with no explicit Slack exec approval config:
 Explicit Slack-native config is only needed when you want to override approvers, add filters, or
 opt into origin-chat delivery:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   channels: {
     slack: {
@@ -964,7 +964,7 @@ Primary reference:
 
     Useful commands:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw channels status --probe
     openclaw logs --follow
     openclaw doctor
@@ -978,7 +978,7 @@ Primary reference:
     * `channels.slack.dmPolicy` (or legacy `channels.slack.dm.policy`)
     * pairing approvals / allowlist entries
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw pairing list slack
     ```
   </Accordion>

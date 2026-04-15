@@ -130,7 +130,7 @@ Docker is optional; this is only needed for containerized onboarding smoke tests
 
 Full cold-start flow in a clean Linux container:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 scripts/e2e/onboard-docker.sh
 ```
 
@@ -140,6 +140,6 @@ This script drives the interactive wizard via a pseudo-tty, verifies config/work
 
 Ensures `qrcode-terminal` loads under the supported Docker Node runtimes (Node 24 default, Node 22 compatible):
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm test:docker:qr
 ```

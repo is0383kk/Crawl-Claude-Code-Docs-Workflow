@@ -77,7 +77,7 @@ Broadcast groups let you run **multiple agents** for the same peer **when OpenCl
 
 Config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   broadcast: {
     strategy: "parallel",
@@ -96,7 +96,7 @@ See: [Broadcast Groups](/channels/broadcast-groups).
 
 Example:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   agents: {
     list: [{ id: "support", name: "Support", workspace: "~/.openclaw/workspace-support" }],

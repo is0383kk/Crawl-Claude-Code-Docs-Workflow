@@ -53,7 +53,7 @@ Venice offers two privacy levels — understanding this is key to choosing your 
 
     <Tabs>
       <Tab title="Interactive (recommended)">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --auth-choice venice-api-key
         ```
 
@@ -66,13 +66,13 @@ Venice offers two privacy levels — understanding this is key to choosing your 
       </Tab>
 
       <Tab title="Environment variable">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         export VENICE_API_KEY="vapi_xxxxxxxxxxxx"
         ```
       </Tab>
 
       <Tab title="Non-interactive">
-        ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+        ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
         openclaw onboard --non-interactive \
           --auth-choice venice-api-key \
           --venice-api-key "vapi_xxxxxxxxxxxx"
@@ -82,7 +82,7 @@ Venice offers two privacy levels — understanding this is key to choosing your 
   </Step>
 
   <Step title="Verify setup">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw agent --model venice/kimi-k2-5 --message "Hello, are you working?"
     ```
   </Step>
@@ -99,14 +99,14 @@ After setup, OpenClaw shows all available Venice models. Pick based on your need
 
 Change your default model anytime:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models set venice/kimi-k2-5
 openclaw models set venice/claude-opus-4-6
 ```
 
 List all available models:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw models list | grep venice
 ```
 
@@ -214,7 +214,7 @@ Venice uses a credit-based system. Check [venice.ai/pricing](https://venice.ai/p
 
 ## Usage examples
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # Use the default private model
 openclaw agent --model venice/kimi-k2-5 --message "Quick health check"
 
@@ -235,7 +235,7 @@ openclaw agent --model venice/qwen3-coder-480b-a35b-instruct --message "Refactor
 
 <AccordionGroup>
   <Accordion title="API key not recognized">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     echo $VENICE_API_KEY
     openclaw models list | grep venice
     ```
@@ -260,7 +260,7 @@ openclaw agent --model venice/qwen3-coder-480b-a35b-instruct --message "Refactor
 
 <AccordionGroup>
   <Accordion title="Config file example">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: { VENICE_API_KEY: "vapi_..." },
       agents: { defaults: { model: { primary: "venice/kimi-k2-5" } } },

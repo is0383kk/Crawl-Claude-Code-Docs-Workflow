@@ -25,7 +25,7 @@ Talk mode is a continuous voice conversation loop:
 
 The assistant may prefix its reply with a **single JSON line** to control voice:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "voice": "<voice-id>", "once": true }
 ```
 
@@ -47,7 +47,7 @@ Supported keys:
 
 ## Config (`~/.openclaw/openclaw.json`)
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   talk: {
     voiceId: "elevenlabs_voice_id",

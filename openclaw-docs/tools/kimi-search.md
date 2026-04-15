@@ -20,7 +20,7 @@ to produce AI-synthesized answers with citations.
     Set `KIMI_API_KEY` or `MOONSHOT_API_KEY` in the Gateway environment, or
     configure via:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw configure --section web
     ```
   </Step>
@@ -36,7 +36,7 @@ When you choose **Kimi** during `openclaw onboard` or
 
 ## Config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {

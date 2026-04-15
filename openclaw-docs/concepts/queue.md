@@ -43,7 +43,7 @@ Defaults (when unset in config):
 
 Configure globally or per channel via `messages.queue`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   messages: {
     queue: {

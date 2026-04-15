@@ -37,7 +37,7 @@ capabilities to the agent as a node.
 The app manages a per‑user LaunchAgent labeled `ai.openclaw.gateway`
 (or `ai.openclaw.<profile>` when using `--profile`/`OPENCLAW_PROFILE`; legacy `com.openclaw.*` still unloads).
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 launchctl kickstart -k gui/$UID/ai.openclaw.gateway
 launchctl bootout gui/$UID/ai.openclaw.gateway
 ```
@@ -83,7 +83,7 @@ Security + ask + allowlist are stored locally on the Mac in:
 
 Example:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "version": 1,
   "defaults": {
@@ -117,7 +117,7 @@ The app registers the `openclaw://` URL scheme for local actions.
 
 Triggers a Gateway `agent` request.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 open 'openclaw://agent?message=Hello%20from%20deep%20link'
 ```
 
@@ -151,7 +151,7 @@ sessions and credentials.
 
 Prefer a local non-synced state path such as:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 OPENCLAW_STATE_DIR=~/.openclaw
 ```
 
@@ -173,7 +173,7 @@ it will warn and recommend moving back to a local path.
 Use the debug CLI to exercise the same Gateway WebSocket handshake and discovery
 logic that the macOS app uses, without launching the app.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 cd apps/macos
 swift run openclaw-mac connect --json
 swift run openclaw-mac discover --timeout 3000 --json

@@ -36,7 +36,7 @@ Tasks do **not** replace sessions, cron jobs, or heartbeats — they are the **a
 
 ## Quick start
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 # List all tasks (newest first)
 openclaw tasks list
 
@@ -90,7 +90,7 @@ While a session-backed `video_generate` task is still active, the tool also acts
 
 ## Task lifecycle
 
-```mermaid  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```mermaid theme={"theme":{"light":"min-light","dark":"min-dark"}}
 stateDiagram-v2
     [*] --> queued
     queued --> running : agent starts
@@ -149,7 +149,7 @@ Control how much you hear about each task:
 
 Change the policy while a task is running:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks notify <lookup> state_changes
 ```
 
@@ -157,7 +157,7 @@ openclaw tasks notify <lookup> state_changes
 
 ### `tasks list`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks list [--runtime <acp|subagent|cron|cli>] [--status <status>] [--json]
 ```
 
@@ -165,7 +165,7 @@ Output columns: Task ID, Kind, Status, Delivery, Run ID, Child Session, Summary.
 
 ### `tasks show`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks show <lookup>
 ```
 
@@ -173,7 +173,7 @@ The lookup token accepts a task ID, run ID, or session key. Shows the full recor
 
 ### `tasks cancel`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks cancel <lookup>
 ```
 
@@ -181,13 +181,13 @@ For ACP and subagent tasks, this kills the child session. For CLI-tracked tasks,
 
 ### `tasks notify`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks notify <lookup> <done_only|state_changes|silent>
 ```
 
 ### `tasks audit`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks audit [--json]
 ```
 
@@ -204,7 +204,7 @@ Surfaces operational issues. Findings also appear in `openclaw status` when issu
 
 ### `tasks maintenance`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks maintenance [--json]
 openclaw tasks maintenance --apply [--json]
 ```
@@ -229,7 +229,7 @@ Completion cleanup is also runtime-aware:
 
 ### `tasks flow list|show|cancel`
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw tasks flow list [--status <status>] [--json]
 openclaw tasks flow show <lookup> [--json]
 openclaw tasks flow cancel <lookup>

@@ -28,7 +28,7 @@ and use it immediately.
 
 <Steps>
   <Step title="Install from a directory, archive, or marketplace">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     # Local directory
     openclaw plugins install ./my-bundle
 
@@ -42,7 +42,7 @@ and use it immediately.
   </Step>
 
   <Step title="Verify detection">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw plugins list
     openclaw plugins inspect <id>
     ```
@@ -51,7 +51,7 @@ and use it immediately.
   </Step>
 
   <Step title="Restart and use">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway restart
     ```
 
@@ -109,7 +109,7 @@ MCP servers can use stdio or HTTP transport:
 
 **Stdio** launches a child process:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "mcp": {
     "servers": {
@@ -125,7 +125,7 @@ MCP servers can use stdio or HTTP transport:
 
 **HTTP** connects to a running MCP server over `sse` by default, or `streamable-http` when requested:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "mcp": {
     "servers": {

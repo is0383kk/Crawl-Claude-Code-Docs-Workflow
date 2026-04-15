@@ -42,7 +42,7 @@ The proxy:
   <Step title="Install the proxy">
     Requires Node.js 20+ and Claude Code CLI.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     npm install -g claude-max-api-proxy
 
     # Verify Claude CLI is authenticated
@@ -51,14 +51,14 @@ The proxy:
   </Step>
 
   <Step title="Start the server">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     claude-max-api
     # Server runs at http://localhost:3456
     ```
   </Step>
 
   <Step title="Test the proxy">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     # Health check
     curl http://localhost:3456/health
 
@@ -78,7 +78,7 @@ The proxy:
   <Step title="Configure OpenClaw">
     Point OpenClaw at the proxy as a custom OpenAI-compatible endpoint:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       env: {
         OPENAI_API_KEY: "not-needed",
@@ -119,7 +119,7 @@ The proxy:
   <Accordion title="Auto-start on macOS with LaunchAgent">
     Create a LaunchAgent to run the proxy automatically:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     cat > ~/Library/LaunchAgents/com.claude-max-api.plist << 'EOF'
     <?xml version="1.0" encoding="UTF-8"?>
     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">

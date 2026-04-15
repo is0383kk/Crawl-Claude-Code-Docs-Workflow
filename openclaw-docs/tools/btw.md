@@ -16,7 +16,7 @@ Gateway and multi-channel architecture.
 
 When you send:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /btw what changed?
 ```
 
@@ -119,7 +119,7 @@ Use `/btw` when you want:
 
 Examples:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 /btw what file are we editing?
 /btw what does this error mean?
 /btw summarize the current task in one sentence

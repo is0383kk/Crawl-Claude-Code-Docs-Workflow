@@ -16,7 +16,7 @@ without writing custom OpenClaw code for each workflow.
 
 1. Enable the plugin:
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "entries": {
@@ -28,7 +28,7 @@ without writing custom OpenClaw code for each workflow.
 
 2. Allowlist the tool (it is registered with `optional: true`):
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "agents": {
     "list": [
@@ -43,7 +43,7 @@ without writing custom OpenClaw code for each workflow.
 
 ## Config (optional)
 
-```json  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   "plugins": {
     "entries": {
@@ -88,7 +88,7 @@ Returns `details.json` containing the parsed JSON (and validates against
 
 ## Example: Lobster workflow step
 
-```lobster  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```lobster theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw.invoke --tool llm-task --action json --args-json '{
   "prompt": "Given the input email, return intent and draft.",
   "thinking": "low",

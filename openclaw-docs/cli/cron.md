@@ -84,31 +84,31 @@ configured.
 
 Update delivery settings without changing the message:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron edit <job-id> --announce --channel telegram --to "123456789"
 ```
 
 Disable delivery for an isolated job:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron edit <job-id> --no-deliver
 ```
 
 Enable lightweight bootstrap context for an isolated job:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron edit <job-id> --light-context
 ```
 
 Announce to a specific channel:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron edit <job-id> --announce --channel slack --to "channel:C1234567890"
 ```
 
 Create an isolated job with lightweight bootstrap context:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron add \
   --name "Lightweight morning brief" \
   --cron "0 7 * * *" \
@@ -132,7 +132,7 @@ Delivery ownership note:
 
 Manual run:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron run <job-id>
 openclaw cron run <job-id> --due
 openclaw cron runs --id <job-id> --limit 50
@@ -140,7 +140,7 @@ openclaw cron runs --id <job-id> --limit 50
 
 Agent/session retargeting:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron edit <job-id> --agent ops
 openclaw cron edit <job-id> --clear-agent
 openclaw cron edit <job-id> --session current
@@ -149,7 +149,7 @@ openclaw cron edit <job-id> --session "session:daily-brief"
 
 Delivery tweaks:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw cron edit <job-id> --announce --channel slack --to "channel:C1234567890"
 openclaw cron edit <job-id> --best-effort-deliver
 openclaw cron edit <job-id> --no-best-effort-deliver

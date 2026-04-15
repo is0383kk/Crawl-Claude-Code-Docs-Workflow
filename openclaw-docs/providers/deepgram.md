@@ -32,7 +32,7 @@ it uses the pre-recorded transcription endpoint.
   </Step>
 
   <Step title="Enable the audio provider">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       tools: {
         media: {
@@ -64,7 +64,7 @@ it uses the pre-recorded transcription endpoint.
 
 <Tabs>
   <Tab title="With language hint">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       tools: {
         media: {
@@ -79,7 +79,7 @@ it uses the pre-recorded transcription endpoint.
   </Tab>
 
   <Tab title="With Deepgram options">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       tools: {
         media: {

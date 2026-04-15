@@ -17,7 +17,7 @@ Command roles:
 
 Recommended operator loop:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets audit --check
 openclaw secrets configure
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
@@ -43,7 +43,7 @@ Related:
 
 Re-resolve secret refs and atomically swap runtime snapshot.
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets reload
 openclaw secrets reload --json
 openclaw secrets reload --url ws://127.0.0.1:18789 --token <token>
@@ -76,7 +76,7 @@ Header residue note:
 
 * Sensitive provider header detection is name-heuristic based (common auth/credential header names and fragments such as `authorization`, `x-api-key`, `token`, `secret`, `password`, and `credential`).
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets audit
 openclaw secrets audit --check
 openclaw secrets audit --json
@@ -103,7 +103,7 @@ Report shape highlights:
 
 Build provider and SecretRef changes interactively, run preflight, and optionally apply:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets configure
 openclaw secrets configure --plan-out /tmp/openclaw-secrets-plan.json
 openclaw secrets configure --apply --yes
@@ -151,7 +151,7 @@ Exec provider safety note:
 
 Apply or preflight a plan generated previously:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --allow-exec
 openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
@@ -185,7 +185,7 @@ Safety comes from strict preflight + atomic-ish apply with best-effort in-memory
 
 ## Example
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw secrets audit --check
 openclaw secrets configure
 openclaw secrets audit --check

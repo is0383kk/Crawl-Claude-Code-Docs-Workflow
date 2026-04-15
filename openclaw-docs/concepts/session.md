@@ -32,7 +32,7 @@ single-user setups.
 
 **The fix:**
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   session: {
     dmScope: "per-channel-peer", // isolate by channel + sender
@@ -81,7 +81,7 @@ OpenClaw automatically bounds session storage over time. By default, it runs
 in `warn` mode (reports what would be cleaned). Set `session.maintenance.mode`
 to `"enforce"` for automatic cleanup:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   session: {
     maintenance: {

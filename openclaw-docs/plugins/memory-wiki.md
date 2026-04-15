@@ -102,7 +102,7 @@ bridge mode cannot provide.
 
 The plugin initializes a vault like this:
 
-```text  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
 <vault>/
   AGENTS.md
   WIKI.md
@@ -261,7 +261,7 @@ engines or legacy prompt assembly that explicitly consume memory supplements.
 
 Put config under `plugins.entries.memory-wiki.config`:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   plugins: {
     entries: {
@@ -328,7 +328,7 @@ Key toggles:
 Use this when you want QMD for recall and `memory-wiki` for a maintained
 knowledge layer:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   memory: {
     backend: "qmd",
@@ -368,7 +368,7 @@ This keeps:
 
 `memory-wiki` also exposes a top-level CLI surface:
 
-```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw wiki status
 openclaw wiki doctor
 openclaw wiki init
