@@ -7,7 +7,7 @@
 # Google (Gemini)
 
 The Google plugin provides access to Gemini models through Google AI Studio, plus
-image generation, media understanding (image/audio/video), and web search via
+image generation, media understanding (image/audio/video), text-to-speech, and web search via
 Gemini Grounding.
 
 * Provider: `google`
@@ -133,6 +133,7 @@ Choose your preferred auth method and follow the setup steps.
 | Chat completions       | Yes               |
 | Image generation       | Yes               |
 | Music generation       | Yes               |
+| Text-to-speech         | Yes               |
 | Image understanding    | Yes               |
 | Audio transcription    | Yes               |
 | Video understanding    | Yes               |
@@ -231,6 +232,50 @@ To use Google as the default music provider:
 
 <Note>
   See [Music Generation](/tools/music-generation) for shared tool parameters, provider selection, and failover behavior.
+</Note>
+
+## Text-to-speech
+
+The bundled `google` speech provider uses the Gemini API TTS path with
+`gemini-3.1-flash-tts-preview`.
+
+* Default voice: `Kore`
+* Auth: `messages.tts.providers.google.apiKey`, `models.providers.google.apiKey`, `GEMINI_API_KEY`, or `GOOGLE_API_KEY`
+* Output: WAV for regular TTS attachments, PCM for Talk/telephony
+* Native voice-note output: not supported on this Gemini API path because the API returns PCM rather than Opus
+
+To use Google as the default TTS provider:
+
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+{
+  messages: {
+    tts: {
+      auto: "always",
+      provider: "google",
+      providers: {
+        google: {
+          model: "gemini-3.1-flash-tts-preview",
+          voiceName: "Kore",
+        },
+      },
+    },
+  },
+}
+```
+
+Gemini API TTS accepts expressive square-bracket audio tags in the text, such as
+`[whispers]` or `[laughs]`. To keep tags out of the visible chat reply while
+sending them to TTS, put them inside a `[[tts:text]]...[[/tts:text]]` block:
+
+```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
+Here is the clean reply text.
+
+[[tts:text]][whispers] Here is the spoken version.[[/tts:text]]
+```
+
+<Note>
+  A Google Cloud Console API key restricted to the Gemini API is valid for this
+  provider. This is not the separate Cloud Text-to-Speech API path.
 </Note>
 
 ## Advanced configuration
