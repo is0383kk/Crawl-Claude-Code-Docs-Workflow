@@ -60,14 +60,14 @@ node --import tsx scripts/repro/tsx-name-repro.ts
 
 * Use Bun for dev scripts (current temporary revert).
 
-* Use Node + tsc watch, then run compiled output:
+* Use `tsgo` for repo type checking, then run the built output:
 
   ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-  pnpm exec tsc --watch --preserveWatchOutput
-  node --watch openclaw.mjs status
+  pnpm tsgo
+  node openclaw.mjs status
   ```
 
-* Confirmed locally: `pnpm exec tsc -p tsconfig.json` + `node openclaw.mjs status` works on Node 25.
+* Historical note: `tsc` was used here while debugging this Node/tsx issue, but repo type-check lanes now use `tsgo`.
 
 * Disable esbuild keepNames in the TS loader if possible (prevents `__name` helper insertion); tsx does not currently expose this.
 
