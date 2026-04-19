@@ -89,16 +89,22 @@ If you also want the macOS app on the bleeding edge:
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 pnpm install
+# First run only (or after resetting local OpenClaw config/workspace)
+pnpm openclaw setup
 pnpm gateway:watch
 ```
 
 `gateway:watch` runs the gateway in watch mode and reloads on relevant source,
 config, and bundled-plugin metadata changes.
+`pnpm openclaw setup` is the one-time local config/workspace initialization step for a fresh checkout.
+`pnpm gateway:watch` does not rebuild `dist/control-ui`, so rerun `pnpm ui:build` after `ui/` changes or use `pnpm ui:dev` while developing the Control UI.
 
 If you are intentionally using the Bun workflow, the equivalent commands are:
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 bun install
+# First run only (or after resetting local OpenClaw config/workspace)
+bun run openclaw setup
 bun run gateway:watch
 ```
 
