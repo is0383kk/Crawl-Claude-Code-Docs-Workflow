@@ -113,7 +113,7 @@ For contributors or anyone who wants to run from a local checkout:
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 git clone https://github.com/openclaw/openclaw.git
 cd openclaw
-pnpm install && pnpm ui:build && pnpm build
+pnpm install && pnpm build && pnpm ui:build
 pnpm link --global
 openclaw onboard --install-daemon
 ```
