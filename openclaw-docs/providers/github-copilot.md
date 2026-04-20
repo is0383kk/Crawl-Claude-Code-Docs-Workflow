@@ -30,14 +30,16 @@ provider in two different ways.
 
       <Step title="Set a default model">
         ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-        openclaw models set github-copilot/gpt-4o
+        openclaw models set github-copilot/claude-opus-4.6
         ```
 
         Or in config:
 
         ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
         {
-          agents: { defaults: { model: { primary: "github-copilot/gpt-4o" } } },
+          agents: {
+            defaults: { model: { primary: "github-copilot/claude-opus-4.6" } },
+          },
         }
         ```
       </Step>
