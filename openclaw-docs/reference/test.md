@@ -16,7 +16,13 @@
 
 * `pnpm test:changed`: expands changed git paths into scoped Vitest lanes when the diff only touches routable source/test files. Config/setup changes still fall back to the native root projects run so wiring edits rerun broadly when needed.
 
-* `pnpm test`: routes explicit file/directory targets through scoped Vitest lanes. Untargeted runs now execute eleven sequential shard configs (`vitest.full-core-unit-src.config.ts`, `vitest.full-core-unit-security.config.ts`, `vitest.full-core-unit-ui.config.ts`, `vitest.full-core-unit-support.config.ts`, `vitest.full-core-support-boundary.config.ts`, `vitest.full-core-contracts.config.ts`, `vitest.full-core-bundled.config.ts`, `vitest.full-core-runtime.config.ts`, `vitest.full-agentic.config.ts`, `vitest.full-auto-reply.config.ts`, `vitest.full-extensions.config.ts`) instead of one giant root-project process.
+* `pnpm changed:lanes`: shows the architectural lanes triggered by the diff against `origin/main`.
+
+* `pnpm check:changed`: runs the smart changed gate for the diff against `origin/main`. It runs core work with core test lanes, extension work with extension test lanes, test-only work with test typecheck/tests only, and expands public Plugin SDK or plugin-contract changes to extension validation.
+
+* `pnpm test`: routes explicit file/directory targets through scoped Vitest lanes. Untargeted runs use fixed shard groups and expand to leaf configs for local parallel execution; the extension group always expands to the per-extension shard configs instead of one giant root-project process.
+
+* Full and extension shard runs update local timing data in `.artifacts/vitest-shard-timings.json`; later runs use those timings to balance slow and fast shards. Set `OPENCLAW_TEST_PROJECTS_TIMINGS=0` to ignore the local timing artifact.
 
 * Selected `plugin-sdk` and `commands` test files now route through dedicated light lanes that keep only `test/setup.ts`, leaving runtime-heavy cases on their existing lanes.
 
@@ -28,9 +34,7 @@
 
 * `pnpm test:channels` runs `vitest.channels.config.ts`.
 
-* `pnpm test:extensions` runs `vitest.extensions.config.ts`.
-
-* `pnpm test:extensions`: runs extension/plugin suites.
+* `pnpm test:extensions` and `pnpm test extensions` run all extension/plugin shards. Heavy channel extensions and OpenAI run as dedicated shards; other extension groups stay batched. Use `pnpm test extensions/<id>` for one bundled plugin lane.
 
 * `pnpm test:perf:imports`: enables Vitest import-duration + import-breakdown reporting, while still using scoped lane routing for explicit file/directory targets.
 
@@ -58,7 +62,9 @@
 
 For local PR land/gate checks, run:
 
+* `pnpm check:changed`
 * `pnpm check`
+* `pnpm check:test-types`
 * `pnpm build`
 * `pnpm test`
 * `pnpm check:docs`
