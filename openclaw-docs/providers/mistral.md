@@ -92,10 +92,10 @@ Use Voxtral for audio transcription through the media understanding pipeline.
 
     OpenClaw maps the session **thinking** level to Mistral's API:
 
-    | OpenClaw thinking level                                    | Mistral `reasoning_effort` |
-    | ---------------------------------------------------------- | -------------------------- |
-    | **off** / **minimal**                                      | `none`                     |
-    | **low** / **medium** / **high** / **xhigh** / **adaptive** | `high`                     |
+    | OpenClaw thinking level                                              | Mistral `reasoning_effort` |
+    | -------------------------------------------------------------------- | -------------------------- |
+    | **off** / **minimal**                                                | `none`                     |
+    | **low** / **medium** / **high** / **xhigh** / **adaptive** / **max** | `high`                     |
 
     <Note>
       Other bundled Mistral catalog models do not use this parameter. Keep using `magistral-*` models when you want Mistral's native reasoning-first behavior.
