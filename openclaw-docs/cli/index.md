@@ -1530,6 +1530,9 @@ Options:
 * `--json`
 * `--plain`
 
+`--all` includes bundled provider-owned static catalog rows before auth is
+configured. Rows remain unavailable until matching provider credentials exist.
+
 ### `models status`
 
 Options:

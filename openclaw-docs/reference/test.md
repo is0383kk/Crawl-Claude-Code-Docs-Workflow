@@ -18,7 +18,7 @@
 
 * `pnpm changed:lanes`: shows the architectural lanes triggered by the diff against `origin/main`.
 
-* `pnpm check:changed`: runs the smart changed gate for the diff against `origin/main`. It runs core work with core test lanes, extension work with extension test lanes, test-only work with test typecheck/tests only, and expands public Plugin SDK or plugin-contract changes to extension validation.
+* `pnpm check:changed`: runs the smart changed gate for the diff against `origin/main`. It runs core work with core test lanes, extension work with extension test lanes, test-only work with test typecheck/tests only, expands public Plugin SDK or plugin-contract changes to extension validation, and keeps release metadata-only version bumps on targeted version/config/root-dependency checks.
 
 * `pnpm test`: routes explicit file/directory targets through scoped Vitest lanes. Untargeted runs use fixed shard groups and expand to leaf configs for local parallel execution; the extension group always expands to the per-extension shard configs instead of one giant root-project process.
 

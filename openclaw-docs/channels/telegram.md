@@ -780,7 +780,8 @@ Status: production-ready for bot DMs + groups via grammY. Long polling is the de
 
     Telegram send also supports:
 
-    * `--buttons` for inline keyboards when `channels.telegram.capabilities.inlineButtons` allows it
+    * `--presentation` with `buttons` blocks for inline keyboards when `channels.telegram.capabilities.inlineButtons` allows it
+    * `--pin` or `--delivery '{"pin":true}'` to request pinned delivery when the bot can pin in that chat
     * `--force-document` to send outbound images and GIFs as documents instead of compressed photo or animated-media uploads
 
     Action gating:

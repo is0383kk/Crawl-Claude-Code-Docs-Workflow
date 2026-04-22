@@ -51,6 +51,15 @@ endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switc
   available providers and models, see [/concepts/model-providers](/concepts/model-providers).
 </Note>
 
+Bundled fallback examples:
+
+| Model ref                            | Notes                         |
+| ------------------------------------ | ----------------------------- |
+| `openrouter/auto`                    | OpenRouter automatic routing  |
+| `openrouter/moonshotai/kimi-k2.6`    | Kimi K2.6 via MoonshotAI      |
+| `openrouter/openrouter/healer-alpha` | OpenRouter Healer Alpha route |
+| `openrouter/openrouter/hunter-alpha` | OpenRouter Hunter Alpha route |
+
 ## Authentication and headers
 
 OpenRouter uses a Bearer token with your API key under the hood.

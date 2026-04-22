@@ -47,7 +47,7 @@ Status: legacy external CLI integration. Gateway spawns `imsg rpc` and communica
             imessage: {
               enabled: true,
               cliPath: "/usr/local/bin/imsg",
-              dbPath: "/Users/<you>/Library/Messages/chat.db",
+              dbPath: "/Users/user/Library/Messages/chat.db",
             },
           },
         }
