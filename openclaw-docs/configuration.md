@@ -22,7 +22,7 @@ See the [full reference](/gateway/configuration-reference) for every available f
 
 ## Minimal config
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 // ~/.openclaw/openclaw.json
 {
   agents: { defaults: { workspace: "~/.openclaw/workspace" } },
@@ -34,14 +34,14 @@ See the [full reference](/gateway/configuration-reference) for every available f
 
 <Tabs>
   <Tab title="Interactive wizard">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw onboard       # full onboarding flow
     openclaw configure     # config wizard
     ```
   </Tab>
 
   <Tab title="CLI (one-liners)">
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config get agents.defaults.workspace
     openclaw config set agents.defaults.heartbeat.every "2h"
     openclaw config unset plugins.entries.brave.config.webSearch.apiKey
@@ -50,7 +50,11 @@ See the [full reference](/gateway/configuration-reference) for every available f
 
   <Tab title="Control UI">
     Open [http://127.0.0.1:18789](http://127.0.0.1:18789) and use the **Config** tab.
-    The Control UI renders a form from the config schema, with a **Raw JSON** editor as an escape hatch.
+    The Control UI renders a form from the live config schema, including field
+    `title` / `description` docs metadata plus plugin and channel schemas when
+    available, with a **Raw JSON** editor as an escape hatch. For drill-down
+    UIs and other tooling, the gateway also exposes `config.schema.lookup` to
+    fetch one path-scoped schema node plus immediate child summaries.
   </Tab>
 
   <Tab title="Direct edit">
@@ -64,12 +68,44 @@ See the [full reference](/gateway/configuration-reference) for every available f
   OpenClaw only accepts configurations that fully match the schema. Unknown keys, malformed types, or invalid values cause the Gateway to **refuse to start**. The only root-level exception is `$schema` (string), so editors can attach JSON Schema metadata.
 </Warning>
 
+Schema tooling notes:
+
+* `openclaw config schema` prints the same JSON Schema family used by Control UI
+  and config validation.
+* Treat that schema output as the canonical machine-readable contract for
+  `openclaw.json`; this overview and the configuration reference summarize it.
+* Field `title` and `description` values are carried into the schema output for
+  editor and form tooling.
+* Nested object, wildcard (`*`), and array-item (`[]`) entries inherit the same
+  docs metadata where matching field documentation exists.
+* `anyOf` / `oneOf` / `allOf` composition branches inherit the same docs
+  metadata too, so union/intersection variants keep the same field help.
+* `config.schema.lookup` returns one normalized config path with a shallow
+  schema node (`title`, `description`, `type`, `enum`, `const`, common bounds,
+  and similar validation fields), matched UI hint metadata, and immediate child
+  summaries for drill-down tooling.
+* Runtime plugin/channel schemas are merged in when the gateway can load the
+  current manifest registry.
+* `pnpm config:docs:check` detects drift between docs-facing config baseline
+  artifacts and the current schema surface.
+
 When validation fails:
 
 * The Gateway does not boot
 * Only diagnostic commands work (`openclaw doctor`, `openclaw logs`, `openclaw health`, `openclaw status`)
 * Run `openclaw doctor` to see exact issues
 * Run `openclaw doctor --fix` (or `--yes`) to apply repairs
+
+The Gateway also keeps a trusted last-known-good copy after a successful startup. If
+`openclaw.json` is later changed outside OpenClaw and no longer validates, startup
+and hot reload preserve the broken file as a timestamped `.clobbered.*` snapshot,
+restore the last-known-good copy, and log a loud warning with the recovery reason.
+The next main-agent turn also receives a system-event warning telling it that the
+config was restored and must not be blindly rewritten. Last-known-good promotion
+is updated after validated startup and after accepted hot reloads, including
+OpenClaw-owned config writes whose persisted file hash still matches the accepted
+write. Promotion is skipped when the candidate contains redacted secret
+placeholders such as `***` or shortened token values.
 
 ## Common tasks
 
@@ -80,16 +116,17 @@ When validation fails:
     * [WhatsApp](/channels/whatsapp) — `channels.whatsapp`
     * [Telegram](/channels/telegram) — `channels.telegram`
     * [Discord](/channels/discord) — `channels.discord`
+    * [Feishu](/channels/feishu) — `channels.feishu`
+    * [Google Chat](/channels/googlechat) — `channels.googlechat`
+    * [Microsoft Teams](/channels/msteams) — `channels.msteams`
     * [Slack](/channels/slack) — `channels.slack`
     * [Signal](/channels/signal) — `channels.signal`
     * [iMessage](/channels/imessage) — `channels.imessage`
-    * [Google Chat](/channels/googlechat) — `channels.googlechat`
     * [Mattermost](/channels/mattermost) — `channels.mattermost`
-    * [Microsoft Teams](/channels/msteams) — `channels.msteams`
 
     All channels share the same DM policy pattern:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       channels: {
         telegram: {
@@ -106,17 +143,17 @@ When validation fails:
   <Accordion title="Choose and configure models">
     Set the primary model and optional fallbacks:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
           model: {
             primary: "anthropic/claude-sonnet-4-6",
-            fallbacks: ["openai/gpt-5.2"],
+            fallbacks: ["openai/gpt-5.4"],
           },
           models: {
             "anthropic/claude-sonnet-4-6": { alias: "Sonnet" },
-            "openai/gpt-5.2": { alias: "GPT" },
+            "openai/gpt-5.4": { alias: "GPT" },
           },
         },
       },
@@ -146,7 +183,7 @@ When validation fails:
   <Accordion title="Set up group chat mention gating">
     Group messages default to **require mention**. Configure patterns per agent:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         list: [
@@ -171,10 +208,36 @@ When validation fails:
     * See [full reference](/gateway/configuration-reference#group-chat-mention-gating) for per-channel overrides and self-chat mode.
   </Accordion>
 
+  <Accordion title="Restrict skills per agent">
+    Use `agents.defaults.skills` for a shared baseline, then override specific
+    agents with `agents.list[].skills`:
+
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      agents: {
+        defaults: {
+          skills: ["github", "weather"],
+        },
+        list: [
+          { id: "writer" }, // inherits github, weather
+          { id: "docs", skills: ["docs-search"] }, // replaces defaults
+          { id: "locked-down", skills: [] }, // no skills
+        ],
+      },
+    }
+    ```
+
+    * Omit `agents.defaults.skills` for unrestricted skills by default.
+    * Omit `agents.list[].skills` to inherit the defaults.
+    * Set `agents.list[].skills: []` for no skills.
+    * See [Skills](/tools/skills), [Skills config](/tools/skills-config), and
+      the [Configuration Reference](/gateway/configuration-reference#agents-defaults-skills).
+  </Accordion>
+
   <Accordion title="Tune gateway channel health monitoring">
     Control how aggressively the gateway restarts channels that look stale:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       gateway: {
         channelHealthCheckMinutes: 5,
@@ -203,7 +266,7 @@ When validation fails:
   <Accordion title="Configure sessions and resets">
     Sessions control conversation continuity and isolation:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       session: {
         dmScope: "per-channel-peer",  // recommended for multi-user
@@ -228,9 +291,9 @@ When validation fails:
   </Accordion>
 
   <Accordion title="Enable sandboxing">
-    Run agent sessions in isolated Docker containers:
+    Run agent sessions in isolated sandbox runtimes:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -245,7 +308,7 @@ When validation fails:
 
     Build the image first: `scripts/sandbox-setup.sh`
 
-    See [Sandboxing](/gateway/sandboxing) for the full guide and [full reference](/gateway/configuration-reference#agents-defaults-sandbox) for all options.
+    See [Sandboxing](/gateway/sandboxing) for the full guide and [full reference](/gateway/configuration-reference#agentsdefaultssandbox) for all options.
   </Accordion>
 
   <Accordion title="Enable relay-backed push for official iOS builds">
@@ -253,7 +316,7 @@ When validation fails:
 
     Set this in gateway config:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       gateway: {
         push: {
@@ -271,7 +334,7 @@ When validation fails:
 
     CLI equivalent:
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw config set gateway.push.apns.relay.baseUrl https://relay.example.com
     ```
 
@@ -305,7 +368,7 @@ When validation fails:
   </Accordion>
 
   <Accordion title="Set up heartbeat (periodic check-ins)">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         defaults: {
@@ -319,13 +382,13 @@ When validation fails:
     ```
 
     * `every`: duration string (`30m`, `2h`). Set `0m` to disable.
-    * `target`: `last` | `whatsapp` | `telegram` | `discord` | `none`
+    * `target`: `last` | `none` | `<channel-id>` (for example `discord`, `matrix`, `telegram`, or `whatsapp`)
     * `directPolicy`: `allow` (default) or `block` for DM-style heartbeat targets
     * See [Heartbeat](/gateway/heartbeat) for the full guide.
   </Accordion>
 
   <Accordion title="Configure cron jobs">
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       cron: {
         enabled: true,
@@ -347,7 +410,7 @@ When validation fails:
   <Accordion title="Set up webhooks (hooks)">
     Enable HTTP webhook endpoints on the Gateway:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       hooks: {
         enabled: true,
@@ -371,7 +434,11 @@ When validation fails:
     Security note:
 
     * Treat all hook/webhook payload content as untrusted input.
+    * Use a dedicated `hooks.token`; do not reuse the shared Gateway token.
+    * Hook auth is header-only (`Authorization: Bearer ...` or `x-openclaw-token`); query-string tokens are rejected.
+    * `hooks.path` cannot be `/`; keep webhook ingress on a dedicated subpath such as `/hooks`.
     * Keep unsafe-content bypass flags disabled (`hooks.gmail.allowUnsafeExternalContent`, `hooks.mappings[].allowUnsafeExternalContent`) unless doing tightly scoped debugging.
+    * If you enable `hooks.allowRequestSessionKey`, also set `hooks.allowedSessionKeyPrefixes` to bound caller-selected session keys.
     * For hook-driven agents, prefer strong modern model tiers and strict tool policy (for example messaging-only plus sandboxing where possible).
 
     See [full reference](/gateway/configuration-reference#hooks) for all mapping options and Gmail integration.
@@ -380,7 +447,7 @@ When validation fails:
   <Accordion title="Configure multi-agent routing">
     Run multiple isolated agents with separate workspaces and sessions:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
       agents: {
         list: [
@@ -401,7 +468,7 @@ When validation fails:
   <Accordion title="Split config into multiple files ($include)">
     Use `$include` to organize large configs:
 
-    ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     // ~/.openclaw/openclaw.json
     {
       gateway: { port: 18789 },
@@ -425,6 +492,19 @@ When validation fails:
 
 The Gateway watches `~/.openclaw/openclaw.json` and applies changes automatically — no manual restart needed for most settings.
 
+Direct file edits are treated as untrusted until they validate. The watcher waits
+for editor temp-write/rename churn to settle, reads the final file, and rejects
+invalid external edits by restoring the last-known-good config. OpenClaw-owned
+config writes use the same schema gate before writing; destructive clobbers such
+as dropping `gateway.mode` or shrinking the file by more than half are rejected
+and saved as `.rejected.*` for inspection.
+
+If you see `Config auto-restored from last-known-good` or
+`config reload restored last-known-good config` in logs, inspect the matching
+`.clobbered.*` file next to `openclaw.json`, fix the rejected payload, then run
+`openclaw config validate`. See [Gateway troubleshooting](/gateway/troubleshooting#gateway-restored-last-known-good-config)
+for the recovery checklist.
+
 ### Reload modes
 
 | Mode                   | Behavior                                                                                |
@@ -434,7 +514,7 @@ The Gateway watches `~/.openclaw/openclaw.json` and applies changes automaticall
 | **`restart`**          | Restarts the Gateway on any config change, safe or not.                                 |
 | **`off`**              | Disables file watching. Changes take effect on the next manual restart.                 |
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   gateway: {
     reload: { mode: "hybrid", debounceMs: 300 },
@@ -446,16 +526,16 @@ The Gateway watches `~/.openclaw/openclaw.json` and applies changes automaticall
 
 Most fields hot-apply without downtime. In `hybrid` mode, restart-required changes are handled automatically.
 
-| Category            | Fields                                                               | Restart needed? |
-| ------------------- | -------------------------------------------------------------------- | --------------- |
-| Channels            | `channels.*`, `web` (WhatsApp) — all built-in and extension channels | No              |
-| Agent & models      | `agent`, `agents`, `models`, `routing`                               | No              |
-| Automation          | `hooks`, `cron`, `agent.heartbeat`                                   | No              |
-| Sessions & messages | `session`, `messages`                                                | No              |
-| Tools & media       | `tools`, `browser`, `skills`, `audio`, `talk`                        | No              |
-| UI & misc           | `ui`, `logging`, `identity`, `bindings`                              | No              |
-| Gateway server      | `gateway.*` (port, bind, auth, tailscale, TLS, HTTP)                 | **Yes**         |
-| Infrastructure      | `discovery`, `canvasHost`, `plugins`                                 | **Yes**         |
+| Category            | Fields                                                            | Restart needed? |
+| ------------------- | ----------------------------------------------------------------- | --------------- |
+| Channels            | `channels.*`, `web` (WhatsApp) — all built-in and plugin channels | No              |
+| Agent & models      | `agent`, `agents`, `models`, `routing`                            | No              |
+| Automation          | `hooks`, `cron`, `agent.heartbeat`                                | No              |
+| Sessions & messages | `session`, `messages`                                             | No              |
+| Tools & media       | `tools`, `browser`, `skills`, `audio`, `talk`                     | No              |
+| UI & misc           | `ui`, `logging`, `identity`, `bindings`                           | No              |
+| Gateway server      | `gateway.*` (port, bind, auth, tailscale, TLS, HTTP)              | **Yes**         |
+| Infrastructure      | `discovery`, `canvasHost`, `plugins`                              | **Yes**         |
 
 <Note>
   `gateway.reload` and `gateway.remote` are exceptions — changing them does **not** trigger a restart.
@@ -466,6 +546,18 @@ Most fields hot-apply without downtime. In `hybrid` mode, restart-required chang
 <Note>
   Control-plane write RPCs (`config.apply`, `config.patch`, `update.run`) are rate-limited to **3 requests per 60 seconds** per `deviceId+clientIp`. When limited, the RPC returns `UNAVAILABLE` with `retryAfterMs`.
 </Note>
+
+Safe/default flow:
+
+* `config.schema.lookup`: inspect one path-scoped config subtree with a shallow
+  schema node, matched hint metadata, and immediate child summaries
+* `config.get`: fetch the current snapshot + hash
+* `config.patch`: preferred partial update path
+* `config.apply`: full-config replacement only
+* `update.run`: explicit self-update + restart
+
+When you are not replacing the entire config, prefer `config.schema.lookup`
+then `config.patch`.
 
 <AccordionGroup>
   <Accordion title="config.apply (full replace)">
@@ -485,7 +577,7 @@ Most fields hot-apply without downtime. In `hybrid` mode, restart-required chang
 
     Restart requests are coalesced while one is already pending/in-flight, and a 30-second cooldown applies between restart cycles.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway call config.get --params '{}'  # capture payload.hash
     openclaw gateway call config.apply --params '{
       "raw": "{ agents: { defaults: { workspace: \"~/.openclaw/workspace\" } } }",
@@ -510,7 +602,7 @@ Most fields hot-apply without downtime. In `hybrid` mode, restart-required chang
 
     Restart behavior matches `config.apply`: coalesced pending restarts plus a 30-second cooldown between restart cycles.
 
-    ```bash  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
     openclaw gateway call config.patch --params '{
       "raw": "{ channels: { telegram: { groups: { \"*\": { requireMention: false } } } } }",
       "baseHash": "<hash>"
@@ -528,7 +620,7 @@ OpenClaw reads env vars from the parent process plus:
 
 Neither file overrides existing env vars. You can also set inline env vars in config:
 
-```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: {
     OPENROUTER_API_KEY: "sk-or-...",
@@ -540,7 +632,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 <Accordion title="Shell env import (optional)">
   If enabled and expected keys aren't set, OpenClaw runs your login shell and imports only the missing keys:
 
-  ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     env: {
       shellEnv: { enabled: true, timeoutMs: 15000 },
@@ -554,7 +646,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 <Accordion title="Env var substitution in config values">
   Reference env vars in any config string value with `${VAR_NAME}`:
 
-  ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     gateway: { auth: { token: "${OPENCLAW_GATEWAY_TOKEN}" } },
     models: { providers: { custom: { apiKey: "${CUSTOM_API_KEY}" } } },
@@ -573,7 +665,7 @@ Neither file overrides existing env vars. You can also set inline env vars in co
 <Accordion title="Secret refs (env, file, exec)">
   For fields that support SecretRef objects, you can use:
 
-  ```json5  theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
   {
     models: {
       providers: {
@@ -616,6 +708,3 @@ For the complete field-by-field reference, see **[Configuration Reference](/gate
 ***
 
 *Related: [Configuration Examples](/gateway/configuration-examples) · [Configuration Reference](/gateway/configuration-reference) · [Doctor](/gateway/doctor)*
-
-
-Built with [Mintlify](https://mintlify.com).
