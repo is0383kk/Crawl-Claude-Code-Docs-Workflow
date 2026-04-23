@@ -131,7 +131,7 @@ workloads.
     Choosing providers, model refs, and failover behavior.
   </Card>
 
-  <Card title="Configuration" href="/configuration" icon="gear">
+  <Card title="Configuration" href="/gateway/configuration" icon="gear">
     Full config reference for agents, models, and providers.
   </Card>
 

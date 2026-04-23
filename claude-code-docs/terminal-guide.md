@@ -17,7 +17,7 @@ You can use Claude Code even if you've never used a terminal before. This guide 
 
 ## macOS and Linux
 
-Follow these three steps to install and start Claude Code from a macOS or Linux terminal.
+Follow these steps to install and start Claude Code from a macOS or Linux terminal. Claude Code requires macOS 13.0 or later. See the [system requirements](/en/setup#system-requirements) for supported Linux distributions.
 
 <Steps>
   <Step title="Open a terminal">
@@ -62,7 +62,7 @@ Follow these three steps to install and start Claude Code from a macOS or Linux 
 
 ## Windows
 
-Follow these four steps to install Git, set up PowerShell, and start Claude Code on Windows.
+Follow these steps to install Git, set up PowerShell, and start Claude Code on Windows. Claude Code requires Windows 10 version 1809 or later. See the [system requirements](/en/setup#system-requirements) for full details.
 
 <Steps>
   <Step title="Install Git for Windows">
@@ -220,6 +220,12 @@ If you run into problems installing on macOS or Linux, check these common issues
   ```bash theme={null}
   brew install --cask claude-code
   ```
+</Accordion>
+
+<Accordion title="'dyld' error or 'built for Mac OS X 13.0'">
+  If you see `dyld: cannot load`, `dyld: Symbol not found`, or `built for Mac OS X 13.0`, your macOS version is likely older than Claude Code supports.
+
+  Open the Apple menu and select About This Mac to check your version. If it's older than 13.0, update macOS through Software Update. See the [macOS troubleshooting guide](/en/troubleshooting#dyld-cannot-load-on-macos) for more details.
 </Accordion>
 
 For other errors, see the full [installation troubleshooting guide](/en/troubleshooting#troubleshoot-installation-issues).
