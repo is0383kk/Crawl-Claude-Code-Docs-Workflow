@@ -134,6 +134,8 @@ Default: `allowlist`
 
 ***
 
+<a id="get-groupuser-ids" />
+
 ## Get group/user IDs
 
 ### Group IDs (`chat_id`, format: `oc_xxx`)
