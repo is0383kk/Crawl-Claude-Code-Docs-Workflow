@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Slash Commands
-
 # Slash commands
 
 Commands are handled by the Gateway. Most commands must be sent as a **standalone** message that starts with `/`.
@@ -384,3 +382,9 @@ Example:
 
 See [BTW Side Questions](/tools/btw) for the full behavior and client UX
 details.
+
+## Related
+
+* [Skills](/tools/skills)
+* [Skills config](/tools/skills-config)
+* [Creating skills](/tools/creating-skills)

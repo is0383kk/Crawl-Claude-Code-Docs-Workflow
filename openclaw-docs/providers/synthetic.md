@@ -4,8 +4,6 @@
 
 # Synthetic
 
-# Synthetic
-
 [Synthetic](https://synthetic.new) exposes Anthropic-compatible endpoints.
 OpenClaw registers it as the `synthetic` provider and uses the Anthropic
 Messages API.
@@ -81,7 +79,7 @@ Messages API.
 }
 ```
 
-## Model catalog
+## Built-in catalog
 
 All Synthetic models use cost `0` (input/output/cache).
 
@@ -144,7 +142,7 @@ All Synthetic models use cost `0` (input/output/cache).
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Provider rules, model refs, and failover behavior.
   </Card>
 

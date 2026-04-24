@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Gemini Search
-
-# Gemini Search
+# Gemini search
 
 OpenClaw supports Gemini models with built-in
 [Google Search grounding](https://ai.google.dev/gemini-api/docs/grounding),

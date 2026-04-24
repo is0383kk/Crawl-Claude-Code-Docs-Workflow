@@ -4,8 +4,6 @@
 
 # Reactions
 
-# Reactions
-
 The agent can add and remove emoji reactions on messages using the `message`
 tool with the `react` action. Reaction behavior varies by channel.
 

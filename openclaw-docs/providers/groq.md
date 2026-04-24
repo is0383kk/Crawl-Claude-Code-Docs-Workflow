@@ -4,8 +4,6 @@
 
 # Groq
 
-# Groq
-
 [Groq](https://groq.com) provides ultra-fast inference on open-source models
 (Llama, Gemma, Mistral, and more) using custom LPU hardware. OpenClaw connects
 to Groq through its OpenAI-compatible API.
@@ -55,7 +53,7 @@ to Groq through its OpenAI-compatible API.
 }
 ```
 
-## Available models
+## Built-in catalog
 
 Groq's model catalog changes frequently. Run `openclaw models list | grep groq`
 to see currently available models, or check

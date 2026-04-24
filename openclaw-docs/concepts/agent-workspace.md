@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Agent Workspace
-
 # Agent workspace
 
 The workspace is the agent's home. It is the only working directory used for
@@ -90,7 +88,7 @@ These are the standard files OpenClaw expects inside the workspace:
   * Keep it short to avoid token burn.
 
 * `BOOT.md`
-  * Optional startup checklist executed on gateway restart when internal hooks are enabled.
+  * Optional startup checklist run automatically on gateway restart (when [internal hooks](/automation/hooks) are enabled).
   * Keep it short; use the message tool for outbound sends.
 
 * `BOOTSTRAP.md`

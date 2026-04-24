@@ -4,8 +4,6 @@
 
 # Ollama
 
-# Ollama
-
 OpenClaw integrates with Ollama's native API (`/api/chat`) for hosted cloud models and local/self-hosted Ollama servers. You can use Ollama in three modes: `Cloud + Local` through a reachable Ollama host, `Cloud only` against `https://ollama.com`, or `Local only` against a reachable Ollama host.
 
 <Warning>
@@ -510,7 +508,7 @@ Choose **Ollama Web Search** during `openclaw onboard` or `openclaw configure --
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Overview of all providers, model refs, and failover behavior.
   </Card>
 

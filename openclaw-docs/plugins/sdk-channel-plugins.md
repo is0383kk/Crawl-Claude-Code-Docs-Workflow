@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Building Channel Plugins
-
-# Building Channel Plugins
+# Building channel plugins
 
 This guide walks through building a channel plugin that connects OpenClaw to a
 messaging platform. By the end you will have a working channel with DM security,
@@ -627,7 +625,7 @@ should use `resolveInboundMentionDecision({ facts, policy })`.
     describeMessageTool and action discovery
   </Card>
 
-  <Card title="Target resolution" icon="crosshair" href="/plugins/architecture#channel-target-resolution">
+  <Card title="Target resolution" icon="crosshair" href="/plugins/architecture-internals#channel-target-resolution">
     inferTargetChatType, looksLikeId, resolveTarget
   </Card>
 
@@ -649,3 +647,9 @@ should use `resolveInboundMentionDecision({ facts, policy })`.
 * [SDK Overview](/plugins/sdk-overview) — full subpath import reference
 * [SDK Testing](/plugins/sdk-testing) — test utilities and contract tests
 * [Plugin Manifest](/plugins/manifest) — full manifest schema
+
+## Related
+
+* [Plugin SDK setup](/plugins/sdk-setup)
+* [Building plugins](/plugins/building-plugins)
+* [Agent harness plugins](/plugins/sdk-agent-harness)

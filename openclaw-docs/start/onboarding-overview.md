@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Onboarding Overview
-
-# Onboarding Overview
+# Onboarding overview
 
 OpenClaw has two onboarding paths. Both configure auth, the Gateway, and
 optional chat channels — they just differ in how you interact with the setup.
@@ -64,3 +62,8 @@ enter:
 * Model ID and optional alias
 
 Multiple custom endpoints can coexist — each gets its own endpoint ID.
+
+## Related
+
+* [Getting started](/start/getting-started)
+* [CLI setup reference](/start/wizard-cli-reference)

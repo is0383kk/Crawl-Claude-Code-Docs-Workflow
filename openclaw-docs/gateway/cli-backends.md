@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# CLI Backends
-
-# CLI backends (fallback runtime)
+# CLI backends
 
 OpenClaw can run **local AI CLIs** as a **text-only fallback** when API providers are down,
 rate-limited, or temporarily misbehaving. This is intentionally conservative:
@@ -28,7 +26,7 @@ You can use Codex CLI **without any config** (the bundled OpenAI plugin
 registers a default backend):
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw agent --message "hi" --model codex-cli/gpt-5.4
+openclaw agent --message "hi" --model codex-cli/gpt-5.5
 ```
 
 If your gateway runs under launchd/systemd and PATH is minimal, add just the
@@ -65,11 +63,11 @@ Add a CLI backend to your fallback list so it only runs when primary models fail
     defaults: {
       model: {
         primary: "anthropic/claude-opus-4-6",
-        fallbacks: ["codex-cli/gpt-5.4"],
+        fallbacks: ["codex-cli/gpt-5.5"],
       },
       models: {
         "anthropic/claude-opus-4-6": { alias: "Opus" },
-        "codex-cli/gpt-5.4": {},
+        "codex-cli/gpt-5.5": {},
       },
     },
   },
@@ -165,6 +163,15 @@ only the eligible skills for that agent/session, so Claude Code's native skill
 resolver sees the same filtered set that OpenClaw would otherwise advertise in
 the prompt. Skill env/API key overrides are still applied by OpenClaw to the
 child process environment for the run.
+
+Claude CLI also has its own noninteractive permission mode. OpenClaw maps that
+to the existing exec policy instead of adding Claude-specific config: when the
+effective requested exec policy is YOLO (`tools.exec.security: "full"` and
+`tools.exec.ask: "off"`), OpenClaw adds `--permission-mode bypassPermissions`.
+Per-agent `agents.list[].tools.exec` settings override global `tools.exec` for
+that agent. To force a different Claude mode, set explicit raw backend args
+such as `--permission-mode default` or `--permission-mode acceptEdits` under
+`agents.defaults.cliBackends.claude-cli.args` and matching `resumeArgs`.
 
 Before OpenClaw can use the bundled `claude-cli` backend, Claude Code itself
 must already be logged in on the same host:
@@ -322,7 +329,9 @@ opt into a generated MCP config overlay with `bundleMcp: true`.
 Current bundled behavior:
 
 * `claude-cli`: generated strict MCP config file
-* `codex-cli`: inline config overrides for `mcp_servers`
+* `codex-cli`: inline config overrides for `mcp_servers`; the generated
+  OpenClaw loopback server is marked with Codex's per-server tool approval mode
+  so MCP calls cannot stall on local approval prompts
 * `google-gemini-cli`: generated Gemini system settings file
 
 When bundle MCP is enabled, OpenClaw:
@@ -356,3 +365,8 @@ backend opts into bundle MCP so background runs stay isolated.
 * **No session continuity**: ensure `sessionArg` is set and `sessionMode` is not
   `none` (Codex CLI currently cannot resume with JSON output).
 * **Images ignored**: set `imageArg` (and verify CLI supports file paths).
+
+## Related
+
+* [Gateway runbook](/gateway)
+* [Local models](/gateway/local-models)

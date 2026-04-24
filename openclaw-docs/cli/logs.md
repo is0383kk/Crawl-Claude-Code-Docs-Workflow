@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# logs
+# Logs
 
 # `openclaw logs`
 
@@ -55,3 +55,8 @@ openclaw logs --url ws://127.0.0.1:18789 --token "$OPENCLAW_GATEWAY_TOKEN"
 
 * Use `--local-time` to render timestamps in your local timezone.
 * If the local loopback Gateway asks for pairing, `openclaw logs` falls back to the configured local log file automatically. Explicit `--url` targets do not use this fallback.
+
+## Related
+
+* [CLI reference](/cli)
+* [Gateway logging](/gateway/logging)

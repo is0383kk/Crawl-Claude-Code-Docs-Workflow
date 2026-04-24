@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# wiki
+# Wiki
 
 # `openclaw wiki`
 
@@ -210,3 +210,8 @@ These require the official `obsidian` CLI on `PATH` when
 * `plugins.entries.memory-wiki.config.context.includeCompiledDigestPrompt`
 
 See [Memory Wiki plugin](/plugins/memory-wiki) for the full config model.
+
+## Related
+
+* [CLI reference](/cli)
+* [Memory wiki](/plugins/memory-wiki)

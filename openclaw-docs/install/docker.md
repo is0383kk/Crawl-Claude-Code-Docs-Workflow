@@ -4,8 +4,6 @@
 
 # Docker
 
-# Docker (optional)
-
 Docker is **optional**. Use it only if you want a containerized gateway or to validate the Docker flow.
 
 ## Is Docker right for me?

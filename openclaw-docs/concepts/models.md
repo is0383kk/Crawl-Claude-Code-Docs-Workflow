@@ -4,8 +4,6 @@
 
 # Models CLI
 
-# Models CLI
-
 See [/concepts/model-failover](/concepts/model-failover) for auth profile
 rotation, cooldowns, and how that interacts with fallbacks.
 Quick provider overview + examples: [/concepts/model-providers](/concepts/model-providers).
@@ -69,7 +67,7 @@ Provider configuration examples (including OpenCode) live in
 Use additive writes when updating `agents.defaults.models` by hand:
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw config set agents.defaults.models '{"openai-codex/gpt-5.4":{}}' --strict-json --merge
+openclaw config set agents.defaults.models '{"openai/gpt-5.4":{}}' --strict-json --merge
 ```
 
 `openclaw config set` protects model/provider maps from accidental clobbers. A
@@ -129,9 +127,7 @@ Notes:
 
 * `/model` (and `/model list`) is a compact, numbered picker (model family + available providers).
 * On Discord, `/model` and `/models` open an interactive picker with provider and model dropdowns plus a Submit step.
-* `/models add` is available by default and can be disabled with `commands.modelsWrite=false`.
-* When enabled, `/models add <provider> <modelId>` is the fastest path; bare `/models add` starts a provider-first guided flow where supported.
-* After `/models add`, the new model becomes available in `/models` and `/model` without restarting the gateway.
+* `/models add` is deprecated and now returns a deprecation message instead of registering models from chat.
 * `/model <#>` selects from that picker.
 * `/model` persists the new session selection immediately.
 * If the agent is idle, the next run uses the new model right away.
@@ -149,14 +145,6 @@ Notes:
      surfacing a stale removed-provider default.
 
 Full command behavior/config: [Slash commands](/tools/slash-commands).
-
-Examples:
-
-```text theme={"theme":{"light":"min-light","dark":"min-dark"}}
-/models add
-/models add ollama glm-5.1:cloud
-/models add lmstudio qwen/qwen3.5-9b
-```
 
 ## CLI commands
 
@@ -287,4 +275,4 @@ This applies whenever OpenClaw regenerates `models.json`, including command-driv
 * [Image Generation](/tools/image-generation) — image model configuration
 * [Music Generation](/tools/music-generation) — music model configuration
 * [Video Generation](/tools/video-generation) — video model configuration
-* [Configuration Reference](/gateway/configuration-reference#agent-defaults) — model config keys
+* [Configuration Reference](/gateway/config-agents#agent-defaults) — model config keys

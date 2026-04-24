@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Cloudflare AI Gateway
-
-# Cloudflare AI Gateway
+# Cloudflare AI gateway
 
 Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics, caching, and controls. For Anthropic, OpenClaw uses the Anthropic Messages API through your Gateway endpoint.
 
@@ -12,7 +10,7 @@ Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics,
 | ------------- | ---------------------------------------------------------------------------------------- |
 | Provider      | `cloudflare-ai-gateway`                                                                  |
 | Base URL      | `https://gateway.ai.cloudflare.com/v1/<account_id>/<gateway_id>/anthropic`               |
-| Default model | `cloudflare-ai-gateway/claude-sonnet-4-5`                                                |
+| Default model | `cloudflare-ai-gateway/claude-sonnet-4-6`                                                |
 | API key       | `CLOUDFLARE_AI_GATEWAY_API_KEY` (your provider API key for requests through the Gateway) |
 
 <Note>
@@ -39,7 +37,7 @@ Cloudflare AI Gateway sits in front of provider APIs and lets you add analytics,
     {
       agents: {
         defaults: {
-          model: { primary: "cloudflare-ai-gateway/claude-sonnet-4-5" },
+          model: { primary: "cloudflare-ai-gateway/claude-sonnet-4-6" },
         },
       },
     }

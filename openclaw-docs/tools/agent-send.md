@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Agent Send
-
-# Agent Send
+# Agent send
 
 `openclaw agent` runs a single agent turn from the command line without needing
 an inbound chat message. Use it for scripted workflows, testing, and

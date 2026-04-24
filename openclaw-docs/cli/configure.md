@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# configure
+# Configure
 
 # `openclaw configure`
 
@@ -69,3 +69,8 @@ openclaw configure --section web
 openclaw configure --section model --section channels
 openclaw configure --section gateway --section daemon
 ```
+
+## Related
+
+* [CLI reference](/cli)
+* [Configuration](/gateway/configuration)

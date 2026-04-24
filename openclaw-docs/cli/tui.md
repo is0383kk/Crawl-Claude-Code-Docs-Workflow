@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# tui
+# TUI
 
 # `openclaw tui`
 
@@ -61,3 +61,8 @@ Then inside the TUI:
 
 Apply targeted fixes with `openclaw config set` or `openclaw configure`, then
 rerun `openclaw config validate`. See [TUI](/web/tui) and [Config](/cli/config).
+
+## Related
+
+* [CLI reference](/cli)
+* [TUI](/web/tui)

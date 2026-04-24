@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Installer Internals
-
 # Installer internals
 
 OpenClaw ships three installer scripts, served from `openclaw.ai`.
@@ -449,3 +447,9 @@ Use non-interactive flags/env vars for predictable runs.
     Usually a PATH issue. See [Node.js troubleshooting](/install/node#troubleshooting).
   </Accordion>
 </AccordionGroup>
+
+## Related
+
+* [Install overview](/install)
+* [Updating](/install/updating)
+* [Uninstall](/install/uninstall)

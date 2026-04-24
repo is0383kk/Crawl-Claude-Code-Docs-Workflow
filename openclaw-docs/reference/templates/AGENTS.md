@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# AGENTS.md Template
+# AGENTS.md template
 
 # AGENTS.md - Your Workspace
 
@@ -218,3 +218,7 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Related
+
+* [Default AGENTS.md](/reference/AGENTS.default)

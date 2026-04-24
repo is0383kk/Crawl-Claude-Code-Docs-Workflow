@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Device Model Database
-
-# Device model database (friendly names)
+# Device model database
 
 The macOS companion app shows friendly Apple device model names in the **Instances** UI by mapping Apple model identifiers (e.g. `iPad16,6`, `Mac16,6`) to human-readable names.
 
@@ -43,3 +41,8 @@ curl -fsSL "https://raw.githubusercontent.com/kyle-seongwoo-jun/apple-device-ide
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 swift build --package-path apps/macos
 ```
+
+## Related
+
+* [Nodes](/nodes)
+* [Node troubleshooting](/nodes/troubleshooting)

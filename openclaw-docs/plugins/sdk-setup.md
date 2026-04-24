@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Plugin Setup and Config
-
-# Plugin Setup and Config
+# Plugin setup and config
 
 Reference for plugin packaging (`package.json` metadata), manifests
 (`openclaw.plugin.json`), setup entries, and config schemas.

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Memory Wiki
-
-# Memory Wiki
+# Memory wiki
 
 `memory-wiki` is a bundled plugin that turns durable memory into a compiled
 knowledge vault.

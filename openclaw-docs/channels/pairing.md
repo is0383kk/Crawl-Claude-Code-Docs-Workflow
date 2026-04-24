@@ -4,8 +4,6 @@
 
 # Pairing
 
-# Pairing
-
 “Pairing” is OpenClaw’s explicit **owner approval** step.
 It is used in two places:
 

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Diagnostics Export
-
-# Diagnostics Export
+# Diagnostics export
 
 OpenClaw can create a local diagnostics zip that is safe to attach to bug
 reports. It combines sanitized Gateway status, health, logs, config shape, and

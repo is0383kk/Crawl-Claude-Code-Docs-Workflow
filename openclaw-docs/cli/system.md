@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# system
+# System
 
 # `openclaw system`
 
@@ -66,3 +66,7 @@ Flags:
 
 * Requires a running Gateway reachable by your current config (local or remote).
 * System events are ephemeral and not persisted across restarts.
+
+## Related
+
+* [CLI reference](/cli)

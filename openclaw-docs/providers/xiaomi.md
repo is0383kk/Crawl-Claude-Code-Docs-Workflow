@@ -4,8 +4,6 @@
 
 # Xiaomi MiMo
 
-# Xiaomi MiMo
-
 Xiaomi MiMo is the API platform for **MiMo** models. OpenClaw uses the Xiaomi
 OpenAI-compatible endpoint with API-key authentication.
 
@@ -42,7 +40,7 @@ OpenAI-compatible endpoint with API-key authentication.
   </Step>
 </Steps>
 
-## Available models
+## Built-in catalog
 
 | Model ref              | Input       | Context   | Max output | Reasoning | Notes         |
 | ---------------------- | ----------- | --------- | ---------- | --------- | ------------- |
@@ -134,7 +132,7 @@ OpenAI-compatible endpoint with API-key authentication.
     Choosing providers, model refs, and failover behavior.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration" icon="gear">
+  <Card title="Configuration reference" href="/gateway/configuration-reference" icon="gear">
     Full OpenClaw configuration reference.
   </Card>
 

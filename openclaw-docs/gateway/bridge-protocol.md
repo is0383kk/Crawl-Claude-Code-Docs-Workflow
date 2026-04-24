@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Bridge Protocol
-
-# Bridge protocol (legacy node transport)
+# Bridge protocol
 
 <Warning>
   The TCP bridge has been **removed**. Current OpenClaw builds do not ship the bridge listener and `bridge.*` config keys are no longer in the schema. This page is kept for historical reference only. Use the [Gateway Protocol](/gateway/protocol) for all node/operator clients.
@@ -84,3 +82,8 @@ Payload fields (all optional unless noted):
 The bridge was **implicit v1** (no min/max negotiation). This section is
 historical reference only; current node/operator clients use the WebSocket
 [Gateway Protocol](/gateway/protocol).
+
+## Related
+
+* [Gateway protocol](/gateway/protocol)
+* [Nodes](/nodes)

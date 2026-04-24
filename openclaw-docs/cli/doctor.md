@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# doctor
+# Doctor
 
 # `openclaw doctor`
 
@@ -61,3 +61,8 @@ launchctl getenv OPENCLAW_GATEWAY_PASSWORD
 launchctl unsetenv OPENCLAW_GATEWAY_TOKEN
 launchctl unsetenv OPENCLAW_GATEWAY_PASSWORD
 ```
+
+## Related
+
+* [CLI reference](/cli)
+* [Gateway doctor](/gateway/doctor)

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# daemon
+# Daemon
 
 # `openclaw daemon`
 
@@ -53,3 +53,8 @@ Notes:
 ## Prefer
 
 Use [`openclaw gateway`](/cli/gateway) for current docs and examples.
+
+## Related
+
+* [CLI reference](/cli)
+* [Gateway runbook](/gateway)

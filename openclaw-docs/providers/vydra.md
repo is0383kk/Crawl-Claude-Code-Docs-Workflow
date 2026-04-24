@@ -4,8 +4,6 @@
 
 # Vydra
 
-# Vydra
-
 The bundled Vydra plugin adds:
 
 * Image generation via `vydra/grok-imagine`
@@ -165,7 +163,7 @@ OpenClaw uses the same `VYDRA_API_KEY` for all three capabilities.
     Shared video tool parameters and provider selection.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration-reference#agent-defaults" icon="gear">
+  <Card title="Configuration reference" href="/gateway/config-agents#agent-defaults" icon="gear">
     Agent defaults and model configuration.
   </Card>
 </CardGroup>

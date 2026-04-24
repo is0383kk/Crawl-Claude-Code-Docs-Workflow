@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# cron
+# Cron
 
 # `openclaw cron`
 
@@ -172,3 +172,8 @@ Failure-delivery note:
   delivery mode is `webhook`.
 * If you do not set any failure destination and the job already announces to a
   channel, failure notifications reuse that same announce target.
+
+## Related
+
+* [CLI reference](/cli)
+* [Scheduled tasks](/automation/cron-jobs)

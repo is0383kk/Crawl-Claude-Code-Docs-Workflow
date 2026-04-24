@@ -4,8 +4,6 @@
 
 # Volcengine (Doubao)
 
-# Volcengine (Doubao)
-
 The Volcengine provider gives access to Doubao models and third-party models
 hosted on Volcano Engine, with separate endpoints for general and coding
 workloads.
@@ -71,7 +69,7 @@ workloads.
   Both providers are configured from a single API key. Setup registers both automatically.
 </Note>
 
-## Available models
+## Built-in catalog
 
 <Tabs>
   <Tab title="General (volcengine)">
@@ -96,7 +94,7 @@ workloads.
   </Tab>
 </Tabs>
 
-## Advanced notes
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Default model after onboarding">

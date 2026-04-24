@@ -4,8 +4,6 @@
 
 # Qianfan
 
-# Qianfan
-
 Qianfan is Baidu's MaaS platform, providing a **unified API** that routes requests to many models behind a single
 endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switching the base URL.
 
@@ -40,7 +38,7 @@ endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switc
   </Step>
 </Steps>
 
-## Available models
+## Built-in catalog
 
 | Model ref                            | Input       | Context | Max output | Reasoning | Notes         |
 | ------------------------------------ | ----------- | ------- | ---------- | --------- | ------------- |
@@ -122,7 +120,7 @@ endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switc
     Choosing providers, model refs, and failover behavior.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration" icon="gear">
+  <Card title="Configuration reference" href="/gateway/configuration-reference" icon="gear">
     Full OpenClaw configuration reference.
   </Card>
 

@@ -4,8 +4,6 @@
 
 # OAuth
 
-# OAuth
-
 OpenClaw supports “subscription auth” via OAuth for providers that offer it
 (notably **OpenAI Codex (ChatGPT OAuth)**). For Anthropic, the practical split
 is now:

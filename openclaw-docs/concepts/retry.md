@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Retry Policy
-
 # Retry policy
 
 ## Goals
@@ -77,3 +75,8 @@ Set retry policy per provider in `~/.openclaw/openclaw.json`:
 
 * Retries apply per request (message send, media upload, reaction, poll, sticker).
 * Composite flows do not retry completed steps.
+
+## Related
+
+* [Model failover](/concepts/model-failover)
+* [Command queue](/concepts/queue)

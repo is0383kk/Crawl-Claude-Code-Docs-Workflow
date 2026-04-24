@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Thinking Levels
-
-# Thinking Levels (/think directives)
+# Thinking levels
 
 ## What it does
 
@@ -14,7 +12,7 @@
   * low → “think hard”
   * medium → “think harder”
   * high → “ultrathink” (max budget)
-  * xhigh → “ultrathink+” (GPT-5.2 + Codex models and Anthropic Claude Opus 4.7 effort)
+  * xhigh → “ultrathink+” (GPT-5.2+ and Codex models, plus Anthropic Claude Opus 4.7 effort)
   * adaptive → provider-managed adaptive thinking (supported for Claude 4.6 on Anthropic/Bedrock and Anthropic Claude Opus 4.7)
   * max → provider max reasoning (currently Anthropic Claude Opus 4.7)
   * `x-high`, `x_high`, `extra-high`, `extra high`, and `extra_high` map to `xhigh`.

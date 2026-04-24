@@ -4,8 +4,6 @@
 
 # WeChat
 
-# WeChat
-
 OpenClaw connects to WeChat through Tencent's external
 `@tencent-weixin/openclaw-weixin` channel plugin.
 

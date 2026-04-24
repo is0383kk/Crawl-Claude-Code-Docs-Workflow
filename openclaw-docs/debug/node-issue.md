@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Node + tsx Crash
+# Node + tsx crash
 
 # Node + tsx "\_\_name is not a function" crash
 
@@ -84,3 +84,8 @@ node --import tsx scripts/repro/tsx-name-repro.ts
 * Repro on Node 22/24 to confirm Node 25 regression.
 * Test `tsx` nightly or pin to earlier version if a known regression exists.
 * If reproduces on Node LTS, file a minimal repro upstream with the `__name` stack trace.
+
+## Related
+
+* [Node.js install](/install/node)
+* [Gateway troubleshooting](/gateway/troubleshooting)

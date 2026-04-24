@@ -2,12 +2,20 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Chat Channels
-
-# Chat Channels
+# Chat channels
 
 OpenClaw can talk to you on any chat app you already use. Each channel connects via the Gateway.
 Text is supported everywhere; media and reactions vary by channel.
+
+## Delivery notes
+
+* Telegram replies that contain markdown image syntax, such as `![alt](url)`,
+  are converted into media replies on the final outbound path when possible.
+* Slack multi-person DMs route as group chats, so group policy, mention
+  behavior, and group-session rules apply to MPIM conversations.
+* WhatsApp setup is install-on-demand: onboarding can show the setup flow before
+  Baileys runtime dependencies are staged, and the Gateway loads the WhatsApp
+  runtime only when the channel is actually active.
 
 ## Supported channels
 

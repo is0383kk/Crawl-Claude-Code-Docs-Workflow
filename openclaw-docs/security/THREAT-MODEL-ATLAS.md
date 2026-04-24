@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Threat Model (MITRE ATLAS)
+# Threat model (MITRE ATLAS)
 
 # OpenClaw Threat Model v1.0
 
@@ -604,3 +604,8 @@ T-EXEC-002 → T-EXFIL-001 → External exfiltration
 ***
 
 *This threat model is a living document. Report security issues to [security@openclaw.ai](mailto:security@openclaw.ai)*
+
+## Related
+
+* [Formal verification](/security/formal-verification)
+* [Contributing to the threat model](/security/CONTRIBUTING-THREAT-MODEL)

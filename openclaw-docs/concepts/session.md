@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Session Management
-
-# Session Management
+# Session management
 
 OpenClaw organizes conversations into **sessions**. Each message is routed to a
 session based on where it came from -- DMs, group chats, cron jobs, etc.
@@ -116,3 +114,9 @@ Preview with `openclaw sessions cleanup --dry-run`.
 * [Multi-Agent](/concepts/multi-agent) — routing and session isolation across agents
 * [Background Tasks](/automation/tasks) — how detached work creates task records with session references
 * [Channel Routing](/channels/channel-routing) — how inbound messages are routed to sessions
+
+## Related
+
+* [Session pruning](/concepts/session-pruning)
+* [Session tools](/concepts/session-tool)
+* [Command queue](/concepts/queue)

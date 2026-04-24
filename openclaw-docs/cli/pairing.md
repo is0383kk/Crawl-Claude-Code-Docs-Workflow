@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# pairing
+# Pairing
 
 # `openclaw pairing`
 
@@ -62,3 +62,8 @@ Options:
 * `pairing list` supports `--account <accountId>` for multi-account channels.
 * `pairing approve` supports `--account <accountId>` and `--notify`.
 * If only one pairing-capable channel is configured, `pairing approve <code>` is allowed.
+
+## Related
+
+* [CLI reference](/cli)
+* [Channel pairing](/channels/pairing)

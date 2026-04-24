@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Environment Variables
-
 # Environment variables
 
 OpenClaw pulls environment variables from multiple sources. The rule is **never override existing values**.

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Contributing to the Threat Model
+# Contributing to the threat model
 
 # Contributing to the OpenClaw Threat Model
 
@@ -94,3 +94,8 @@ If you're unsure about the risk level, just describe the impact and we'll assess
 ## Recognition
 
 Contributors to the threat model are recognized in the threat model acknowledgments, release notes, and the OpenClaw security hall of fame for significant contributions.
+
+## Related
+
+* [Threat model](/security/THREAT-MODEL-ATLAS)
+* [Formal verification](/security/formal-verification)

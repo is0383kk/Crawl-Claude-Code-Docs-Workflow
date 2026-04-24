@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Formal Verification (Security Models)
-
-# Formal Verification (Security Models)
+# Formal verification (security models)
 
 This page tracks OpenClaw’s **formal security models** (TLA+/TLC today; more as needed).
 
@@ -169,3 +167,8 @@ What it means:
 * Red (expected):
   * `make routing-precedence-negative`
   * `make routing-identitylinks-negative`
+
+## Related
+
+* [Threat model](/security/THREAT-MODEL-ATLAS)
+* [Contributing to the threat model](/security/CONTRIBUTING-THREAT-MODEL)

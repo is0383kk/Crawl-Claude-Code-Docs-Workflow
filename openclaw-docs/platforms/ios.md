@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# iOS App
-
-# iOS App (Node)
+# iOS app
 
 Availability: internal preview. The iOS app is not publicly distributed yet.
 

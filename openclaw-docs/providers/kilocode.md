@@ -54,7 +54,7 @@ model managed by Kilo Gateway.
   hard-coded in OpenClaw.
 </Note>
 
-## Available models
+## Built-in catalog
 
 OpenClaw dynamically discovers available models from the Kilo Gateway at startup. Use
 `/models kilocode` to see the full list of models available with your account.
@@ -65,7 +65,7 @@ Any model available on the gateway can be used with the `kilocode/` prefix:
 | -------------------------------------- | ---------------------------------- |
 | `kilocode/kilo/auto`                   | Default — smart routing            |
 | `kilocode/anthropic/claude-sonnet-4`   | Anthropic via Kilo                 |
-| `kilocode/openai/gpt-5.4`              | OpenAI via Kilo                    |
+| `kilocode/openai/gpt-5.5`              | OpenAI via Kilo                    |
 | `kilocode/google/gemini-3-pro-preview` | Google via Kilo                    |
 | ...and many more                       | Use `/models kilocode` to list all |
 
@@ -125,7 +125,7 @@ Any model available on the gateway can be used with the `kilocode/` prefix:
     Choosing providers, model refs, and failover behavior.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration" icon="gear">
+  <Card title="Configuration reference" href="/gateway/configuration-reference" icon="gear">
     Full OpenClaw configuration reference.
   </Card>
 

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Ollama Web Search
-
-# Ollama Web Search
+# Ollama web search
 
 OpenClaw supports **Ollama Web Search** as a bundled `web_search` provider.
 It uses Ollama's experimental web-search API and returns structured results

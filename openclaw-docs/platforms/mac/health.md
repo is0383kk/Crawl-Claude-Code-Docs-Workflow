@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Health Checks (macOS)
+# Health checks (macOS)
 
 # Health Checks on macOS
 
@@ -31,3 +31,8 @@ How to see whether the linked channel is healthy from the menu bar app.
 ## When in doubt
 
 * You can still use the CLI flow in [Gateway health](/gateway/health) (`openclaw status`, `openclaw status --deep`, `openclaw health --json`) and tail `/tmp/openclaw/openclaw-*.log` for `web-heartbeat` / `web-reconnect`.
+
+## Related
+
+* [Gateway health](/gateway/health)
+* [macOS app](/platforms/macos)

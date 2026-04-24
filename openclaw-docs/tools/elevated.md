@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Elevated Mode
-
-# Elevated Mode
+# Elevated mode
 
 When an agent runs inside a sandbox, its `exec` commands are confined to the
 sandbox environment. **Elevated mode** lets the agent break out and run commands

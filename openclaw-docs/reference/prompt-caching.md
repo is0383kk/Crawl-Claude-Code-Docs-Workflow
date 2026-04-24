@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Prompt Caching
-
 # Prompt caching
 
 Prompt caching means the model provider can reuse unchanged prompt prefixes (usually system/developer instructions and other stable context) across turns instead of re-processing them every time. OpenClaw normalizes provider usage into `cacheRead` and `cacheWrite` where the upstream API exposes those counters directly.
@@ -339,3 +337,8 @@ Related docs:
 * [Token Use and Costs](/reference/token-use)
 * [Session Pruning](/concepts/session-pruning)
 * [Gateway Configuration Reference](/gateway/configuration-reference)
+
+## Related
+
+* [Token use and costs](/reference/token-use)
+* [API usage and costs](/reference/api-usage-costs)

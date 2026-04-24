@@ -4,8 +4,6 @@
 
 # LiteLLM
 
-# LiteLLM
-
 [LiteLLM](https://litellm.ai) is an open-source LLM gateway that provides a unified API to 100+ model providers. Route OpenClaw through LiteLLM to get centralized cost tracking, logging, and the flexibility to switch backends without changing your OpenClaw config.
 
 <Tip>
@@ -104,7 +102,7 @@ export LITELLM_API_KEY="sk-litellm-key"
 }
 ```
 
-## Advanced topics
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Virtual keys">
@@ -180,7 +178,7 @@ export LITELLM_API_KEY="sk-litellm-key"
     Official LiteLLM documentation and API reference.
   </Card>
 
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Overview of all providers, model refs, and failover behavior.
   </Card>
 

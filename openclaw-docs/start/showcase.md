@@ -6,8 +6,6 @@
 
 > Real-world OpenClaw projects from the community
 
-# Showcase
-
 OpenClaw projects are not toy demos. People are shipping PR review loops, mobile apps, home automation, voice systems, devtools, and memory-heavy workflows from the channels they already use — chat-native builds on Telegram, WhatsApp, Discord, and terminals; real automation for booking, shopping, and support without waiting for an API; and physical-world integrations with printers, vacuums, cameras, and home systems.
 
 <Info>
@@ -363,3 +361,8 @@ Things that grew beyond a single workflow into broader products or ecosystems.
     We'll add standout projects to this page.
   </Step>
 </Steps>
+
+## Related
+
+* [Getting started](/start/getting-started)
+* [OpenClaw](/start/openclaw)

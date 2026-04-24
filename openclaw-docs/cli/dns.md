@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# dns
+# DNS
 
 # `openclaw dns`
 
@@ -44,3 +44,8 @@ Notes:
 * If `--domain` is omitted, OpenClaw uses `discovery.wideArea.domain` from config.
 * `--apply` currently supports macOS only and expects Homebrew CoreDNS.
 * `--apply` bootstraps the zone file if needed, ensures the CoreDNS import stanza exists, and restarts the `coredns` brew service.
+
+## Related
+
+* [CLI reference](/cli)
+* [Discovery](/gateway/discovery)

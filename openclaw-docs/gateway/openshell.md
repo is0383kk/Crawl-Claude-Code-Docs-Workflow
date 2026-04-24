@@ -4,8 +4,6 @@
 
 # OpenShell
 
-# OpenShell
-
 OpenShell is a managed sandbox backend for OpenClaw. Instead of running Docker
 containers locally, OpenClaw delegates sandbox lifecycle to the `openshell` CLI,
 which provisions remote environments with SSH-based command execution.
@@ -302,7 +300,7 @@ the intended remote workspace.
 5. In `remote` mode: seed once on create, then operate directly on the remote
    workspace.
 
-## See also
+## Related
 
 * [Sandboxing](/gateway/sandboxing) -- modes, scopes, and backend comparison
 * [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) -- debugging blocked tools

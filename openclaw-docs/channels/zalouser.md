@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Zalo Personal
-
-# Zalo Personal (unofficial)
+# Zalo personal
 
 Status: experimental. This integration automates a **personal Zalo account** via native `zca-js` inside OpenClaw.
 

@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Experimental Features
-
 # Experimental features
 
 Experimental features in OpenClaw are **opt-in preview surfaces**. They are
@@ -24,7 +22,7 @@ Treat them differently from normal config:
 | ------------------------ | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | Local model runtime      | `agents.defaults.experimental.localModelLean`             | A smaller or stricter local backend chokes on OpenClaw's full default tool surface                             | [Local Models](/gateway/local-models)                                                         |
 | Memory search            | `agents.defaults.memorySearch.experimental.sessionMemory` | You want `memory_search` to index prior session transcripts and accept the extra storage/indexing cost         | [Memory configuration reference](/reference/memory-config#session-memory-search-experimental) |
-| Structured planning tool | `tools.experimental.planTool`                             | You want the structured `update_plan` tool exposed for multi-step work tracking in compatible runtimes and UIs | [Gateway configuration reference](/gateway/configuration-reference#toolsexperimental)         |
+| Structured planning tool | `tools.experimental.planTool`                             | You want the structured `update_plan` tool exposed for multi-step work tracking in compatible runtimes and UIs | [Gateway configuration reference](/gateway/config-tools#toolsexperimental)                    |
 
 ## Local model lean mode
 
@@ -42,3 +40,8 @@ If a feature is experimental, OpenClaw should say so plainly in docs and in the
 config path itself. What it should **not** do is smuggle preview behavior into a
 stable-looking default knob and pretend that is normal. That's how config
 surfaces get messy.
+
+## Related
+
+* [Features](/concepts/features)
+* [Release channels](/install/development-channels)

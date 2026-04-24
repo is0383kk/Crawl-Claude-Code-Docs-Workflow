@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Menu Bar
+# Menu bar
 
 # Menu Bar Status Logic
 
@@ -78,3 +78,8 @@
 * Start main while other active: icon flips to main instantly.
 * Rapid tool bursts: ensure badge does not flicker (TTL grace on tool results).
 * Health row reappears once all sessions idle.
+
+## Related
+
+* [macOS app](/platforms/macos)
+* [Menu bar icon](/platforms/mac/icon)

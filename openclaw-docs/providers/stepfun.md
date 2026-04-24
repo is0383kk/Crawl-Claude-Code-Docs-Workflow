@@ -4,8 +4,6 @@
 
 # StepFun
 
-# StepFun
-
 OpenClaw includes a bundled StepFun provider plugin with two provider ids:
 
 * `stepfun` for the standard endpoint
@@ -24,7 +22,7 @@ OpenClaw includes a bundled StepFun provider plugin with two provider ids:
 
 Auth env var: `STEPFUN_API_KEY`
 
-## Built-in catalogs
+## Built-in catalog
 
 Standard (`stepfun`):
 
@@ -130,7 +128,7 @@ Choose your provider surface and follow the setup steps.
   </Tab>
 </Tabs>
 
-## Advanced
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Full config: Standard provider">
@@ -217,7 +215,7 @@ Choose your provider surface and follow the setup steps.
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Overview of all providers, model refs, and failover behavior.
   </Card>
 

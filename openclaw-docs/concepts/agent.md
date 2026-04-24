@@ -2,11 +2,12 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Agent Runtime
+# Agent runtime
 
-# Agent Runtime
-
-OpenClaw runs a single embedded agent runtime.
+OpenClaw runs a **single embedded agent runtime** — one agent process per
+Gateway, with its own workspace, bootstrap files, and session store. This page
+covers that runtime contract: what the workspace must contain, which files get
+injected, and how sessions bootstrap against it.
 
 ## Workspace (required)
 
@@ -126,3 +127,9 @@ At minimum, set:
 ***
 
 *Next: [Group Chats](/channels/group-messages)* 🦞
+
+## Related
+
+* [Agent workspace](/concepts/agent-workspace)
+* [Multi-agent routing](/concepts/multi-agent)
+* [Session management](/concepts/session)

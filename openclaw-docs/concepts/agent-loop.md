@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Agent Loop
-
-# Agent Loop (OpenClaw)
+# Agent loop
 
 An agentic loop is the full “real” run of an agent: intake → context assembly → model inference →
 tool execution → streaming replies → persistence. It’s the authoritative path that turns a message
@@ -96,7 +94,7 @@ These run inside the agent loop or gateway pipeline:
 * **`before_compaction` / `after_compaction`**: observe or annotate compaction cycles.
 * **`before_tool_call` / `after_tool_call`**: intercept tool params/results.
 * **`before_install`**: inspect built-in scan findings and optionally block skill or plugin installs.
-* **`tool_result_persist`**: synchronously transform tool results before they are written to the session transcript.
+* **`tool_result_persist`**: synchronously transform tool results before they are written to an OpenClaw-owned session transcript.
 * **`message_received` / `message_sending` / `message_sent`**: inbound + outbound message hooks.
 * **`session_start` / `session_end`**: session lifecycle boundaries.
 * **`gateway_start` / `gateway_stop`**: gateway lifecycle events.
@@ -110,7 +108,11 @@ Hook decision rules for outbound/tool guards:
 * `message_sending`: `{ cancel: true }` is terminal and stops lower-priority handlers.
 * `message_sending`: `{ cancel: false }` is a no-op and does not clear a prior cancel.
 
-See [Plugin hooks](/plugins/architecture#provider-runtime-hooks) for the hook API and registration details.
+See [Plugin hooks](/plugins/hooks) for the hook API and registration details.
+
+Harnesses may adapt these hooks differently. The Codex app-server harness keeps
+OpenClaw plugin hooks as the compatibility contract for documented mirrored
+surfaces, while Codex native hooks remain a separate lower-level Codex mechanism.
 
 ## Streaming + partial replies
 

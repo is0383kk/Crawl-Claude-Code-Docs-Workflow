@@ -4,8 +4,6 @@
 
 # Mattermost
 
-# Mattermost
-
 Status: bundled plugin (bot token + WebSocket events). Channels, groups, and DMs are supported.
 Mattermost is a self-hostable team messaging platform; see the official site at
 [mattermost.com](https://mattermost.com) for product details and downloads.

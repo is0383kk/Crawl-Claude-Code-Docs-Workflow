@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Configuration Examples
-
-# Configuration Examples
+# Configuration examples
 
 Examples below are aligned with the current config schema. For the exhaustive reference and per-field notes, see [Configuration](/gateway/configuration).
 
@@ -626,3 +624,8 @@ Only enable direct mutable name/email/nick matching with each channel's `dangero
 * Provider IDs differ (phone numbers, user IDs, channel IDs). Use the provider docs to confirm the format.
 * Optional sections to add later: `web`, `browser`, `ui`, `discovery`, `canvasHost`, `talk`, `signal`, `imessage`.
 * See [Providers](/providers) and [Troubleshooting](/gateway/troubleshooting) for deeper setup notes.
+
+## Related
+
+* [Configuration reference](/gateway/configuration-reference)
+* [Configuration](/gateway/configuration)

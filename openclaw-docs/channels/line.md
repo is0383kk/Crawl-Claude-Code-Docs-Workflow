@@ -4,8 +4,6 @@
 
 # LINE
 
-# LINE
-
 LINE connects to OpenClaw via the LINE Messaging API. The plugin runs as a webhook
 receiver on the gateway and uses your channel access token + channel secret for
 authentication.

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# webhooks
+# Webhooks
 
 # `openclaw webhooks`
 
@@ -87,3 +87,8 @@ openclaw webhooks gmail run --account you@example.com
 ```
 
 See [Gmail Pub/Sub documentation](/automation/cron-jobs#gmail-pubsub-integration) for the end-to-end setup flow and operational details.
+
+## Related
+
+* [CLI reference](/cli)
+* [Webhook automation](/automation/webhook)

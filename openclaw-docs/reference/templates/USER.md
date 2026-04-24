@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# USER Template
+# USER template
 
 # USER.md - About Your Human
 
@@ -21,3 +21,7 @@
 ***
 
 The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.
+
+## Related
+
+* [Agent workspace](/concepts/agent-workspace)

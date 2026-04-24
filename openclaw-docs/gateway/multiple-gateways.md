@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Multiple Gateways
-
-# Multiple Gateways (same host)
+# Multiple gateways
 
 Most setups should use one Gateway because a single Gateway can handle multiple messaging connections and agents. If you need stronger isolation or redundancy (e.g., a rescue bot), run separate Gateways with isolated profiles/ports.
 
@@ -170,3 +168,9 @@ Interpretation:
 
 * `gateway status --deep` helps catch stale launchd/systemd/schtasks services from older installs.
 * `gateway probe` warning text such as `multiple reachable gateways detected` is expected only when you intentionally run more than one isolated gateway.
+
+## Related
+
+* [Gateway runbook](/gateway)
+* [Gateway lock](/gateway/gateway-lock)
+* [Configuration](/gateway/configuration)

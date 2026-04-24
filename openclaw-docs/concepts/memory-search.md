@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Memory Search
-
-# Memory Search
+# Memory search
 
 `memory_search` finds relevant notes from your memory files, even when the
 wording differs from the original text. It works by indexing memory into small
@@ -142,3 +140,9 @@ earlier conversations. This is opt-in via
 * [Active Memory](/concepts/active-memory) -- sub-agent memory for interactive chat sessions
 * [Memory](/concepts/memory) -- file layout, backends, tools
 * [Memory configuration reference](/reference/memory-config) -- all config knobs
+
+## Related
+
+* [Memory overview](/concepts/memory)
+* [Active memory](/concepts/active-memory)
+* [Builtin memory engine](/concepts/memory-builtin)

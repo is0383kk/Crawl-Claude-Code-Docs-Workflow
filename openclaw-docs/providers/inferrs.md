@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# inferrs
-
-# inferrs
+# Inferrs
 
 [inferrs](https://github.com/ericcurtin/inferrs) can serve local models behind an
 OpenAI-compatible `/v1` API. OpenClaw works with `inferrs` through the generic
@@ -80,7 +78,7 @@ This example uses Gemma 4 on a local `inferrs` server.
 }
 ```
 
-## Advanced
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Why requiresStringContent matters">
@@ -190,7 +188,7 @@ This example uses Gemma 4 on a local `inferrs` server.
   For general help, see [Troubleshooting](/help/troubleshooting) and [FAQ](/help/faq).
 </Tip>
 
-## See also
+## Related
 
 <CardGroup cols={2}>
   <Card title="Local models" href="/gateway/local-models" icon="server">
@@ -201,7 +199,7 @@ This example uses Gemma 4 on a local `inferrs` server.
     Debugging local OpenAI-compatible backends that pass probes but fail agent runs.
   </Card>
 
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Overview of all providers, model refs, and failover behavior.
   </Card>
 </CardGroup>

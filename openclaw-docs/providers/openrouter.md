@@ -4,8 +4,6 @@
 
 # OpenRouter
 
-# OpenRouter
-
 OpenRouter provides a **unified API** that routes requests to many models behind a single
 endpoint and API key. It is OpenAI-compatible, so most OpenAI SDKs work by switching the base URL.
 
@@ -60,6 +58,25 @@ Bundled fallback examples:
 | `openrouter/openrouter/healer-alpha` | OpenRouter Healer Alpha route |
 | `openrouter/openrouter/hunter-alpha` | OpenRouter Hunter Alpha route |
 
+## Image generation
+
+OpenRouter can also back the `image_generate` tool. Use an OpenRouter image model under `agents.defaults.imageGenerationModel`:
+
+```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+{
+  env: { OPENROUTER_API_KEY: "sk-or-..." },
+  agents: {
+    defaults: {
+      imageGenerationModel: {
+        primary: "openrouter/google/gemini-3.1-flash-image-preview",
+      },
+    },
+  },
+}
+```
+
+OpenClaw sends image requests to OpenRouter's chat completions image API with `modalities: ["image", "text"]`. Gemini image models receive supported `aspectRatio` and `resolution` hints through OpenRouter's `image_config`.
+
 ## Authentication and headers
 
 OpenRouter uses a Bearer token with your API key under the hood.
@@ -78,7 +95,7 @@ OpenRouter's documented app-attribution headers:
   does **not** inject those OpenRouter-specific headers or Anthropic cache markers.
 </Warning>
 
-## Advanced notes
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Anthropic cache markers">

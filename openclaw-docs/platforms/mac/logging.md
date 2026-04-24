@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# macOS Logging
+# macOS logging
 
 # Logging (macOS)
 
@@ -53,3 +53,8 @@ sudo install -m 644 -o root -g wheel /tmp/ai.openclaw.plist /Library/Preferences
 * Remove the override: `sudo rm /Library/Preferences/Logging/Subsystems/ai.openclaw.plist`.
 * Optionally run `sudo log config --reload` to force logd to drop the override immediately.
 * Remember this surface can include phone numbers and message bodies; keep the plist in place only while you actively need the extra detail.
+
+## Related
+
+* [macOS app](/platforms/macos)
+* [Gateway logging](/gateway/logging)

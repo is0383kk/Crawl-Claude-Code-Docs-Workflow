@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# LLM Task
-
-# LLM Task
+# LLM task
 
 `llm-task` is an **optional plugin tool** that runs a JSON-only LLM task and
 returns structured output (optionally validated against JSON Schema).
@@ -51,9 +49,9 @@ without writing custom OpenClaw code for each workflow.
         "enabled": true,
         "config": {
           "defaultProvider": "openai-codex",
-          "defaultModel": "gpt-5.4",
+          "defaultModel": "gpt-5.5",
           "defaultAuthProfileId": "main",
-          "allowedModels": ["openai-codex/gpt-5.4"],
+          "allowedModels": ["openai/gpt-5.4"],
           "maxTokens": 800,
           "timeoutMs": 30000
         }
@@ -115,3 +113,9 @@ openclaw.invoke --tool llm-task --action json --args-json '{
 * No tools are exposed to the model for this run.
 * Treat output as untrusted unless you validate with `schema`.
 * Put approvals before any side-effecting step (send, post, exec).
+
+## Related
+
+* [Thinking levels](/tools/thinking)
+* [Sub-agents](/tools/subagents)
+* [Slash commands](/tools/slash-commands)

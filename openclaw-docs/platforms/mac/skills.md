@@ -4,8 +4,6 @@
 
 # Skills (macOS)
 
-# Skills (macOS)
-
 The macOS app surfaces OpenClaw skills via the gateway; it does not parse skills locally.
 
 ## Data source
@@ -36,3 +34,8 @@ The macOS app surfaces OpenClaw skills via the gateway; it does not parse skills
 ## Remote mode
 
 * Install + config updates happen on the gateway host (not the local Mac).
+
+## Related
+
+* [Skills](/tools/skills)
+* [macOS app](/platforms/macos)

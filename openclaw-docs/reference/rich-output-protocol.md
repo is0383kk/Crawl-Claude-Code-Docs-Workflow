@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Rich Output Protocol
-
-# Rich Output Protocol
+# Rich output protocol
 
 Assistant output can carry a small set of delivery/render directives:
 
@@ -54,3 +52,8 @@ The normalized/stored assistant content block is a structured `canvas` item:
 ```
 
 Stored/rendered rich blocks use this `canvas` shape directly. `present_view` is not recognized.
+
+## Related
+
+* [RPC adapters](/reference/rpc)
+* [Typebox](/concepts/typebox)

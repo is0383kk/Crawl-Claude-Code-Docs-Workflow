@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# skills
+# Skills
 
 # `openclaw skills`
 
@@ -54,3 +54,8 @@ Notes:
 * `list`, `info`, and `check` write their rendered output to stdout. With
   `--json`, that means the machine-readable payload stays on stdout for pipes
   and scripts.
+
+## Related
+
+* [CLI reference](/cli)
+* [Skills](/tools/skills)

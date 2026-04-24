@@ -4,8 +4,6 @@
 
 # Compaction
 
-# Compaction
-
 Every model has a context window -- the maximum number of tokens it can process.
 When a conversation approaches that limit, OpenClaw **compacts** older messages
 into a summary so the chat can continue.

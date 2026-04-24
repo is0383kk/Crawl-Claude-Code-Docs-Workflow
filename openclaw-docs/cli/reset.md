@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# reset
+# Reset
 
 # `openclaw reset`
 
@@ -31,3 +31,7 @@ Notes:
 * Run `openclaw backup create` first if you want a restorable snapshot before removing local state.
 * If you omit `--scope`, `openclaw reset` uses an interactive prompt to choose what to remove.
 * `--non-interactive` is only valid when both `--scope` and `--yes` are set.
+
+## Related
+
+* [CLI reference](/cli)

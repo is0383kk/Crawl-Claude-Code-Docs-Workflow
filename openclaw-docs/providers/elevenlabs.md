@@ -4,8 +4,6 @@
 
 # ElevenLabs
 
-# ElevenLabs
-
 OpenClaw uses ElevenLabs for text-to-speech, batch speech-to-text with Scribe
 v2, and Voice Call streaming STT with Scribe v2 Realtime.
 
@@ -106,3 +104,8 @@ streaming transcription.
   provider defaults to `ulaw_8000`, so telephony frames can be forwarded without
   transcoding.
 </Note>
+
+## Related
+
+* [Text-to-speech](/tools/tts)
+* [Model selection](/concepts/model-providers)

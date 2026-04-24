@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Gateway Runbook
-
 # Gateway runbook
 
 Use this page for day-1 startup and day-2 operations of the Gateway service.
@@ -158,6 +156,20 @@ What to expect:
   answers.
 * If that is intentional, isolate ports, config/state, and workspace roots per gateway.
 
+Checklist per instance:
+
+* Unique `gateway.port`
+* Unique `OPENCLAW_CONFIG_PATH`
+* Unique `OPENCLAW_STATE_DIR`
+* Unique `agents.defaults.workspace`
+
+Example:
+
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+OPENCLAW_CONFIG_PATH=~/.openclaw/a.json OPENCLAW_STATE_DIR=~/.openclaw-a openclaw gateway --port 19001
+OPENCLAW_CONFIG_PATH=~/.openclaw/b.json OPENCLAW_STATE_DIR=~/.openclaw-b openclaw gateway --port 19002
+```
+
 Detailed setup: [/gateway/multiple-gateways](/gateway/multiple-gateways).
 
 ## Remote access
@@ -258,28 +270,7 @@ Use supervised runs for production-like reliability.
   </Tab>
 </Tabs>
 
-## Multiple gateways on one host
-
-Most setups should run **one** Gateway.
-Use multiple only for strict isolation/redundancy (for example a rescue profile).
-
-Checklist per instance:
-
-* Unique `gateway.port`
-* Unique `OPENCLAW_CONFIG_PATH`
-* Unique `OPENCLAW_STATE_DIR`
-* Unique `agents.defaults.workspace`
-
-Example:
-
-```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-OPENCLAW_CONFIG_PATH=~/.openclaw/a.json OPENCLAW_STATE_DIR=~/.openclaw-a openclaw gateway --port 19001
-OPENCLAW_CONFIG_PATH=~/.openclaw/b.json OPENCLAW_STATE_DIR=~/.openclaw-b openclaw gateway --port 19002
-```
-
-See: [Multiple gateways](/gateway/multiple-gateways).
-
-### Dev profile quick path
+## Dev profile quick path
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw --dev setup
@@ -353,3 +344,10 @@ Related:
 * [Health](/gateway/health)
 * [Doctor](/gateway/doctor)
 * [Authentication](/gateway/authentication)
+
+## Related
+
+* [Configuration](/gateway/configuration)
+* [Gateway troubleshooting](/gateway/troubleshooting)
+* [Remote access](/gateway/remote)
+* [Secrets management](/gateway/secrets)

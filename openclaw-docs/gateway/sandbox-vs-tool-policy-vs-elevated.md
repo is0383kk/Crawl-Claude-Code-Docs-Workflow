@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Sandbox vs Tool Policy vs Elevated
-
-# Sandbox vs Tool Policy vs Elevated
+# Sandbox vs tool policy vs elevated
 
 OpenClaw has three related (but different) controls:
 
@@ -133,7 +131,7 @@ Fix-it keys (pick one):
 
 In `"non-main"` mode, group/channel keys are *not* main. Use the main session key (shown by `sandbox explain`) or switch mode to `"off"`.
 
-## See also
+## Related
 
 * [Sandboxing](/gateway/sandboxing) -- full sandbox reference (modes, scopes, backends, images)
 * [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) -- per-agent overrides and precedence

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Transcript Hygiene
-
-# Transcript Hygiene (Provider Fixups)
+# Transcript hygiene
 
 This document describes **provider-specific fixes** applied to transcripts before a run
 (building model context). These are **in-memory** adjustments used to satisfy strict
@@ -146,3 +144,8 @@ Before the 2026.1.22 release, OpenClaw applied multiple layers of transcript hyg
 This complexity caused cross-provider regressions (notably `openai-responses`
 `call_id|fc_id` pairing). The 2026.1.22 cleanup removed the extension, centralized
 logic in the runner, and made OpenAI **no-touch** beyond image sanitization.
+
+## Related
+
+* [Session management](/concepts/session)
+* [Session pruning](/concepts/session-pruning)

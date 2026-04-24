@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Tools and Plugins
-
-# Tools and Plugins
+# Tools and plugins
 
 Everything the agent does beyond generating text happens through **tools**.
 Tools are how the agent reads files, runs commands, browses the web, sends

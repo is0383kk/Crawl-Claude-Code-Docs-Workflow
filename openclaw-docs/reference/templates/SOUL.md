@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# SOUL.md Template
+# SOUL.md template
 
 # SOUL.md - Who You Are
 
@@ -42,3 +42,7 @@ If you change this file, tell the user — it's your soul, and they should know.
 ***
 
 *This file is yours to evolve. As you learn who you are, update it.*
+
+## Related
+
+* [SOUL.md personality guide](/concepts/soul)

@@ -4,8 +4,6 @@
 
 # Signal
 
-# Signal (signal-cli)
-
 Status: external CLI integration. Gateway talks to `signal-cli` over HTTP JSON-RPC + SSE.
 
 ## Prerequisites
@@ -97,7 +95,7 @@ Example:
 }
 ```
 
-Multi-account support: use `channels.signal.accounts` with per-account config and optional `name`. See [`gateway/configuration`](/gateway/configuration-reference#multi-account-all-channels) for the shared pattern.
+Multi-account support: use `channels.signal.accounts` with per-account config and optional `name`. See [`gateway/configuration`](/gateway/config-channels#multi-account-all-channels) for the shared pattern.
 
 ## Setup path B: register dedicated bot number (SMS, Linux)
 

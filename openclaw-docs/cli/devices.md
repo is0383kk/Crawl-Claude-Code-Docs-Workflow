@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# devices
+# Devices
 
 # `openclaw devices`
 
@@ -176,3 +176,8 @@ Related:
 
 * [Dashboard auth troubleshooting](/web/dashboard#if-you-see-unauthorized-1008)
 * [Gateway troubleshooting](/gateway/troubleshooting#dashboard-control-ui-connectivity)
+
+## Related
+
+* [CLI reference](/cli)
+* [Nodes](/nodes)

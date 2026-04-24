@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Zalo Personal Plugin
+# Zalo personal plugin
 
 # Zalo Personal (plugin)
 
@@ -74,3 +74,8 @@ Tool name: `zalouser`
 Actions: `send`, `image`, `link`, `friends`, `groups`, `me`, `status`
 
 Channel message actions also support `react` for message reactions.
+
+## Related
+
+* [Building plugins](/plugins/building-plugins)
+* [Community plugins](/plugins/community)

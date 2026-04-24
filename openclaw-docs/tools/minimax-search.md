@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# MiniMax Search
-
-# MiniMax Search
+# MiniMax search
 
 OpenClaw supports MiniMax as a `web_search` provider through the MiniMax
 Coding Plan search API. It returns structured search results with titles, URLs,
