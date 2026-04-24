@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# General Troubleshooting
-
-# Troubleshooting
+# General troubleshooting
 
 If you only have 2 minutes, use this page as a triage front door.
 

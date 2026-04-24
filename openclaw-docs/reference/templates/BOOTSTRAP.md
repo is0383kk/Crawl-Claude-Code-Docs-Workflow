@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# BOOTSTRAP.md Template
+# BOOTSTRAP.md template
 
 # BOOTSTRAP.md - Hello, World
 
@@ -59,3 +59,7 @@ Delete this file. You don't need a bootstrap script anymore — you're you now.
 ***
 
 *Good luck out there. Make it count.*
+
+## Related
+
+* [Agent workspace](/concepts/agent-workspace)

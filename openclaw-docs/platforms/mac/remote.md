@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Remote Control
+# Remote control
 
 # Remote OpenClaw (macOS ⇄ remote host)
 
@@ -81,3 +81,8 @@ openclaw nodes notify --node <id> --title "Ping" --body "Remote gateway ready" -
 ```
 
 There is no global “default sound” toggle in the app anymore; callers choose a sound (or none) per request.
+
+## Related
+
+* [macOS app](/platforms/macos)
+* [Remote access](/gateway/remote)

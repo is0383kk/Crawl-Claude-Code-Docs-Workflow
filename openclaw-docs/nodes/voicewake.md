@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Voice Wake
-
-# Voice Wake (Global Wake Words)
+# Voice wake
 
 OpenClaw treats **wake words as a single global list** owned by the **Gateway**.
 
@@ -62,3 +60,9 @@ Who receives it:
 
 * Voice Wake is currently disabled in Android runtime/Settings.
 * Android voice uses manual mic capture in the Voice tab instead of wake-word triggers.
+
+## Related
+
+* [Talk mode](/nodes/talk)
+* [Audio and voice notes](/nodes/audio)
+* [Media understanding](/nodes/media-understanding)

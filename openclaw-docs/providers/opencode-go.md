@@ -4,8 +4,6 @@
 
 # OpenCode Go
 
-# OpenCode Go
-
 OpenCode Go is the Go catalog within [OpenCode](/providers/opencode).
 It uses the same `OPENCODE_API_KEY` as the Zen catalog, but keeps the runtime
 provider id `opencode-go` so upstream per-model routing stays correct.
@@ -16,7 +14,7 @@ provider id `opencode-go` so upstream per-model routing stays correct.
 | Auth             | `OPENCODE_API_KEY`              |
 | Parent setup     | [OpenCode](/providers/opencode) |
 
-## Supported models
+## Built-in catalog
 
 OpenClaw sources the Go catalog from the bundled pi model registry. Run
 `openclaw models list --provider opencode-go` for the current model list.
@@ -87,7 +85,7 @@ As of the bundled pi catalog, the provider includes:
 }
 ```
 
-## Advanced notes
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Routing behavior">

@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# RPC Adapters
-
 # RPC adapters
 
 OpenClaw integrates external CLIs via JSON-RPC. Two patterns are used today.
@@ -39,3 +37,7 @@ See [iMessage](/channels/imessage) for legacy setup and addressing (`chat_id` pr
 * Gateway owns the process (start/stop tied to provider lifecycle).
 * Keep RPC clients resilient: timeouts, restart on exit.
 * Prefer stable IDs (e.g., `chat_id`) over display strings.
+
+## Related
+
+* [Gateway protocol](/gateway/protocol)

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Date and Time
+# Date and time
 
 # Date & Time
 

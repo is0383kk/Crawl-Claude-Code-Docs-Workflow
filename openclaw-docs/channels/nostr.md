@@ -4,8 +4,6 @@
 
 # Nostr
 
-# Nostr
-
 **Status:** Optional bundled plugin (disabled by default until configured).
 
 Nostr is a decentralized protocol for social networking. This channel enables OpenClaw to receive and respond to encrypted direct messages (DMs) via NIP-04.

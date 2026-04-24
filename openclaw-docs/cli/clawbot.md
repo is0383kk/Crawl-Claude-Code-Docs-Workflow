@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# clawbot
+# Clawbot
 
 # `openclaw clawbot`
 
@@ -17,3 +17,7 @@ Current supported alias:
 Prefer modern top-level commands directly:
 
 * `openclaw clawbot qr` -> `openclaw qr`
+
+## Related
+
+* [CLI reference](/cli)

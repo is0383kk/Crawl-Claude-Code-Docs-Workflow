@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# approvals
+# Approvals
 
 # `openclaw approvals`
 
@@ -181,3 +181,8 @@ Targeting notes:
 * `--agent` defaults to `"*"`, which applies to all agents.
 * The node host must advertise `system.execApprovals.get/set` (macOS app or headless node host).
 * Approvals files are stored per host at `~/.openclaw/exec-approvals.json`.
+
+## Related
+
+* [CLI reference](/cli)
+* [Exec approvals](/tools/exec-approvals)

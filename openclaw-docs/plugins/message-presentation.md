@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Message Presentation
-
-# Message Presentation
+# Message presentation
 
 Message presentation is OpenClaw's shared contract for rich outbound chat UI.
 It lets agents, CLI commands, approval flows, and plugins describe the message
@@ -330,5 +328,5 @@ messages where the provider supports those operations.
 
 * [Message CLI](/cli/message)
 * [Plugin SDK Overview](/plugins/sdk-overview)
-* [Plugin Architecture](/plugins/architecture#message-tool-schemas)
+* [Plugin Architecture](/plugins/architecture-internals#message-tool-schemas)
 * [Channel Presentation Refactor Plan](/plan/ui-channels)

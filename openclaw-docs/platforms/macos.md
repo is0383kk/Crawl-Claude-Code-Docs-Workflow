@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# macOS App
-
-# OpenClaw macOS Companion (menu bar + gateway broker)
+# macOS app
 
 The macOS app is the **menu‑bar companion** for OpenClaw. It owns permissions,
 manages/attaches to the Gateway locally (launchd or manual), and exposes macOS

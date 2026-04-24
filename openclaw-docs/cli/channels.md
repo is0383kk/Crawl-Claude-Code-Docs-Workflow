@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# channels
+# Channels
 
 # `openclaw channels`
 
@@ -127,3 +127,8 @@ Notes:
 * Use `--kind user|group|auto` to force the target type.
 * Resolution prefers active matches when multiple entries share the same name.
 * `channels resolve` is read-only. If a selected account is configured via SecretRef but that credential is unavailable in the current command path, the command returns degraded unresolved results with notes instead of aborting the entire run.
+
+## Related
+
+* [CLI reference](/cli)
+* [Channels overview](/channels)

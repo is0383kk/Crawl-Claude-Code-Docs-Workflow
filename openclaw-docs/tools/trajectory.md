@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Trajectory Bundles
-
 # Trajectory bundles
 
 Trajectory capture is OpenClaw's per-session flight recorder. It records a
@@ -178,3 +176,9 @@ If the command rejects the output path:
 
 If the export fails with a size error, the session or sidecar exceeded the
 export safety limits. Start a new session or export a smaller reproduction.
+
+## Related
+
+* [Diffs](/tools/diffs)
+* [Session management](/concepts/session)
+* [Exec tool](/tools/exec)

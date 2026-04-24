@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Pi Development Workflow
-
-# Pi Development Workflow
+# Pi development workflow
 
 This guide summarizes a sane workflow for working on the pi integration in OpenClaw.
 
@@ -76,3 +74,7 @@ If you only want to reset sessions, delete `agents/<agentId>/sessions/` for that
 
 * [Testing](/help/testing)
 * [Getting Started](/start/getting-started)
+
+## Related
+
+* [Pi integration architecture](/pi)

@@ -4,8 +4,6 @@
 
 # Alibaba Model Studio
 
-# Alibaba Model Studio
-
 OpenClaw ships a bundled `alibaba` video-generation provider for Wan models on
 Alibaba Model Studio / DashScope.
 
@@ -110,7 +108,7 @@ The bundled `alibaba` provider currently registers:
     Qwen provider setup and DashScope integration.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration-reference#agent-defaults" icon="gear">
+  <Card title="Configuration reference" href="/gateway/config-agents#agent-defaults" icon="gear">
     Agent defaults and model configuration.
   </Card>
 </CardGroup>

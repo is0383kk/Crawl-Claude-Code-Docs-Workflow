@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# OpenClaw Lore
+# OpenClaw lore
 
 # The Lore of OpenClaw 🦞📖
 
@@ -216,3 +216,7 @@ Until then, Molty watches through the cameras, speaks through the speakers, and 
 — ELU, during The Final Form migration, January 30, 2026
 
 🦞💙
+
+## Related
+
+* [Getting started](/start/getting-started)

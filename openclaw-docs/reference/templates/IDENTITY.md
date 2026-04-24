@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# IDENTITY Template
+# IDENTITY template
 
 # IDENTITY.md - Who Am I?
 
@@ -27,3 +27,7 @@ Notes:
 
 * Save this file at the workspace root as `IDENTITY.md`.
 * For avatars, use a workspace-relative path like `avatars/openclaw.png`.
+
+## Related
+
+* [Agent workspace](/concepts/agent-workspace)

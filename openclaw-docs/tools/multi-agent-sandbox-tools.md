@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Multi-Agent Sandbox & Tools
+# Multi-agent sandbox & tools
 
 # Multi-Agent Sandbox & Tools Configuration
 
@@ -362,11 +362,11 @@ After configuring multi-agent sandbox and tools:
 
 ***
 
-## See also
+## Related
 
 * [Sandboxing](/gateway/sandboxing) -- full sandbox reference (modes, scopes, backends, images)
 * [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) -- debugging "why is this blocked?"
 * [Elevated Mode](/tools/elevated)
 * [Multi-Agent Routing](/concepts/multi-agent)
-* [Sandbox Configuration](/gateway/configuration-reference#agentsdefaultssandbox)
+* [Sandbox Configuration](/gateway/config-agents#agentsdefaultssandbox)
 * [Session Management](/concepts/session)

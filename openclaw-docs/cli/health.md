@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# health
+# Health
 
 # `openclaw health`
 
@@ -33,3 +33,8 @@ Notes:
 * `--verbose` forces a live probe, prints gateway connection details, and expands the
   human-readable output across all configured accounts and agents.
 * Output includes per-agent session stores when multiple agents are configured.
+
+## Related
+
+* [CLI reference](/cli)
+* [Gateway health](/gateway/health)

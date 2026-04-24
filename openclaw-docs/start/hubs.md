@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Docs Hubs
-
 # Docs hubs
 
 <Note>
@@ -165,6 +163,7 @@ Use these hubs to discover every page, including deep dives and reference docs t
 
 * [Plugins overview](/tools/plugin)
 * [Building plugins](/plugins/building-plugins)
+* [Plugin hooks](/plugins/hooks)
 * [Plugin manifest](/plugins/manifest)
 * [Agent tools](/plugins/building-plugins#registering-agent-tools)
 * [Plugin bundles](/plugins/bundles)
@@ -196,3 +195,7 @@ Use these hubs to discover every page, including deep dives and reference docs t
 * [Testing](/reference/test)
 * [Release policy](/reference/RELEASING)
 * [Device models](/reference/device-models)
+
+## Related
+
+* [Getting started](/start/getting-started)

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Session Pruning
-
-# Session Pruning
+# Session pruning
 
 Session pruning trims **old tool results** from the context before each LLM
 call. It reduces context bloat from accumulated tool outputs (exec results, file
@@ -88,3 +86,9 @@ compaction cycles.
 * [Compaction](/concepts/compaction) -- summarization-based context reduction
 * [Gateway Configuration](/gateway/configuration) -- all pruning config knobs
   (`contextPruning.*`)
+
+## Related
+
+* [Session management](/concepts/session)
+* [Session tools](/concepts/session-tool)
+* [Context engine](/concepts/context-engine)

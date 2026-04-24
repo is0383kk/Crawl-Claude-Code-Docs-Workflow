@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# TOOLS.md Template
+# TOOLS.md template
 
 # TOOLS.md - Local Notes
 
@@ -44,3 +44,7 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 ***
 
 Add whatever helps you do your job. This is your cheat sheet.
+
+## Related
+
+* [Agent workspace](/concepts/agent-workspace)

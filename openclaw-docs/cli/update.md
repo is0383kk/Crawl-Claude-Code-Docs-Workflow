@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# update
+# Update
 
 # `openclaw update`
 
@@ -118,7 +118,7 @@ If pnpm bootstrap still fails, the updater now stops early with a package-manage
 
 `openclaw --update` rewrites to `openclaw update` (useful for shells and launcher scripts).
 
-## See also
+## Related
 
 * `openclaw doctor` (offers to run update first on git checkouts)
 * [Development channels](/install/development-channels)

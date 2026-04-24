@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# sessions
+# Sessions
 
 # `openclaw sessions`
 
@@ -116,4 +116,9 @@ openclaw sessions cleanup --json
 
 Related:
 
-* Session config: [Configuration reference](/gateway/configuration-reference#session)
+* Session config: [Configuration reference](/gateway/config-agents#session)
+
+## Related
+
+* [CLI reference](/cli)
+* [Session management](/concepts/session)

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Creating Skills
-
-# Creating Skills
+# Creating skills
 
 Skills teach the agent how and when to use tools. Each skill is a directory
 containing a `SKILL.md` file with YAML frontmatter and markdown instructions.

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Community Plugins
-
-# Community Plugins
+# Community plugins
 
 Community plugins are third-party packages that extend OpenClaw with new
 channels, tools, providers, or other capabilities. They are built and maintained

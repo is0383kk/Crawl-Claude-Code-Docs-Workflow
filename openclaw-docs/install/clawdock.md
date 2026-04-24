@@ -4,8 +4,6 @@
 
 # ClawDock
 
-# ClawDock
-
 ClawDock is a small shell-helper layer for Docker-based OpenClaw installs.
 
 It gives you short commands like `clawdock-start`, `clawdock-dashboard`, and `clawdock-fix-token` instead of longer `docker compose ...` invocations.

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# browser
+# Browser
 
 # `openclaw browser`
 
@@ -242,3 +242,8 @@ If the Gateway runs on a different machine than the browser, run a **node host**
 Use `gateway.nodes.browser.mode` to control auto-routing and `gateway.nodes.browser.node` to pin a specific node if multiple are connected.
 
 Security + remote setup: [Browser tool](/tools/browser), [Remote access](/gateway/remote), [Tailscale](/gateway/tailscale), [Security](/gateway/security)
+
+## Related
+
+* [CLI reference](/cli)
+* [Browser](/tools/browser)

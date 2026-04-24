@@ -4,8 +4,6 @@
 
 # GitHub Copilot
 
-# GitHub Copilot
-
 GitHub Copilot is GitHub's AI coding assistant. It provides access to Copilot
 models for your GitHub account and plan. OpenClaw can use Copilot as a model
 provider in two different ways.

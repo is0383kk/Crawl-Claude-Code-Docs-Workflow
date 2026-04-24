@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# CLI Reference
-
 # CLI reference
 
 `openclaw` is the main CLI entry point. Each core command has either a

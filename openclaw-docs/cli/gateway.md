@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# gateway
+# Gateway
 
 # Gateway CLI
 
@@ -368,3 +368,8 @@ Notes:
 * On `local.` mDNS, `sshPort` and `cliPath` are only broadcast when
   `discovery.mdns.mode` is `full`. Wide-area DNS-SD still writes `cliPath`; `sshPort`
   stays optional there too.
+
+## Related
+
+* [CLI reference](/cli)
+* [Gateway runbook](/gateway)

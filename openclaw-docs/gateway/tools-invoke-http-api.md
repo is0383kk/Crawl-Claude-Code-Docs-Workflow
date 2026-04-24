@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Tools Invoke API
+# Tools invoke API
 
 # Tools Invoke (HTTP)
 
@@ -157,3 +157,8 @@ curl -sS http://127.0.0.1:18789/tools/invoke \
     "args": {}
   }'
 ```
+
+## Related
+
+* [Gateway protocol](/gateway/protocol)
+* [Tools and plugins](/tools)

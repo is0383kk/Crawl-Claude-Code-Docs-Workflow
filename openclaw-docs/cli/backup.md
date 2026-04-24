@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# backup
+# Backup
 
 # `openclaw backup`
 
@@ -80,3 +80,7 @@ Practical limits come from the local machine and destination filesystem:
 Large workspaces are usually the main driver of archive size. If you want a smaller or faster backup, use `--no-include-workspace`.
 
 For the smallest archive, use `--only-config`.
+
+## Related
+
+* [CLI reference](/cli)

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Browser Login
+# Browser login
 
 # Browser login + X/Twitter posting
 
@@ -69,3 +69,9 @@ openclaw browser open https://x.com --browser-profile openclaw --target host
 ```
 
 Or disable sandboxing for the agent that posts updates.
+
+## Related
+
+* [Browser](/tools/browser)
+* [Browser Linux troubleshooting](/tools/browser-linux-troubleshooting)
+* [Browser WSL2 troubleshooting](/tools/browser-wsl2-windows-remote-cdp-troubleshooting)

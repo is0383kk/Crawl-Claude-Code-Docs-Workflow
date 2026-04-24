@@ -4,8 +4,6 @@
 
 # Fireworks
 
-# Fireworks
-
 [Fireworks](https://fireworks.ai) exposes open-weight and routed models through an OpenAI-compatible API. OpenClaw includes a bundled Fireworks provider plugin.
 
 | Property      | Value                                                  |

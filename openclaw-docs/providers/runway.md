@@ -4,8 +4,6 @@
 
 # Runway
 
-# Runway
-
 OpenClaw ships a bundled `runway` provider for hosted video generation.
 
 | Property    | Value                                                             |
@@ -65,7 +63,7 @@ OpenClaw ships a bundled `runway` provider for hosted video generation.
 }
 ```
 
-## Advanced notes
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Environment variable aliases">
@@ -87,7 +85,7 @@ OpenClaw ships a bundled `runway` provider for hosted video generation.
     Shared tool parameters, provider selection, and async behavior.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration-reference#agent-defaults" icon="gear">
+  <Card title="Configuration reference" href="/gateway/config-agents#agent-defaults" icon="gear">
     Agent default settings including video generation model.
   </Card>
 </CardGroup>

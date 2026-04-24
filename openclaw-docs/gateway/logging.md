@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Gateway Logging
+# Gateway logging
 
 # Logging
 
@@ -109,3 +109,8 @@ Behavior:
 * **WhatsApp message bodies** are logged at `debug` (use `--verbose` to see them)
 
 This keeps existing file logs stable while making interactive output scannable.
+
+## Related
+
+* [Logging overview](/logging)
+* [Diagnostics export](/gateway/diagnostics)

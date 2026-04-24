@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Skill Workshop plugin
-
-# Skill Workshop plugin
+# Skill workshop plugin
 
 Skill Workshop is **experimental**. It is disabled by default, its capture
 heuristics and reviewer prompts may change between releases, and automatic

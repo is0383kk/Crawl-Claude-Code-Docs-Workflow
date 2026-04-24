@@ -4,8 +4,6 @@
 
 # Sandboxing
 
-# Sandboxing
-
 OpenClaw can run **tools inside sandbox backends** to reduce blast radius.
 This is **optional** and controlled by configuration (`agents.defaults.sandbox` or
 `agents.list[].sandbox`). If sandboxing is off, tools run on the host.
@@ -481,7 +479,7 @@ See [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) for preceden
 ## Related docs
 
 * [OpenShell](/gateway/openshell) -- managed sandbox backend setup, workspace modes, and config reference
-* [Sandbox Configuration](/gateway/configuration-reference#agentsdefaultssandbox)
+* [Sandbox Configuration](/gateway/config-agents#agentsdefaultssandbox)
 * [Sandbox vs Tool Policy vs Elevated](/gateway/sandbox-vs-tool-policy-vs-elevated) -- debugging "why is this blocked?"
 * [Multi-Agent Sandbox & Tools](/tools/multi-agent-sandbox-tools) -- per-agent overrides and precedence
 * [Security](/gateway/security)

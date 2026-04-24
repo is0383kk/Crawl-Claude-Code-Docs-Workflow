@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Background Exec and Process Tool
+# Background exec and process tool
 
 # Background Exec + Process Tool
 
@@ -127,3 +127,8 @@ Paste literal text:
 ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 { "tool": "process", "action": "paste", "sessionId": "<id>", "text": "line1\nline2\n" }
 ```
+
+## Related
+
+* [Exec tool](/tools/exec)
+* [Exec approvals](/tools/exec-approvals)

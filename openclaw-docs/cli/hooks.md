@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# hooks
+# Hooks
 
 # `openclaw hooks`
 
@@ -13,7 +13,7 @@ Running `openclaw hooks` with no subcommand is equivalent to `openclaw hooks lis
 Related:
 
 * Hooks: [Hooks](/automation/hooks)
-* Plugin hooks: [Plugin hooks](/plugins/architecture#provider-runtime-hooks)
+* Plugin hooks: [Plugin hooks](/plugins/hooks)
 
 ## List All Hooks
 
@@ -334,3 +334,8 @@ openclaw hooks enable boot-md
 ```
 
 **See:** [boot-md documentation](/automation/hooks#boot-md)
+
+## Related
+
+* [CLI reference](/cli)
+* [Automation hooks](/automation/hooks)

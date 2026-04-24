@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Menu Bar Icon
+# Menu bar icon
 
 # Menu Bar Icon States
 
@@ -28,3 +28,8 @@ Behavioral notes
 
 * No external CLI/broker toggle for ears/working; keep it internal to the app’s own signals to avoid accidental flapping.
 * Keep TTLs short (\<10s) so the icon returns to baseline quickly if a job hangs.
+
+## Related
+
+* [Menu bar](/platforms/mac/menu-bar)
+* [macOS app](/platforms/macos)

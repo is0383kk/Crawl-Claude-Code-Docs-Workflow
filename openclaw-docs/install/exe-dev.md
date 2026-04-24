@@ -4,8 +4,6 @@
 
 # exe.dev
 
-# exe.dev
-
 Goal: OpenClaw Gateway running on an exe.dev VM, reachable from your laptop via: `https://<vm-name>.exe.xyz`
 
 This page assumes exe.dev's default **exeuntu** image. If you picked a different distro, map packages accordingly.
@@ -129,3 +127,8 @@ openclaw health
 ```
 
 Guide: [Updating](/install/updating)
+
+## Related
+
+* [Remote gateway](/gateway/remote)
+* [Install overview](/install)

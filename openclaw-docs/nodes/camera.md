@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Camera Capture
-
-# Camera capture (agent)
+# Camera capture
 
 OpenClaw supports **camera capture** for agent workflows:
 
@@ -158,3 +156,9 @@ openclaw nodes screen record --node <id> --duration 10s --fps 15   # prints MEDI
 Notes:
 
 * Requires macOS **Screen Recording** permission (TCC).
+
+## Related
+
+* [Image and media support](/nodes/images)
+* [Media understanding](/nodes/media-understanding)
+* [Location command](/nodes/location-command)

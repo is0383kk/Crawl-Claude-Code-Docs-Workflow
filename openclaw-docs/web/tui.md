@@ -4,8 +4,6 @@
 
 # TUI
 
-# TUI (Terminal UI)
-
 ## Quick start
 
 ### Gateway mode

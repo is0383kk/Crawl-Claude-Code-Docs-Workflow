@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Session Tools
-
-# Session Tools
+# Session tools
 
 OpenClaw gives agents tools to work across sessions, inspect status, and
 orchestrate sub-agents.
@@ -97,8 +95,9 @@ sub-agents. It supports:
 
 ## Spawning sub-agents
 
-`sessions_spawn` creates an isolated session for a background task. It is always
-non-blocking -- it returns immediately with a `runId` and `childSessionKey`.
+`sessions_spawn` creates an isolated session for a background task by default.
+It is always non-blocking -- it returns immediately with a `runId` and
+`childSessionKey`.
 
 Key options:
 
@@ -106,6 +105,8 @@ Key options:
 * `model` and `thinking` overrides for the child session.
 * `thread: true` to bind the spawn to a chat thread (Discord, Slack, etc.).
 * `sandbox: "require"` to enforce sandboxing on the child.
+* `context: "fork"` for native sub-agents when the child needs the current
+  requester transcript; omit it or use `context: "isolated"` for a clean child.
 
 Default leaf sub-agents do not get session tools. When
 `maxSpawnDepth >= 2`, depth-1 orchestrator sub-agents additionally receive
@@ -141,3 +142,8 @@ config.
 * [ACP Agents](/tools/acp-agents) -- external harness spawning
 * [Multi-agent](/concepts/multi-agent) -- multi-agent architecture
 * [Gateway Configuration](/gateway/configuration) -- session tool config knobs
+
+## Related
+
+* [Session management](/concepts/session)
+* [Session pruning](/concepts/session-pruning)

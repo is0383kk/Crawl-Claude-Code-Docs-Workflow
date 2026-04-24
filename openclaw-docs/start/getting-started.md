@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Getting Started
-
-# Getting Started
+# Getting started
 
 Install OpenClaw, run onboarding, and chat with your AI assistant — all in
 about 5 minutes. By the end you will have a running Gateway, configured auth,
@@ -143,3 +141,9 @@ and a working chat session.
 
   Full reference: [Environment variables](/help/environment).
 </Accordion>
+
+## Related
+
+* [Install overview](/install)
+* [Channels overview](/channels)
+* [Setup](/start/setup)

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Pi Integration Architecture
-
-# Pi Integration Architecture
+# Pi integration architecture
 
 This document describes how OpenClaw integrates with [pi-coding-agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) and its sibling packages (`pi-ai`, `pi-agent-core`, `pi-tui`) to power its AI agent capabilities.
 
@@ -23,10 +21,10 @@ OpenClaw uses the pi SDK to embed an AI coding agent into its messaging gateway 
 
 ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  "@mariozechner/pi-agent-core": "0.68.1",
-  "@mariozechner/pi-ai": "0.68.1",
-  "@mariozechner/pi-coding-agent": "0.68.1",
-  "@mariozechner/pi-tui": "0.68.1"
+  "@mariozechner/pi-agent-core": "0.70.2",
+  "@mariozechner/pi-ai": "0.70.2",
+  "@mariozechner/pi-coding-agent": "0.70.2",
+  "@mariozechner/pi-tui": "0.70.2"
 }
 ```
 
@@ -135,7 +133,7 @@ directories instead of under `src/agents/tools`, for example:
 * the Telegram plugin action runtime file
 * the WhatsApp plugin action runtime file
 
-## Core Integration Flow
+## Core integration flow
 
 ### 1. Running an Embedded Agent
 
@@ -285,7 +283,7 @@ export function splitSdkTools(options: { tools: AnyAgentTool[]; sandboxEnabled: 
 
 This ensures OpenClaw's policy filtering, sandbox integration, and extended toolset remain consistent across providers.
 
-## System Prompt Construction
+## System prompt construction
 
 The system prompt is built in `buildAgentSystemPrompt()` (`system-prompt.ts`). It assembles a full prompt with sections including Tooling, Tool Call Style, Safety guardrails, OpenClaw CLI reference, Skills, Docs, Workspace, Sandbox, Messaging, Reply Tags, Voice, Silent Replies, Heartbeats, Runtime metadata, plus Memory and Reactions when enabled, and optional context files and extra system prompt content. Sections are trimmed for minimal prompt mode used by subagents.
 
@@ -566,3 +564,8 @@ Live/opt-in:
 * `src/agents/pi-embedded-runner-extraparams.live.test.ts` (enable `OPENCLAW_LIVE_TEST=1`)
 
 For current run commands, see [Pi Development Workflow](/pi-dev).
+
+## Related
+
+* [Pi development workflow](/pi-dev)
+* [Install overview](/install)

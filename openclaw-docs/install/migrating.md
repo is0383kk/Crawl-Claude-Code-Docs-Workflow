@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Migration Guide
+# Migration guide
 
 # Migrating OpenClaw to a New Machine
 
@@ -105,3 +105,9 @@ On the new machine, confirm:
 * [ ] Channels are still connected (no re-pairing needed)
 * [ ] The dashboard opens and shows existing sessions
 * [ ] Workspace files (memory, configs) are present
+
+## Related
+
+* [Install overview](/install)
+* [Matrix migration](/install/migrating-matrix)
+* [Uninstall](/install/uninstall)

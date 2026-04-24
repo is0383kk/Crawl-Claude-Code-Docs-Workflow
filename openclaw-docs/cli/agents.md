@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# agents
+# Agents
 
 # `openclaw agents`
 
@@ -36,7 +36,7 @@ Use routing bindings to pin inbound channel traffic to a specific agent.
 If you also want different visible skills per agent, configure
 `agents.defaults.skills` and `agents.list[].skills` in `openclaw.json`. See
 [Skills config](/tools/skills-config) and
-[Configuration Reference](/gateway/configuration-reference#agents-defaults-skills).
+[Configuration Reference](/gateway/config-agents#agents-defaults-skills).
 
 List bindings:
 
@@ -217,3 +217,9 @@ Config sample:
   },
 }
 ```
+
+## Related
+
+* [CLI reference](/cli)
+* [Multi-agent routing](/concepts/multi-agent)
+* [Agent workspace](/concepts/agent-workspace)

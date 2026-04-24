@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Claude Max API Proxy
-
-# Claude Max API Proxy
+# Claude Max API proxy
 
 **claude-max-api-proxy** is a community tool that exposes your Claude Max/Pro subscription as an OpenAI-compatible API endpoint. This allows you to use your subscription with any tool that supports the OpenAI API format.
 
@@ -94,7 +92,7 @@ The proxy:
   </Step>
 </Steps>
 
-## Available models
+## Built-in catalog
 
 | Model ID          | Maps To         |
 | ----------------- | --------------- |
@@ -102,7 +100,7 @@ The proxy:
 | `claude-sonnet-4` | Claude Sonnet 4 |
 | `claude-haiku-4`  | Claude Haiku 4  |
 
-## Advanced
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Proxy-style OpenAI-compatible notes">
@@ -178,7 +176,7 @@ The proxy:
     For OpenAI/Codex subscriptions.
   </Card>
 
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Overview of all providers, model refs, and failover behavior.
   </Card>
 

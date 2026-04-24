@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# security
+# Security
 
 # `openclaw security`
 
@@ -82,3 +82,8 @@ openclaw security audit --fix --json | jq '{fix: .fix.ok, summary: .report.summa
 * disable tools (`gateway`, `cron`, `exec`, etc.)
 * change gateway bind/auth/network exposure choices
 * remove or rewrite plugins/skills
+
+## Related
+
+* [CLI reference](/cli)
+* [Security audit](/gateway/security)

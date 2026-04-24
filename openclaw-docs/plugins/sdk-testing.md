@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Plugin Testing
-
-# Plugin Testing
+# Plugin testing
 
 Reference for test utilities, patterns, and lint enforcement for OpenClaw
 plugins.

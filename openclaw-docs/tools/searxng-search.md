@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# SearXNG Search
-
-# SearXNG Search
+# SearXNG search
 
 OpenClaw supports [SearXNG](https://docs.searxng.org/) as a **self-hosted,
 key-free** `web_search` provider. SearXNG is an open-source meta-search engine

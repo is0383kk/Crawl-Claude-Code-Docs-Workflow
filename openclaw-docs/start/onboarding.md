@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Onboarding (macOS App)
-
-# Onboarding (macOS App)
+# Onboarding (macOS app)
 
 This doc describes the **current** first‑run setup flow. The goal is a
 smooth “day 0” experience: pick where the Gateway runs, connect auth, run the
@@ -90,3 +88,8 @@ For a general overview of onboarding paths, see [Onboarding Overview](/start/onb
     what happens on the gateway host during the first agent run.
   </Step>
 </Steps>
+
+## Related
+
+* [Onboarding overview](/start/onboarding-overview)
+* [Getting started](/start/getting-started)

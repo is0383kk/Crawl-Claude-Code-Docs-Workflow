@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Secrets Management
-
 # Secrets management
 
 OpenClaw supports additive SecretRefs so supported credentials do not need to be stored as plaintext in configuration.

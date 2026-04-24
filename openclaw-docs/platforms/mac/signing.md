@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# macOS Signing
+# macOS signing
 
 # mac signing (debug builds)
 
@@ -44,3 +44,8 @@ The About tab reads these keys to show version, build date, git commit, and whet
 ## Why
 
 TCC permissions are tied to the bundle identifier *and* code signature. Unsigned debug builds with changing UUIDs were causing macOS to forget grants after each rebuild. Signing the binaries (ad‑hoc by default) and keeping a fixed bundle id/path (`dist/OpenClaw.app`) preserves the grants between builds, matching the VibeTunnel approach.
+
+## Related
+
+* [macOS app](/platforms/macos)
+* [macOS permissions](/platforms/mac/permissions)

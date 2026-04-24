@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Model Failover
-
 # Model failover
 
 OpenClaw handles failures in two stages:

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Plugin Entry Points
-
-# Plugin Entry Points
+# Plugin entry points
 
 Every plugin exports a default entry object. The SDK provides three helpers for
 creating them.

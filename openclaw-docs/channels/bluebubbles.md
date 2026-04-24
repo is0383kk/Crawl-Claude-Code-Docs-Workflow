@@ -4,8 +4,6 @@
 
 # BlueBubbles
 
-# BlueBubbles (macOS REST)
-
 Status: bundled plugin that talks to the BlueBubbles macOS server over HTTP. **Recommended for iMessage integration** due to its richer API and easier setup compared to the legacy imsg channel.
 
 ## Bundled plugin

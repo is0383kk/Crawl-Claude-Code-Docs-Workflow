@@ -398,3 +398,9 @@ See [https://cloud.google.com/iam/docs/understanding-roles](https://cloud.google
 * Set up messaging channels: [Channels](/channels)
 * Pair local devices as nodes: [Nodes](/nodes)
 * Configure the Gateway: [Gateway configuration](/gateway/configuration)
+
+## Related
+
+* [Install overview](/install)
+* [Azure](/install/azure)
+* [VPS hosting](/vps)

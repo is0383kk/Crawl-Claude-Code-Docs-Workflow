@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Bun (Experimental)
-
-# Bun (Experimental)
+# Bun (experimental)
 
 <Warning>
   Bun is **not recommended for gateway runtime** (known issues with WhatsApp and Telegram). Use Node for production.
@@ -51,3 +49,9 @@ bun pm trust @whiskeysockets/baileys protobufjs
 ## Caveats
 
 Some scripts still hardcode pnpm (for example `docs:build`, `ui:*`, `protocol:check`). Run those via pnpm for now.
+
+## Related
+
+* [Install overview](/install)
+* [Node.js](/install/node)
+* [Updating](/install/updating)

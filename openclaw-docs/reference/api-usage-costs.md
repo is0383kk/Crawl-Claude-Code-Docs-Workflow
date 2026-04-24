@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# API Usage and Costs
+# API usage and costs
 
 # API usage & costs
 
@@ -192,3 +192,9 @@ Skills can store `apiKey` in `skills.entries.<name>.apiKey`. If a skill uses tha
 APIs, it can incur costs according to the skill’s provider.
 
 See [Skills](/tools/skills).
+
+## Related
+
+* [Token use and costs](/reference/token-use)
+* [Prompt caching](/reference/prompt-caching)
+* [Usage tracking](/concepts/usage-tracking)

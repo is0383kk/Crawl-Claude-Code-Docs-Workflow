@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Auth Credential Semantics
-
-# Auth Credential Semantics
+# Auth credential semantics
 
 This document defines the canonical credential eligibility and resolution semantics used across:
 
@@ -76,3 +74,8 @@ For script compatibility, probe errors keep this first line unchanged:
 `Auth profile credentials are missing or expired.`
 
 Human-friendly detail and stable reason codes may be added on subsequent lines.
+
+## Related
+
+* [Secrets management](/gateway/secrets)
+* [Auth storage](/concepts/oauth)

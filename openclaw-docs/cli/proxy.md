@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# proxy
+# Proxy
 
 # `openclaw proxy`
 
@@ -41,3 +41,8 @@ openclaw proxy purge
 * `start` defaults to `127.0.0.1` unless `--host` is set.
 * `run` starts a local debug proxy and then runs the command after `--`.
 * Captures are local debugging data; use `openclaw proxy purge` when finished.
+
+## Related
+
+* [CLI reference](/cli)
+* [Trusted proxy auth](/gateway/trusted-proxy-auth)

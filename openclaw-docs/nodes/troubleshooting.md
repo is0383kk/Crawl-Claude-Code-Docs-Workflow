@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Node Troubleshooting
-
 # Node troubleshooting
 
 Use this page when a node is visible in status but node tools fail.
@@ -119,3 +117,9 @@ Related:
 * [/nodes/location-command](/nodes/location-command)
 * [/tools/exec-approvals](/tools/exec-approvals)
 * [/gateway/pairing](/gateway/pairing)
+
+## Related
+
+* [Nodes overview](/nodes)
+* [Gateway troubleshooting](/gateway/troubleshooting)
+* [Channel troubleshooting](/channels/troubleshooting)

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# secrets
+# Secrets
 
 # `openclaw secrets`
 
@@ -192,3 +192,8 @@ openclaw secrets audit --check
 ```
 
 If `audit --check` still reports plaintext findings, update the remaining reported target paths and rerun audit.
+
+## Related
+
+* [CLI reference](/cli)
+* [Secrets management](/gateway/secrets)

@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# docs
+# Docs
 
 # `openclaw docs`
 
@@ -25,3 +25,7 @@ Notes:
 
 * With no query, `openclaw docs` opens the live docs search entrypoint.
 * Multi-word queries are passed through as one search request.
+
+## Related
+
+* [CLI reference](/cli)

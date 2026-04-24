@@ -4,8 +4,6 @@
 
 # NVIDIA
 
-# NVIDIA
-
 NVIDIA provides an OpenAI-compatible API at `https://integrate.api.nvidia.com/v1` for
 open models for free. Authenticate with an API key from
 [build.nvidia.com](https://build.nvidia.com/settings/api-keys).
@@ -66,7 +64,7 @@ open models for free. Authenticate with an API key from
 | `nvidia/minimaxai/minimax-m2.5`            | Minimax M2.5                 | 196,608 | 8,192      |
 | `nvidia/z-ai/glm5`                         | GLM 5                        | 202,752 | 8,192      |
 
-## Advanced notes
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Auto-enable behavior">

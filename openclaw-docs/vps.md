@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Linux Server
-
-# Linux Server
+# Linux server
 
 Run the OpenClaw Gateway on any Linux server or cloud VPS. This page helps you
 pick a provider, explains how cloud deployments work, and covers generic Linux
@@ -113,3 +111,10 @@ How `Restart=` policies help automated recovery:
 
 For Linux OOM behavior, child process victim selection, and `exit 137`
 diagnostics, see [Linux memory pressure and OOM kills](/platforms/linux#memory-pressure-and-oom-kills).
+
+## Related
+
+* [Install overview](/install)
+* [DigitalOcean](/install/digitalocean)
+* [Fly.io](/install/fly)
+* [Hetzner](/install/hetzner)

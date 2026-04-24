@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# message
+# Message
 
 # `openclaw message`
 
@@ -294,3 +294,8 @@ Send a Telegram image as a document to avoid compression:
 openclaw message send --channel telegram --target @mychat \
   --media ./diagram.png --force-document
 ```
+
+## Related
+
+* [CLI reference](/cli)
+* [Agent send](/tools/agent-send)

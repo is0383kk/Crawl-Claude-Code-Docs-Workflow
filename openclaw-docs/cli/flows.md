@@ -2,7 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# flows (redirect)
+# Flows (redirect)
 
 # `openclaw tasks flow`
 
@@ -15,3 +15,8 @@ openclaw tasks flow cancel <lookup>
 ```
 
 For full documentation see [Task Flow](/automation/taskflow) and the [tasks CLI reference](/cli/tasks).
+
+## Related
+
+* [CLI reference](/cli)
+* [Automation](/automation)

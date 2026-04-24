@@ -4,8 +4,6 @@
 
 # Synology Chat
 
-# Synology Chat
-
 Status: bundled plugin direct-message channel using Synology Chat webhooks.
 The plugin accepts inbound messages from Synology Chat outgoing webhooks and sends replies
 through a Synology Chat incoming webhook.

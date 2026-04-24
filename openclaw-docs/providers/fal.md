@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# fal
-
-# fal
+# Fal
 
 OpenClaw ships a bundled `fal` provider for hosted image and video generation.
 
@@ -138,7 +136,7 @@ The bundled `fal` video-generation provider defaults to
     Shared video tool parameters and provider selection.
   </Card>
 
-  <Card title="Configuration reference" href="/gateway/configuration-reference#agent-defaults" icon="gear">
+  <Card title="Configuration reference" href="/gateway/config-agents#agent-defaults" icon="gear">
     Agent defaults including image and video model selection.
   </Card>
 </CardGroup>

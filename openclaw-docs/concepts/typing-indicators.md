@@ -2,8 +2,6 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Typing Indicators
-
 # Typing indicators
 
 Typing indicators are sent to the chat channel while a run is active. Use
@@ -72,3 +70,8 @@ You can override mode or cadence per session:
   channel does not support typing.
 * `typingIntervalSeconds` controls the **refresh cadence**, not the start time.
   The default is 6 seconds.
+
+## Related
+
+* [Presence](/concepts/presence)
+* [Streaming and chunking](/concepts/streaming)

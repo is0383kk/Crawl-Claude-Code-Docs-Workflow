@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Active Memory
-
-# Active Memory
+# Active memory
 
 Active memory is an optional plugin-owned blocking memory sub-agent that runs
 before the main reply for eligible conversational sessions.

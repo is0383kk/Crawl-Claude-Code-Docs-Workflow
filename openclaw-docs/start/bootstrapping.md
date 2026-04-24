@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Agent Bootstrapping
-
-# Agent Bootstrapping
+# Agent bootstrapping
 
 Bootstrapping is the **first‑run** ritual that prepares an agent workspace and
 collects identity details. It happens after onboarding, when the agent starts

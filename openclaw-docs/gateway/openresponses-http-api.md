@@ -4,8 +4,6 @@
 
 # OpenResponses API
 
-# OpenResponses API (HTTP)
-
 OpenClaw’s Gateway can serve an OpenResponses-compatible `POST /v1/responses` endpoint.
 
 This endpoint is **disabled by default**. Enable it in config first.
@@ -336,3 +334,8 @@ curl -N http://127.0.0.1:18789/v1/responses \
     "input": "hi"
   }'
 ```
+
+## Related
+
+* [OpenAI chat completions](/gateway/openai-http-api)
+* [OpenAI](/providers/openai)

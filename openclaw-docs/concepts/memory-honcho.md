@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Honcho Memory
-
-# Honcho Memory
+# Honcho memory
 
 [Honcho](https://honcho.dev) adds AI-native memory to OpenClaw. It persists
 conversations to a dedicated service and builds user and agent models over time,
@@ -136,3 +134,9 @@ openclaw honcho search <query> [-k N] [-d D] # Semantic search over memory
 * [Honcho OpenClaw integration guide](https://docs.honcho.dev/v3/guides/integrations/openclaw)
 * [Memory](/concepts/memory) -- OpenClaw memory overview
 * [Context Engines](/concepts/context-engine) -- how plugin context engines work
+
+## Related
+
+* [Memory overview](/concepts/memory)
+* [Builtin memory engine](/concepts/memory-builtin)
+* [QMD memory engine](/concepts/memory-qmd)

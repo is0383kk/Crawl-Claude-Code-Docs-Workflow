@@ -60,7 +60,7 @@ models are accessed via the `zai` provider and model IDs like `zai/glm-5`.
   you want to force a specific Coding Plan or general API surface.
 </Tip>
 
-## Bundled GLM models
+## Built-in catalog
 
 OpenClaw currently seeds the bundled `zai` provider with these GLM refs:
 
@@ -80,7 +80,7 @@ OpenClaw currently seeds the bundled `zai` provider with these GLM refs:
   can change; check Z.AI's docs for the latest.
 </Note>
 
-## Advanced notes
+## Advanced configuration
 
 <AccordionGroup>
   <Accordion title="Endpoint auto-detection">

@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# Kimi Search
-
-# Kimi Search
+# Kimi search
 
 OpenClaw supports Kimi as a `web_search` provider, using Moonshot web search
 to produce AI-synthesized answers with citations.

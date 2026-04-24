@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# BTW Side Questions
-
-# BTW Side Questions
+# BTW side questions
 
 `/btw` lets you ask a quick side question about the **current session** without
 turning that question into normal conversation history.

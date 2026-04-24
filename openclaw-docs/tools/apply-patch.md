@@ -2,9 +2,7 @@
 > Fetch the complete documentation index at: https://docs.openclaw.ai/llms.txt
 > Use this file to discover all available pages before exploring further.
 
-# apply_patch Tool
-
-# apply\_patch tool
+# apply_patch tool
 
 Apply file changes using a structured patch format. This is ideal for multi-file
 or multi-hunk edits where a single `edit` call would be brittle.
@@ -48,3 +46,9 @@ The tool accepts a single `input` string that wraps one or more file operations:
   "input": "*** Begin Patch\n*** Update File: src/index.ts\n@@\n-const foo = 1\n+const foo = 2\n*** End Patch"
 }
 ```
+
+## Related
+
+* [Diffs](/tools/diffs)
+* [Exec tool](/tools/exec)
+* [Code execution](/tools/code-execution)

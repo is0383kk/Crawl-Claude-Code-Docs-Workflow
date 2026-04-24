@@ -4,8 +4,6 @@
 
 # Chutes
 
-# Chutes
-
 [Chutes](https://chutes.ai) exposes open-source model catalogs through an
 OpenAI-compatible API. OpenClaw supports both browser OAuth and direct API-key
 auth for the bundled `chutes` provider.
@@ -140,7 +138,7 @@ The bundled fallback catalog includes current Chutes refs:
 ## Related
 
 <CardGroup cols={2}>
-  <Card title="Model providers" href="/concepts/model-providers" icon="layers">
+  <Card title="Model selection" href="/concepts/model-providers" icon="layers">
     Provider rules, model refs, and failover behavior.
   </Card>
 

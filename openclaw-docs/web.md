@@ -4,8 +4,6 @@
 
 # Web
 
-# Web (Gateway)
-
 The Gateway serves a small **browser Control UI** (Vite + Lit) from the same port as the Gateway WebSocket:
 
 * default: `http://<host>:18789/`
