@@ -13,6 +13,7 @@ file is backed up alongside the session file.
 
 Scope includes:
 
+* Runtime-only prompt context staying out of user-visible transcript turns
 * Tool call id sanitization
 * Tool call input validation
 * Tool result pairing repair
@@ -23,7 +24,21 @@ Scope includes:
 
 If you need transcript storage details, see:
 
-* [/reference/session-management-compaction](/reference/session-management-compaction)
+* [Session management deep dive](/reference/session-management-compaction)
+
+***
+
+## Global rule: runtime context is not user transcript
+
+Runtime/system context can be added to the model prompt for a turn, but it is
+not end-user-authored content. OpenClaw keeps a separate transcript-facing
+prompt body for Gateway replies, queued followups, ACP, CLI, and embedded Pi
+runs. Stored visible user turns use that transcript body instead of the
+runtime-enriched prompt.
+
+For legacy sessions that already persisted runtime wrappers, Gateway history
+surfaces apply a display projection before returning messages to WebChat,
+TUI, REST, or SSE clients.
 
 ***
 
@@ -94,11 +109,11 @@ external end-user instructions.
 **OpenAI / OpenAI Codex**
 
 * Image sanitization only.
-* Drop orphaned reasoning signatures (standalone reasoning items without a following content block) for OpenAI Responses/Codex transcripts.
+* Drop orphaned reasoning signatures (standalone reasoning items without a following content block) for OpenAI Responses/Codex transcripts, and drop replayable OpenAI reasoning after a model route switch.
 * No tool call id sanitization.
-* No tool result pairing repair.
+* Tool result pairing repair may move real matched outputs and synthesize Codex-style `aborted` outputs for missing tool calls.
 * No turn validation or reordering.
-* No synthetic tool results.
+* Missing OpenAI Responses-family tool outputs are synthesized as `aborted` to match Codex replay normalization.
 * No thought signature stripping.
 
 **Google (Generative AI / Gemini CLI / Antigravity)**
