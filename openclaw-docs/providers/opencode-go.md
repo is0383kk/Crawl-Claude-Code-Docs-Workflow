@@ -47,7 +47,7 @@ As of the bundled pi catalog, the provider includes:
 
       <Step title="Set a Go model as default">
         ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-        openclaw config set agents.defaults.model.primary "opencode-go/kimi-k2.5"
+        openclaw config set agents.defaults.model.primary "opencode-go/kimi-k2.6"
         ```
       </Step>
 
@@ -81,7 +81,7 @@ As of the bundled pi catalog, the provider includes:
 ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
   env: { OPENCODE_API_KEY: "YOUR_API_KEY_HERE" }, // pragma: allowlist secret
-  agents: { defaults: { model: { primary: "opencode-go/kimi-k2.5" } } },
+  agents: { defaults: { model: { primary: "opencode-go/kimi-k2.6" } } },
 }
 ```
 

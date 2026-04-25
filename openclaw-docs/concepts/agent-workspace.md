@@ -26,8 +26,10 @@ inside a sandbox workspace under `~/.openclaw/sandboxes`, not your host workspac
 
 ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  agent: {
-    workspace: "~/.openclaw/workspace",
+  agents: {
+    defaults: {
+      workspace: "~/.openclaw/workspace",
+    },
   },
 }
 ```
@@ -41,7 +43,7 @@ If you already manage the workspace files yourself, you can disable bootstrap
 file creation:
 
 ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{ agent: { skipBootstrap: true } }
+{ agents: { defaults: { skipBootstrap: true } } }
 ```
 
 ## Extra workspace folders

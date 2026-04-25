@@ -85,8 +85,10 @@ Optional: choose a different workspace with `agents.defaults.workspace` (support
 
 ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  agent: {
-    workspace: "~/.openclaw/workspace",
+  agents: {
+    defaults: {
+      workspace: "~/.openclaw/workspace",
+    },
   },
 }
 ```
@@ -95,8 +97,10 @@ If you already ship your own workspace files from a repo, you can disable bootst
 
 ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
-  agent: {
-    skipBootstrap: true,
+  agents: {
+    defaults: {
+      skipBootstrap: true,
+    },
   },
 }
 ```
