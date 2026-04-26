@@ -211,7 +211,7 @@ sessions, and auth profiles. Running without `--workspace` launches the wizard.
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw agents add work \
   --workspace ~/.openclaw/workspace-work \
-  --model openai/gpt-5.4 \
+  --model openai/gpt-5.5 \
   --bind whatsapp:biz \
   --non-interactive \
   --json

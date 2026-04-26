@@ -6,7 +6,9 @@
 
 OpenClaw supports additive SecretRefs so supported credentials do not need to be stored as plaintext in configuration.
 
-Plaintext still works. SecretRefs are opt-in per credential.
+<Note>
+  Plaintext still works. SecretRefs are opt-in per credential.
+</Note>
 
 ## Goals and runtime model
 
@@ -30,38 +32,32 @@ SecretRefs are validated only on effectively active surfaces.
 * Inactive surfaces: unresolved refs do not block startup/reload.
 * Inactive refs emit non-fatal diagnostics with code `SECRETS_REF_IGNORED_INACTIVE_SURFACE`.
 
-Examples of inactive surfaces:
-
-* Disabled channel/account entries.
-* Top-level channel credentials that no enabled account inherits.
-* Disabled tool/feature surfaces.
-* Web search provider-specific keys that are not selected by `tools.web.search.provider`.
-  In auto mode (provider unset), keys are consulted by precedence for provider auto-detection until one resolves.
-  After selection, non-selected provider keys are treated as inactive until selected.
-* Sandbox SSH auth material (`agents.defaults.sandbox.ssh.identityData`,
-  `certificateData`, `knownHostsData`, plus per-agent overrides) is active only
-  when the effective sandbox backend is `ssh` for the default agent or an enabled agent.
-* `gateway.remote.token` / `gateway.remote.password` SecretRefs are active if one of these is true:
-  * `gateway.mode=remote`
-  * `gateway.remote.url` is configured
-  * `gateway.tailscale.mode` is `serve` or `funnel`
-  * In local mode without those remote surfaces:
-    * `gateway.remote.token` is active when token auth can win and no env/auth token is configured.
-    * `gateway.remote.password` is active only when password auth can win and no env/auth password is configured.
-* `gateway.auth.token` SecretRef is inactive for startup auth resolution when `OPENCLAW_GATEWAY_TOKEN` is set, because env token input wins for that runtime.
+<AccordionGroup>
+  <Accordion title="Examples of inactive surfaces">
+    - Disabled channel/account entries.
+    - Top-level channel credentials that no enabled account inherits.
+    - Disabled tool/feature surfaces.
+    - Web search provider-specific keys that are not selected by `tools.web.search.provider`. In auto mode (provider unset), keys are consulted by precedence for provider auto-detection until one resolves. After selection, non-selected provider keys are treated as inactive until selected.
+    - Sandbox SSH auth material (`agents.defaults.sandbox.ssh.identityData`, `certificateData`, `knownHostsData`, plus per-agent overrides) is active only when the effective sandbox backend is `ssh` for the default agent or an enabled agent.
+    - `gateway.remote.token` / `gateway.remote.password` SecretRefs are active if one of these is true:
+      * `gateway.mode=remote`
+      * `gateway.remote.url` is configured
+      * `gateway.tailscale.mode` is `serve` or `funnel`
+      * In local mode without those remote surfaces:
+        * `gateway.remote.token` is active when token auth can win and no env/auth token is configured.
+        * `gateway.remote.password` is active only when password auth can win and no env/auth password is configured.
+    - `gateway.auth.token` SecretRef is inactive for startup auth resolution when `OPENCLAW_GATEWAY_TOKEN` is set, because env token input wins for that runtime.
+  </Accordion>
+</AccordionGroup>
 
 ## Gateway auth surface diagnostics
 
-When a SecretRef is configured on `gateway.auth.token`, `gateway.auth.password`,
-`gateway.remote.token`, or `gateway.remote.password`, gateway startup/reload logs the
-surface state explicitly:
+When a SecretRef is configured on `gateway.auth.token`, `gateway.auth.password`, `gateway.remote.token`, or `gateway.remote.password`, gateway startup/reload logs the surface state explicitly:
 
 * `active`: the SecretRef is part of the effective auth surface and must resolve.
-* `inactive`: the SecretRef is ignored for this runtime because another auth surface wins, or
-  because remote auth is disabled/not active.
+* `inactive`: the SecretRef is ignored for this runtime because another auth surface wins, or because remote auth is disabled/not active.
 
-These entries are logged with `SECRETS_GATEWAY_AUTH_SURFACE` and include the reason used by the
-active-surface policy, so you can see why a credential was treated as active or inactive.
+These entries are logged with `SECRETS_GATEWAY_AUTH_SURFACE` and include the reason used by the active-surface policy, so you can see why a credential was treated as active or inactive.
 
 ## Onboarding reference preflight
 
@@ -81,40 +77,42 @@ Use one object shape everywhere:
 { source: "env" | "file" | "exec", provider: "default", id: "..." }
 ```
 
-### `source: "env"`
+<Tabs>
+  <Tab title="env">
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    { source: "env", provider: "default", id: "OPENAI_API_KEY" }
+    ```
 
-```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{ source: "env", provider: "default", id: "OPENAI_API_KEY" }
-```
+    Validation:
 
-Validation:
+    * `provider` must match `^[a-z][a-z0-9_-]{0,63}$`
+    * `id` must match `^[A-Z][A-Z0-9_]{0,127}$`
+  </Tab>
 
-* `provider` must match `^[a-z][a-z0-9_-]{0,63}$`
-* `id` must match `^[A-Z][A-Z0-9_]{0,127}$`
+  <Tab title="file">
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    { source: "file", provider: "filemain", id: "/providers/openai/apiKey" }
+    ```
 
-### `source: "file"`
+    Validation:
 
-```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{ source: "file", provider: "filemain", id: "/providers/openai/apiKey" }
-```
+    * `provider` must match `^[a-z][a-z0-9_-]{0,63}$`
+    * `id` must be an absolute JSON pointer (`/...`)
+    * RFC6901 escaping in segments: `~` => `~0`, `/` => `~1`
+  </Tab>
 
-Validation:
+  <Tab title="exec">
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    { source: "exec", provider: "vault", id: "providers/openai/apiKey" }
+    ```
 
-* `provider` must match `^[a-z][a-z0-9_-]{0,63}$`
-* `id` must be an absolute JSON pointer (`/...`)
-* RFC6901 escaping in segments: `~` => `~0`, `/` => `~1`
+    Validation:
 
-### `source: "exec"`
-
-```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{ source: "exec", provider: "vault", id: "providers/openai/apiKey" }
-```
-
-Validation:
-
-* `provider` must match `^[a-z][a-z0-9_-]{0,63}$`
-* `id` must match `^[A-Za-z0-9][A-Za-z0-9._:/-]{0,255}$`
-* `id` must not contain `.` or `..` as slash-delimited path segments (for example `a/../b` is rejected)
+    * `provider` must match `^[a-z][a-z0-9_-]{0,63}$`
+    * `id` must match `^[A-Za-z0-9][A-Za-z0-9._:/-]{0,255}$`
+    * `id` must not contain `.` or `..` as slash-delimited path segments (for example `a/../b` is rejected)
+  </Tab>
+</Tabs>
 
 ## Provider config
 
@@ -152,138 +150,142 @@ Define providers under `secrets.providers`:
 }
 ```
 
-### Env provider
+<AccordionGroup>
+  <Accordion title="Env provider">
+    * Optional allowlist via `allowlist`.
+    * Missing/empty env values fail resolution.
+  </Accordion>
 
-* Optional allowlist via `allowlist`.
-* Missing/empty env values fail resolution.
+  <Accordion title="File provider">
+    * Reads local file from `path`.
+    * `mode: "json"` expects JSON object payload and resolves `id` as pointer.
+    * `mode: "singleValue"` expects ref id `"value"` and returns file contents.
+    * Path must pass ownership/permission checks.
+    * Windows fail-closed note: if ACL verification is unavailable for a path, resolution fails. For trusted paths only, set `allowInsecurePath: true` on that provider to bypass path security checks.
+  </Accordion>
 
-### File provider
+  <Accordion title="Exec provider">
+    * Runs configured absolute binary path, no shell.
+    * By default, `command` must point to a regular file (not a symlink).
+    * Set `allowSymlinkCommand: true` to allow symlink command paths (for example Homebrew shims). OpenClaw validates the resolved target path.
+    * Pair `allowSymlinkCommand` with `trustedDirs` for package-manager paths (for example `["/opt/homebrew"]`).
+    * Supports timeout, no-output timeout, output byte limits, env allowlist, and trusted dirs.
+    * Windows fail-closed note: if ACL verification is unavailable for the command path, resolution fails. For trusted paths only, set `allowInsecurePath: true` on that provider to bypass path security checks.
 
-* Reads local file from `path`.
-* `mode: "json"` expects JSON object payload and resolves `id` as pointer.
-* `mode: "singleValue"` expects ref id `"value"` and returns file contents.
-* Path must pass ownership/permission checks.
-* Windows fail-closed note: if ACL verification is unavailable for a path, resolution fails. For trusted paths only, set `allowInsecurePath: true` on that provider to bypass path security checks.
+    Request payload (stdin):
 
-### Exec provider
+    ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    { "protocolVersion": 1, "provider": "vault", "ids": ["providers/openai/apiKey"] }
+    ```
 
-* Runs configured absolute binary path, no shell.
-* By default, `command` must point to a regular file (not a symlink).
-* Set `allowSymlinkCommand: true` to allow symlink command paths (for example Homebrew shims). OpenClaw validates the resolved target path.
-* Pair `allowSymlinkCommand` with `trustedDirs` for package-manager paths (for example `["/opt/homebrew"]`).
-* Supports timeout, no-output timeout, output byte limits, env allowlist, and trusted dirs.
-* Windows fail-closed note: if ACL verification is unavailable for the command path, resolution fails. For trusted paths only, set `allowInsecurePath: true` on that provider to bypass path security checks.
+    Response payload (stdout):
 
-Request payload (stdin):
+    ```jsonc theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    { "protocolVersion": 1, "values": { "providers/openai/apiKey": "<openai-api-key>" } } // pragma: allowlist secret
+    ```
 
-```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{ "protocolVersion": 1, "provider": "vault", "ids": ["providers/openai/apiKey"] }
-```
+    Optional per-id errors:
 
-Response payload (stdout):
-
-```jsonc theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{ "protocolVersion": 1, "values": { "providers/openai/apiKey": "<openai-api-key>" } } // pragma: allowlist secret
-```
-
-Optional per-id errors:
-
-```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{
-  "protocolVersion": 1,
-  "values": {},
-  "errors": { "providers/openai/apiKey": { "message": "not found" } }
-}
-```
+    ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      "protocolVersion": 1,
+      "values": {},
+      "errors": { "providers/openai/apiKey": { "message": "not found" } }
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ## Exec integration examples
 
-### 1Password CLI
+<AccordionGroup>
+  <Accordion title="1Password CLI">
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      secrets: {
+        providers: {
+          onepassword_openai: {
+            source: "exec",
+            command: "/opt/homebrew/bin/op",
+            allowSymlinkCommand: true, // required for Homebrew symlinked binaries
+            trustedDirs: ["/opt/homebrew"],
+            args: ["read", "op://Personal/OpenClaw QA API Key/password"],
+            passEnv: ["HOME"],
+            jsonOnly: false,
+          },
+        },
+      },
+      models: {
+        providers: {
+          openai: {
+            baseUrl: "https://api.openai.com/v1",
+            models: [{ id: "gpt-5", name: "gpt-5" }],
+            apiKey: { source: "exec", provider: "onepassword_openai", id: "value" },
+          },
+        },
+      },
+    }
+    ```
+  </Accordion>
 
-```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{
-  secrets: {
-    providers: {
-      onepassword_openai: {
-        source: "exec",
-        command: "/opt/homebrew/bin/op",
-        allowSymlinkCommand: true, // required for Homebrew symlinked binaries
-        trustedDirs: ["/opt/homebrew"],
-        args: ["read", "op://Personal/OpenClaw QA API Key/password"],
-        passEnv: ["HOME"],
-        jsonOnly: false,
+  <Accordion title="HashiCorp Vault CLI">
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      secrets: {
+        providers: {
+          vault_openai: {
+            source: "exec",
+            command: "/opt/homebrew/bin/vault",
+            allowSymlinkCommand: true, // required for Homebrew symlinked binaries
+            trustedDirs: ["/opt/homebrew"],
+            args: ["kv", "get", "-field=OPENAI_API_KEY", "secret/openclaw"],
+            passEnv: ["VAULT_ADDR", "VAULT_TOKEN"],
+            jsonOnly: false,
+          },
+        },
       },
-    },
-  },
-  models: {
-    providers: {
-      openai: {
-        baseUrl: "https://api.openai.com/v1",
-        models: [{ id: "gpt-5", name: "gpt-5" }],
-        apiKey: { source: "exec", provider: "onepassword_openai", id: "value" },
+      models: {
+        providers: {
+          openai: {
+            baseUrl: "https://api.openai.com/v1",
+            models: [{ id: "gpt-5", name: "gpt-5" }],
+            apiKey: { source: "exec", provider: "vault_openai", id: "value" },
+          },
+        },
       },
-    },
-  },
-}
-```
+    }
+    ```
+  </Accordion>
 
-### HashiCorp Vault CLI
-
-```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{
-  secrets: {
-    providers: {
-      vault_openai: {
-        source: "exec",
-        command: "/opt/homebrew/bin/vault",
-        allowSymlinkCommand: true, // required for Homebrew symlinked binaries
-        trustedDirs: ["/opt/homebrew"],
-        args: ["kv", "get", "-field=OPENAI_API_KEY", "secret/openclaw"],
-        passEnv: ["VAULT_ADDR", "VAULT_TOKEN"],
-        jsonOnly: false,
+  <Accordion title="sops">
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      secrets: {
+        providers: {
+          sops_openai: {
+            source: "exec",
+            command: "/opt/homebrew/bin/sops",
+            allowSymlinkCommand: true, // required for Homebrew symlinked binaries
+            trustedDirs: ["/opt/homebrew"],
+            args: ["-d", "--extract", '["providers"]["openai"]["apiKey"]', "/path/to/secrets.enc.json"],
+            passEnv: ["SOPS_AGE_KEY_FILE"],
+            jsonOnly: false,
+          },
+        },
       },
-    },
-  },
-  models: {
-    providers: {
-      openai: {
-        baseUrl: "https://api.openai.com/v1",
-        models: [{ id: "gpt-5", name: "gpt-5" }],
-        apiKey: { source: "exec", provider: "vault_openai", id: "value" },
+      models: {
+        providers: {
+          openai: {
+            baseUrl: "https://api.openai.com/v1",
+            models: [{ id: "gpt-5", name: "gpt-5" }],
+            apiKey: { source: "exec", provider: "sops_openai", id: "value" },
+          },
+        },
       },
-    },
-  },
-}
-```
-
-### `sops`
-
-```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
-{
-  secrets: {
-    providers: {
-      sops_openai: {
-        source: "exec",
-        command: "/opt/homebrew/bin/sops",
-        allowSymlinkCommand: true, // required for Homebrew symlinked binaries
-        trustedDirs: ["/opt/homebrew"],
-        args: ["-d", "--extract", '["providers"]["openai"]["apiKey"]', "/path/to/secrets.enc.json"],
-        passEnv: ["SOPS_AGE_KEY_FILE"],
-        jsonOnly: false,
-      },
-    },
-  },
-  models: {
-    providers: {
-      openai: {
-        baseUrl: "https://api.openai.com/v1",
-        models: [{ id: "gpt-5", name: "gpt-5" }],
-        apiKey: { source: "exec", provider: "sops_openai", id: "value" },
-      },
-    },
-  },
-}
-```
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
 
 ## MCP server environment variables
 
@@ -353,7 +355,9 @@ Canonical supported and unsupported credentials are listed in:
 
 * [SecretRef Credential Surface](/reference/secretref-credential-surface)
 
-Runtime-minted or rotating credentials and OAuth refresh material are intentionally excluded from read-only SecretRef resolution.
+<Note>
+  Runtime-minted or rotating credentials and OAuth refresh material are intentionally excluded from read-only SecretRef resolution.
+</Note>
 
 ## Required behavior and precedence
 
@@ -412,15 +416,22 @@ Command paths can opt into supported SecretRef resolution via gateway snapshot R
 
 There are two broad behaviors:
 
-* Strict command paths (for example `openclaw memory` remote-memory paths and `openclaw qr --remote` when it needs remote shared-secret refs) read from the active snapshot and fail fast when a required SecretRef is unavailable.
-* Read-only command paths (for example `openclaw status`, `openclaw status --all`, `openclaw channels status`, `openclaw channels resolve`, `openclaw security audit`, and read-only doctor/config repair flows) also prefer the active snapshot, but degrade instead of aborting when a targeted SecretRef is unavailable in that command path.
+<Tabs>
+  <Tab title="Strict command paths">
+    For example `openclaw memory` remote-memory paths and `openclaw qr --remote` when it needs remote shared-secret refs. They read from the active snapshot and fail fast when a required SecretRef is unavailable.
+  </Tab>
 
-Read-only behavior:
+  <Tab title="Read-only command paths">
+    For example `openclaw status`, `openclaw status --all`, `openclaw channels status`, `openclaw channels resolve`, `openclaw security audit`, and read-only doctor/config repair flows. They also prefer the active snapshot, but degrade instead of aborting when a targeted SecretRef is unavailable in that command path.
 
-* When the gateway is running, these commands read from the active snapshot first.
-* If gateway resolution is incomplete or the gateway is unavailable, they attempt targeted local fallback for the specific command surface.
-* If a targeted SecretRef is still unavailable, the command continues with degraded read-only output and explicit diagnostics such as “configured but unavailable in this command path”.
-* This degraded behavior is command-local only. It does not weaken runtime startup, reload, or send/auth paths.
+    Read-only behavior:
+
+    * When the gateway is running, these commands read from the active snapshot first.
+    * If gateway resolution is incomplete or the gateway is unavailable, they attempt targeted local fallback for the specific command surface.
+    * If a targeted SecretRef is still unavailable, the command continues with degraded read-only output and explicit diagnostics such as "configured but unavailable in this command path".
+    * This degraded behavior is command-local only. It does not weaken runtime startup, reload, or send/auth paths.
+  </Tab>
+</Tabs>
 
 Other notes:
 
@@ -431,82 +442,98 @@ Other notes:
 
 Default operator flow:
 
-```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw secrets audit --check
-openclaw secrets configure
-openclaw secrets audit --check
-```
+<Steps>
+  <Step title="Audit current state">
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw secrets audit --check
+    ```
+  </Step>
 
-### `secrets audit`
+  <Step title="Configure SecretRefs">
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw secrets configure
+    ```
+  </Step>
 
-Findings include:
+  <Step title="Re-audit">
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw secrets audit --check
+    ```
+  </Step>
+</Steps>
 
-* plaintext values at rest (`openclaw.json`, `auth-profiles.json`, `.env`, and generated `agents/*/agent/models.json`)
-* plaintext sensitive provider header residues in generated `models.json` entries
-* unresolved refs
-* precedence shadowing (`auth-profiles.json` taking priority over `openclaw.json` refs)
-* legacy residues (`auth.json`, OAuth reminders)
+<AccordionGroup>
+  <Accordion title="secrets audit">
+    Findings include:
 
-Exec note:
+    * plaintext values at rest (`openclaw.json`, `auth-profiles.json`, `.env`, and generated `agents/*/agent/models.json`)
+    * plaintext sensitive provider header residues in generated `models.json` entries
+    * unresolved refs
+    * precedence shadowing (`auth-profiles.json` taking priority over `openclaw.json` refs)
+    * legacy residues (`auth.json`, OAuth reminders)
 
-* By default, audit skips exec SecretRef resolvability checks to avoid command side effects.
-* Use `openclaw secrets audit --allow-exec` to execute exec providers during audit.
+    Exec note:
 
-Header residue note:
+    * By default, audit skips exec SecretRef resolvability checks to avoid command side effects.
+    * Use `openclaw secrets audit --allow-exec` to execute exec providers during audit.
 
-* Sensitive provider header detection is name-heuristic based (common auth/credential header names and fragments such as `authorization`, `x-api-key`, `token`, `secret`, `password`, and `credential`).
+    Header residue note:
 
-### `secrets configure`
+    * Sensitive provider header detection is name-heuristic based (common auth/credential header names and fragments such as `authorization`, `x-api-key`, `token`, `secret`, `password`, and `credential`).
+  </Accordion>
 
-Interactive helper that:
+  <Accordion title="secrets configure">
+    Interactive helper that:
 
-* configures `secrets.providers` first (`env`/`file`/`exec`, add/edit/remove)
-* lets you select supported secret-bearing fields in `openclaw.json` plus `auth-profiles.json` for one agent scope
-* can create a new `auth-profiles.json` mapping directly in the target picker
-* captures SecretRef details (`source`, `provider`, `id`)
-* runs preflight resolution
-* can apply immediately
+    * configures `secrets.providers` first (`env`/`file`/`exec`, add/edit/remove)
+    * lets you select supported secret-bearing fields in `openclaw.json` plus `auth-profiles.json` for one agent scope
+    * can create a new `auth-profiles.json` mapping directly in the target picker
+    * captures SecretRef details (`source`, `provider`, `id`)
+    * runs preflight resolution
+    * can apply immediately
 
-Exec note:
+    Exec note:
 
-* Preflight skips exec SecretRef checks unless `--allow-exec` is set.
-* If you apply directly from `configure --apply` and the plan includes exec refs/providers, keep `--allow-exec` set for the apply step too.
+    * Preflight skips exec SecretRef checks unless `--allow-exec` is set.
+    * If you apply directly from `configure --apply` and the plan includes exec refs/providers, keep `--allow-exec` set for the apply step too.
 
-Helpful modes:
+    Helpful modes:
 
-* `openclaw secrets configure --providers-only`
-* `openclaw secrets configure --skip-provider-setup`
-* `openclaw secrets configure --agent <id>`
+    * `openclaw secrets configure --providers-only`
+    * `openclaw secrets configure --skip-provider-setup`
+    * `openclaw secrets configure --agent <id>`
 
-`configure` apply defaults:
+    `configure` apply defaults:
 
-* scrub matching static credentials from `auth-profiles.json` for targeted providers
-* scrub legacy static `api_key` entries from `auth.json`
-* scrub matching known secret lines from `<config-dir>/.env`
+    * scrub matching static credentials from `auth-profiles.json` for targeted providers
+    * scrub legacy static `api_key` entries from `auth.json`
+    * scrub matching known secret lines from `<config-dir>/.env`
+  </Accordion>
 
-### `secrets apply`
+  <Accordion title="secrets apply">
+    Apply a saved plan:
 
-Apply a saved plan:
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
+    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --allow-exec
+    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
+    openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run --allow-exec
+    ```
 
-```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --allow-exec
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run
-openclaw secrets apply --from /tmp/openclaw-secrets-plan.json --dry-run --allow-exec
-```
+    Exec note:
 
-Exec note:
+    * dry-run skips exec checks unless `--allow-exec` is set.
+    * write mode rejects plans containing exec SecretRefs/providers unless `--allow-exec` is set.
 
-* dry-run skips exec checks unless `--allow-exec` is set.
-* write mode rejects plans containing exec SecretRefs/providers unless `--allow-exec` is set.
-
-For strict target/path contract details and exact rejection rules, see:
-
-* [Secrets Apply Plan Contract](/gateway/secrets-plan-contract)
+    For strict target/path contract details and exact rejection rules, see [Secrets Apply Plan Contract](/gateway/secrets-plan-contract).
+  </Accordion>
+</AccordionGroup>
 
 ## One-way safety policy
 
-OpenClaw intentionally does not write rollback backups containing historical plaintext secret values.
+<Warning>
+  OpenClaw intentionally does not write rollback backups containing historical plaintext secret values.
+</Warning>
 
 Safety model:
 
@@ -526,11 +553,11 @@ For static credentials, runtime no longer depends on plaintext legacy auth stora
 
 Some SecretInput unions are easier to configure in raw editor mode than in form mode.
 
-## Related docs
+## Related
 
-* CLI commands: [secrets](/cli/secrets)
-* Plan contract details: [Secrets Apply Plan Contract](/gateway/secrets-plan-contract)
-* Credential surface: [SecretRef Credential Surface](/reference/secretref-credential-surface)
-* Auth setup: [Authentication](/gateway/authentication)
-* Security posture: [Security](/gateway/security)
-* Environment precedence: [Environment Variables](/help/environment)
+* [Authentication](/gateway/authentication) — auth setup
+* [CLI: secrets](/cli/secrets) — CLI commands
+* [Environment Variables](/help/environment) — environment precedence
+* [SecretRef Credential Surface](/reference/secretref-credential-surface) — credential surface
+* [Secrets Apply Plan Contract](/gateway/secrets-plan-contract) — plan contract details
+* [Security](/gateway/security) — security posture

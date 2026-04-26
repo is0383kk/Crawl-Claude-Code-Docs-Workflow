@@ -473,6 +473,8 @@ Production-ready for bot DMs and groups via grammY. Long polling is the default 
     * `first`
     * `all`
 
+    When reply threading is enabled and the original Telegram text or caption is available, OpenClaw includes a native Telegram quote excerpt automatically. Telegram caps native quote text at 1024 UTF-16 code units, so longer messages are quoted from the start and fall back to a plain reply if Telegram rejects the quote.
+
     Note: `off` disables implicit reply threading. Explicit `[[reply_to_*]]` tags are still honored.
   </Accordion>
 
@@ -528,6 +530,9 @@ Production-ready for bot DMs and groups via grammY. Long polling is the default 
 
     * default: audio file behavior
     * tag `[[audio_as_voice]]` in agent reply to force voice-note send
+    * inbound voice-note transcripts are framed as machine-generated,
+      untrusted text in the agent context; mention detection still uses the raw
+      transcript so mention-gated voice messages continue to work.
 
     Message action example:
 
