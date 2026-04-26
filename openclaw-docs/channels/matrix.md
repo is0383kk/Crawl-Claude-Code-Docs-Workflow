@@ -396,6 +396,12 @@ Restore room keys from server backup:
 openclaw matrix verify backup restore
 ```
 
+If the backup key is not already loaded on disk, pass the Matrix recovery key:
+
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw matrix verify backup restore --recovery-key "<your-recovery-key>"
+```
+
 Interactive self-verification flow:
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
@@ -476,6 +482,8 @@ When encryption is disabled or unavailable for a named account, Matrix warnings 
     ```
 
     Add `--account <id>` to target a named account. This can also recreate secret storage if the current backup secret cannot be loaded safely.
+    Add `--rotate-recovery-key` only when you intentionally want the old recovery
+    key to stop unlocking the fresh backup baseline.
   </Accordion>
 
   <Accordion title="Startup behavior">
@@ -492,6 +500,33 @@ When encryption is disabled or unavailable for a named account, Matrix warnings 
     Incoming requests from another Matrix client are tracked and auto-accepted. For self-verification, OpenClaw starts the SAS flow automatically and confirms its own side once emoji verification is available — you still need to compare and confirm "They match" in your Matrix client.
 
     Verification system notices are not forwarded to the agent chat pipeline.
+  </Accordion>
+
+  <Accordion title="Deleted or invalid Matrix device">
+    If `verify status` says the current device is no longer listed on the
+    homeserver, create a new OpenClaw Matrix device. For password login:
+
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw matrix account add \
+      --account assistant \
+      --homeserver https://matrix.example.org \
+      --user-id '@assistant:example.org' \
+      --password '<password>' \
+      --device-name OpenClaw-Gateway
+    ```
+
+    For token auth, create a fresh access token in your Matrix client or admin UI,
+    then update OpenClaw:
+
+    ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    openclaw matrix account add \
+      --account assistant \
+      --homeserver https://matrix.example.org \
+      --access-token '<token>'
+    ```
+
+    Replace `assistant` with the account ID from the failed command, or omit
+    `--account` for the default account.
   </Accordion>
 
   <Accordion title="Device hygiene">
@@ -837,6 +872,11 @@ Matrix accepts these target forms anywhere OpenClaw asks you for a room or user 
 * Users: `@user:server`, `user:@user:server`, or `matrix:user:@user:server`
 * Rooms: `!room:server`, `room:!room:server`, or `matrix:room:!room:server`
 * Aliases: `#alias:server`, `channel:#alias:server`, or `matrix:channel:#alias:server`
+
+Matrix room IDs are case-sensitive. Use the exact room ID casing from Matrix
+when configuring explicit delivery targets, cron jobs, bindings, or allowlists.
+OpenClaw keeps internal session keys canonical for storage, so those lowercase
+keys are not a reliable source for Matrix delivery IDs.
 
 Live directory lookup uses the logged-in Matrix account:
 

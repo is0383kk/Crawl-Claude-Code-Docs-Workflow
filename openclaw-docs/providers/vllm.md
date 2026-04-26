@@ -80,6 +80,7 @@ Use explicit config when:
 * vLLM runs on a different host or port
 * You want to pin `contextWindow` or `maxTokens` values
 * Your server requires a real API key (or you want to control headers)
+* You connect to a trusted loopback, LAN, or Tailscale vLLM endpoint
 
 ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
@@ -89,6 +90,7 @@ Use explicit config when:
         baseUrl: "http://127.0.0.1:8000/v1",
         apiKey: "${VLLM_API_KEY}",
         api: "openai-completions",
+        request: { allowPrivateNetwork: true },
         models: [
           {
             id: "your-model-id",
@@ -123,6 +125,44 @@ Use explicit config when:
     | Hidden OpenClaw attribution headers     | Not injected on custom base URLs |
   </Accordion>
 
+  <Accordion title="Nemotron 3 thinking controls">
+    vLLM/Nemotron 3 can use chat-template kwargs to control whether reasoning is
+    returned as hidden reasoning or visible answer text. When an OpenClaw session
+    uses `vllm/nemotron-3-*` with thinking off, OpenClaw sends:
+
+    ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      "chat_template_kwargs": {
+        "enable_thinking": false,
+        "force_nonempty_content": true
+      }
+    }
+    ```
+
+    To customize these values, set `chat_template_kwargs` under the model params.
+    If you also set `params.extra_body.chat_template_kwargs`, that value has
+    final precedence because `extra_body` is the last request-body override.
+
+    ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
+    {
+      agents: {
+        defaults: {
+          models: {
+            "vllm/nemotron-3-super": {
+              params: {
+                chat_template_kwargs: {
+                  enable_thinking: false,
+                  force_nonempty_content: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    }
+    ```
+  </Accordion>
+
   <Accordion title="Custom base URL">
     If your vLLM server runs on a non-default host or port, set `baseUrl` in the explicit provider config:
 
@@ -134,6 +174,7 @@ Use explicit config when:
             baseUrl: "http://192.168.1.50:9000/v1",
             apiKey: "${VLLM_API_KEY}",
             api: "openai-completions",
+            request: { allowPrivateNetwork: true },
             models: [
               {
                 id: "my-custom-model",
@@ -163,6 +204,10 @@ Use explicit config when:
     ```
 
     If you see a connection error, verify the host, port, and that vLLM started with the OpenAI-compatible server mode.
+    For explicit loopback, LAN, or Tailscale endpoints, also set
+    `models.providers.vllm.request.allowPrivateNetwork: true`; provider
+    requests block private-network URLs by default unless the provider is
+    explicitly trusted.
   </Accordion>
 
   <Accordion title="Auth errors on requests">
