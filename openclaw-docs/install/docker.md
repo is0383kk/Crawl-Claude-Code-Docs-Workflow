@@ -21,7 +21,7 @@ Docker is **optional**. Use it only if you want a containerized gateway or to va
   [Security hardening for network exposure](/gateway/security),
   especially Docker `DOCKER-USER` firewall policy.
 
-## Containerized Gateway
+## Containerized gateway
 
 <Steps>
   <Step title="Build the image">
@@ -154,9 +154,13 @@ export OTEL_SERVICE_NAME="openclaw-gateway"
 ./scripts/docker/setup.sh
 ```
 
-The official OpenClaw Docker release image includes `diagnostics-otel`
-dependencies. To enable export, allow and enable the `diagnostics-otel` plugin
-in config, then set `diagnostics.otel.enabled=true` or use the config example in
+The official OpenClaw Docker release image includes the bundled
+`diagnostics-otel` plugin source. Depending on the image and cache state, the
+Gateway may still stage plugin-local OpenTelemetry runtime dependencies the
+first time the plugin is enabled, so allow that first boot to reach the package
+registry or prewarm the image in your release lane. To enable export, allow and
+enable the `diagnostics-otel` plugin in config, then set
+`diagnostics.otel.enabled=true` or use the config example in
 [OpenTelemetry export](/gateway/opentelemetry). Collector auth headers are
 configured through `diagnostics.otel.headers`, not through Docker environment
 variables.
@@ -204,6 +208,33 @@ docker compose exec openclaw-gateway node dist/index.js health --token "$OPENCLA
   Use bind mode values in `gateway.bind` (`lan` / `loopback` / `custom` /
   `tailnet` / `auto`), not host aliases like `0.0.0.0` or `127.0.0.1`.
 </Note>
+
+### Host Local Providers
+
+When OpenClaw runs in Docker, `127.0.0.1` inside the container is the container
+itself, not your host machine. Use `host.docker.internal` for AI providers that
+run on the host:
+
+| Provider  | Host default URL         | Docker setup URL                    |
+| --------- | ------------------------ | ----------------------------------- |
+| LM Studio | `http://127.0.0.1:1234`  | `http://host.docker.internal:1234`  |
+| Ollama    | `http://127.0.0.1:11434` | `http://host.docker.internal:11434` |
+
+The bundled Docker setup uses those host URLs as the LM Studio and Ollama
+onboarding defaults, and `docker-compose.yml` maps `host.docker.internal` to
+Docker's host gateway for Linux Docker Engine. Docker Desktop already provides
+the same hostname on macOS and Windows.
+
+Host services must also listen on an address reachable from Docker:
+
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+lms server start --port 1234 --bind 0.0.0.0
+OLLAMA_HOST=0.0.0.0:11434 ollama serve
+```
+
+If you use your own Compose file or `docker run` command, add the same host
+mapping yourself, for example
+`--add-host=host.docker.internal:host-gateway`.
 
 ### Bonjour / mDNS
 
@@ -342,9 +373,11 @@ See [ClawDock](/install/clawdock) for the full helper guide.
   </Accordion>
 
   <Accordion title="Base image metadata">
-    The main Docker image uses `node:24-bookworm` and publishes OCI base-image
-    annotations including `org.opencontainers.image.base.name`,
-    `org.opencontainers.image.source`, and others. See
+    The main Docker runtime image uses `node:24-bookworm-slim` and publishes OCI
+    base-image annotations including `org.opencontainers.image.base.name`,
+    `org.opencontainers.image.source`, and others. The Node base digest is
+    refreshed through Dependabot Docker base-image PRs; release builds do not run
+    a distro upgrade layer. See
     [OCI image annotations](https://github.com/opencontainers/image-spec/blob/main/annotations.md).
   </Accordion>
 </AccordionGroup>
@@ -355,7 +388,7 @@ See [Hetzner (Docker VPS)](/install/hetzner) and
 [Docker VM Runtime](/install/docker-vm-runtime) for shared VM deployment steps
 including binary baking, persistence, and updates.
 
-## Agent Sandbox
+## Agent sandbox
 
 When `agents.defaults.sandbox` is enabled with the Docker backend, the gateway
 runs agent tool execution (shell, file read/write, etc.) inside isolated Docker

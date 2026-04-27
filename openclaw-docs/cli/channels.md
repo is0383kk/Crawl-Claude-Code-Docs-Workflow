@@ -10,7 +10,7 @@ Manage chat channel accounts and their runtime status on the Gateway.
 
 Related docs:
 
-* Channel guides: [Channels](/channels/index)
+* Channel guides: [Channels](/channels)
 * Gateway configuration: [Configuration](/gateway/configuration)
 
 ## Common commands
@@ -45,7 +45,9 @@ openclaw channels add --channel nostr --private-key "$NOSTR_PRIVATE_KEY"
 openclaw channels remove --channel telegram --delete
 ```
 
-Tip: `openclaw channels add --help` shows per-channel flags (token, private key, app token, signal-cli paths, etc).
+<Tip>
+  `openclaw channels add --help` shows per-channel flags (token, private key, app token, signal-cli paths, etc).
+</Tip>
 
 Common non-interactive add surfaces include:
 
@@ -56,6 +58,8 @@ Common non-interactive add surfaces include:
 * Nostr fields: `--private-key`, `--relay-urls`
 * Tlon fields: `--ship`, `--url`, `--code`, `--group-channels`, `--dm-allowlist`, `--auto-discover-channels`
 * `--use-env` for default-account env-backed auth where supported
+
+If a channel plugin needs to be installed during a flag-driven add command, OpenClaw uses the channel's default install source without opening the interactive plugin install prompt.
 
 When you run `openclaw channels add` without flags, the interactive wizard can prompt:
 
@@ -77,17 +81,15 @@ Routing behavior stays consistent:
 
 If your config was already in a mixed state (named accounts present and top-level single-account values still set), run `openclaw doctor --fix` to move account-scoped values into the promoted account chosen for that channel. Most channels promote into `accounts.default`; Matrix can preserve an existing named/default target instead.
 
-## Login / logout (interactive)
+## Login and logout (interactive)
 
 ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
 openclaw channels login --channel whatsapp
 openclaw channels logout --channel whatsapp
 ```
 
-Notes:
-
 * `channels login` supports `--verbose`.
-* `channels login` / `logout` can infer the channel when only one supported login target is configured.
+* `channels login` and `logout` can infer the channel when only one supported login target is configured.
 
 ## Troubleshooting
 

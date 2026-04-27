@@ -8,7 +8,7 @@ Standing orders grant your agent **permanent operating authority** for defined p
 
 This is the difference between telling your assistant "send the weekly report" every Friday vs. granting standing authority: "You own the weekly report. Compile it every Friday, send it, and only escalate if something looks wrong."
 
-## Why Standing Orders?
+## Why standing orders
 
 **Without standing orders:**
 
@@ -41,7 +41,7 @@ The agent loads these instructions every session via the workspace bootstrap fil
   Put standing orders in `AGENTS.md` to guarantee they're loaded every session. The workspace bootstrap automatically injects `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`, `BOOTSTRAP.md`, and `MEMORY.md` — but not arbitrary files in subdirectories.
 </Tip>
 
-## Anatomy of a Standing Order
+## Anatomy of a standing order
 
 ```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: Weekly Status Report
@@ -51,7 +51,7 @@ The agent loads these instructions every session via the workspace bootstrap fil
 **Approval gate:** None for standard reports. Flag anomalies for human review.
 **Escalation:** If data source is unavailable or metrics look unusual (>2σ from norm)
 
-### Execution Steps
+### Execution steps
 
 1. Pull metrics from configured sources
 2. Compare to prior week and targets
@@ -59,14 +59,14 @@ The agent loads these instructions every session via the workspace bootstrap fil
 4. Deliver summary via configured channel
 5. Log completion to Agent/Logs/
 
-### What NOT to Do
+### What NOT to do
 
 - Do not send reports to external parties
 - Do not modify source data
 - Do not skip delivery if metrics look bad — report accurately
 ```
 
-## Standing Orders + Cron Jobs
+## Standing orders plus cron jobs
 
 Standing orders define **what** the agent is authorized to do. [Cron jobs](/automation/cron-jobs) define **when** it happens. They work together:
 
@@ -94,7 +94,7 @@ openclaw cron add \
 
 ## Examples
 
-### Example 1: Content & Social Media (Weekly Cycle)
+### Example 1: content and social media (weekly cycle)
 
 ```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: Content & Social Media
@@ -103,13 +103,13 @@ openclaw cron add \
 **Approval gate:** All posts require owner review for first 30 days, then standing approval
 **Trigger:** Weekly cycle (Monday review → mid-week drafts → Friday brief)
 
-### Weekly Cycle
+### Weekly cycle
 
 - **Monday:** Review platform metrics and audience engagement
 - **Tuesday–Thursday:** Draft social posts, create blog content
 - **Friday:** Compile weekly marketing brief → deliver to owner
 
-### Content Rules
+### Content rules
 
 - Voice must match the brand (see SOUL.md or brand voice guide)
 - Never identify as AI in public-facing content
@@ -117,7 +117,7 @@ openclaw cron add \
 - Focus on value to audience, not self-promotion
 ```
 
-### Example 2: Finance Operations (Event-Triggered)
+### Example 2: finance operations (event-triggered)
 
 ```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: Financial Processing
@@ -126,7 +126,7 @@ openclaw cron add \
 **Approval gate:** None for analysis. Recommendations require owner approval.
 **Trigger:** New data file detected OR scheduled monthly cycle
 
-### When New Data Arrives
+### When new data arrives
 
 1. Detect new file in designated input directory
 2. Parse and categorize all transactions
@@ -135,7 +135,7 @@ openclaw cron add \
 5. Generate report in designated output directory
 6. Deliver summary to owner via configured channel
 
-### Escalation Rules
+### Escalation rules
 
 - Single item > $500: immediate alert
 - Category > budget by 20%: flag in report
@@ -143,7 +143,7 @@ openclaw cron add \
 - Failed processing after 2 retries: report failure, do not guess
 ```
 
-### Example 3: Monitoring & Alerts (Continuous)
+### Example 3: monitoring and alerts (continuous)
 
 ```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
 ## Program: System Monitoring
@@ -159,7 +159,7 @@ openclaw cron add \
 - Pending tasks not stale (>24 hours)
 - Delivery channels operational
 
-### Response Matrix
+### Response matrix
 
 | Condition        | Action                   | Escalate?                |
 | ---------------- | ------------------------ | ------------------------ |
@@ -169,7 +169,7 @@ openclaw cron add \
 | Channel offline  | Log and retry next cycle | If offline > 2 hours     |
 ```
 
-## The Execute-Verify-Report Pattern
+## Execute-verify-report pattern
 
 Standing orders work best when combined with strict execution discipline. Every task in a standing order should follow this loop:
 
@@ -178,7 +178,7 @@ Standing orders work best when combined with strict execution discipline. Every 
 3. **Report** — Tell the owner what was done and what was verified
 
 ```markdown theme={"theme":{"light":"min-light","dark":"min-dark"}}
-### Execution Rules
+### Execution rules
 
 - Every task follows Execute-Verify-Report. No exceptions.
 - "I'll do that" is not execution. Do it, then report.
@@ -190,7 +190,7 @@ Standing orders work best when combined with strict execution discipline. Every 
 
 This pattern prevents the most common agent failure mode: acknowledging a task without completing it.
 
-## Multi-Program Architecture
+## Multi-program architecture
 
 For agents managing multiple concerns, organize standing orders as separate programs with clear boundaries:
 
@@ -219,7 +219,7 @@ Each program should have:
 * Its own **approval gates** (some programs need more oversight than others)
 * Clear **boundaries** (the agent should know where one program ends and another begins)
 
-## Best Practices
+## Best practices
 
 ### Do
 
@@ -240,8 +240,8 @@ Each program should have:
 
 ## Related
 
-* [Automation & Tasks](/automation) — all automation mechanisms at a glance
-* [Cron Jobs](/automation/cron-jobs) — schedule enforcement for standing orders
-* [Hooks](/automation/hooks) — event-driven scripts for agent lifecycle events
-* [Webhooks](/automation/cron-jobs#webhooks) — inbound HTTP event triggers
-* [Agent Workspace](/concepts/agent-workspace) — where standing orders live, including the full list of auto-injected bootstrap files (AGENTS.md, SOUL.md, etc.)
+* [Automation and tasks](/automation): all automation mechanisms at a glance.
+* [Cron jobs](/automation/cron-jobs): schedule enforcement for standing orders.
+* [Hooks](/automation/hooks): event-driven scripts for agent lifecycle events.
+* [Webhooks](/automation/cron-jobs#webhooks): inbound HTTP event triggers.
+* [Agent workspace](/concepts/agent-workspace): where standing orders live, including the full list of auto-injected bootstrap files (`AGENTS.md`, `SOUL.md`, etc.).
