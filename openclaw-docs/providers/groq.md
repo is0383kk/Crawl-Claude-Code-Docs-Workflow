@@ -71,6 +71,14 @@ to see currently available models, or check
   models available on your account.
 </Tip>
 
+## Reasoning models
+
+OpenClaw maps its shared `/think` levels to Groq's model-specific
+`reasoning_effort` values. For `qwen/qwen3-32b`, disabled thinking sends
+`none` and enabled thinking sends `default`. For Groq GPT-OSS reasoning models,
+OpenClaw sends `low`, `medium`, or `high`; disabled thinking omits
+`reasoning_effort` because those models do not support a disabled value.
+
 ## Audio transcription
 
 Groq also provides fast Whisper-based audio transcription. When configured as a

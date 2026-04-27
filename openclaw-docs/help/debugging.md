@@ -4,8 +4,7 @@
 
 # Debugging
 
-This page covers debugging helpers for streaming output, especially when a
-provider mixes reasoning into normal text.
+Debugging helpers for streaming output, especially when a provider mixes reasoning into normal text.
 
 ## Runtime debug overrides
 
@@ -246,21 +245,24 @@ Reset flow (fresh start):
 pnpm gateway:dev:reset
 ```
 
-Note: `--dev` is a **global** profile flag and gets eaten by some runners.
-If you need to spell it out, use the env var form:
+<Note>
+  `--dev` is a **global** profile flag and gets eaten by some runners. If you need to spell it out, use the env var form:
 
-```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-OPENCLAW_PROFILE=dev openclaw gateway --dev --reset
-```
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  OPENCLAW_PROFILE=dev openclaw gateway --dev --reset
+  ```
+</Note>
 
 `--reset` wipes config, credentials, sessions, and the dev workspace (using
 `trash`, not `rm`), then recreates the default dev setup.
 
-Tip: if a non‑dev gateway is already running (launchd/systemd), stop it first:
+<Tip>
+  If a non-dev gateway is already running (launchd or systemd), stop it first:
 
-```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
-openclaw gateway stop
-```
+  ```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+  openclaw gateway stop
+  ```
+</Tip>
 
 ## Raw stream logging (OpenClaw)
 

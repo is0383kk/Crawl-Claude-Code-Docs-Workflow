@@ -70,6 +70,24 @@ openclaw models auth login-github-copilot --yes
 openclaw models auth login --provider github-copilot --method device --set-default
 ```
 
+## Non-interactive onboarding
+
+If you already have a GitHub OAuth access token for Copilot, import it during
+headless setup with `openclaw onboard --non-interactive`:
+
+```bash theme={"theme":{"light":"min-light","dark":"min-dark"}}
+openclaw onboard --non-interactive --accept-risk \
+  --auth-choice github-copilot \
+  --github-copilot-token "$COPILOT_GITHUB_TOKEN" \
+  --skip-channels --skip-health
+```
+
+You can also omit `--auth-choice`; passing `--github-copilot-token` infers the
+GitHub Copilot provider auth choice. If the flag is omitted, onboarding falls
+back to `COPILOT_GITHUB_TOKEN`, `GH_TOKEN`, then `GITHUB_TOKEN`. Use
+`--secret-input-mode ref` with `COPILOT_GITHUB_TOKEN` set to store an env-backed
+`tokenRef` instead of plaintext in `auth-profiles.json`.
+
 <AccordionGroup>
   <Accordion title="Interactive TTY required">
     The device-login flow requires an interactive TTY. Run it directly in a
@@ -118,8 +136,8 @@ openclaw models auth login --provider github-copilot --method device --set-defau
 </AccordionGroup>
 
 <Warning>
-  Requires an interactive TTY. Run the login command directly in a terminal, not
-  inside a headless script or CI job.
+  The device-login command requires an interactive TTY. Use non-interactive
+  onboarding when you need headless setup.
 </Warning>
 
 ## Memory search embeddings

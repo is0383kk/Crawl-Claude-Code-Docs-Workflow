@@ -13,7 +13,7 @@ This document defines the canonical credential eligibility and resolution semant
 
 The goal is to keep selection-time and runtime behavior aligned.
 
-## Stable Probe Reason Codes
+## Stable probe reason codes
 
 * `ok`
 * `excluded_by_auth_order`
@@ -23,7 +23,7 @@ The goal is to keep selection-time and runtime behavior aligned.
 * `unresolved_ref`
 * `no_model`
 
-## Token Credentials
+## Token credentials
 
 Token credentials (`type: "token"`) support inline `token` and/or `tokenRef`.
 
@@ -42,7 +42,7 @@ Token credentials (`type: "token"`) support inline `token` and/or `tokenRef`.
 2. For eligible profiles, token material may be resolved from inline value or `tokenRef`.
 3. Unresolvable refs produce `unresolved_ref` in `models status --probe` output.
 
-## Explicit Auth Order Filtering
+## Explicit auth order filtering
 
 * When `auth.order.<provider>` or the auth-store order override is set for a
   provider, `models status --probe` only probes profile ids that remain in the
@@ -52,7 +52,7 @@ Token credentials (`type: "token"`) support inline `token` and/or `tokenRef`.
   `reasonCode: excluded_by_auth_order` and the detail
   `Excluded by auth.order for this provider.`
 
-## Probe Target Resolution
+## Probe target resolution
 
 * Probe targets can come from auth profiles, environment credentials, or
   `models.json`.

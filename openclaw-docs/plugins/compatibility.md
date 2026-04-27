@@ -28,6 +28,18 @@ The registry is the source for maintainer planning and future plugin inspector
 checks. If a plugin-facing behavior changes, add or update the compatibility
 record in the same change that adds the adapter.
 
+Doctor repair and migration compatibility is tracked separately at
+`src/commands/doctor/shared/deprecation-compat.ts`. Those records cover old
+config shapes, install-ledger layouts, and repair shims that may need to stay
+available after the runtime compatibility path is removed.
+
+Release sweeps should check both registries. Do not delete a doctor migration
+just because the matching runtime or config compatibility record expired; first
+verify there is no supported upgrade path that still needs the repair. Also
+revalidate each replacement annotation during release planning because plugin
+ownership and config footprint can change as providers and channels move out of
+core.
+
 ## Plugin inspector package
 
 The plugin inspector should live outside the core OpenClaw repo as a separate
@@ -83,14 +95,15 @@ Current compatibility records include:
   `register(api)`
 * legacy SDK aliases such as `openclaw/extension-api`,
   `openclaw/plugin-sdk/channel-runtime`, `openclaw/plugin-sdk/command-auth`
-  status builders, `openclaw/plugin-sdk/test-utils`, and the `ClawdbotConfig`
-  type alias
+  status builders, `openclaw/plugin-sdk/test-utils`, and the `ClawdbotConfig` /
+  `OpenClawSchemaType` type aliases
 * bundled plugin allowlist and enablement behavior
 * legacy provider/channel env-var manifest metadata
 * legacy provider plugin hooks and type aliases while providers move to
   explicit catalog, auth, thinking, replay, and transport hooks
 * legacy runtime aliases such as `api.runtime.taskFlow`,
-  `api.runtime.subagent.getSession`, and `api.runtime.stt`
+  `api.runtime.subagent.getSession`, `api.runtime.stt`, and deprecated
+  `api.runtime.config.loadConfig()` / `api.runtime.config.writeConfigFile(...)`
 * legacy memory-plugin split registration while memory plugins move to
   `registerMemoryCapability`
 * legacy channel SDK helpers for native message schemas, mention gating,
@@ -109,6 +122,10 @@ Current compatibility records include:
 * persisted plugin registry disable and install-migration env flags while
   repair flows migrate operators to `openclaw plugins registry --refresh` and
   `openclaw doctor --fix`
+* legacy plugin-owned web search, web fetch, and x\_search config paths while
+  doctor migrates them to `plugins.entries.<plugin>.config`
+* legacy `plugins.installs` authored config and bundled plugin load-path
+  aliases while install metadata moves into the state-managed plugin ledger
 
 New plugin code should prefer the replacement listed in the registry and in the
 specific migration guide. Existing plugins can keep using a compatibility path

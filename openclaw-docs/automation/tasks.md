@@ -5,7 +5,7 @@
 # Background tasks
 
 <Note>
-  Looking for scheduling? See [Automation & Tasks](/automation) for choosing the right mechanism. This page covers **tracking** background work, not scheduling it.
+  Looking for scheduling? See [Automation and tasks](/automation) for choosing the right mechanism. This page is the activity ledger for background work, not the scheduler.
 </Note>
 
 Background tasks track work that runs **outside your main conversation session**: ACP runs, subagent spawns, isolated cron job executions, and CLI-initiated operations.
@@ -303,6 +303,8 @@ $OPENCLAW_STATE_DIR/tasks/runs.sqlite
 ```
 
 The registry loads into memory at gateway start and syncs writes to SQLite for durability across restarts.
+The Gateway keeps the SQLite write-ahead log bounded by using SQLite's default
+autocheckpoint threshold plus periodic and shutdown `TRUNCATE` checkpoints.
 
 ### Automatic maintenance
 

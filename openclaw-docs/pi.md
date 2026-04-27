@@ -4,7 +4,7 @@
 
 # Pi integration architecture
 
-This document describes how OpenClaw integrates with [pi-coding-agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) and its sibling packages (`pi-ai`, `pi-agent-core`, `pi-tui`) to power its AI agent capabilities.
+OpenClaw integrates with [pi-coding-agent](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) and its sibling packages (`pi-ai`, `pi-agent-core`, `pi-tui`) to power its AI agent capabilities.
 
 ## Overview
 
@@ -17,7 +17,7 @@ OpenClaw uses the pi SDK to embed an AI coding agent into its messaging gateway 
 * Multi-account auth profile rotation with failover
 * Provider-agnostic model switching
 
-## Package Dependencies
+## Package dependencies
 
 ```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
 {
@@ -35,7 +35,7 @@ OpenClaw uses the pi SDK to embed an AI coding agent into its messaging gateway 
 | `pi-coding-agent` | High-level SDK: `createAgentSession`, `SessionManager`, `AuthStorage`, `ModelRegistry`, built-in tools |
 | `pi-tui`          | Terminal UI components (used in OpenClaw's local TUI mode)                                             |
 
-## File Structure
+## File structure
 
 ```
 src/agents/
@@ -237,9 +237,9 @@ Image injection is prompt-local: OpenClaw loads image refs from the current prom
 passes them via `images` for that turn only. It does not re-scan older history turns
 to re-inject image payloads.
 
-## Tool Architecture
+## Tool architecture
 
-### Tool Pipeline
+### Tool pipeline
 
 1. **Base Tools**: pi's `codingTools` (read, bash, edit, write)
 2. **Custom Replacements**: OpenClaw replaces bash with `exec`/`process`, customizes read/edit/write for sandbox
@@ -249,7 +249,7 @@ to re-inject image payloads.
 6. **Schema Normalization**: Schemas cleaned for Gemini/OpenAI quirks
 7. **AbortSignal Wrapping**: Tools wrapped to respect abort signals
 
-### Tool Definition Adapter
+### Tool definition adapter
 
 pi-agent-core's `AgentTool` has a different `execute` signature than pi-coding-agent's `ToolDefinition`. The adapter in `pi-tool-definition-adapter.ts` bridges this:
 
@@ -268,7 +268,7 @@ export function toToolDefinitions(tools: AnyAgentTool[]): ToolDefinition[] {
 }
 ```
 
-### Tool Split Strategy
+### Tool split strategy
 
 `splitSdkTools()` passes all tools via `customTools`:
 
@@ -294,9 +294,9 @@ const systemPromptOverride = createSystemPromptOverride(appendPrompt);
 applySystemPromptOverrideToSession(session, systemPromptOverride);
 ```
 
-## Session Management
+## Session management
 
-### Session Files
+### Session files
 
 Sessions are JSONL files with tree structure (id/parentId linking). Pi's `SessionManager` handles persistence:
 
@@ -306,7 +306,7 @@ const sessionManager = SessionManager.open(params.sessionFile);
 
 OpenClaw wraps this with `guardSessionManager()` for tool result safety.
 
-### Session Caching
+### Session caching
 
 `session-manager-cache.ts` caches SessionManager instances to avoid repeated file parsing:
 
@@ -316,7 +316,7 @@ sessionManager = SessionManager.open(params.sessionFile);
 trackSessionManagerAccess(params.sessionFile);
 ```
 
-### History Limiting
+### History limiting
 
 `limitHistoryTurns()` trims conversation history based on channel type (DM vs group).
 
@@ -337,7 +337,7 @@ const compactResult = await compactEmbeddedPiSessionDirect({
 
 ## Authentication & Model Resolution
 
-### Auth Profiles
+### Auth profiles
 
 OpenClaw maintains an auth profile store with multiple API keys per provider:
 
@@ -353,7 +353,7 @@ await markAuthProfileFailure({ store, profileId, reason, cfg, agentDir });
 const rotated = await advanceAuthProfile();
 ```
 
-### Model Resolution
+### Model resolution
 
 ```typescript theme={"theme":{"light":"min-light","dark":"min-dark"}}
 import { resolveModel } from "./pi-embedded-runner/model.js";
@@ -385,11 +385,11 @@ if (fallbackConfigured && isFailoverErrorMessage(errorText)) {
 }
 ```
 
-## Pi Extensions
+## Pi extensions
 
 OpenClaw loads custom pi extensions for specialized behavior:
 
-### Compaction Safeguard
+### Compaction safeguard
 
 `src/agents/pi-hooks/compaction-safeguard.ts` adds guardrails to compaction, including adaptive token budgeting plus tool failure and file operation summaries:
 
@@ -400,7 +400,7 @@ if (resolveCompactionMode(params.cfg) === "safeguard") {
 }
 ```
 
-### Context Pruning
+### Context pruning
 
 `src/agents/pi-hooks/context-pruning.ts` implements cache-TTL based context pruning:
 
@@ -418,7 +418,7 @@ if (cfg?.agents?.defaults?.contextPruning?.mode === "cache-ttl") {
 
 ## Streaming & Block Replies
 
-### Block Chunking
+### Block chunking
 
 `EmbeddedBlockChunker` manages streaming text into discrete reply blocks:
 
@@ -437,7 +437,7 @@ const stripBlockTags = (text: string, state: { thinking: boolean; final: boolean
 };
 ```
 
-### Reply Directives
+### Reply directives
 
 Reply directives like `[[media:url]]`, `[[voice]]`, `[[reply:id]]` are parsed and extracted:
 
@@ -445,9 +445,9 @@ Reply directives like `[[media:url]]`, `[[voice]]`, `[[reply:id]]` are parsed an
 const { text: cleanedText, mediaUrls, audioAsVoice, replyToId } = consumeReplyDirectives(chunk);
 ```
 
-## Error Handling
+## Error handling
 
-### Error Classification
+### Error classification
 
 `pi-embedded-helpers.ts` classifies errors for appropriate handling:
 
@@ -460,7 +460,7 @@ isFailoverAssistantError(...)         // Should failover
 classifyFailoverReason(errorText)     // "auth" | "rate_limit" | "quota" | "timeout" | ...
 ```
 
-### Thinking Level Fallback
+### Thinking level fallback
 
 If a thinking level is unsupported, it falls back:
 
@@ -475,7 +475,7 @@ if (fallbackThinking) {
 }
 ```
 
-## Sandbox Integration
+## Sandbox integration
 
 When sandbox mode is enabled, tools and paths are constrained:
 
@@ -521,7 +521,7 @@ import { ... } from "@mariozechner/pi-tui";
 
 This provides the interactive terminal experience similar to pi's native mode.
 
-## Key Differences from Pi CLI
+## Key differences from Pi CLI
 
 | Aspect          | Pi CLI                  | OpenClaw Embedded                                                                              |
 | --------------- | ----------------------- | ---------------------------------------------------------------------------------------------- |
@@ -533,7 +533,7 @@ This provides the interactive terminal experience similar to pi's native mode.
 | Extensions      | Loaded from disk        | Programmatic + disk paths                                                                      |
 | Event handling  | TUI rendering           | Callback-based (onBlockReply, etc.)                                                            |
 
-## Future Considerations
+## Future considerations
 
 Areas for potential rework:
 
