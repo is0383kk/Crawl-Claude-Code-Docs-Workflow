@@ -252,6 +252,40 @@ The Gateway treats these as **claims** and enforces server-side allowlists.
 * `system-presence` returns entries keyed by device identity.
 * Presence entries include `deviceId`, `roles`, and `scopes` so UIs can show a single row per device
   even when it connects as both **operator** and **node**.
+* `node.list` includes optional `lastSeenAtMs` and `lastSeenReason` fields. Connected nodes report
+  their current connection time as `lastSeenAtMs` with reason `connect`; paired nodes can also report
+  durable background presence when a trusted node event updates their pairing metadata.
+
+### Node background alive event
+
+Nodes may call `node.event` with `event: "node.presence.alive"` to record that a paired node was
+alive during a background wake without marking it connected.
+
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
+{
+  "event": "node.presence.alive",
+  "payloadJSON": "{\"trigger\":\"silent_push\",\"sentAtMs\":1737264000000,\"displayName\":\"Peter's iPhone\",\"version\":\"2026.4.28\",\"platform\":\"iOS 18.4.0\",\"deviceFamily\":\"iPhone\",\"modelIdentifier\":\"iPhone17,1\",\"pushTransport\":\"relay\"}"
+}
+```
+
+`trigger` is a closed enum: `background`, `silent_push`, `bg_app_refresh`,
+`significant_location`, `manual`, or `connect`. Unknown trigger strings are normalized to
+`background` by the gateway before persistence. The event is durable only for authenticated node
+device sessions; device-less or unpaired sessions return `handled: false`.
+
+Successful gateways return a structured result:
+
+```json theme={"theme":{"light":"min-light","dark":"min-dark"}}
+{
+  "ok": true,
+  "event": "node.presence.alive",
+  "handled": true,
+  "reason": "persisted"
+}
+```
+
+Older gateways may still return `{ "ok": true }` for `node.event`; clients should treat that as an
+acknowledged RPC, not as durable presence persistence.
 
 ## Broadcast event scoping
 
@@ -285,7 +319,7 @@ enumeration of `src/gateway/server-methods/*.ts`.
   </Accordion>
 
   <Accordion title="Models and usage">
-    * `models.list` returns the runtime-allowed model catalog.
+    * `models.list` returns the runtime-allowed model catalog. Pass `{ "view": "configured" }` for picker-sized configured models (`agents.defaults.models` first, then `models.providers.*.models`), or `{ "view": "all" }` for the full catalog.
     * `usage.status` returns provider usage windows/remaining quota summaries.
     * `usage.cost` returns aggregated cost usage summaries for a date range.
     * `doctor.memory.status` returns vector-memory / cached embedding readiness for the active default agent workspace. Pass `{ "probe": true }` or `{ "deep": true }` only when the caller explicitly wants a live embedding provider ping.
@@ -461,6 +495,14 @@ enumeration of `src/gateway/server-methods/*.ts`.
     the default agent workspace.
   * Config mode patches `skills.entries.<skillKey>` values such as `enabled`,
     `apiKey`, and `env`.
+
+### `models.list` views
+
+`models.list` accepts an optional `view` parameter:
+
+* Omitted or `"default"`: current runtime behavior. If `agents.defaults.models` is configured, the response is the allowed catalog; otherwise the response is the full Gateway catalog.
+* `"configured"`: picker-sized behavior. If `agents.defaults.models` is configured, it still wins. Otherwise the response uses explicit `models.providers.*.models` entries, falling back to the full catalog only when no configured model rows exist.
+* `"all"`: full Gateway catalog, bypassing `agents.defaults.models`. Use this for diagnostics and discovery UIs, not normal model pickers.
 
 ## Exec approvals
 

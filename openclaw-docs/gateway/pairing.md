@@ -36,6 +36,7 @@ openclaw nodes pending
 openclaw nodes approve <requestId>
 openclaw nodes reject <requestId>
 openclaw nodes status
+openclaw nodes remove --node <id|name|ip>
 openclaw nodes rename --node <id|name|ip> --name "Living Room iPad"
 ```
 
@@ -54,6 +55,7 @@ Methods:
 * `node.pair.list` — list pending + paired nodes (`operator.pairing`).
 * `node.pair.approve` — approve a pending request (issues token).
 * `node.pair.reject` — reject a pending request.
+* `node.pair.remove` — remove a stale paired node entry.
 * `node.pair.verify` — verify `{ nodeId, token }`.
 
 Notes:
@@ -99,6 +101,11 @@ This means:
 </Warning>
 
 Node-originated summaries and related session events are restricted to the intended trusted surface. Notification-driven or node-triggered flows that previously relied on broader host or session tool access may need adjustment. This hardening ensures that node events cannot escalate into host-level tool access beyond what the node's trust boundary permits.
+
+Durable node presence updates follow the same identity boundary. The `node.presence.alive` event is
+accepted only from authenticated node device sessions and updates pairing metadata only when the
+device/node identity is already paired. Self-declared `client.id` values are not enough to write
+last-seen state.
 
 ## Auto-approval (macOS app)
 

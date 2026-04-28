@@ -253,10 +253,10 @@ If you run into problems installing on Windows, check these common issues:
   ```
 </Accordion>
 
-<Accordion title="'Claude Code on Windows requires git-bash'">
-  Git for Windows isn't installed or Claude Code can't find it.
+<Accordion title="'Claude Code on Windows requires either Git for Windows (for bash) or PowerShell'">
+  Neither Git for Windows nor PowerShell was found. Claude Code needs at least one shell. If only PowerShell is found, Claude Code uses the PowerShell tool instead of Bash.
 
-  1. If you haven't installed Git yet, go back to the [first step in the Windows section](#windows).
+  1. If you haven't installed Git yet, go back to the [first step in the Windows section](#windows). Alternatively, install [PowerShell 7](https://aka.ms/powershell).
   2. If Git is installed but Claude Code can't find it, tell it where to look:
      ```powershell theme={null}
      $env:CLAUDE_CODE_GIT_BASH_PATH="C:\Program Files\Git\bin\bash.exe"
@@ -267,7 +267,7 @@ If you run into problems installing on Windows, check these common issues:
      ```
      Look for the `Git\bin` folder in that path and use it instead.
 
-  To make this permanent so you don't have to set it every time, see [configure Git Bash path](/en/troubleshooting#windows-claude-code-on-windows-requires-git-bash).
+  To make this permanent so you don't have to set it every time, see [configure Git Bash path](/en/troubleshooting#windows-claude-code-on-windows-requires-either-git-for-windows-for-bash-or-powershell).
 </Accordion>
 
 <Accordion title="'claude is not recognized'">

@@ -128,9 +128,9 @@ You can also run `openclaw configure`, select **Model/auth**, and choose **Venic
 
 If Venice exposes DeepSeek V4 models such as `venice/deepseek-v4-pro` or
 `venice/deepseek-v4-flash`, OpenClaw fills the required DeepSeek V4
-`reasoning_content` replay placeholder on assistant tool-call turns when the
-proxy omits it. Venice rejects DeepSeek's native top-level `thinking` control,
-so OpenClaw keeps that provider-specific replay fix separate from the native
+`reasoning_content` replay placeholder on assistant messages when the proxy
+omits it. Venice rejects DeepSeek's native top-level `thinking` control, so
+OpenClaw keeps that provider-specific replay fix separate from the native
 DeepSeek provider's thinking controls.
 
 ## Built-in catalog (41 total)
