@@ -51,6 +51,7 @@ provider is configured.
 | Alibaba     |       |   ✓   |       |     |     |                |                     |
 | BytePlus    |       |   ✓   |       |     |     |                |                     |
 | ComfyUI     |   ✓   |   ✓   |   ✓   |     |     |                |                     |
+| DeepInfra   |   ✓   |   ✓   |       |  ✓  |  ✓  |                |          ✓          |
 | Deepgram    |       |       |       |     |  ✓  |        ✓       |                     |
 | ElevenLabs  |       |       |       |  ✓  |  ✓  |                |                     |
 | fal         |   ✓   |   ✓   |       |     |     |                |                     |
@@ -61,6 +62,7 @@ provider is configured.
 | MiniMax     |   ✓   |   ✓   |   ✓   |  ✓  |     |                |                     |
 | Mistral     |       |       |       |     |  ✓  |                |                     |
 | OpenAI      |   ✓   |   ✓   |       |  ✓  |  ✓  |        ✓       |          ✓          |
+| OpenRouter  |   ✓   |   ✓   |       |  ✓  |     |                |          ✓          |
 | Qwen        |       |   ✓   |       |     |     |                |                     |
 | Runway      |       |   ✓   |       |     |     |                |                     |
 | SenseAudio  |       |       |       |     |  ✓  |                |                     |
@@ -95,7 +97,7 @@ original channel.
 
 ## Speech-to-text and Voice Call
 
-Deepgram, ElevenLabs, Mistral, OpenAI, SenseAudio, and xAI can all transcribe
+Deepgram, DeepInfra, ElevenLabs, Mistral, OpenAI, SenseAudio, and xAI can all transcribe
 inbound audio through the batch `tools.media.audio` path when configured.
 Channel plugins that preflight a voice note for mention gating or command
 parsing mark the transcribed attachment on the inbound context, so the shared
@@ -117,6 +119,14 @@ vendor without waiting for a completed recording.
   <Accordion title="OpenAI">
     Image, video, batch TTS, batch STT, Voice Call streaming STT, backend
     realtime voice, and memory-embedding surfaces.
+  </Accordion>
+
+  <Accordion title="DeepInfra">
+    Chat/model routing, image generation/editing, text-to-video, batch TTS,
+    batch STT, image media understanding, and memory-embedding surfaces.
+    DeepInfra-native rerank/classification/object-detection models are not
+    registered until OpenClaw has dedicated provider contracts for those
+    categories.
   </Accordion>
 
   <Accordion title="xAI">

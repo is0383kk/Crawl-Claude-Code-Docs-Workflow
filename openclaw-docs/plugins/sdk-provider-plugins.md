@@ -333,7 +333,7 @@ API key auth, and dynamic model resolution.
       Each family builder is composed from lower-level public helpers exported from the same package, which you can reach for when a provider needs to go off the common pattern:
 
       * `openclaw/plugin-sdk/provider-model-shared` — `ProviderReplayFamily`, `buildProviderReplayFamilyHooks(...)`, and the raw replay builders (`buildOpenAICompatibleReplayPolicy`, `buildAnthropicReplayPolicyForModel`, `buildGoogleGeminiReplayPolicy`, `buildHybridAnthropicOrOpenAIReplayPolicy`). Also exports Gemini replay helpers (`sanitizeGoogleGeminiReplayHistory`, `resolveTaggedReasoningOutputMode`) and endpoint/model helpers (`resolveProviderEndpoint`, `normalizeProviderId`, `normalizeGooglePreviewModelId`, `normalizeNativeXaiModelId`).
-      * `openclaw/plugin-sdk/provider-stream` — `ProviderStreamFamily`, `buildProviderStreamFamilyHooks(...)`, `composeProviderStreamWrappers(...)`, plus the shared OpenAI/Codex wrappers (`createOpenAIAttributionHeadersWrapper`, `createOpenAIFastModeWrapper`, `createOpenAIServiceTierWrapper`, `createOpenAIResponsesContextManagementWrapper`, `createCodexNativeWebSearchWrapper`), DeepSeek V4 OpenAI-compatible wrapper (`createDeepSeekV4OpenAICompatibleThinkingWrapper`), and shared proxy/provider wrappers (`createOpenRouterWrapper`, `createToolStreamWrapper`, `createMinimaxFastModeWrapper`).
+      * `openclaw/plugin-sdk/provider-stream` — `ProviderStreamFamily`, `buildProviderStreamFamilyHooks(...)`, `composeProviderStreamWrappers(...)`, plus the shared OpenAI/Codex wrappers (`createOpenAIAttributionHeadersWrapper`, `createOpenAIFastModeWrapper`, `createOpenAIServiceTierWrapper`, `createOpenAIResponsesContextManagementWrapper`, `createCodexNativeWebSearchWrapper`), DeepSeek V4 OpenAI-compatible wrapper (`createDeepSeekV4OpenAICompatibleThinkingWrapper`), Anthropic Messages thinking prefill cleanup (`createAnthropicThinkingPrefillPayloadWrapper`), and shared proxy/provider wrappers (`createOpenRouterWrapper`, `createToolStreamWrapper`, `createMinimaxFastModeWrapper`).
       * `openclaw/plugin-sdk/provider-tools` — `ProviderToolCompatFamily`, `buildProviderToolCompatFamilyHooks("gemini")`, underlying Gemini schema helpers (`normalizeGeminiToolSchemas`, `inspectGeminiToolSchemas`), and xAI compat helpers (`resolveXaiModelCompatPatch()`, `applyXaiModelCompat(model)`). The bundled xAI plugin uses `normalizeResolvedModel` + `contributeResolvedModelCompat` with these to keep xAI rules owned by the provider.
 
       Some stream helpers stay provider-local on purpose. `@openclaw/anthropic-provider` keeps `wrapAnthropicProviderStream`, `resolveAnthropicBetas`, `resolveAnthropicFastMode`, `resolveAnthropicServiceTier`, and the lower-level Anthropic wrapper builders in its own public `api.ts` / `contract-api.ts` seam because they encode Claude OAuth beta handling and `context1m` gating. The xAI plugin similarly keeps native xAI Responses shaping in its own `wrapStreamFn` (`/fast` aliases, default `tool_stream`, unsupported strict-tool cleanup, xAI-specific reasoning-payload removal).
@@ -417,52 +417,52 @@ API key auth, and dynamic model resolution.
     <Accordion title="All available provider hooks">
       OpenClaw calls hooks in this order. Most providers only use 2-3:
 
-      | #  | Hook                              | When to use                                                             |
-      | -- | --------------------------------- | ----------------------------------------------------------------------- |
-      | 1  | `catalog`                         | Model catalog or base URL defaults                                      |
-      | 2  | `applyConfigDefaults`             | Provider-owned global defaults during config materialization            |
-      | 3  | `normalizeModelId`                | Legacy/preview model-id alias cleanup before lookup                     |
-      | 4  | `normalizeTransport`              | Provider-family `api` / `baseUrl` cleanup before generic model assembly |
-      | 5  | `normalizeConfig`                 | Normalize `models.providers.<id>` config                                |
-      | 6  | `applyNativeStreamingUsageCompat` | Native streaming-usage compat rewrites for config providers             |
-      | 7  | `resolveConfigApiKey`             | Provider-owned env-marker auth resolution                               |
-      | 8  | `resolveSyntheticAuth`            | Local/self-hosted or config-backed synthetic auth                       |
-      | 9  | `shouldDeferSyntheticProfileAuth` | Lower synthetic stored-profile placeholders behind env/config auth      |
-      | 10 | `resolveDynamicModel`             | Accept arbitrary upstream model IDs                                     |
-      | 11 | `prepareDynamicModel`             | Async metadata fetch before resolving                                   |
-      | 12 | `normalizeResolvedModel`          | Transport rewrites before the runner                                    |
-      | 13 | `contributeResolvedModelCompat`   | Compat flags for vendor models behind another compatible transport      |
-      | 14 | `capabilities`                    | Legacy static capability bag; compatibility only                        |
-      | 15 | `normalizeToolSchemas`            | Provider-owned tool-schema cleanup before registration                  |
-      | 16 | `inspectToolSchemas`              | Provider-owned tool-schema diagnostics                                  |
-      | 17 | `resolveReasoningOutputMode`      | Tagged vs native reasoning-output contract                              |
-      | 18 | `prepareExtraParams`              | Default request params                                                  |
-      | 19 | `createStreamFn`                  | Fully custom StreamFn transport                                         |
-      | 20 | `wrapStreamFn`                    | Custom headers/body wrappers on the normal stream path                  |
-      | 21 | `resolveTransportTurnState`       | Native per-turn headers/metadata                                        |
-      | 22 | `resolveWebSocketSessionPolicy`   | Native WS session headers/cool-down                                     |
-      | 23 | `formatApiKey`                    | Custom runtime token shape                                              |
-      | 24 | `refreshOAuth`                    | Custom OAuth refresh                                                    |
-      | 25 | `buildAuthDoctorHint`             | Auth repair guidance                                                    |
-      | 26 | `matchesContextOverflowError`     | Provider-owned overflow detection                                       |
-      | 27 | `classifyFailoverReason`          | Provider-owned rate-limit/overload classification                       |
-      | 28 | `isCacheTtlEligible`              | Prompt cache TTL gating                                                 |
-      | 29 | `buildMissingAuthMessage`         | Custom missing-auth hint                                                |
-      | 30 | `suppressBuiltInModel`            | Hide stale upstream rows                                                |
-      | 31 | `augmentModelCatalog`             | Synthetic forward-compat rows                                           |
-      | 32 | `resolveThinkingProfile`          | Model-specific `/think` option set                                      |
-      | 33 | `isBinaryThinking`                | Binary thinking on/off compatibility                                    |
-      | 34 | `supportsXHighThinking`           | `xhigh` reasoning support compatibility                                 |
-      | 35 | `resolveDefaultThinkingLevel`     | Default `/think` policy compatibility                                   |
-      | 36 | `isModernModelRef`                | Live/smoke model matching                                               |
-      | 37 | `prepareRuntimeAuth`              | Token exchange before inference                                         |
-      | 38 | `resolveUsageAuth`                | Custom usage credential parsing                                         |
-      | 39 | `fetchUsageSnapshot`              | Custom usage endpoint                                                   |
-      | 40 | `createEmbeddingProvider`         | Provider-owned embedding adapter for memory/search                      |
-      | 41 | `buildReplayPolicy`               | Custom transcript replay/compaction policy                              |
-      | 42 | `sanitizeReplayHistory`           | Provider-specific replay rewrites after generic cleanup                 |
-      | 43 | `validateReplayTurns`             | Strict replay-turn validation before the embedded runner                |
-      | 44 | `onModelSelected`                 | Post-selection callback (e.g. telemetry)                                |
+      | #  | Hook                              | When to use                                                                            |
+      | -- | --------------------------------- | -------------------------------------------------------------------------------------- |
+      | 1  | `catalog`                         | Model catalog or base URL defaults                                                     |
+      | 2  | `applyConfigDefaults`             | Provider-owned global defaults during config materialization                           |
+      | 3  | `normalizeModelId`                | Legacy/preview model-id alias cleanup before lookup                                    |
+      | 4  | `normalizeTransport`              | Provider-family `api` / `baseUrl` cleanup before generic model assembly                |
+      | 5  | `normalizeConfig`                 | Normalize `models.providers.<id>` config                                               |
+      | 6  | `applyNativeStreamingUsageCompat` | Native streaming-usage compat rewrites for config providers                            |
+      | 7  | `resolveConfigApiKey`             | Provider-owned env-marker auth resolution                                              |
+      | 8  | `resolveSyntheticAuth`            | Local/self-hosted or config-backed synthetic auth                                      |
+      | 9  | `shouldDeferSyntheticProfileAuth` | Lower synthetic stored-profile placeholders behind env/config auth                     |
+      | 10 | `resolveDynamicModel`             | Accept arbitrary upstream model IDs                                                    |
+      | 11 | `prepareDynamicModel`             | Async metadata fetch before resolving                                                  |
+      | 12 | `normalizeResolvedModel`          | Transport rewrites before the runner                                                   |
+      | 13 | `contributeResolvedModelCompat`   | Compat flags for vendor models behind another compatible transport                     |
+      | 14 | `capabilities`                    | Legacy static capability bag; compatibility only                                       |
+      | 15 | `normalizeToolSchemas`            | Provider-owned tool-schema cleanup before registration                                 |
+      | 16 | `inspectToolSchemas`              | Provider-owned tool-schema diagnostics                                                 |
+      | 17 | `resolveReasoningOutputMode`      | Tagged vs native reasoning-output contract                                             |
+      | 18 | `prepareExtraParams`              | Default request params                                                                 |
+      | 19 | `createStreamFn`                  | Fully custom StreamFn transport                                                        |
+      | 20 | `wrapStreamFn`                    | Custom headers/body wrappers on the normal stream path                                 |
+      | 21 | `resolveTransportTurnState`       | Native per-turn headers/metadata                                                       |
+      | 22 | `resolveWebSocketSessionPolicy`   | Native WS session headers/cool-down                                                    |
+      | 23 | `formatApiKey`                    | Custom runtime token shape                                                             |
+      | 24 | `refreshOAuth`                    | Custom OAuth refresh                                                                   |
+      | 25 | `buildAuthDoctorHint`             | Auth repair guidance                                                                   |
+      | 26 | `matchesContextOverflowError`     | Provider-owned overflow detection                                                      |
+      | 27 | `classifyFailoverReason`          | Provider-owned rate-limit/overload classification                                      |
+      | 28 | `isCacheTtlEligible`              | Prompt cache TTL gating                                                                |
+      | 29 | `buildMissingAuthMessage`         | Custom missing-auth hint                                                               |
+      | 30 | `suppressBuiltInModel`            | Deprecated. Runtime hook is no longer called; use manifest `modelCatalog.suppressions` |
+      | 31 | `augmentModelCatalog`             | Synthetic forward-compat rows                                                          |
+      | 32 | `resolveThinkingProfile`          | Model-specific `/think` option set                                                     |
+      | 33 | `isBinaryThinking`                | Binary thinking on/off compatibility                                                   |
+      | 34 | `supportsXHighThinking`           | `xhigh` reasoning support compatibility                                                |
+      | 35 | `resolveDefaultThinkingLevel`     | Default `/think` policy compatibility                                                  |
+      | 36 | `isModernModelRef`                | Live/smoke model matching                                                              |
+      | 37 | `prepareRuntimeAuth`              | Token exchange before inference                                                        |
+      | 38 | `resolveUsageAuth`                | Custom usage credential parsing                                                        |
+      | 39 | `fetchUsageSnapshot`              | Custom usage endpoint                                                                  |
+      | 40 | `createEmbeddingProvider`         | Provider-owned embedding adapter for memory/search                                     |
+      | 41 | `buildReplayPolicy`               | Custom transcript replay/compaction policy                                             |
+      | 42 | `sanitizeReplayHistory`           | Provider-specific replay rewrites after generic cleanup                                |
+      | 43 | `validateReplayTurns`             | Strict replay-turn validation before the embedded runner                               |
+      | 44 | `onModelSelected`                 | Post-selection callback (e.g. telemetry)                                               |
 
       Runtime fallback notes:
 

@@ -176,10 +176,15 @@ cannot roll back unrelated user settings.
   </Accordion>
 
   <Accordion title="Set up group chat mention gating">
-    Group messages default to **require mention**. Configure patterns per agent:
+    Group messages default to **require mention**. Configure trigger patterns per agent, and keep visible room replies on the default message-tool path unless you intentionally want legacy automatic final replies:
 
     ```json5 theme={"theme":{"light":"min-light","dark":"min-dark"}}
     {
+      messages: {
+        groupChat: {
+          visibleReplies: "message_tool", // default; use "automatic" for legacy room replies
+        },
+      },
       agents: {
         list: [
           {
@@ -200,7 +205,8 @@ cannot roll back unrelated user settings.
 
     * **Metadata mentions**: native @-mentions (WhatsApp tap-to-mention, Telegram @bot, etc.)
     * **Text patterns**: safe regex patterns in `mentionPatterns`
-    * See [full reference](/gateway/config-channels#group-chat-mention-gating) for per-channel overrides and self-chat mode.
+    * **Visible replies**: `message_tool` keeps normal final replies private; the agent must call `message(action=send)` to post visibly in the group/channel.
+    * See [full reference](/gateway/config-channels#group-chat-mention-gating) for visible reply modes, per-channel overrides, and self-chat mode.
   </Accordion>
 
   <Accordion title="Restrict skills per agent">
